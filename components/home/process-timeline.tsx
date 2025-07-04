@@ -52,7 +52,7 @@ const ProcessTimeline = () => {
                 viewport={{ once: true }}
                 className="relative"
               >
-                <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-md hover:shadow-xl transition-all duration-300">
+                <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                   <div className="flex justify-center mb-4 sm:mb-6">
                     <Icon size={28} className="sm:w-8 sm:h-8 text-[#B29263]" />
                   </div>
@@ -66,7 +66,7 @@ const ProcessTimeline = () => {
                 
                 {/* Step Number */}
                 <div className="absolute -top-3 sm:-top-4 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-[#B29263] text-white w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-medium">
+                  <span className="bg-[#B29263] text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs sm:text-sm font-medium shadow-md">
                     {index + 1}
                   </span>
                 </div>

@@ -78,7 +78,7 @@ export default function ServicesSection() {
               >
                 <Link
                   href={service.href}
-                  className="block bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+                  className="block bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100"
                 >
                   <div className="relative h-64 sm:h-72 overflow-hidden">
                     <Image
@@ -133,7 +133,7 @@ export default function ServicesSection() {
           viewport={{ once: true }}
           className="mt-16 text-center"
         >
-          <div className="bg-gradient-to-r from-primary to-primary-dark rounded-2xl p-8 sm:p-12 text-white">
+          <div className="bg-gradient-to-r from-primary to-primary-dark rounded-2xl p-8 sm:p-12 text-white shadow-xl">
             <h3 className="text-2xl sm:text-3xl font-serif mb-4">
               Ready to Start Your Project?
             </h3>
