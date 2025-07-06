@@ -76,7 +76,7 @@ const AboutSection = () => {
             </div>
 
             {/* Mission & Values */}
-            <div className="mt-8 p-6 bg-primary-50 rounded-2xl">
+            <div className="mt-8 p-6 bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl border border-primary/20 shadow-lg">
               <h3 className="text-xl font-serif font-semibold text-gray-900 mb-4">Our Mission</h3>
               <p className="text-gray-700 leading-relaxed">
                 To be the most trusted construction and interior design partner in Bangalore, delivering innovative, 
@@ -152,7 +152,7 @@ const AboutSection = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                     viewport={{ once: true }}
-                    className="bg-white p-4 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300"
+                    className="bg-white p-4 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                   >
                     <Icon className="h-8 w-8 text-primary mb-3" />
                     <div className="text-xl font-bold text-gray-900 mb-1">{achievement.number}</div>

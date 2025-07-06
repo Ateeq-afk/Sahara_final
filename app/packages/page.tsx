@@ -201,7 +201,7 @@ export default function PackagesPage() {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-gradient-to-br from-primary-50 via-white to-primary-100">
+      <section className="relative pt-32 pb-20 bg-gradient-to-br from-primary-50 via-white to-primary-100/50">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -209,22 +209,22 @@ export default function PackagesPage() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-4 py-2 text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-6 py-3 text-sm font-medium mb-6 shadow-sm">
               <Award className="h-4 w-4" />
               Premium Construction Packages
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-gray-900 mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-gray-900 mb-6 leading-tight">
               Transparent Pricing for Your Dream Project
             </h1>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-3xl mx-auto">
               Choose from our carefully curated packages designed to meet every budget and requirement. 
               All packages include premium materials, expert craftsmanship, and comprehensive warranties.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-primary hover:bg-primary-dark text-white rounded-full px-8" asChild>
+              <Button size="lg" className="bg-primary hover:bg-primary-dark text-white rounded-full px-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" asChild>
                 <Link href="/quote">Get Custom Quote</Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white rounded-full px-8">
+              <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary hover:text-white rounded-full px-8 shadow-md hover:shadow-lg transition-all duration-300">
                 <Download className="mr-2 h-5 w-5" />
                 Download Brochure
               </Button>
@@ -261,12 +261,12 @@ export default function PackagesPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+                  className="bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 transform hover:-translate-y-1"
                 >
                   <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
                     <Icon className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{type.title}</h3>
+                  <h3 className="text-xl font-serif font-semibold text-gray-900 mb-3">{type.title}</h3>
                   <p className="text-gray-600 mb-4">{type.description}</p>
                   <ul className="space-y-2">
                     {type.features.map((feature, idx) => (
@@ -309,10 +309,10 @@ export default function PackagesPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className={`relative bg-white rounded-3xl overflow-hidden transition-all duration-300 hover:scale-105 ${
+                className={`relative bg-white rounded-3xl overflow-hidden transition-all duration-300 hover:scale-105 border ${
                   pkg.popular 
-                    ? 'ring-4 ring-primary shadow-2xl transform scale-105' 
-                    : 'ring-1 ring-gray-200 shadow-xl hover:shadow-2xl'
+                    ? 'ring-4 ring-primary/30 shadow-2xl border-primary/20' 
+                    : 'ring-1 ring-gray-200 shadow-xl hover:shadow-2xl border-gray-100'
                 }`}
               >
                 {pkg.popular && (
@@ -332,13 +332,13 @@ export default function PackagesPage() {
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                   <div className="absolute bottom-4 left-4 text-white">
                     <h3 className="text-2xl font-serif font-bold">{pkg.title}</h3>
                     <p className="text-sm opacity-90">{pkg.subtitle}</p>
                   </div>
                   {pkg.savings && (
-                    <div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    <div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
                       Save {pkg.savings}
                     </div>
                   )}
@@ -367,7 +367,7 @@ export default function PackagesPage() {
 
                   {/* Key Features */}
                   <div className="mb-6">
-                    <h4 className="font-semibold text-gray-900 mb-3">Key Features</h4>
+                    <h4 className="font-serif font-semibold text-gray-900 mb-3">Key Features</h4>
                     <ul className="space-y-2">
                       {pkg.features.slice(0, 6).map((feature, idx) => (
                         <li key={idx} className="flex items-start text-sm">
@@ -385,10 +385,10 @@ export default function PackagesPage() {
 
                   {/* Examples */}
                   <div className="mb-6">
-                    <h4 className="font-semibold text-gray-900 mb-3">Project Examples</h4>
+                    <h4 className="font-serif font-semibold text-gray-900 mb-3">Project Examples</h4>
                     <div className="space-y-3">
                       {pkg.examples.map((example, idx) => (
-                        <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100">
                           <div>
                             <div className="font-medium text-sm text-gray-900">{example.title}</div>
                             <div className="text-xs text-gray-600">{example.area}</div>
@@ -400,7 +400,7 @@ export default function PackagesPage() {
                   </div>
                   
                   <Button 
-                    className={`w-full rounded-xl shadow-md ${
+                    className={`w-full rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ${
                       pkg.popular 
                         ? 'bg-primary hover:bg-primary-dark text-white' 
                         : 'bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white'
@@ -439,13 +439,13 @@ export default function PackagesPage() {
           </motion.div>
 
           <div className="overflow-x-auto">
-            <table className="w-full bg-white rounded-2xl shadow-lg overflow-hidden">
-              <thead className="bg-gradient-to-r from-primary to-primary-dark text-white">
+            <table className="w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+              <thead className="bg-gradient-to-r from-primary/90 to-primary-dark text-white">
                 <tr>
-                  <th className="px-6 py-4 text-left">Features</th>
-                  <th className="px-6 py-4 text-center">Essential</th>
-                  <th className="px-6 py-4 text-center">Premium</th>
-                  <th className="px-6 py-4 text-center">Luxury</th>
+                  <th className="px-6 py-4 text-left font-serif">Features</th>
+                  <th className="px-6 py-4 text-center font-serif">Essential</th>
+                  <th className="px-6 py-4 text-center font-serif">Premium</th>
+                  <th className="px-6 py-4 text-center font-serif">Luxury</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -459,7 +459,7 @@ export default function PackagesPage() {
                   { feature: "Warranty", essential: "1 Year", premium: "2 Years", luxury: "5 Years" },
                   { feature: "Home Automation", essential: "❌", premium: "Basic", luxury: "Complete" }
                 ].map((row, index) => (
-                  <tr key={index} className="hover:bg-gray-50">
+                  <tr key={index} className="hover:bg-gray-50 transition-colors duration-200">
                     <td className="px-6 py-4 font-medium text-gray-900">{row.feature}</td>
                     <td className="px-6 py-4 text-center text-gray-700">{row.essential}</td>
                     <td className="px-6 py-4 text-center text-gray-700">{row.premium}</td>
@@ -498,7 +498,7 @@ export default function PackagesPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white p-8 rounded-2xl shadow-lg"
+                className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100"
               >
                 <div className="flex items-center mb-4">
                   <Image
@@ -509,7 +509,7 @@ export default function PackagesPage() {
                     className="rounded-full mr-4"
                   />
                   <div>
-                    <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
+                    <h4 className="font-serif font-semibold text-gray-900">{testimonial.name}</h4>
                     <p className="text-sm text-gray-600">{testimonial.project}</p>
                     <div className="flex items-center mt-1">
                       {[...Array(testimonial.rating)].map((_, i) => (
@@ -572,9 +572,9 @@ export default function PackagesPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-gray-50 rounded-2xl p-8"
+                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
               >
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">{faq.question}</h3>
+                <h3 className="text-xl font-serif font-semibold text-gray-900 mb-4">{faq.question}</h3>
                 <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
               </motion.div>
             ))}
@@ -601,7 +601,7 @@ export default function PackagesPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
-                className="bg-white text-primary hover:bg-gray-100 rounded-full px-8"
+                className="bg-white text-primary hover:bg-gray-100 rounded-full px-8 shadow-lg hover:shadow-xl transition-all duration-300"
                 asChild
               >
                 <Link href="/quote">
@@ -612,7 +612,7 @@ export default function PackagesPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white/10 rounded-full px-8"
+                className="border-2 border-white text-white hover:bg-white/10 rounded-full px-8 shadow-md hover:shadow-lg transition-all duration-300"
                 asChild
               >
                 <Link href="/contact">

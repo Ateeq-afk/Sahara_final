@@ -1,12 +1,12 @@
 import Image from 'next/image'
 
 const partners = [
-  { name: "Modern Materials", logo: "https://placehold.co/200x80/f3f4f6/64748b?text=Modern+Materials" },
-  { name: "Premium Fittings", logo: "https://placehold.co/200x80/f3f4f6/64748b?text=Premium+Fittings" },
-  { name: "Quality Paints", logo: "https://placehold.co/200x80/f3f4f6/64748b?text=Quality+Paints" },
-  { name: "Luxury Interiors", logo: "https://placehold.co/200x80/f3f4f6/64748b?text=Luxury+Interiors" },
-  { name: "Smart Home", logo: "https://placehold.co/200x80/f3f4f6/64748b?text=Smart+Home" },
-  { name: "Design Studio", logo: "https://placehold.co/200x80/f3f4f6/64748b?text=Design+Studio" }
+  { name: "Modern Materials", logo: "https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg" },
+  { name: "Premium Fittings", logo: "https://images.pexels.com/photos/2219024/pexels-photo-2219024.jpeg" },
+  { name: "Quality Paints", logo: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg" },
+  { name: "Luxury Interiors", logo: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg" },
+  { name: "Smart Home", logo: "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg" },
+  { name: "Design Studio", logo: "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg" }
 ]
 
 const TrustedPartners = () => {
@@ -24,15 +24,20 @@ const TrustedPartners = () => {
           {partners.map((partner, index) => (
             <div 
               key={index}
-              className="bg-gray-50 rounded-lg p-3 sm:p-4 flex items-center justify-center h-16 sm:h-20 lg:h-24 hover:shadow-md transition-shadow"
+              className="bg-white rounded-lg overflow-hidden flex items-center justify-center h-32 sm:h-40 lg:h-48 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
             >
-              <div className="relative w-full h-full">
+              <div className="relative w-full h-full overflow-hidden">
                 <Image
                   src={partner.logo}
                   alt={partner.name}
                   fill
-                  className="object-contain"
+                  className="object-cover"
                 />
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                  <span className="text-white font-semibold text-lg text-center px-2">
+                    {partner.name}
+                  </span>
+                </div>
               </div>
             </div>
           ))}

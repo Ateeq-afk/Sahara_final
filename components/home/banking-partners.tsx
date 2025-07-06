@@ -4,12 +4,12 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 const partners = [
-  { name: "HDFC Bank", logo: "https://placehold.co/160x60/f8f9fa/6c757d?text=HDFC+Bank" },
-  { name: "State Bank of India", logo: "https://placehold.co/160x60/f8f9fa/6c757d?text=SBI" },
-  { name: "ICICI Bank", logo: "https://placehold.co/160x60/f8f9fa/6c757d?text=ICICI+Bank" },
-  { name: "Axis Bank", logo: "https://placehold.co/160x60/f8f9fa/6c757d?text=Axis+Bank" },
-  { name: "Kotak Mahindra Bank", logo: "https://placehold.co/160x60/f8f9fa/6c757d?text=Kotak+Bank" },
-  { name: "HDFC Bank", logo: "https://placehold.co/160x60/f8f9fa/6c757d?text=HDFC+Bank" },
+  { name: "HDFC Bank", logo: "https://images.pexels.com/photos/1098982/pexels-photo-1098982.jpeg" },
+  { name: "State Bank of India", logo: "https://images.pexels.com/photos/296883/pexels-photo-296883.jpeg" },
+  { name: "ICICI Bank", logo: "https://images.pexels.com/photos/380768/pexels-photo-380768.jpeg" },
+  { name: "Axis Bank", logo: "https://images.pexels.com/photos/1579739/pexels-photo-1579739.jpeg" },
+  { name: "Kotak Mahindra Bank", logo: "https://images.pexels.com/photos/1082355/pexels-photo-1082355.jpeg" },
+  { name: "Punjab National Bank", logo: "https://images.pexels.com/photos/277667/pexels-photo-277667.jpeg" },
 ]
 
 export default function BankingPartners() {
@@ -39,15 +39,20 @@ export default function BankingPartners() {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
+              className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
             >
-              <div className="h-12 w-32 relative">
+              <div className="h-24 sm:h-32 w-32 sm:w-40 relative overflow-hidden">
                 <Image
                   src={partner.logo}
                   alt={`${partner.name} - Financial Partner`}
                   fill
-                  className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                  className="object-cover"
                 />
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                  <span className="text-white font-semibold text-lg text-center px-2">
+                    {partner.name}
+                  </span>
+                </div>
               </div>
             </motion.div>
           ))}
