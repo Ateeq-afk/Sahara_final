@@ -1,138 +1,107 @@
 "use client"
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { cn } from '@/lib/utils'
+import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { useRef } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { 
-  Eye, 
-  Heart, 
-  Share2, 
-  Download, 
-  Filter, 
-  Grid3x3, 
-  LayoutGrid,
-  Maximize2,
-  MapPin,
-  Calendar,
-  Ruler,
-  Home,
-  Building,
-  Palette,
-  Wrench,
   X,
   ChevronLeft,
   ChevronRight,
-  ZoomIn,
-  Info
+  Grid3X3,
+  List,
+  Filter,
+  Plus
 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 
 const categories = [
-  { id: "all", name: "All Projects", icon: Grid3x3 },
-  { id: "residential", name: "Residential", icon: Home },
-  { id: "commercial", name: "Commercial", icon: Building },
-  { id: "interior", name: "Interior Design", icon: Palette },
-  { id: "renovation", name: "Renovation", icon: Wrench }
+  { id: "all", name: "All Works" },
+  { id: "architecture", name: "Architecture" },
+  { id: "interior", name: "Interiors" },
+  { id: "commercial", name: "Commercial" },
+  { id: "residential", name: "Residential" }
 ]
 
 const projects = [
   {
     id: 1,
-    title: "Luxury Villa - Whitefield",
-    category: "residential",
+    title: "Minimalist Villa",
+    category: "architecture",
     location: "Whitefield, Bangalore",
     year: "2024",
-    area: "4,500 sq.ft",
-    description: "Modern luxury villa with contemporary design, premium finishes, and smart home integration",
+    coverImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=90",
     images: [
-      "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg",
-      "https://images.pexels.com/photos/1732414/pexels-photo-1732414.jpeg",
-      "https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg"
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=90",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=90",
+      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1600&q=90"
     ],
-    features: ["4 BHK", "Swimming Pool", "Smart Home", "Landscaped Garden"],
-    likes: 245,
-    views: 1520
+    description: "A study in restraint and elegance, featuring clean lines and natural materials."
   },
   {
     id: 2,
-    title: "Executive Office Complex",
-    category: "commercial",
+    title: "Executive Suite",
+    category: "interior",
     location: "MG Road, Bangalore",
     year: "2024",
-    area: "15,000 sq.ft",
-    description: "State-of-the-art office complex with modern amenities and sustainable design",
+    coverImage: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1600&q=90",
     images: [
-      "https://images.pexels.com/photos/1098982/pexels-photo-1098982.jpeg",
-      "https://images.pexels.com/photos/380768/pexels-photo-380768.jpeg"
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1600&q=90",
+      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1600&q=90"
     ],
-    features: ["LEED Certified", "Modern Infrastructure", "Parking", "Security"],
-    likes: 189,
-    views: 980
+    description: "Corporate excellence meets sophisticated design in this premium office space."
   },
   {
     id: 3,
-    title: "Contemporary Apartment Interior",
-    category: "interior",
+    title: "Urban Sanctuary",
+    category: "residential",
     location: "Koramangala, Bangalore",
     year: "2024",
-    area: "2,800 sq.ft",
-    description: "Sophisticated interior design with contemporary aesthetics and functional layouts",
+    coverImage: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=90",
     images: [
-      "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg",
-      "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg"
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=90",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&q=90"
     ],
-    features: ["3 BHK", "Modular Kitchen", "Designer Lighting", "Premium Materials"],
-    likes: 312,
-    views: 1850
+    description: "A peaceful retreat in the heart of the city, blending nature with modern living."
   },
   {
     id: 4,
-    title: "Heritage Home Renovation",
-    category: "renovation",
-    location: "Jayanagar, Bangalore",
+    title: "Boutique Hotel",
+    category: "commercial",
+    location: "Indiranagar, Bangalore",
     year: "2023",
-    area: "3,200 sq.ft",
-    description: "Careful restoration preserving heritage character while adding modern comforts",
+    coverImage: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1600&q=90",
     images: [
-      "https://images.pexels.com/photos/2098624/pexels-photo-2098624.jpeg",
-      "https://images.pexels.com/photos/1082355/pexels-photo-1082355.jpeg"
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1600&q=90",
+      "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1600&q=90"
     ],
-    features: ["Heritage Preservation", "Modern Amenities", "Structural Upgrade"],
-    likes: 198,
-    views: 1120
+    description: "Luxury hospitality redefined through thoughtful design and premium materials."
   },
   {
     id: 5,
-    title: "Modern Penthouse Interior",
-    category: "interior",
-    location: "UB City, Bangalore",
+    title: "Modern Workspace",
+    category: "commercial",
+    location: "Electronic City, Bangalore",
     year: "2024",
-    area: "5,000 sq.ft",
-    description: "Ultra-luxury penthouse with panoramic city views and bespoke interiors",
+    coverImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=90",
     images: [
-      "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg",
-      "https://images.pexels.com/photos/6585750/pexels-photo-6585750.jpeg"
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=90",
+      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1600&q=90"
     ],
-    features: ["Penthouse", "City Views", "Custom Furniture", "Premium Materials"],
-    likes: 456,
-    views: 2340
+    description: "Innovation-driven workspace designed for collaboration and productivity."
   },
   {
     id: 6,
-    title: "Minimalist Family Home",
+    title: "Heritage Revival",
     category: "residential",
-    location: "HSR Layout, Bangalore",
+    location: "Jayanagar, Bangalore",
     year: "2023",
-    area: "3,500 sq.ft",
-    description: "Clean, minimalist design with focus on natural light and open spaces",
+    coverImage: "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=1600&q=90",
     images: [
-      "https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg",
-      "https://images.pexels.com/photos/277667/pexels-photo-277667.jpeg"
+      "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=1600&q=90",
+      "https://images.unsplash.com/photo-1600607687644-c89e96c946b6?w=1600&q=90"
     ],
-    features: ["3 BHK", "Open Plan", "Natural Light", "Minimalist Design"],
-    likes: 267,
-    views: 1680
+    description: "Preserving heritage while embracing contemporary comfort and style."
   }
 ]
 
@@ -140,19 +109,19 @@ interface LightboxProps {
   project: typeof projects[0]
   isOpen: boolean
   onClose: () => void
-  currentImageIndex: number
-  setCurrentImageIndex: (index: number) => void
 }
 
-const Lightbox = ({ project, isOpen, onClose, currentImageIndex, setCurrentImageIndex }: LightboxProps) => {
+const Lightbox = ({ project, isOpen, onClose }: LightboxProps) => {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
   if (!isOpen) return null
 
   const nextImage = () => {
-    setCurrentImageIndex((currentImageIndex + 1) % project.images.length)
+    setCurrentIndex((prev) => (prev + 1) % project.images.length)
   }
 
   const prevImage = () => {
-    setCurrentImageIndex((currentImageIndex - 1 + project.images.length) % project.images.length)
+    setCurrentIndex((prev) => (prev - 1 + project.images.length) % project.images.length)
   }
 
   return (
@@ -160,76 +129,56 @@ const Lightbox = ({ project, isOpen, onClose, currentImageIndex, setCurrentImage
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center"
+      className="fixed inset-0 bg-black z-50 flex items-center justify-center"
       onClick={onClose}
     >
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 text-white/80 hover:text-white z-10"
+        className="absolute top-8 right-8 text-white/60 hover:text-white transition-colors"
       >
         <X className="w-8 h-8" />
       </button>
 
-      <button
-        onClick={(e) => { e.stopPropagation(); prevImage() }}
-        className="absolute left-4 text-white/80 hover:text-white z-10"
-      >
-        <ChevronLeft className="w-8 h-8" />
-      </button>
-
-      <button
-        onClick={(e) => { e.stopPropagation(); nextImage() }}
-        className="absolute right-4 text-white/80 hover:text-white z-10"
-      >
-        <ChevronRight className="w-8 h-8" />
-      </button>
+      {project.images.length > 1 && (
+        <>
+          <button
+            onClick={(e) => { e.stopPropagation(); prevImage() }}
+            className="absolute left-8 text-white/60 hover:text-white transition-colors"
+          >
+            <ChevronLeft className="w-8 h-8" />
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); nextImage() }}
+            className="absolute right-8 text-white/60 hover:text-white transition-colors"
+          >
+            <ChevronRight className="w-8 h-8" />
+          </button>
+        </>
+      )}
 
       <motion.div 
-        className="relative max-w-6xl max-h-[90vh] mx-4"
+        className="relative max-w-7xl max-h-[90vh] mx-8"
         onClick={(e) => e.stopPropagation()}
         initial={{ scale: 0.9 }}
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
         <Image
-          src={project.images[currentImageIndex]}
+          src={project.images[currentIndex]}
           alt={project.title}
-          width={1200}
-          height={800}
-          className="object-contain rounded-lg"
+          width={1600}
+          height={900}
+          className="object-contain max-h-[90vh] w-auto mx-auto"
         />
         
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 rounded-b-lg">
-          <h3 className="text-white text-2xl font-bold mb-2">{project.title}</h3>
-          <p className="text-white/80 mb-4">{project.description}</p>
-          <div className="flex gap-4 text-white/60 text-sm">
-            <span className="flex items-center gap-1">
-              <MapPin className="w-4 h-4" />
-              {project.location}
-            </span>
-            <span className="flex items-center gap-1">
-              <Calendar className="w-4 h-4" />
-              {project.year}
-            </span>
-            <span className="flex items-center gap-1">
-              <Ruler className="w-4 h-4" />
-              {project.area}
+        {/* Image Counter */}
+        {project.images.length > 1 && (
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-full">
+            <span className="text-white text-sm">
+              {currentIndex + 1} / {project.images.length}
             </span>
           </div>
-        </div>
-
-        <div className="absolute bottom-4 right-4 flex gap-2">
-          {project.images.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentImageIndex(index)}
-              className={cn(
-                "w-2 h-2 rounded-full transition-all",
-                index === currentImageIndex ? "bg-white w-8" : "bg-white/50"
-              )}
-            />
-          ))}
-        </div>
+        )}
       </motion.div>
     </motion.div>
   )
@@ -237,262 +186,211 @@ const Lightbox = ({ project, isOpen, onClose, currentImageIndex, setCurrentImage
 
 export default function GalleryPage() {
   const [activeCategory, setActiveCategory] = useState("all")
-  const [viewMode, setViewMode] = useState<'grid' | 'masonry'>('masonry')
-  const [likedProjects, setLikedProjects] = useState<number[]>([])
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null)
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null)
+  
+  const heroRef = useRef(null)
+  const galleryRef = useRef(null)
+  const heroInView = useInView(heroRef, { once: true })
+  const galleryInView = useInView(galleryRef, { once: true, margin: "-50px" })
   
   const filteredProjects = activeCategory === "all" 
     ? projects 
     : projects.filter(project => project.category === activeCategory)
 
-  const toggleLike = (projectId: number) => {
-    setLikedProjects(prev => 
-      prev.includes(projectId) 
-        ? prev.filter(id => id !== projectId)
-        : [...prev, projectId]
-    )
-  }
-
-  const openLightbox = (project: typeof projects[0], imageIndex: number = 0) => {
-    setSelectedProject(project)
-    setCurrentImageIndex(imageIndex)
-  }
-
   return (
-    <div className="w-full min-h-screen bg-gray-50 pt-20">
-      {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg')] opacity-20 bg-cover bg-center" />
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent" />
+    <main className="min-h-screen bg-white">
+      {/* Hero Section - Apple Style */}
+      <section ref={heroRef} className="relative pt-32 pb-32 overflow-hidden bg-white">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="h-full w-full" 
+            style={{
+              backgroundImage: `
+                radial-gradient(circle at 1px 1px, rgb(0,0,0) 1px, transparent 1px)
+              `,
+              backgroundSize: '60px 60px'
+            }}
+          />
         </div>
+        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-br from-amber-400/10 to-amber-600/10 rounded-full blur-3xl" />
         
-        <div className="relative container mx-auto px-4">
+        <div className="relative container mx-auto px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center text-white"
+            initial={{ opacity: 0, y: 30 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="max-w-5xl"
           >
-            <span className="inline-block bg-amber-500/20 text-amber-300 px-4 py-2 rounded-full text-sm font-medium mb-6">
-              Our Portfolio
-            </span>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Crafting Dreams into Reality
-            </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Explore our portfolio of exceptional construction and interior design projects 
-              that showcase our commitment to quality, innovation, and timeless design.
-            </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={heroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mb-12"
+            >
+              <span className="text-amber-600 font-semibold text-lg">
+                Portfolio
+              </span>
+            </motion.div>
+            
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={heroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-6xl md:text-7xl lg:text-[6rem] font-semibold mb-8 tracking-tight leading-[0.9]"
+            >
+              Crafted with
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-700">
+                precision.
+              </span>
+            </motion.h1>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={heroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-4xl font-light"
+            >
+              Each project tells a story of innovation, craftsmanship, and the relentless 
+              pursuit of perfection in design and execution.
+            </motion.p>
           </motion.div>
         </div>
       </section>
       
-      {/* Filter Section */}
-      <section className="sticky top-20 z-30 bg-white border-b shadow-sm">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap items-center justify-between py-4 gap-4">
+      {/* Filter Bar - Apple Style */}
+      <section className="sticky top-20 z-30 apple-glass border-b border-gray-200/50">
+        <div className="container mx-auto px-8">
+          <div className="flex items-center justify-between py-6">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
-              className="flex flex-wrap gap-2"
+              className="flex items-center gap-8"
             >
-              {categories.map((category) => {
-                const Icon = category.icon
-                return (
+              <div className="flex gap-8">
+                {categories.map((category) => (
                   <button
                     key={category.id}
                     onClick={() => setActiveCategory(category.id)}
-                    className={cn(
-                      "flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300",
-                      activeCategory === category.id
-                        ? "bg-amber-600 text-white shadow-lg scale-105"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    )}
+                    className={`text-[15px] font-medium transition-all duration-300 apple-nav-item ${
+                      activeCategory === category.id ? "active" : ""
+                    }`}
                   >
-                    <Icon className="w-4 h-4" />
-                    <span className="font-medium">{category.name}</span>
+                    {category.name}
                   </button>
-                )
-              })}
+                ))}
+              </div>
             </motion.div>
 
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="icon"
+            <div className="flex items-center gap-1 bg-gray-100 rounded-full p-1">
+              <button
                 onClick={() => setViewMode('grid')}
-                className={cn(viewMode === 'grid' && 'bg-gray-100')}
+                className={`p-2 rounded-full transition-all duration-200 ${
+                  viewMode === 'grid' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-900'
+                }`}
               >
-                <Grid3x3 className="w-4 h-4" />
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setViewMode('masonry')}
-                className={cn(viewMode === 'masonry' && 'bg-gray-100')}
+                <Grid3X3 className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setViewMode('list')}
+                className={`p-2 rounded-full transition-all duration-200 ${
+                  viewMode === 'list' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-900'
+                }`}
               >
-                <LayoutGrid className="w-4 h-4" />
-              </Button>
+                <List className="w-4 h-4" />
+              </button>
             </div>
           </div>
         </div>
       </section>
       
-      {/* Gallery Grid */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
+      {/* Gallery Grid - Apple Style */}
+      <section ref={galleryRef} className="py-24 md:py-32 bg-gray-50">
+        <div className="container mx-auto px-8">
           <motion.div
             layout
-            className={cn(
-              "grid gap-6",
+            className={
               viewMode === 'grid' 
-                ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-                : "columns-1 md:columns-2 lg:columns-3 space-y-6"
-            )}
+                ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                : "space-y-12"
+            }
           >
-            <AnimatePresence>
+            <AnimatePresence mode="popLayout">
               {filteredProjects.map((project, index) => (
                 <motion.div
                   key={project.id}
                   layout
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className={cn(
-                    "group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500",
-                    viewMode === 'masonry' && "break-inside-avoid mb-6"
-                  )}
-                  onMouseEnter={() => setHoveredProject(project.id)}
-                  onMouseLeave={() => setHoveredProject(null)}
+                  animate={galleryInView ? { opacity: 1, y: 0 } : {}}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={viewMode === 'grid' ? { y: -4 } : { scale: 1.01 }}
+                  className="group cursor-pointer"
+                  onClick={() => setSelectedProject(project)}
                 >
-                  <div className="relative overflow-hidden">
-                    <div className={cn(
-                      "relative",
-                      viewMode === 'grid' ? "aspect-[4/3]" : "aspect-auto"
-                    )}>
-                      <Image
-                        src={project.images[0]}
-                        alt={project.title}
-                        width={600}
-                        height={450}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      
-                      {/* Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300" />
-                      
-                      {/* Quick Actions */}
-                      <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            toggleLike(project.id)
-                          }}
-                          className="p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition-colors"
-                        >
-                          <Heart 
-                            className={cn(
-                              "w-5 h-5 transition-colors",
-                              likedProjects.includes(project.id) 
-                                ? "fill-red-500 text-red-500" 
-                                : "text-gray-700"
-                            )}
-                          />
-                        </button>
-                        <button className="p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition-colors">
-                          <Share2 className="w-5 h-5 text-gray-700" />
-                        </button>
-                        <button 
-                          onClick={() => openLightbox(project)}
-                          className="p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition-colors"
-                        >
-                          <Maximize2 className="w-5 h-5 text-gray-700" />
-                        </button>
-                      </div>
-
-                      {/* Multiple Images Indicator */}
-                      {project.images.length > 1 && (
-                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                          {project.images.map((_, idx) => (
-                            <button
-                              key={idx}
-                              onClick={() => openLightbox(project, idx)}
-                              className="w-2 h-2 bg-white/80 rounded-full hover:bg-white transition-colors"
-                            />
-                          ))}
+                  {viewMode === 'grid' ? (
+                    <div className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-500">
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <Image
+                          src={project.coverImage}
+                          alt={`${project.title} - ${project.category} project in ${project.location} by Sahara Developers`}
+                          fill
+                          className="object-cover transition-transform duration-700 group-hover:scale-105"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        
+                        {/* Hover Icon */}
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                          <motion.div 
+                            initial={{ scale: 0.8 }}
+                            whileHover={{ scale: 1 }}
+                            className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center"
+                          >
+                            <Plus className="h-6 w-6 text-gray-900" />
+                          </motion.div>
                         </div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="p-6">
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-xl font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
-                        {project.title}
-                      </h3>
-                      <span className="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded-full">
-                        {project.category.charAt(0).toUpperCase() + project.category.slice(1)}
-                      </span>
-                    </div>
-                    
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                      {project.description}
-                    </p>
-
-                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
-                      <span className="flex items-center gap-1">
-                        <MapPin className="w-4 h-4" />
-                        {project.location}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        {project.year}
-                      </span>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.features.slice(0, 3).map((feature, idx) => (
-                        <span 
-                          key={idx}
-                          className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full"
-                        >
-                          {feature}
-                        </span>
-                      ))}
-                      {project.features.length > 3 && (
-                        <span className="text-xs text-gray-500">
-                          +{project.features.length - 3} more
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="flex items-center justify-between pt-4 border-t">
-                      <div className="flex items-center gap-4 text-sm text-gray-500">
-                        <span className="flex items-center gap-1">
-                          <Eye className="w-4 h-4" />
-                          {project.views}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Heart className="w-4 h-4" />
-                          {likedProjects.includes(project.id) ? project.likes + 1 : project.likes}
-                        </span>
                       </div>
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => openLightbox(project)}
-                        className="text-amber-600 hover:text-amber-700"
-                      >
-                        View Details
-                        <ZoomIn className="w-4 h-4 ml-2" />
-                      </Button>
+                      
+                      <div className="p-6">
+                        <p className="text-sm text-amber-600 font-medium mb-2">
+                          {project.category.charAt(0).toUpperCase() + project.category.slice(1)} · {project.year}
+                        </p>
+                        <h3 className="text-xl font-semibold mb-2 text-gray-900 group-hover:text-amber-600 transition-colors">
+                          {project.title}
+                        </h3>
+                        <p className="text-gray-600">{project.location}</p>
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-500">
+                      <div className="grid md:grid-cols-2 gap-0 items-center">
+                        <div className="relative aspect-[16/10] overflow-hidden">
+                          <Image
+                            src={project.coverImage}
+                            alt={`${project.title} - ${project.category} project in ${project.location} by Sahara Developers`}
+                            fill
+                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                            loading="lazy"
+                          />
+                        </div>
+                        <div className="p-8">
+                          <p className="text-sm text-amber-600 font-medium mb-4">
+                            {project.category.charAt(0).toUpperCase() + project.category.slice(1)} · {project.year}
+                          </p>
+                          <h3 className="text-3xl font-semibold mb-4 group-hover:text-amber-600 transition-colors">
+                            {project.title}
+                          </h3>
+                          <p className="text-gray-600 mb-6 leading-relaxed">{project.description}</p>
+                          <p className="text-gray-500">{project.location}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -507,48 +405,43 @@ export default function GalleryPage() {
             project={selectedProject}
             isOpen={!!selectedProject}
             onClose={() => setSelectedProject(null)}
-            currentImageIndex={currentImageIndex}
-            setCurrentImageIndex={setCurrentImageIndex}
           />
         )}
       </AnimatePresence>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-amber-600 to-amber-700">
-        <div className="container mx-auto px-4 text-center text-white">
+      {/* CTA Section - Apple Style */}
+      <section className="py-24 md:py-32 bg-white">
+        <div className="container mx-auto px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-center"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Create Your Dream Space?
+            <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-6 tracking-tight">
+              Ready to create your masterpiece?
             </h2>
-            <p className="text-xl opacity-90 max-w-2xl mx-auto mb-8">
-              Join our portfolio of satisfied clients. Let our expert team bring your vision to life 
-              with the same attention to detail showcased in these projects.
+            <p className="text-xl text-gray-600 mb-12 leading-relaxed max-w-3xl mx-auto">
+              Let's collaborate to bring your vision to life with the same attention 
+              to detail and excellence showcased in our portfolio.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-white text-amber-600 hover:bg-gray-100"
-                asChild
+            
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-block"
+            >
+              <Link
+                href="/quote"
+                className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-full font-medium text-lg hover:from-amber-700 hover:to-amber-800 transition-all duration-300 shadow-lg hover:shadow-xl"
               >
-                <a href="/quote">Get Free Consultation</a>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white/10"
-                asChild
-              >
-                <a href="/packages">View Our Packages</a>
-              </Button>
-            </div>
+                Start Your Project
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
       </section>
-    </div>
+    </main>
   )
 }

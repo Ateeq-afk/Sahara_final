@@ -1,110 +1,336 @@
 "use client"
 
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Award, Users, Clock, Star } from 'lucide-react'
+import { ArrowRight, Play, Sparkles, ChevronDown } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
 
-const stats = [
-  { icon: Award, value: "20+", label: "Years Experience" },
-  { icon: Users, value: "500+", label: "Happy Clients" },
-  { icon: Clock, value: "100%", label: "On-Time Delivery" },
-  { icon: Star, value: "4.8", label: "Client Rating" },
+const heroImages = [
+  {
+    src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=2400&q=95",
+    title: "Luxury Living",
+    subtitle: "Contemporary Homes"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=2400&q=95",
+    title: "Modern Design",
+    subtitle: "Timeless Spaces"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=2400&q=95",
+    title: "Elite Properties",
+    subtitle: "Premium Construction"
+  },
 ]
 
 export default function HomeHero() {
+  const [currentImage, setCurrentImage] = useState(0)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const heroRef = useRef<HTMLDivElement>(null)
+  const { scrollY } = useScroll()
+  
+  // Parallax transforms
+  const yTransform = useTransform(scrollY, [0, 800], [0, 300])
+  const scaleTransform = useTransform(scrollY, [0, 800], [1, 1.2])
+  const opacityTransform = useTransform(scrollY, [0, 600], [1, 0])
+  const textYTransform = useTransform(scrollY, [0, 400], [0, -100])
+
+  // Mouse parallax effect
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (heroRef.current) {
+        const rect = heroRef.current.getBoundingClientRect()
+        const x = (e.clientX - rect.left) / rect.width - 0.5
+        const y = (e.clientY - rect.top) / rect.height - 0.5
+        setMousePosition({ x: x * 20, y: y * 20 })
+      }
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
+  // Auto-cycle images
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % heroImages.length)
+    }, 6000)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-32 pb-20">
-      {/* Background Image */}
-      <div className="absolute inset-0">
-        <Image
-          src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg"
-          alt="Luxury Interior Design"
-          fill
-          className="object-cover"
-          priority
+    <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
+      {/* Background Image with Parallax */}
+      <motion.div 
+        className="absolute inset-0"
+        style={{ 
+          y: yTransform,
+          scale: scaleTransform
+        }}
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentImage}
+            className="absolute inset-0"
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+          >
+            <Image
+              src={heroImages[currentImage].src}
+              alt={`${heroImages[currentImage].title} - ${heroImages[currentImage].subtitle}`}
+              fill
+              className="object-cover"
+              priority
+              quality={95}
+            />
+            {/* Gradient Overlays */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+          </motion.div>
+        </AnimatePresence>
+      </motion.div>
+
+      {/* Animated Grid Overlay */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="h-full w-full" 
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }}
         />
-        <div className="absolute inset-0 bg-black/50" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center text-white">
-        <div className="max-w-6xl mx-auto">
-          {/* Main Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-serif mb-8 leading-tight"
-          >
-            <span className="block text-white mb-4">Transform Your Vision.</span>
-            <span className="block text-primary-light">Build Your Dreams.</span>
-          </motion.h1>
+      {/* Floating Particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-white/20 rounded-full"
+            initial={{ 
+              x: Math.random() * 100 + '%',
+              y: '110%'
+            }}
+            animate={{ 
+              y: '-10%',
+              x: `${Math.random() * 100}%`
+            }}
+            transition={{
+              duration: Math.random() * 20 + 20,
+              repeat: Infinity,
+              ease: "linear",
+              delay: Math.random() * 20
+            }}
+          />
+        ))}
+      </div>
 
-          {/* Description */}
+      {/* Main Content */}
+      <motion.div 
+        className="relative z-10 container mx-auto px-8"
+        style={{ 
+          opacity: opacityTransform,
+          y: textYTransform,
+          x: mousePosition.x,
+          rotateY: mousePosition.x * 0.1,
+          rotateX: mousePosition.y * -0.1
+        }}
+      >
+        <div className="max-w-6xl">
+          {/* Premium Badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="mb-8 inline-flex items-center gap-2"
+          >
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-md">
+              <Sparkles className="w-4 h-4 text-yellow-400" />
+              <span className="text-white/90 text-sm font-medium tracking-wider">
+                PREMIUM CONSTRUCTION & DESIGN
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Dynamic Text Based on Image */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentImage}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50 }}
+              transition={{ duration: 0.8 }}
+              className="mb-6"
+            >
+              <h2 className="text-2xl md:text-3xl font-light text-white/80 mb-2">
+                {heroImages[currentImage].title}
+              </h2>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Main Heading with Split Animation */}
+          <div className="mb-8">
+            <motion.h1 className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-[0.9] tracking-tighter">
+              {"Crafting".split("").map((char, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, y: 100, rotateZ: 10 }}
+                  animate={{ opacity: 1, y: 0, rotateZ: 0 }}
+                  transition={{ 
+                    duration: 0.8, 
+                    delay: 0.3 + i * 0.05,
+                    ease: [0.215, 0.61, 0.355, 1]
+                  }}
+                  className="inline-block"
+                  style={{ textShadow: '0 10px 40px rgba(0,0,0,0.5)' }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
+              ))}
+            </motion.h1>
+            <motion.h1 className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60 leading-[0.9] tracking-tighter">
+              {"Excellence".split("").map((char, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, y: 100, rotateZ: -10 }}
+                  animate={{ opacity: 1, y: 0, rotateZ: 0 }}
+                  transition={{ 
+                    duration: 0.8, 
+                    delay: 0.5 + i * 0.05,
+                    ease: [0.215, 0.61, 0.355, 1]
+                  }}
+                  className="inline-block"
+                  style={{ textShadow: '0 10px 40px rgba(0,0,0,0.5)' }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
+              ))}
+            </motion.h1>
+          </div>
+
+          {/* Animated Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-2xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed font-light"
+            transition={{ duration: 1, delay: 0.8 }}
+            className="text-xl md:text-2xl lg:text-3xl text-white/80 mb-12 max-w-3xl font-light leading-relaxed"
           >
-            From luxury homes to commercial spaces, we deliver exceptional construction 
-            and interior design solutions in Bangalore. Your dream space awaits.
+            Where architectural innovation meets timeless craftsmanship to create 
+            <span className="text-white font-medium"> extraordinary living spaces</span>
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* Stats Row */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center mb-20"
+            transition={{ duration: 1, delay: 1 }}
+            className="flex flex-wrap gap-8 mb-12"
+          >
+            {[
+              { number: "500+", label: "Projects Completed" },
+              { number: "20+", label: "Years Excellence" },
+              { number: "100%", label: "Client Satisfaction" }
+            ].map((stat, i) => (
+              <div key={i} className="text-white">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.5, delay: 1.2 + i * 0.1 }}
+                  className="text-3xl md:text-4xl font-bold mb-1"
+                >
+                  {stat.number}
+                </motion.div>
+                <div className="text-sm text-white/60 uppercase tracking-wider">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Enhanced CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.2 }}
+            className="flex flex-col sm:flex-row gap-4"
           >
             <Button
               asChild
               size="lg"
-              className="h-16 px-10 text-lg bg-primary hover:bg-primary-dark text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
+              className="group h-16 px-10 text-lg bg-white text-black hover:bg-white/90 rounded-full font-medium transition-all duration-500 shadow-2xl hover:shadow-white/20 hover:scale-105"
             >
-              <Link href="/quote" className="flex items-center">
-                Get Free Consultation
-                <ArrowRight className="ml-3 h-6 w-6" />
+              <Link href="/quote" className="flex items-center gap-3">
+                <span>Start Your Project</span>
+                <motion.div
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <ArrowRight className="h-5 w-5" />
+                </motion.div>
               </Link>
             </Button>
             
             <Button
               asChild
               size="lg"
-              variant="outline"
-              className="h-16 px-10 text-lg border-2 border-white text-white hover:bg-white hover:text-gray-900 rounded-full backdrop-blur-sm bg-white/10 transition-all duration-300 transform hover:scale-105"
+              variant="ghost"
+              className="group h-16 px-10 text-lg text-white hover:bg-white/10 rounded-full font-medium backdrop-blur-md transition-all duration-500 border-2 border-white/30 hover:border-white/60 hover:scale-105"
             >
-              <Link href="/gallery">View Our Portfolio</Link>
+              <Link href="/gallery" className="flex items-center gap-3">
+                <Play className="h-5 w-5" />
+                <span>View Portfolio</span>
+              </Link>
             </Button>
           </motion.div>
+        </div>
+      </motion.div>
 
-          {/* Stats Grid */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto"
-          >
-            {stats.map((stat, index) => {
-              const Icon = stat.icon
-              return (
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <span className="text-white/60 text-sm uppercase tracking-wider">Scroll to explore</span>
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <ChevronDown className="w-6 h-6 text-white/60" />
+        </motion.div>
+      </motion.div>
+
+      {/* Enhanced Image Indicators */}
+      <div className="absolute bottom-12 right-12 flex items-center gap-4 z-20">
+        <div className="flex gap-2">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentImage(index)}
+              className="relative group"
+            >
+              <div className={`w-16 h-1 transition-all duration-500 ${
+                currentImage === index ? 'bg-white' : 'bg-white/30 hover:bg-white/50'
+              }`} />
+              {currentImage === index && (
                 <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
-                  className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 text-center hover:bg-white/15 transition-all duration-300 transform hover:scale-105"
-                >
-                  <Icon className="h-8 w-8 text-primary-light mx-auto mb-4" />
-                  <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
-                  <div className="text-sm text-white/80 font-medium">{stat.label}</div>
-                </motion.div>
-              )
-            })}
-          </motion.div>
+                  layoutId="indicator"
+                  className="absolute inset-0 bg-white"
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                />
+              )}
+            </button>
+          ))}
+        </div>
+        <div className="text-white/60 text-sm">
+          {String(currentImage + 1).padStart(2, '0')} / {String(heroImages.length).padStart(2, '0')}
         </div>
       </div>
     </section>

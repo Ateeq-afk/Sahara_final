@@ -75,7 +75,7 @@ const MediaItem = ({ item, className, onClick }: { item: MediaItemType, classNam
                     }
                 }
             } catch (error) {
-                console.warn("Video playback failed:", error);
+                // Video playback failed, silently handle
             }
         };
 

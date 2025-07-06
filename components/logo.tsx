@@ -109,9 +109,13 @@ export default function Logo({ variant = 'default', className = '' }: LogoProps)
             <stop offset="0%" style={{stopColor:"#E2E8F0", stopOpacity:1}} />
             <stop offset="100%" style={{stopColor:"#CBD5E0", stopOpacity:1}} />
           </linearGradient>
+          {/* Drop shadow filter for better visibility */}
+          <filter id="dropShadow">
+            <feDropShadow dx="0" dy="2" stdDeviation="4" floodOpacity="0.3"/>
+          </filter>
         </defs>
         
-        <g transform="translate(10, 10)">
+        <g transform="translate(10, 10)" filter="url(#dropShadow)">
           {/* Desert dune curves */}
           <path d="M 5 35 Q 15 20, 25 25 T 45 18" 
                 fill="none" 
@@ -140,7 +144,7 @@ export default function Logo({ variant = 'default', className = '' }: LogoProps)
         </g>
         
         {/* Text */}
-        <g transform="translate(75, 10)">
+        <g transform="translate(75, 10)" filter="url(#dropShadow)">
           <text x="0" y="25" fontFamily="Montserrat, Helvetica Neue, sans-serif" fontSize="28" fontWeight="700" fill="#FFFFFF" letterSpacing="1">SAHARA</text>
           <text x="0" y="40" fontFamily="Open Sans, Arial, sans-serif" fontSize="10" fontWeight="400" fill="#E2E8F0" letterSpacing="8.5">DEVELOPERS</text>
         </g>

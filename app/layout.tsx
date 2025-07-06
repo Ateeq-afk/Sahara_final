@@ -1,4 +1,5 @@
 import './globals.css';
+import './apple-design.css';
 import type { Metadata } from 'next';
 import { Inter, DM_Serif_Display } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -90,6 +91,19 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#8B7355" />
         <meta name="msapplication-TileColor" content="#8B7355" />
+        
+        {/* Additional SEO Meta Tags */}
+        <meta name="geo.region" content="IN-KA" />
+        <meta name="geo.placename" content="Bangalore" />
+        <meta name="geo.position" content="12.9716;77.5946" />
+        <meta name="ICBM" content="12.9716, 77.5946" />
+        
+        {/* Language Alternatives */}
+        <link rel="alternate" hrefLang="en-IN" href="https://saharadevelopers.com" />
+        <link rel="alternate" hrefLang="x-default" href="https://saharadevelopers.com" />
+        
+        {/* RSS Feed */}
+        <link rel="alternate" type="application/rss+xml" title="Sahara Developers RSS Feed" href="/feed.xml" />
         
         {/* Structured Data for Local Business */}
         <script

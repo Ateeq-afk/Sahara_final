@@ -7,21 +7,19 @@ import GalleryShowcase from '@/components/home/gallery-showcase'
 import TestimonialsAnimated from '@/components/home/testimonials-animated'
 import TrustedPartners from '@/components/home/trusted-partners'
 import CTASection from '@/components/home/cta-section'
-import BankingPartners from '@/components/home/banking-partners'
 
 export default function Home() {
   return (
-    <div className="w-full">
+    <main className="min-h-screen bg-white">
       <HomeHero />
       <AboutSection />
       <ServicesSection />
       <ProcessTimeline />
-      <FeaturedPackages />
       <GalleryShowcase />
+      <FeaturedPackages />
       <TestimonialsAnimated />
       <TrustedPartners />
-      <BankingPartners />
       <CTASection />
-    </div>
+    </main>
   )
 }

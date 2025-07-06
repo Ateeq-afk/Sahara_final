@@ -1,87 +1,126 @@
 "use client"
 
-import { PencilRuler, ClipboardList, Hammer, ThumbsUp } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
 
 const steps = [
   {
-    icon: PencilRuler,
-    title: "Design Consultation",
-    desc: "We collaborate closely to understand your vision, requirements, and aspirations for your space.",
+    phase: "01",
+    title: "Discovery",
+    description: "Understanding your vision, lifestyle, and aspirations through thoughtful consultation.",
+    duration: "2-3 weeks",
   },
   {
-    icon: ClipboardList,
-    title: "Detailed Planning",
-    desc: "Expert planning of every aspect - from architectural drawings to material selection and timelines.",
+    phase: "02",
+    title: "Conceptualization",
+    description: "Translating insights into compelling design concepts that capture your essence.",
+    duration: "3-4 weeks",
   },
   {
-    icon: Hammer,
-    title: "Precise Execution",
-    desc: "Skilled craftsmanship and rigorous quality control ensure flawless implementation.",
+    phase: "03",
+    title: "Development",
+    description: "Refining every detail from materials to finishes with meticulous precision.",
+    duration: "4-6 weeks",
   },
   {
-    icon: ThumbsUp,
-    title: "Seamless Handover",
-    desc: "Thorough inspection, documentation, and continued support for your peace of mind.",
+    phase: "04",
+    title: "Realization",
+    description: "Bringing designs to life through expert craftsmanship and rigorous quality control.",
+    duration: "12-16 weeks",
   },
 ]
 
-const ProcessTimeline = () => {
+export default function ProcessTimeline() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-[#F8F6F2]">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-normal text-[#232323] mb-4">
-            Our Construction Journey
+    <section ref={ref} className="py-32 bg-gradient-to-b from-gray-50 to-white">
+      <div className="container mx-auto px-8">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-20"
+        >
+          <span className="text-sm font-medium text-gray-500 tracking-[0.2em] uppercase">
+            Our Process
+          </span>
+          <h2 className="text-5xl md:text-6xl font-semibold mt-4 mb-6 tracking-[-0.03em]">
+            From Vision to Reality
           </h2>
-          <p className="text-base sm:text-lg font-sans text-gray-600 max-w-2xl mx-auto">
-            A refined process that transforms your vision into reality, with attention to every detail
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            A carefully orchestrated journey that transforms your dreams into extraordinary living spaces.
           </p>
-        </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-x-8 sm:gap-y-12 max-w-7xl mx-auto">
-          {steps.map((step, index) => {
-            const Icon = step.icon
-            
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                className="relative"
-              >
-                <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                  <div className="flex justify-center mb-4 sm:mb-6">
-                    <Icon size={28} className="sm:w-8 sm:h-8 text-[#B29263]" />
-                  </div>
-                  <h3 className="font-serif text-lg sm:text-xl font-normal text-[#232323] mb-3 text-center">
-                    {step.title}
-                  </h3>
-                  <p className="text-gray-600 text-center text-sm sm:text-base leading-relaxed">
-                    {step.desc}
-                  </p>
-                </div>
-                
-                {/* Step Number */}
-                <div className="absolute -top-3 sm:-top-4 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-[#B29263] text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs sm:text-sm font-medium shadow-md">
-                    {index + 1}
+        </motion.div>
+
+        {/* Timeline */}
+        <div className="relative max-w-5xl mx-auto">
+          {/* Vertical Line */}
+          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[1px] bg-gray-200 md:-translate-x-1/2" />
+
+          {/* Steps */}
+          {steps.map((step, index) => (
+            <motion.div
+              key={step.phase}
+              initial={{ opacity: 0, y: 50 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              className={`relative flex flex-col md:flex-row items-start md:items-center mb-20 last:mb-0 ${
+                index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+              }`}
+            >
+              {/* Content */}
+              <div className={`flex-1 ${index % 2 === 0 ? 'md:pr-20 md:text-right' : 'md:pl-20'} ml-16 md:ml-0`}>
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300"
+                >
+                  <span className="text-sm font-medium text-gray-500 tracking-[0.2em] uppercase">
+                    Phase {step.phase}
                   </span>
-                </div>
-                
-                {/* Connector Line (except for last item on desktop) */}
-                {index < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 left-full w-full h-[2px] bg-gradient-to-r from-[#B29263] to-transparent -translate-y-1/2" />
-                )}
+                  <h3 className="text-3xl font-semibold mt-2 mb-4">{step.title}</h3>
+                  <p className="text-gray-600 mb-4 leading-relaxed">{step.description}</p>
+                  <p className="text-sm text-gray-500 font-medium">Duration: {step.duration}</p>
+                </motion.div>
+              </div>
+
+              {/* Circle */}
+              <motion.div
+                whileHover={{ scale: 1.2 }}
+                transition={{ duration: 0.3 }}
+                className="absolute left-0 md:left-1/2 md:-translate-x-1/2 w-12 h-12 bg-white border-2 border-gray-900 rounded-full flex items-center justify-center z-10"
+              >
+                <span className="text-sm font-semibold">{step.phase}</span>
               </motion.div>
-            )
-          })}
+
+              {/* Empty space for alternating layout */}
+              <div className="hidden md:block flex-1" />
+            </motion.div>
+          ))}
         </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="text-center mt-20"
+        >
+          <p className="text-lg text-gray-600 mb-8">
+            Ready to begin your journey with us?
+          </p>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-4 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-colors duration-300"
+          >
+            Start Your Project
+          </motion.button>
+        </motion.div>
       </div>
     </section>
   )
 }
-
-export default ProcessTimeline

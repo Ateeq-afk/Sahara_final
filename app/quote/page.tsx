@@ -1,10 +1,11 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -38,12 +39,8 @@ import {
   DollarSign, 
   Clock, 
   MessageSquare,
-  Star,
-  Award,
-  Shield,
-  Calculator,
-  Gift,
-  Sparkles
+  Sparkles,
+  Zap
 } from 'lucide-react'
 
 const formSchema = z.object({
@@ -75,48 +72,10 @@ const formSchema = z.object({
 })
 
 const steps = [
-  {
-    id: 1,
-    title: "Personal Details",
-    description: "Tell us about yourself",
-    icon: User,
-    fields: ['name', 'email', 'phone']
-  },
-  {
-    id: 2,
-    title: "Project Vision",
-    description: "What's your dream project?",
-    icon: Building,
-    fields: ['serviceType', 'projectType']
-  },
-  {
-    id: 3,
-    title: "Project Scope",
-    description: "Size and investment details",
-    icon: Ruler,
-    fields: ['propertySize', 'budget']
-  },
-  {
-    id: 4,
-    title: "Final Details",
-    description: "Timeline and special requirements",
-    icon: Clock,
-    fields: ['timeline', 'message']
-  }
-]
-
-const motivationalMessages = [
-  "Excellent start! Let's bring your vision to life.",
-  "Perfect! We're understanding your dream project.",
-  "Wonderful! Your project is taking shape beautifully.",
-  "Outstanding! We're ready to create your custom proposal."
-]
-
-const benefits = [
-  { icon: Gift, text: "Complimentary design consultation" },
-  { icon: Award, text: "20+ years of craftsmanship excellence" },
-  { icon: Shield, text: "Comprehensive project warranty" },
-  { icon: Sparkles, text: "Exclusive client benefits program" }
+  { id: 1, title: "Contact", icon: User },
+  { id: 2, title: "Project", icon: Building },
+  { id: 3, title: "Details", icon: Ruler },
+  { id: 4, title: "Timeline", icon: Clock }
 ]
 
 const estimateRanges = {
@@ -150,11 +109,34 @@ const estimateRanges = {
   }
 }
 
+const floatingAnimation = {
+  initial: { y: 0 },
+  animate: {
+    y: [-5, 5, -5],
+    transition: {
+      duration: 4,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  }
+}
+
 export default function QuotePage() {
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [completedSteps, setCompletedSteps] = useState<number[]>([])
   const [estimatedCost, setEstimatedCost] = useState<{min: number, max: number} | null>(null)
+  
+  const heroRef = useRef(null)
+  const formRef = useRef(null)
+  const heroInView = useInView(heroRef, { once: true })
+  const formInView = useInView(formRef, { once: true, margin: "-100px" })
+  
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  })
+  
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -168,7 +150,6 @@ export default function QuotePage() {
 
   const watchedValues = form.watch()
 
-  // Calculate estimated cost based on selections
   useEffect(() => {
     const { serviceType, projectType, propertySize } = watchedValues
     if (serviceType && projectType && propertySize) {
@@ -191,14 +172,24 @@ export default function QuotePage() {
   }, [watchedValues.serviceType, watchedValues.projectType, watchedValues.propertySize])
 
   const validateCurrentStep = async () => {
-    const currentStepFields = steps[currentStep - 1].fields
-    const isValid = await form.trigger(currentStepFields as any)
+    let fieldsToValidate: any[] = []
     
-    if (isValid && !completedSteps.includes(currentStep)) {
-      setCompletedSteps([...completedSteps, currentStep])
+    switch (currentStep) {
+      case 1:
+        fieldsToValidate = ['name', 'email', 'phone']
+        break
+      case 2:
+        fieldsToValidate = ['serviceType', 'projectType']
+        break
+      case 3:
+        fieldsToValidate = ['propertySize', 'budget']
+        break
+      case 4:
+        fieldsToValidate = ['timeline']
+        break
     }
     
-    return isValid
+    return await form.trigger(fieldsToValidate)
   }
 
   const nextStep = async () => {
@@ -214,661 +205,554 @@ export default function QuotePage() {
     }
   }
 
-  const progress = (currentStep / steps.length) * 100
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
-    toast({
-      title: "Quote Request Submitted",
-      description: "We'll get back to you within 2 hours with a detailed estimate.",
-    })
-    setIsSubmitted(true)
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const response = await fetch('/api/quote', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      })
+      
+      const data = await response.json()
+      
+      if (response.ok && data.success) {
+        toast({
+          title: "Quote Request Submitted",
+          description: "We'll get back to you within 2 hours with a detailed estimate.",
+        })
+        setIsSubmitted(true)
+      } else {
+        throw new Error(data.message || 'Failed to submit quote request')
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to submit quote request. Please try again.",
+        variant: "destructive",
+      })
+    }
   }
 
   if (isSubmitted) {
     return (
-      <div className="w-full min-h-screen pt-20 bg-gradient-to-br from-neutral-50 to-white">
-        <div className="container mx-auto px-4 py-16">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="max-w-2xl mx-auto"
-          >
-            <div className="bg-white rounded-3xl shadow-2xl border border-neutral-100 overflow-hidden">
-              <div className="bg-gradient-to-r from-primary to-primary-dark p-8 text-white text-center">
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-                  className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6"
-                >
-                  <CheckCircle className="h-10 w-10 text-white" />
-                </motion.div>
-                
-                <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="text-3xl font-serif font-bold mb-3"
-                >
-                  Thank You
-                </motion.h1>
-                
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.7 }}
-                  className="text-lg opacity-90"
-                >
-                  Your quote request has been received
-                </motion.p>
-              </div>
+      <main className="min-h-screen bg-white flex items-center justify-center p-8">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="max-w-2xl w-full"
+        >
+          <div className="text-center">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+              className="w-32 h-32 bg-gradient-to-br from-amber-600 to-amber-700 rounded-full flex items-center justify-center mx-auto mb-8"
+            >
+              <CheckCircle className="h-16 w-16 text-white" />
+            </motion.div>
+            
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="text-5xl md:text-6xl font-semibold mb-6 tracking-[-0.03em]"
+            >
+              Thank you!
+            </motion.h1>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="text-xl text-gray-600 mb-12 leading-relaxed max-w-lg mx-auto"
+            >
+              Your quote request has been received. Our team will prepare a detailed 
+              proposal and contact you within 2 hours.
+            </motion.p>
 
-              <div className="p-8">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.9 }}
-                  className="text-center mb-8"
-                >
-                  <p className="text-lg text-neutral-700 leading-relaxed mb-6">
-                    Our expert team will review your requirements and contact you within 
-                    <span className="font-semibold text-primary"> 2 hours</span> with a detailed, 
-                    personalized estimate tailored to your vision.
-                  </p>
+            {estimatedCost && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+                className="bg-gray-50 rounded-3xl p-8 mb-12 max-w-md mx-auto"
+              >
+                <p className="text-sm text-gray-500 mb-3">Estimated Investment</p>
+                <p className="text-4xl font-semibold text-amber-700">
+                  ₹{(estimatedCost.min / 100000).toFixed(1)}L - ₹{(estimatedCost.max / 100000).toFixed(1)}L
+                </p>
+              </motion.div>
+            )}
 
-                  {estimatedCost && (
-                    <div className="bg-neutral-50 rounded-2xl p-6 mb-6">
-                      <h3 className="text-lg font-serif font-semibold text-neutral-900 mb-3">
-                        Preliminary Cost Estimate
-                      </h3>
-                      <div className="text-3xl font-bold text-primary mb-2">
-                        ₹{(estimatedCost.min / 100000).toFixed(1)}L - ₹{(estimatedCost.max / 100000).toFixed(1)}L
-                      </div>
-                      <p className="text-sm text-neutral-600">
-                        *Final quote will include detailed specifications
-                      </p>
-                    </div>
-                  )}
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.1 }}
-                  className="space-y-4"
-                >
-                  <Button
-                    onClick={() => {
-                      setIsSubmitted(false)
-                      setCurrentStep(1)
-                      setCompletedSteps([])
-                      form.reset()
-                    }}
-                    className="w-full bg-primary hover:bg-primary-dark text-white rounded-full py-3 font-medium"
-                    size="lg"
-                  >
-                    Submit Another Request
-                  </Button>
-                  
-                  <div className="grid grid-cols-2 gap-3">
-                    <Button
-                      variant="outline"
-                      className="border-neutral-300 text-neutral-700 hover:bg-neutral-50 rounded-full"
-                      asChild
-                    >
-                      <a href="/gallery">View Portfolio</a>
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="border-neutral-300 text-neutral-700 hover:bg-neutral-50 rounded-full"
-                      asChild
-                    >
-                      <a href="/contact">Contact Us</a>
-                    </Button>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <Link
+                href="/"
+                className="px-8 py-4 bg-gray-100 text-gray-900 rounded-full font-medium hover:bg-gray-200 transition-colors"
+              >
+                Back to Home
+              </Link>
+              <Link
+                href="/gallery"
+                className="px-8 py-4 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-full font-medium hover:from-amber-700 hover:to-amber-800 transition-all"
+              >
+                View Our Work
+              </Link>
+            </motion.div>
+          </div>
+        </motion.div>
+      </main>
     )
   }
 
   return (
-    <div className="w-full min-h-screen pt-20 bg-gradient-to-br from-neutral-50 to-white">
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-6xl mx-auto">
-          {/* Elegant Header */}
+    <main className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <motion.section 
+        ref={heroRef}
+        className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
+        style={{ opacity: heroOpacity }}
+      >
+        {/* Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white" />
+          <motion.div 
+            className="absolute top-10 right-10 w-72 h-72 bg-amber-200/30 rounded-full blur-3xl"
+            animate={floatingAnimation.animate}
+            initial={floatingAnimation.initial}
+          />
+          <motion.div 
+            className="absolute bottom-10 left-10 w-96 h-96 bg-amber-300/20 rounded-full blur-3xl"
+            animate={floatingAnimation.animate}
+            initial={floatingAnimation.initial}
+            transition={{ delay: 2 }}
+          />
+        </div>
+        
+        <div className="relative container mx-auto px-8 text-center z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1 }}
           >
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-6 py-3 text-sm font-medium mb-6">
-              <Calculator className="h-4 w-4" />
-              Complimentary Quote Service
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-neutral-900 mb-6 leading-tight">
-              Begin Your Journey to
-              <span className="block text-primary">Exceptional Living</span>
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-semibold tracking-[-0.05em] leading-[0.9]">
+              Let's create
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-800">
+                something
+              </span>
+              <br />
+              amazing.
             </h1>
-            <p className="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
-              Share your vision with us through this thoughtfully designed consultation. 
-              Receive a detailed, personalized estimate crafted by our expert team.
-            </p>
           </motion.div>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="mt-8 text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto"
+          >
+            Get your personalized quote in just a few steps.
+          </motion.p>
+        </div>
+      </motion.section>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            {/* Main Form - Takes up more space */}
-            <div className="lg:col-span-8">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="bg-white rounded-3xl shadow-2xl border border-neutral-100 overflow-hidden"
-              >
-                {/* Sophisticated Progress Section */}
-                <div className="bg-gradient-to-r from-neutral-50 to-neutral-100 p-8 border-b border-neutral-200">
-                  <div className="flex items-center justify-between mb-6">
-                    <div>
-                      <h2 className="text-xl font-serif font-semibold text-neutral-900">
-                        {steps[currentStep - 1].title}
-                      </h2>
-                      <p className="text-neutral-600 mt-1">
-                        {steps[currentStep - 1].description}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-sm font-medium text-neutral-500 mb-1">
-                        Step {currentStep} of {steps.length}
-                      </div>
-                      <div className="text-lg font-semibold text-primary">
-                        {Math.round(progress)}% Complete
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Elegant Progress Bar */}
-                  <div className="relative">
-                    <div className="w-full bg-neutral-200 rounded-full h-2">
-                      <motion.div
-                        className="bg-gradient-to-r from-primary to-primary-dark h-2 rounded-full"
-                        initial={{ width: 0 }}
-                        animate={{ width: `${progress}%` }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                      />
-                    </div>
-                  </div>
+      {/* Form Section */}
+      <section ref={formRef} className="py-24 relative">
+        <div className="container mx-auto px-8">
+          <div className="max-w-4xl mx-auto">
+            {/* Progress Dots */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={formInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6 }}
+              className="flex justify-center gap-3 mb-16"
+            >
+              {steps.map((step) => (
+                <motion.button
+                  key={step.id}
+                  onClick={() => {
+                    if (step.id <= currentStep) setCurrentStep(step.id)
+                  }}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    step.id === currentStep 
+                      ? 'w-8 bg-gradient-to-r from-amber-600 to-amber-700' 
+                      : step.id < currentStep
+                      ? 'bg-amber-600'
+                      : 'bg-gray-300'
+                  }`}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                />
+              ))}
+            </motion.div>
 
-                  {/* Step Indicators */}
-                  <div className="flex items-center justify-between mt-8">
-                    {steps.map((step, index) => {
-                      const Icon = step.icon
-                      const isCompleted = completedSteps.includes(step.id)
-                      const isCurrent = currentStep === step.id
-                      
-                      return (
-                        <div key={step.id} className="flex flex-col items-center">
-                          <motion.div
-                            className={`w-12 h-12 rounded-full flex items-center justify-center mb-3 transition-all duration-500 ${
-                              isCompleted 
-                                ? 'bg-primary text-white shadow-lg' 
-                                : isCurrent 
-                                ? 'bg-primary text-white shadow-lg scale-110' 
-                                : 'bg-neutral-200 text-neutral-500'
-                            }`}
-                            whileHover={{ scale: isCurrent ? 1.15 : 1.05 }}
-                          >
-                            {isCompleted ? (
-                              <CheckCircle className="h-6 w-6" />
-                            ) : (
-                              <Icon className="h-6 w-6" />
-                            )}
-                          </motion.div>
-                          <span className={`text-xs font-medium text-center leading-tight ${
-                            isCurrent ? 'text-primary' : 'text-neutral-600'
-                          }`}>
-                            {step.title}
-                          </span>
+            {/* Form Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={formInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8 }}
+              className="bg-white rounded-3xl shadow-2xl overflow-hidden backdrop-blur-lg backdrop-filter"
+              style={{
+                background: 'rgba(255, 255, 255, 0.8)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+              }}
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentStep}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.3 }}
+                  className="p-12"
+                >
+                  <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                      {/* Step 1: Personal Details */}
+                      {currentStep === 1 && (
+                        <div>
+                          <div className="text-center mb-12">
+                            <h2 className="text-4xl font-semibold mb-4">Let's get to know you</h2>
+                            <p className="text-lg text-gray-600">We'll use this to contact you about your project</p>
+                          </div>
+                          
+                          <div className="space-y-6 max-w-md mx-auto">
+                            <FormField
+                              control={form.control}
+                              name="name"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormControl>
+                                    <div className="relative">
+                                      <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                                      <Input 
+                                        placeholder="Your name" 
+                                        className="h-14 pl-12 pr-4 rounded-2xl border-gray-200 bg-gray-50 focus:bg-white transition-colors"
+                                        {...field} 
+                                      />
+                                    </div>
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            
+                            <FormField
+                              control={form.control}
+                              name="email"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormControl>
+                                    <div className="relative">
+                                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                                      <Input 
+                                        placeholder="Your email" 
+                                        className="h-14 pl-12 pr-4 rounded-2xl border-gray-200 bg-gray-50 focus:bg-white transition-colors"
+                                        {...field} 
+                                      />
+                                    </div>
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            
+                            <FormField
+                              control={form.control}
+                              name="phone"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormControl>
+                                    <div className="relative">
+                                      <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                                      <Input 
+                                        placeholder="Your phone" 
+                                        className="h-14 pl-12 pr-4 rounded-2xl border-gray-200 bg-gray-50 focus:bg-white transition-colors"
+                                        {...field} 
+                                      />
+                                    </div>
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
                         </div>
-                      )
-                    })}
-                  </div>
-                </div>
+                      )}
 
-                {/* Form Content */}
-                <div className="p-8">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={currentStep}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                          {/* Step 1: Personal Details */}
-                          {currentStep === 1 && (
-                            <div className="space-y-6">
-                              <FormField
-                                control={form.control}
-                                name="name"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormLabel className="flex items-center gap-3 text-base font-medium text-neutral-700">
-                                      <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                                        <User className="h-4 w-4 text-primary" />
-                                      </div>
-                                      Full Name
-                                    </FormLabel>
+                      {/* Step 2: Project Type */}
+                      {currentStep === 2 && (
+                        <div>
+                          <div className="text-center mb-12">
+                            <h2 className="text-4xl font-semibold mb-4">What are you building?</h2>
+                            <p className="text-lg text-gray-600">Choose the services you need</p>
+                          </div>
+                          
+                          <div className="space-y-8 max-w-2xl mx-auto">
+                            <FormField
+                              control={form.control}
+                              name="serviceType"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <div className="grid grid-cols-2 gap-4">
+                                    {[
+                                      { value: "construction", label: "Construction", icon: Building },
+                                      { value: "interior-decor", label: "Interior Design", icon: Home },
+                                      { value: "renovation", label: "Renovation", icon: Ruler },
+                                      { value: "turnkey", label: "Turnkey", icon: Zap }
+                                    ].map((option) => (
+                                      <label
+                                        key={option.value}
+                                        className={`relative flex flex-col items-center p-6 rounded-2xl border-2 cursor-pointer transition-all ${
+                                          field.value === option.value
+                                            ? 'border-amber-600 bg-amber-50'
+                                            : 'border-gray-200 hover:border-gray-300'
+                                        }`}
+                                      >
+                                        <input
+                                          type="radio"
+                                          value={option.value}
+                                          checked={field.value === option.value}
+                                          onChange={field.onChange}
+                                          className="sr-only"
+                                        />
+                                        <option.icon className={`h-8 w-8 mb-3 ${
+                                          field.value === option.value ? 'text-amber-600' : 'text-gray-400'
+                                        }`} />
+                                        <span className={`font-medium ${
+                                          field.value === option.value ? 'text-amber-900' : 'text-gray-900'
+                                        }`}>
+                                          {option.label}
+                                        </span>
+                                      </label>
+                                    ))}
+                                  </div>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            
+                            <FormField
+                              control={form.control}
+                              name="projectType"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <Select onValueChange={field.onChange} defaultValue={field.value}>
                                     <FormControl>
-                                      <Input 
-                                        placeholder="Enter your full name" 
-                                        className="h-14 rounded-xl border-neutral-200 focus:border-primary focus:ring-primary/20 text-base"
-                                        {...field} 
-                                      />
+                                      <SelectTrigger className="h-14 rounded-2xl border-gray-200 bg-gray-50 focus:bg-white">
+                                        <SelectValue placeholder="Select property type" />
+                                      </SelectTrigger>
                                     </FormControl>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                              
-                              <FormField
-                                control={form.control}
-                                name="email"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormLabel className="flex items-center gap-3 text-base font-medium text-neutral-700">
-                                      <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                                        <Mail className="h-4 w-4 text-primary" />
-                                      </div>
-                                      Email Address
-                                    </FormLabel>
+                                    <SelectContent>
+                                      <SelectItem value="residential">Residential</SelectItem>
+                                      <SelectItem value="commercial">Commercial</SelectItem>
+                                      <SelectItem value="office">Office</SelectItem>
+                                      <SelectItem value="retail">Retail</SelectItem>
+                                      <SelectItem value="other">Other</SelectItem>
+                                    </SelectContent>
+                                  </Select>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Step 3: Project Details */}
+                      {currentStep === 3 && (
+                        <div>
+                          <div className="text-center mb-12">
+                            <h2 className="text-4xl font-semibold mb-4">Project specifications</h2>
+                            <p className="text-lg text-gray-600">Help us understand your requirements</p>
+                          </div>
+                          
+                          <div className="space-y-8 max-w-2xl mx-auto">
+                            <FormField
+                              control={form.control}
+                              name="propertySize"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="text-base font-medium mb-4 block">Property Size</FormLabel>
+                                  <RadioGroup
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                    className="grid grid-cols-2 gap-4"
+                                  >
+                                    {[
+                                      { value: "under-1000", label: "Under 1,000", desc: "sq.ft" },
+                                      { value: "1000-2000", label: "1,000 - 2,000", desc: "sq.ft" },
+                                      { value: "2000-3000", label: "2,000 - 3,000", desc: "sq.ft" },
+                                      { value: "above-3000", label: "Above 3,000", desc: "sq.ft" }
+                                    ].map((option) => (
+                                      <FormItem key={option.value}>
+                                        <FormControl>
+                                          <label className={`flex items-center p-4 rounded-2xl border-2 cursor-pointer transition-all ${
+                                            field.value === option.value
+                                              ? 'border-amber-600 bg-amber-50'
+                                              : 'border-gray-200 hover:border-gray-300'
+                                          }`}>
+                                            <RadioGroupItem value={option.value} className="sr-only" />
+                                            <div className="text-center w-full">
+                                              <span className="font-medium block">{option.label}</span>
+                                              <span className="text-sm text-gray-500">{option.desc}</span>
+                                            </div>
+                                          </label>
+                                        </FormControl>
+                                      </FormItem>
+                                    ))}
+                                  </RadioGroup>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            
+                            <FormField
+                              control={form.control}
+                              name="budget"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="text-base font-medium mb-2 block">Budget Range</FormLabel>
+                                  <Select onValueChange={field.onChange} defaultValue={field.value}>
                                     <FormControl>
-                                      <Input 
-                                        placeholder="your.email@example.com" 
-                                        className="h-14 rounded-xl border-neutral-200 focus:border-primary focus:ring-primary/20 text-base"
-                                        {...field} 
-                                      />
+                                      <SelectTrigger className="h-14 rounded-2xl border-gray-200 bg-gray-50 focus:bg-white">
+                                        <SelectValue placeholder="Select your budget" />
+                                      </SelectTrigger>
                                     </FormControl>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                              
-                              <FormField
-                                control={form.control}
-                                name="phone"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormLabel className="flex items-center gap-3 text-base font-medium text-neutral-700">
-                                      <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                                        <Phone className="h-4 w-4 text-primary" />
-                                      </div>
-                                      Phone Number
-                                    </FormLabel>
+                                    <SelectContent>
+                                      <SelectItem value="under-20-lakh">Under ₹20 Lakhs</SelectItem>
+                                      <SelectItem value="20-40-lakh">₹20 - 40 Lakhs</SelectItem>
+                                      <SelectItem value="40-60-lakh">₹40 - 60 Lakhs</SelectItem>
+                                      <SelectItem value="60-80-lakh">₹60 - 80 Lakhs</SelectItem>
+                                      <SelectItem value="80-1-crore">₹80 Lakhs - 1 Crore</SelectItem>
+                                      <SelectItem value="above-1-crore">Above ₹1 Crore</SelectItem>
+                                    </SelectContent>
+                                  </Select>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Step 4: Timeline & Notes */}
+                      {currentStep === 4 && (
+                        <div>
+                          <div className="text-center mb-12">
+                            <h2 className="text-4xl font-semibold mb-4">When do you want to start?</h2>
+                            <p className="text-lg text-gray-600">And any special requirements</p>
+                          </div>
+                          
+                          <div className="space-y-6 max-w-md mx-auto">
+                            <FormField
+                              control={form.control}
+                              name="timeline"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <Select onValueChange={field.onChange} defaultValue={field.value}>
                                     <FormControl>
-                                      <Input 
-                                        placeholder="+91 98765 43210" 
-                                        className="h-14 rounded-xl border-neutral-200 focus:border-primary focus:ring-primary/20 text-base"
-                                        {...field} 
-                                      />
+                                      <SelectTrigger className="h-14 rounded-2xl border-gray-200 bg-gray-50 focus:bg-white">
+                                        <SelectValue placeholder="Select timeline" />
+                                      </SelectTrigger>
                                     </FormControl>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                            </div>
-                          )}
+                                    <SelectContent>
+                                      <SelectItem value="urgent">Immediately</SelectItem>
+                                      <SelectItem value="1-3-months">1-3 Months</SelectItem>
+                                      <SelectItem value="3-6-months">3-6 Months</SelectItem>
+                                      <SelectItem value="6-12-months">6-12 Months</SelectItem>
+                                      <SelectItem value="flexible">Flexible</SelectItem>
+                                    </SelectContent>
+                                  </Select>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            
+                            <FormField
+                              control={form.control}
+                              name="message"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormControl>
+                                    <Textarea
+                                      placeholder="Any special requirements or questions? (Optional)"
+                                      className="min-h-32 rounded-2xl border-gray-200 bg-gray-50 focus:bg-white resize-none"
+                                      {...field}
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </form>
+                  </Form>
 
-                          {/* Step 2: Project Type */}
-                          {currentStep === 2 && (
-                            <div className="space-y-6">
-                              <FormField
-                                control={form.control}
-                                name="serviceType"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormLabel className="flex items-center gap-3 text-base font-medium text-neutral-700">
-                                      <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                                        <Building className="h-4 w-4 text-primary" />
-                                      </div>
-                                      Service Category
-                                    </FormLabel>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                      <FormControl>
-                                        <SelectTrigger className="h-14 rounded-xl border-neutral-200 focus:border-primary text-base">
-                                          <SelectValue placeholder="Select your service type" />
-                                        </SelectTrigger>
-                                      </FormControl>
-                                      <SelectContent>
-                                        <SelectItem value="construction">Construction Services</SelectItem>
-                                        <SelectItem value="interior-decor">Interior Design</SelectItem>
-                                        <SelectItem value="renovation">Renovation & Remodeling</SelectItem>
-                                        <SelectItem value="turnkey">Complete Turnkey Solution</SelectItem>
-                                      </SelectContent>
-                                    </Select>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                              
-                              <FormField
-                                control={form.control}
-                                name="projectType"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormLabel className="flex items-center gap-3 text-base font-medium text-neutral-700">
-                                      <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                                        <Home className="h-4 w-4 text-primary" />
-                                      </div>
-                                      Project Category
-                                    </FormLabel>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                      <FormControl>
-                                        <SelectTrigger className="h-14 rounded-xl border-neutral-200 focus:border-primary text-base">
-                                          <SelectValue placeholder="Select your project type" />
-                                        </SelectTrigger>
-                                      </FormControl>
-                                      <SelectContent>
-                                        <SelectItem value="residential">Residential Property</SelectItem>
-                                        <SelectItem value="commercial">Commercial Space</SelectItem>
-                                        <SelectItem value="office">Office Environment</SelectItem>
-                                        <SelectItem value="retail">Retail Establishment</SelectItem>
-                                        <SelectItem value="other">Other Requirement</SelectItem>
-                                      </SelectContent>
-                                    </Select>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                            </div>
-                          )}
-
-                          {/* Step 3: Project Details */}
-                          {currentStep === 3 && (
-                            <div className="space-y-8">
-                              <FormField
-                                control={form.control}
-                                name="propertySize"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormLabel className="flex items-center gap-3 text-base font-medium text-neutral-700 mb-4">
-                                      <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                                        <Ruler className="h-4 w-4 text-primary" />
-                                      </div>
-                                      Property Size
-                                    </FormLabel>
-                                    <RadioGroup
-                                      onValueChange={field.onChange}
-                                      defaultValue={field.value}
-                                      className="grid grid-cols-1 gap-4"
-                                    >
-                                      {[
-                                        { value: "under-1000", label: "Under 1,000 sq.ft", desc: "Compact apartments and studios" },
-                                        { value: "1000-2000", label: "1,000 - 2,000 sq.ft", desc: "2-3 bedroom homes and apartments" },
-                                        { value: "2000-3000", label: "2,000 - 3,000 sq.ft", desc: "Spacious 3-4 bedroom residences" },
-                                        { value: "above-3000", label: "Above 3,000 sq.ft", desc: "Luxury villas and large properties" }
-                                      ].map((option) => (
-                                        <FormItem key={option.value} className="flex items-start space-x-4 space-y-0 p-4 border border-neutral-200 rounded-xl hover:border-primary/50 transition-colors">
-                                          <FormControl>
-                                            <RadioGroupItem value={option.value} className="mt-1" />
-                                          </FormControl>
-                                          <div className="flex-1">
-                                            <FormLabel className="font-medium cursor-pointer text-neutral-900">
-                                              {option.label}
-                                            </FormLabel>
-                                            <p className="text-sm text-neutral-600 mt-1">{option.desc}</p>
-                                          </div>
-                                        </FormItem>
-                                      ))}
-                                    </RadioGroup>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                              
-                              <FormField
-                                control={form.control}
-                                name="budget"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormLabel className="flex items-center gap-3 text-base font-medium text-neutral-700">
-                                      <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                                        <DollarSign className="h-4 w-4 text-primary" />
-                                      </div>
-                                      Investment Range
-                                    </FormLabel>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                      <FormControl>
-                                        <SelectTrigger className="h-14 rounded-xl border-neutral-200 focus:border-primary text-base">
-                                          <SelectValue placeholder="Select your budget range" />
-                                        </SelectTrigger>
-                                      </FormControl>
-                                      <SelectContent>
-                                        <SelectItem value="under-20-lakh">Under ₹20 Lakhs</SelectItem>
-                                        <SelectItem value="20-40-lakh">₹20 - 40 Lakhs</SelectItem>
-                                        <SelectItem value="40-60-lakh">₹40 - 60 Lakhs</SelectItem>
-                                        <SelectItem value="60-80-lakh">₹60 - 80 Lakhs</SelectItem>
-                                        <SelectItem value="80-1-crore">₹80 Lakhs - 1 Crore</SelectItem>
-                                        <SelectItem value="above-1-crore">Above ₹1 Crore</SelectItem>
-                                      </SelectContent>
-                                    </Select>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                            </div>
-                          )}
-
-                          {/* Step 4: Timeline & Notes */}
-                          {currentStep === 4 && (
-                            <div className="space-y-6">
-                              <FormField
-                                control={form.control}
-                                name="timeline"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormLabel className="flex items-center gap-3 text-base font-medium text-neutral-700">
-                                      <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                                        <Clock className="h-4 w-4 text-primary" />
-                                      </div>
-                                      Project Timeline
-                                    </FormLabel>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                      <FormControl>
-                                        <SelectTrigger className="h-14 rounded-xl border-neutral-200 focus:border-primary text-base">
-                                          <SelectValue placeholder="When would you like to begin?" />
-                                        </SelectTrigger>
-                                      </FormControl>
-                                      <SelectContent>
-                                        <SelectItem value="urgent">Immediate Start (ASAP)</SelectItem>
-                                        <SelectItem value="1-3-months">Within 1-3 Months</SelectItem>
-                                        <SelectItem value="3-6-months">Within 3-6 Months</SelectItem>
-                                        <SelectItem value="6-12-months">Within 6-12 Months</SelectItem>
-                                        <SelectItem value="flexible">Timeline is Flexible</SelectItem>
-                                      </SelectContent>
-                                    </Select>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                              
-                              <FormField
-                                control={form.control}
-                                name="message"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormLabel className="flex items-center gap-3 text-base font-medium text-neutral-700">
-                                      <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                                        <MessageSquare className="h-4 w-4 text-primary" />
-                                      </div>
-                                      Additional Details
-                                      <span className="text-sm text-neutral-500 font-normal">(Optional)</span>
-                                    </FormLabel>
-                                    <FormControl>
-                                      <Textarea
-                                        placeholder="Share any specific requirements, design preferences, or questions you have about your project..."
-                                        className="min-h-32 rounded-xl border-neutral-200 focus:border-primary focus:ring-primary/20 resize-none text-base"
-                                        {...field}
-                                      />
-                                    </FormControl>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                            </div>
-                          )}
-                        </form>
-                      </Form>
-                    </motion.div>
-                  </AnimatePresence>
-
-                  {/* Elegant Navigation */}
-                  <div className="flex justify-between items-center pt-8 mt-8 border-t border-neutral-200">
+                  {/* Navigation */}
+                  <div className="flex justify-between items-center mt-12">
                     <Button
                       type="button"
-                      variant="outline"
+                      variant="ghost"
                       onClick={prevStep}
                       disabled={currentStep === 1}
-                      className="flex items-center gap-2 rounded-full px-6 border-neutral-300 text-neutral-700 hover:bg-neutral-50 disabled:opacity-50"
+                      className="rounded-full px-6 text-gray-600 hover:text-gray-900 disabled:opacity-30"
                     >
-                      <ArrowLeft className="h-4 w-4" />
-                      Previous
+                      <ArrowLeft className="h-4 w-4 mr-2" />
+                      Back
                     </Button>
 
                     {currentStep < steps.length ? (
                       <Button
                         type="button"
                         onClick={nextStep}
-                        className="flex items-center gap-2 bg-primary hover:bg-primary-dark text-white rounded-full px-8 shadow-lg hover:shadow-xl transition-all"
+                        className="bg-black text-white rounded-full px-8 hover:bg-gray-900"
                       >
                         Continue
-                        <ArrowRight className="h-4 w-4" />
+                        <ArrowRight className="h-4 w-4 ml-2" />
                       </Button>
                     ) : (
                       <Button
                         type="submit"
                         onClick={form.handleSubmit(onSubmit)}
-                        className="flex items-center gap-2 bg-gradient-to-r from-primary to-primary-dark text-white rounded-full px-8 shadow-lg hover:shadow-xl transition-all"
+                        className="bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-full px-8 hover:from-amber-700 hover:to-amber-800"
                       >
-                        <Sparkles className="h-4 w-4" />
-                        Submit Request
+                        Submit
+                        <Sparkles className="h-4 w-4 ml-2" />
                       </Button>
                     )}
                   </div>
-                </div>
-              </motion.div>
-            </div>
 
-            {/* Refined Sidebar */}
-            <div className="lg:col-span-4 space-y-6">
-              {/* Progress Message */}
-              <motion.div
-                key={currentStep}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="bg-white rounded-2xl p-6 shadow-lg border border-neutral-100"
-              >
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl">
-                      {currentStep === 1 && "👋"}
-                      {currentStep === 2 && "🏗️"}
-                      {currentStep === 3 && "📐"}
-                      {currentStep === 4 && "✨"}
-                    </span>
-                  </div>
-                  <p className="text-lg font-medium text-neutral-800 leading-relaxed">
-                    {motivationalMessages[currentStep - 1]}
-                  </p>
-                </div>
-              </motion.div>
-
-              {/* Cost Estimate */}
-              {estimatedCost && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6 }}
-                  className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-6 border border-primary/20"
-                >
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Calculator className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-lg font-serif font-semibold text-neutral-900 mb-3">
-                      Estimated Investment
-                    </h3>
-                    <div className="text-3xl font-bold text-primary mb-2">
-                      ₹{(estimatedCost.min / 100000).toFixed(1)}L - ₹{(estimatedCost.max / 100000).toFixed(1)}L
-                    </div>
-                    <p className="text-sm text-neutral-600">
-                      Preliminary estimate based on your selections
-                    </p>
-                  </div>
+                  {/* Live Estimate */}
+                  {estimatedCost && currentStep >= 3 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-8 text-center p-6 bg-amber-50 rounded-2xl"
+                    >
+                      <p className="text-sm text-gray-600 mb-2">Estimated Investment</p>
+                      <p className="text-2xl font-semibold text-amber-700">
+                        ₹{(estimatedCost.min / 100000).toFixed(1)}L - ₹{(estimatedCost.max / 100000).toFixed(1)}L
+                      </p>
+                    </motion.div>
+                  )}
                 </motion.div>
-              )}
-
-              {/* Benefits */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-neutral-100">
-                <h3 className="text-lg font-serif font-semibold text-neutral-900 mb-6 flex items-center gap-2">
-                  <Gift className="h-5 w-5 text-primary" />
-                  Included Benefits
-                </h3>
-                <div className="space-y-4">
-                  {benefits.map((benefit, index) => {
-                    const Icon = benefit.icon
-                    return (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        className="flex items-start gap-3"
-                      >
-                        <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 mt-0.5">
-                          <Icon className="h-4 w-4 text-primary" />
-                        </div>
-                        <span className="text-neutral-700 leading-relaxed">{benefit.text}</span>
-                      </motion.div>
-                    )
-                  })}
-                </div>
-              </div>
-
-              {/* Trust Indicators */}
-              <div className="bg-gradient-to-br from-neutral-50 to-neutral-100 rounded-2xl p-6 border border-neutral-200">
-                <div className="text-center">
-                  <h3 className="text-lg font-serif font-semibold text-neutral-900 mb-6">
-                    Trusted Excellence
-                  </h3>
-                  <div className="grid grid-cols-1 gap-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-neutral-600">Projects Completed</span>
-                      <span className="text-xl font-bold text-primary">500+</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-neutral-600">Years of Experience</span>
-                      <span className="text-xl font-bold text-primary">20+</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-neutral-600">Client Satisfaction</span>
-                      <span className="text-xl font-bold text-primary">4.8★</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              </AnimatePresence>
+            </motion.div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   )
 }

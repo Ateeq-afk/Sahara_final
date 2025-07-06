@@ -1,138 +1,188 @@
 "use client"
 
 import { useState } from 'react'
+import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { ArrowRight, Eye, MapPin, Calendar } from 'lucide-react'
-import ConstructionPortfolio from './construction-portfolio'
+import { ArrowRight, Plus } from 'lucide-react'
 
 const projects = [
   {
     id: 1,
-    title: "Luxury Villa - Whitefield",
-    category: "Residential",
-    type: "Villa Construction",
-    location: "Whitefield, Bangalore",
-    completedYear: "2024",
-    area: "4,500 sq.ft",
-    image: "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg",
-    description: "Modern luxury villa with contemporary design and premium finishes",
-    features: ["4 BHK", "Swimming Pool", "Landscaped Garden", "Smart Home"],
-    size: "large"
+    title: "Minimalist Villa",
+    category: "Architecture",
+    year: "2024",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=90",
+    description: "A study in restraint and elegance",
   },
   {
     id: 2,
-    title: "Executive Office Complex",
-    category: "Commercial",
-    type: "Office Construction",
-    location: "MG Road, Bangalore",
-    completedYear: "2024",
-    area: "15,000 sq.ft",
-    image: "https://images.pexels.com/photos/1098982/pexels-photo-1098982.jpeg",
-    description: "State-of-the-art office complex with modern amenities",
-    features: ["LEED Certified", "Modern Infrastructure", "Parking", "Security"],
-    size: "medium"
+    title: "Executive Suite",
+    category: "Interior Design",
+    year: "2024",
+    image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1600&q=90",
+    description: "Where productivity meets luxury",
   },
   {
     id: 3,
-    title: "Luxury Apartment Interior",
-    category: "Interior",
-    type: "Residential Interior",
-    location: "Koramangala, Bangalore",
-    completedYear: "2024",
-    area: "2,800 sq.ft",
-    image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg",
-    description: "Sophisticated interior design with contemporary aesthetics",
-    features: ["3 BHK", "Modular Kitchen", "Designer Lighting", "Premium Finishes"],
-    size: "medium"
+    title: "Heritage Revival",
+    category: "Renovation",
+    year: "2023",
+    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=90",
+    description: "Preserving legacy, embracing future",
   },
   {
     id: 4,
-    title: "Heritage Home Renovation",
-    category: "Renovation",
-    type: "Heritage Restoration",
-    location: "Jayanagar, Bangalore",
-    completedYear: "2023",
-    area: "3,200 sq.ft",
-    image: "https://images.pexels.com/photos/2098624/pexels-photo-2098624.jpeg",
-    description: "Careful restoration preserving heritage while adding modern comforts",
-    features: ["Heritage Preservation", "Modern Amenities", "Structural Upgrade", "Period Features"],
-    size: "small"
+    title: "Urban Sanctuary",
+    category: "Interior Design",
+    year: "2024",
+    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=90",
+    description: "Tranquility in the heart of the city",
   },
   {
     id: 5,
-    title: "Modern Penthouse",
-    category: "Interior",
-    type: "Luxury Interior",
-    location: "UB City, Bangalore",
-    completedYear: "2024",
-    area: "5,000 sq.ft",
-    image: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg",
-    description: "Ultra-luxury penthouse with panoramic city views",
-    features: ["Penthouse", "City Views", "Premium Materials", "Custom Furniture"],
-    size: "small"
+    title: "Corporate Campus",
+    category: "Architecture",
+    year: "2023",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=90",
+    description: "Innovation through design",
   },
   {
     id: 6,
-    title: "Boutique Hotel Interior",
+    title: "Boutique Hotel",
     category: "Commercial",
-    type: "Hospitality Design",
-    location: "Indiranagar, Bangalore",
-    completedYear: "2023",
-    area: "8,000 sq.ft",
-    image: "https://images.pexels.com/photos/1579739/pexels-photo-1579739.jpeg",
-    description: "Elegant boutique hotel with contemporary design elements",
-    features: ["20 Rooms", "Restaurant", "Spa", "Conference Hall"],
-    size: "small"
-  }
+    year: "2024",
+    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1600&q=90",
+    description: "Hospitality redefined",
+  },
 ]
 
-const categories = ["All", "Residential", "Commercial", "Interior", "Renovation"]
+export default function GalleryShowcase() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null)
 
-const GalleryShowcase = () => {
   return (
-    <section className="py-20 sm:py-24 lg:py-28 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Use the Construction Portfolio component */}
-        <ConstructionPortfolio />
-
-        {/* Enhanced CTA Section */}
+    <section ref={ref} className="py-32 bg-white">
+      <div className="container mx-auto px-8">
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="text-center mt-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="mb-20"
         >
-          <div className="bg-gradient-to-r from-primary-50 to-primary-100 rounded-2xl p-8 sm:p-12">
-            <h3 className="text-2xl sm:text-3xl font-serif text-gray-900 mb-4">
-              Ready to Start Your Dream Project?
-            </h3>
-            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-              Join our portfolio of satisfied clients. Let our expert team bring your vision to life with 
-              the same attention to detail and quality craftsmanship showcased in these projects.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/quote"
-                className="inline-flex items-center justify-center px-8 py-4 bg-primary text-white rounded-full font-semibold hover:bg-primary-dark transition-all duration-300 transform hover:scale-105 shadow-lg"
-              >
-                Schedule Free Consultation
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-              <Link
-                href="/gallery"
-                className="inline-flex items-center justify-center px-8 py-4 border-2 border-primary text-primary rounded-full font-semibold hover:bg-primary hover:text-white transition-all duration-300"
-              >
-                View Complete Portfolio
-              </Link>
-            </div>
+          <span className="text-sm font-medium text-gray-500 tracking-[0.2em] uppercase">
+            Portfolio
+          </span>
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mt-4">
+            <h2 className="text-5xl md:text-6xl font-semibold tracking-[-0.03em] mb-6 lg:mb-0">
+              Selected Works
+            </h2>
+            <Link
+              href="/gallery"
+              className="inline-flex items-center gap-2 text-lg font-medium text-gray-900 hover:text-gray-600 transition-colors duration-300"
+            >
+              View All Projects
+              <ArrowRight className="h-5 w-5" />
+            </Link>
           </div>
         </motion.div>
+
+        {/* Gallery Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 50 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="group cursor-pointer"
+              onClick={() => setSelectedProject(project)}
+            >
+              <div className="relative aspect-[4/5] rounded-xl overflow-hidden mb-6">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
+                
+                {/* Hover Icon */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+                    <Plus className="h-8 w-8 text-gray-900" />
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <p className="text-sm text-gray-500 mb-2">{project.category} · {project.year}</p>
+                <h3 className="text-2xl font-medium mb-2">{project.title}</h3>
+                <p className="text-gray-600">{project.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
+
+      {/* Project Modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-8"
+            onClick={() => setSelectedProject(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="relative max-w-5xl w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute -top-12 right-0 text-white text-lg font-medium hover:text-gray-300 transition-colors"
+              >
+                Close
+              </button>
+              
+              <div className="bg-white rounded-2xl overflow-hidden">
+                <div className="relative aspect-[16/10]">
+                  <Image
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    fill
+                    className="object-cover"
+                    sizes="100vw"
+                  />
+                </div>
+                <div className="p-12">
+                  <p className="text-sm text-gray-500 mb-4">
+                    {selectedProject.category} · {selectedProject.year}
+                  </p>
+                  <h3 className="text-4xl font-semibold mb-4">{selectedProject.title}</h3>
+                  <p className="text-xl text-gray-600 mb-8">{selectedProject.description}</p>
+                  <Link
+                    href={`/gallery/${selectedProject.id}`}
+                    className="inline-flex items-center gap-2 text-lg font-medium text-gray-900 hover:text-gray-600 transition-colors duration-300"
+                  >
+                    View Project Details
+                    <ArrowRight className="h-5 w-5" />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
-
-export default GalleryShowcase

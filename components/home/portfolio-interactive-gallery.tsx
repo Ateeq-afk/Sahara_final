@@ -73,7 +73,7 @@ const MediaItem = ({ item, className, onClick }: { item: PortfolioItemType, clas
                     }
                 }
             } catch (error) {
-                console.warn("Video playback failed:", error);
+                // Video playback failed, silently handle
             }
         };
 

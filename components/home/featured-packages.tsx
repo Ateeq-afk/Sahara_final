@@ -1,156 +1,174 @@
 "use client"
 
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
 import Link from 'next/link'
-import { Check } from 'lucide-react'
-import { motion } from 'framer-motion'
-import { Button } from '@/components/ui/button'
+import { Check, Sparkles } from 'lucide-react'
 
 const packages = [
   {
     title: "Essential",
+    subtitle: "Thoughtful Design",
     price: "₹1,599",
     unit: "per sq.ft",
-    description: "Quality construction with standard materials and finishes",
+    description: "Quality construction meeting international standards",
     features: [
-      "RCC Structure",
-      "Standard Bathroom Fittings",
-      "Basic Electrical Layout",
-      "Standard Flooring",
-      "Basic Kitchen Setup",
+      "Premium RCC Structure",
+      "Designer Bathroom Fittings",
+      "Modern Electrical Systems",
+      "Quality Flooring Options",
+      "Contemporary Kitchen",
+      "3-Year Warranty"
     ],
+    accent: "bg-gray-900",
     popular: false
   },
   {
     title: "Premium",
+    subtitle: "Elevated Living",
     price: "₹2,299",
     unit: "per sq.ft",
-    description: "Superior construction with premium materials and modern interiors",
+    description: "Superior craftsmanship with curated design elements",
     features: [
-      "Enhanced RCC Structure",
-      "Premium Bathroom Fittings",
-      "Comprehensive Electrical Layout",
-      "Premium Flooring Options",
-      "Modern Kitchen Setup",
-      "Basic Interior Design",
-      "Quality Paint & Finishes"
+      "Reinforced RCC Structure",
+      "Luxury Bathroom Suites",
+      "Smart Electrical Systems",
+      "Premium Wood Flooring",
+      "Modular Kitchen Design",
+      "Interior Consultation",
+      "5-Year Warranty"
     ],
+    accent: "bg-gradient-to-br from-amber-600 to-amber-800",
     popular: true
   },
   {
     title: "Luxury",
+    subtitle: "Bespoke Excellence",
     price: "₹3,499",
     unit: "per sq.ft",
-    description: "Exclusive construction with high-end materials and bespoke interiors",
+    description: "Exclusive materials and personalized design solutions",
     features: [
-      "Superior RCC Structure",
-      "Luxury Bathroom Fittings",
-      "Advanced Electrical Layout",
-      "Imported Flooring Options",
-      "Customized Kitchen Setup",
-      "Premium Interior Design",
-      "Premium Paint & Finishes",
-      "Smart Home Integration"
+      "Advanced Structural Design",
+      "Ultra-Luxury Fixtures",
+      "Home Automation Ready",
+      "Imported Italian Marble",
+      "Custom Kitchen Solutions",
+      "Full Interior Design",
+      "10-Year Warranty"
     ],
+    accent: "bg-gradient-to-br from-gray-700 to-gray-900",
     popular: false
   }
 ]
 
-const FeaturedPackages = () => {
+export default function FeaturedPackages() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+
   return (
-    <section className="py-20 sm:py-24 lg:py-28 bg-gradient-to-b from-white to-primary-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={ref} className="py-32 bg-gradient-to-b from-gray-50 to-white">
+      <div className="container mx-auto px-8">
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16 sm:mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-20"
         >
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-4 py-2 text-sm font-medium mb-4">
-            <Check className="h-4 w-4" />
-            Our Packages
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-gray-900 mb-6">
-            Transparent Pricing for Every Need
+          <span className="text-sm font-medium text-gray-500 tracking-[0.2em] uppercase">
+            Packages
+          </span>
+          <h2 className="text-5xl md:text-6xl font-semibold mt-4 mb-6 tracking-[-0.03em]">
+            Transparent Excellence
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Choose from our carefully curated packages designed to fit every budget and requirement. 
-            All packages include premium materials and expert craftsmanship.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Choose your path to exceptional living. Each package is crafted to deliver 
+            uncompromising quality at every level.
           </p>
         </motion.div>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+
+        {/* Packages Grid */}
+        <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {packages.map((pkg, index) => (
-            <motion.div 
+            <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className={`relative bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 ${
-                pkg.popular 
-                  ? 'ring-4 ring-primary shadow-2xl' 
-                  : 'ring-1 ring-gray-100 shadow-lg hover:shadow-xl'
-              }`}
+              initial={{ opacity: 0, y: 50 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="relative group"
             >
-              {pkg.popular && (
-                <div className="absolute top-6 right-6">
-                  <span className="bg-primary text-white text-sm font-medium px-4 py-1 rounded-full shadow-md">
-                    Most Popular
-                  </span>
+              <div className={`relative bg-white rounded-2xl p-8 h-full transition-all duration-500 ${
+                pkg.popular 
+                  ? 'shadow-2xl scale-105' 
+                  : 'shadow-lg hover:shadow-2xl'
+              }`}>
+                {/* Popular Badge */}
+                {pkg.popular && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                    <div className="bg-amber-600 text-white px-6 py-2 rounded-full text-sm font-medium flex items-center gap-2">
+                      <Sparkles className="h-4 w-4" />
+                      Recommended
+                    </div>
+                  </div>
+                )}
+
+                {/* Package Header */}
+                <div className="mb-8">
+                  <p className="text-sm text-gray-500 font-medium mb-2">{pkg.subtitle}</p>
+                  <h3 className="text-3xl font-semibold mb-4">{pkg.title}</h3>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-4xl font-semibold">{pkg.price}</span>
+                    <span className="text-gray-500">{pkg.unit}</span>
+                  </div>
+                  <p className="text-gray-600 mt-4">{pkg.description}</p>
                 </div>
-              )}
-              
-              <div className="p-8">
-                <h3 className="font-serif text-2xl text-gray-900 mb-2">{pkg.title}</h3>
-                <div className="mb-4">
-                  <span className="font-serif text-4xl text-gray-900">{pkg.price}</span>
-                  <span className="text-gray-600 ml-1">{pkg.unit}</span>
-                </div>
-                <p className="text-gray-600 mb-8 min-h-[48px]">{pkg.description}</p>
-                
+
+                {/* Features */}
                 <ul className="space-y-4 mb-8">
                   {pkg.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <Check className="h-5 w-5 text-primary mr-3 mt-0.5 shrink-0" />
+                    <li key={idx} className="flex items-start gap-3">
+                      <div className={`w-5 h-5 rounded-full ${pkg.accent} flex items-center justify-center shrink-0 mt-0.5`}>
+                        <Check className="h-3 w-3 text-white" />
+                      </div>
                       <span className="text-gray-700">{feature}</span>
                     </li>
                   ))}
                 </ul>
-                
-                <Button 
-                  className={`w-full rounded-xl shadow-md ${
-                    pkg.popular 
-                      ? 'bg-primary hover:bg-primary-dark text-white' 
-                      : 'bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white'
+
+                {/* CTA Button */}
+                <Link
+                  href="/quote"
+                  className={`block text-center py-4 px-8 rounded-full font-medium transition-all duration-300 ${
+                    pkg.popular
+                      ? 'bg-amber-600 text-white hover:bg-amber-700'
+                      : 'bg-gray-900 text-white hover:bg-gray-800'
                   }`}
-                  size="lg"
-                  asChild
                 >
-                  <Link href="/quote">Get Started</Link>
-                </Button>
+                  Get Started
+                </Link>
               </div>
             </motion.div>
           ))}
         </div>
-        
+
+        {/* Bottom Note */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="text-center mt-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-center mt-16"
         >
-          <Link 
-            href="/packages" 
-            className="text-primary hover:text-primary-dark font-medium underline underline-offset-4"
+          <p className="text-gray-600 mb-4">
+            All packages include project management, quality assurance, and post-completion support.
+          </p>
+          <Link
+            href="/packages"
+            className="text-lg font-medium text-gray-900 hover:text-gray-600 transition-colors"
           >
-            View detailed package information
+            View detailed specifications →
           </Link>
         </motion.div>
       </div>
     </section>
   )
 }
-
-export default FeaturedPackages

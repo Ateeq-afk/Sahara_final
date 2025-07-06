@@ -1,172 +1,101 @@
 "use client"
 
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
-import { Award, Users, Building, MapPin, ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 
-const achievements = [
+const values = [
   {
-    icon: Building,
-    number: "500+",
-    label: "Projects Completed",
-    description: "Successful construction and interior projects across Bangalore"
+    title: "Design Excellence",
+    description: "Every detail matters. We obsess over proportions, materials, and finishes to create spaces that inspire.",
   },
   {
-    icon: Users,
-    number: "20+",
-    label: "Years Experience",
-    description: "Two decades of experience in construction and interior design"
+    title: "Crafted Quality",
+    description: "Partnering with master artisans who share our commitment to exceptional workmanship and timeless beauty.",
   },
   {
-    icon: Award,
-    number: "4.8★",
-    label: "Client Rating",
-    description: "Consistently high ratings from satisfied clients"
+    title: "Client Partnership",
+    description: "Your vision guides our process. We listen, collaborate, and refine until every element exceeds expectations.",
   },
-  {
-    icon: MapPin,
-    number: "100%",
-    label: "Bangalore Focused",
-    description: "Deep understanding of local regulations and market"
-  }
 ]
 
-const AboutSection = () => {
+export default function AboutSection() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+
   return (
-    <section className="py-20 sm:py-24 lg:py-28 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Content */}
+    <section ref={ref} className="py-32 bg-gradient-to-b from-white to-gray-50">
+      <div className="container mx-auto px-8">
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
+          {/* Left Content */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, x: -50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-4 py-2 text-sm font-medium mb-6">
-              <Building className="h-4 w-4" />
-              About Sahara Developers
-            </div>
-            
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-gray-900 mb-6">
-              Leading Contractors in Bangalore Since 2003
+            <h2 className="text-5xl md:text-6xl font-semibold mb-8 tracking-[-0.03em]">
+              Defining luxury
+              <br />
+              through design
             </h2>
             
-            <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
-              <p>
-                Sahara Developers stands as Bangalore's most trusted name in construction and interior design. 
-                As premier contractors in Bangalore, we have been transforming visions into reality for over two decades, 
-                delivering exceptional residential and commercial projects across the city.
-              </p>
-              
-              <p>
-                Our expertise as construction contractors in Bangalore encompasses everything from luxury villa construction 
-                to sophisticated commercial spaces and innovative interior design solutions. We understand the unique challenges of 
-                building in Bangalore's dynamic environment and leverage our deep local market knowledge to deliver projects that 
-                exceed expectations.
-              </p>
-              
-              <p>
-                What sets us apart as building contractors in Bangalore is our unwavering commitment to quality, 
-                transparency, and timely delivery. Every project reflects our core values, 
-                making us the preferred choice for discerning clients across the city.
-              </p>
-            </div>
+            <p className="text-xl text-gray-600 mb-12 leading-relaxed">
+              For over two decades, Sahara has been at the forefront of luxury interior design 
+              and construction in Bangalore. We don't just create spaces — we craft experiences 
+              that elevate everyday living.
+            </p>
 
-            {/* Mission & Values */}
-            <div className="mt-8 p-6 bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl border border-primary/20 shadow-lg">
-              <h3 className="text-xl font-serif font-semibold text-gray-900 mb-4">Our Mission</h3>
-              <p className="text-gray-700 leading-relaxed">
-                To be the most trusted construction and interior design partner in Bangalore, delivering innovative, 
-                sustainable, and high-quality solutions that enhance lives and create lasting value for our clients and communities.
-              </p>
-            </div>
-
-            <div className="mt-8 flex flex-col sm:flex-row gap-4">
-              <Button
-                asChild
-                className="bg-primary hover:bg-primary-dark text-white rounded-full px-8 py-3"
-              >
-                <Link href="/quote">
-                  Get Free Consultation
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="border-primary text-primary hover:bg-primary hover:text-white rounded-full px-8 py-3"
-              >
-                <Link href="/gallery">View Our Projects</Link>
-              </Button>
+            <div className="space-y-8">
+              {values.map((value, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+                  className="border-l-2 border-gray-200 pl-6 hover:border-gray-400 transition-colors duration-300"
+                >
+                  <h3 className="text-xl font-medium mb-2">{value.title}</h3>
+                  <p className="text-gray-600">{value.description}</p>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
 
-          {/* Image & Stats */}
+          {/* Right Image */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
             className="relative"
           >
-            {/* Main Image */}
-            <div className="relative h-96 lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
               <Image
-                src="https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg"
-                alt="Sahara Developers - Premier Construction Company in Bangalore"
+                src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=90"
+                alt="Luxury Interior Design Process"
                 fill
                 className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-              
-              {/* Floating Achievement Card */}
-              <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="text-2xl font-bold text-primary">500+</div>
-                    <div className="text-sm text-gray-600">Happy Clients</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-primary">20+</div>
-                    <div className="text-sm text-gray-600">Years Experience</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-primary">4.8★</div>
-                    <div className="text-sm text-gray-600">Client Rating</div>
-                  </div>
-                </div>
+            </div>
+            
+            {/* Floating Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="absolute -bottom-10 -left-10 bg-white p-8 rounded-xl shadow-xl max-w-xs"
+            >
+              <div className="flex items-baseline gap-2 mb-2">
+                <span className="text-5xl font-semibold">500+</span>
+                <span className="text-gray-600">projects</span>
               </div>
-            </div>
-
-            {/* Achievement Grid */}
-            <div className="grid grid-cols-2 gap-4 mt-8">
-              {achievements.map((achievement, index) => {
-                const Icon = achievement.icon
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="bg-white p-4 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-                  >
-                    <Icon className="h-8 w-8 text-primary mb-3" />
-                    <div className="text-xl font-bold text-gray-900 mb-1">{achievement.number}</div>
-                    <div className="text-sm font-semibold text-gray-700 mb-2">{achievement.label}</div>
-                    <div className="text-xs text-gray-600 leading-relaxed">{achievement.description}</div>
-                  </motion.div>
-                )
-              })}
-            </div>
+              <p className="text-sm text-gray-500">
+                Transforming visions into reality across residential and commercial spaces
+              </p>
+            </motion.div>
           </motion.div>
         </div>
       </div>
     </section>
   )
 }
-
-export default AboutSection
