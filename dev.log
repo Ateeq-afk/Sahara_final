@@ -927,3 +927,1499 @@ TypeError: e[o] is not a function
     at t (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:100584)
  GET /.well-known/appspecific/com.chrome.devtools.json 500 in 19ms
  ✓ Compiled in 780ms (1692 modules)
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/page.js:4:28244
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/page.js:4:28297)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:1962:32)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:818:17)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:359:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './682.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/pages/_document.js:1:335
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/pages/_document.js:1:376)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:72:65
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:71:33)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ GET / 500 in 82ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 749ms (1695 modules)
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2624
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2673)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2090:30)
+    at async pipe.req.req (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2056:30)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:374:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2624
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2673)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2090:30)
+    at async pipe.req.req (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2056:30)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:374:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2624
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2673)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2090:30)
+    at async pipe.req.req (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2056:30)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:374:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2624
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2673)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2090:30)
+    at async pipe.req.req (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2056:30)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:374:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2624
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2673)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2090:30)
+    at async pipe.req.req (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2056:30)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:374:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ GET /_next/static/chunks/fallback/webpack.js?ts=1751834496968 500 in 818ms
+ GET /_next/static/chunks/fallback/main.js?ts=1751834496968 500 in 796ms
+ GET /_next/static/chunks/fallback/pages/_app.js?ts=1751834496968 500 in 794ms
+ GET /_next/static/chunks/fallback/pages/_error.js?ts=1751834496968 500 in 792ms
+ GET /_next/static/chunks/fallback/react-refresh.js?ts=1751834496968 500 in 795ms
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/page.js:4:28244
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/page.js:4:28297)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:1962:32)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:818:17)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:359:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './682.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/pages/_document.js:1:335
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/pages/_document.js:1:376)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:72:65
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:71:33)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ GET / 500 in 33ms
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2624
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2673)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2090:30)
+    at async pipe.req.req (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2056:30)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:374:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2624
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2673)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2090:30)
+    at async pipe.req.req (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2056:30)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:374:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2624
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2673)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2090:30)
+    at async pipe.req.req (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2056:30)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:374:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ GET /_next/static/chunks/fallback/webpack.js?ts=1751834499980 500 in 31ms
+ GET /_next/static/chunks/fallback/main.js?ts=1751834499980 500 in 22ms
+ GET /_next/static/chunks/fallback/pages/_app.js?ts=1751834499980 500 in 21ms
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2624
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2673)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2090:30)
+    at async pipe.req.req (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2056:30)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:374:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2624
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2673)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2090:30)
+    at async pipe.req.req (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2056:30)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:374:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ GET /_next/static/chunks/fallback/pages/_error.js?ts=1751834499980 500 in 27ms
+ GET /_next/static/chunks/fallback/react-refresh.js?ts=1751834499980 500 in 26ms
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/page.js:4:28244
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/page.js:4:28297)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:1962:32)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:818:17)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:359:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './682.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/pages/_document.js:1:335
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/pages/_document.js:1:376)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:72:65
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:71:33)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ GET / 500 in 42ms
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2624
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2673)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2090:30)
+    at async pipe.req.req (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2056:30)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:374:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2624
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2673)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2090:30)
+    at async pipe.req.req (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2056:30)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:374:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2624
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2673)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2090:30)
+    at async pipe.req.req (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2056:30)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:374:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2624
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2673)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2090:30)
+    at async pipe.req.req (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2056:30)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:374:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2624
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2673)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2090:30)
+    at async pipe.req.req (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2056:30)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:374:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js
+- /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1401:15)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at __webpack_require__.f.require (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:198:28)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js:162:22)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2624
+    at Object.<anonymous> (/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js:1:2673)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1487:12)
+    at mod.require (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:135:16)
+    at requirePage (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js:109:84)
+    at /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:84
+    at async loadComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/next-server.js:714:36)
+    at async DevServer.findPageComponents (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2090:30)
+    at async pipe.req.req (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:2056:30)
+    at async DevServer.pipeImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/base-server.js:922:25)
+    at async /Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:374:24)
+    at async requestHandlerImpl (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/webpack-runtime.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/.next/server/app/_not-found/page.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/require.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/load-components.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/build/utils.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/router-server.js',
+    '/Users/ateeq/Documents/GitHub/Sahara_final/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ GET /_next/static/chunks/fallback/webpack.js 500 in 48ms
+ GET /_next/static/chunks/fallback/react-refresh.js 500 in 44ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 500 in 44ms
+ GET /_next/static/chunks/fallback/main.js 500 in 40ms
+ GET /_next/static/chunks/fallback/pages/_app.js 500 in 37ms
+ GET /_next/static/chunks/fallback/pages/_error.js 500 in 35ms
