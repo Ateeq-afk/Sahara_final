@@ -9,18 +9,14 @@ import {
   ArrowRight, 
   Sparkles, 
   Building2, 
-  Ruler, 
-  HardHat,
   Shield,
   Clock,
-  Award,
   Users,
   Hammer,
   Home,
   ChevronRight,
   Star,
-  Zap,
-  Target,
+  Award,
   Layers
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -79,28 +75,24 @@ const processSteps = [
     number: "01",
     title: "Consultation & Planning",
     description: "Understanding your vision and requirements",
-    icon: Target,
     details: ["Site Analysis", "Budget Planning", "Design Concepts", "Timeline Setup"]
   },
   {
     number: "02",
     title: "Design & Architecture",
     description: "Creating detailed blueprints and 3D visualizations",
-    icon: Ruler,
     details: ["Architectural Plans", "3D Modeling", "Material Selection", "Permits & Approvals"]
   },
   {
     number: "03",
     title: "Construction Phase",
     description: "Expert execution with quality materials",
-    icon: HardHat,
     details: ["Foundation Work", "Structure Building", "MEP Installation", "Interior Work"]
   },
   {
     number: "04",
     title: "Quality & Handover",
     description: "Thorough inspection and project delivery",
-    icon: Award,
     details: ["Quality Checks", "Finishing Touches", "Documentation", "Key Handover"]
   }
 ]
@@ -446,7 +438,6 @@ export default function ConstructionPage() {
             
             <div className="space-y-24">
               {processSteps.map((step, index) => {
-                const Icon = step.icon
                 const isEven = index % 2 === 0
                 
                 return (
@@ -469,7 +460,7 @@ export default function ConstructionPage() {
                           <div className={`grid grid-cols-2 gap-3 ${isEven ? 'lg:text-right' : ''}`}>
                             {step.details.map((detail, i) => (
                               <div key={i} className={`flex items-center gap-2 ${isEven ? 'lg:justify-end' : ''}`}>
-                                <Zap className="w-4 h-4 text-amber-600" />
+                                <div className="w-2 h-2 bg-amber-600 rounded-full" />
                                 <span className="text-sm text-gray-700">{detail}</span>
                               </div>
                             ))}
@@ -477,13 +468,13 @@ export default function ConstructionPage() {
                         </div>
                       </div>
 
-                      {/* Icon */}
+                      {/* Number Circle */}
                       <div className="hidden lg:flex items-center justify-center">
                         <motion.div
-                          whileHover={{ scale: 1.1, rotate: 5 }}
-                          className="w-24 h-24 rounded-full bg-gradient-to-r from-amber-400 to-amber-600 flex items-center justify-center shadow-2xl shadow-amber-500/20"
+                          whileHover={{ scale: 1.05 }}
+                          className="w-20 h-20 rounded-full bg-gradient-to-br from-gray-900 to-gray-700 flex items-center justify-center shadow-2xl"
                         >
-                          <Icon className="w-12 h-12 text-white" />
+                          <span className="text-3xl font-semibold text-white">{step.number}</span>
                         </motion.div>
                       </div>
 

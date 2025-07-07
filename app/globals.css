@@ -28,7 +28,7 @@
   --space-2xl: calc(var(--space-unit) * 8);
   --space-3xl: calc(var(--space-unit) * 12);
   
-  /* Premium typography scale */
+  /* Premium typography scale - Desktop */
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
@@ -41,6 +41,20 @@
   --font-size-6xl: 3.75rem;
   --font-size-7xl: 4.5rem;
   --font-size-8xl: 6rem;
+  
+  /* Mobile typography scale */
+  --font-size-xs-mobile: 0.7rem;
+  --font-size-sm-mobile: 0.8rem;
+  --font-size-base-mobile: 0.9rem;
+  --font-size-lg-mobile: 1rem;
+  --font-size-xl-mobile: 1.125rem;
+  --font-size-2xl-mobile: 1.25rem;
+  --font-size-3xl-mobile: 1.5rem;
+  --font-size-4xl-mobile: 1.875rem;
+  --font-size-5xl-mobile: 2.25rem;
+  --font-size-6xl-mobile: 2.75rem;
+  --font-size-7xl-mobile: 3.25rem;
+  --font-size-8xl-mobile: 4rem;
   
   /* Letter spacing */
   --tracking-tight: -0.025em;
@@ -156,13 +170,23 @@
   h5 { font-size: var(--font-size-2xl); }
   h6 { font-size: var(--font-size-xl); }
   
-  @media (max-width: 768px) {
-    h1 { font-size: var(--font-size-5xl); }
-    h2 { font-size: var(--font-size-4xl); }
-    h3 { font-size: var(--font-size-3xl); }
-    h4 { font-size: var(--font-size-2xl); }
-    h5 { font-size: var(--font-size-xl); }
-    h6 { font-size: var(--font-size-lg); }
+  /* Responsive typography */
+  @media (max-width: 640px) {
+    h1 { font-size: var(--font-size-5xl-mobile); }
+    h2 { font-size: var(--font-size-4xl-mobile); }
+    h3 { font-size: var(--font-size-3xl-mobile); }
+    h4 { font-size: var(--font-size-2xl-mobile); }
+    h5 { font-size: var(--font-size-xl-mobile); }
+    h6 { font-size: var(--font-size-lg-mobile); }
+  }
+  
+  @media (min-width: 641px) and (max-width: 768px) {
+    h1 { font-size: calc(var(--font-size-5xl-mobile) + ((var(--font-size-5xl) - var(--font-size-5xl-mobile)) * 0.5)); }
+    h2 { font-size: calc(var(--font-size-4xl-mobile) + ((var(--font-size-4xl) - var(--font-size-4xl-mobile)) * 0.5)); }
+    h3 { font-size: calc(var(--font-size-3xl-mobile) + ((var(--font-size-3xl) - var(--font-size-3xl-mobile)) * 0.5)); }
+    h4 { font-size: calc(var(--font-size-2xl-mobile) + ((var(--font-size-2xl) - var(--font-size-2xl-mobile)) * 0.5)); }
+    h5 { font-size: calc(var(--font-size-xl-mobile) + ((var(--font-size-xl) - var(--font-size-xl-mobile)) * 0.5)); }
+    h6 { font-size: calc(var(--font-size-lg-mobile) + ((var(--font-size-lg) - var(--font-size-lg-mobile)) * 0.5)); }
   }
   
   /* Smooth scrolling */
@@ -179,5 +203,82 @@
     outline: 2px solid hsl(var(--accent));
     outline-offset: 2px;
     border-radius: 4px;
+  }
+  
+  /* Gradient animation */
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  .animate-gradient {
+    animation: gradient 6s ease infinite;
+    background-size: 300% 300%;
+  }
+}
+
+@layer utilities {
+  /* Responsive container padding */
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Responsive section spacing */
+  .section-spacing {
+    @apply py-12 sm:py-16 md:py-20 lg:py-24;
+  }
+  
+  /* Mobile-first responsive text */
+  .text-responsive-xs {
+    font-size: var(--font-size-xs-mobile);
+    @apply sm:text-xs;
+  }
+  .text-responsive-sm {
+    font-size: var(--font-size-sm-mobile);
+    @apply sm:text-sm;
+  }
+  .text-responsive-base {
+    font-size: var(--font-size-base-mobile);
+    @apply sm:text-base;
+  }
+  .text-responsive-lg {
+    font-size: var(--font-size-lg-mobile);
+    @apply sm:text-lg;
+  }
+  .text-responsive-xl {
+    font-size: var(--font-size-xl-mobile);
+    @apply sm:text-xl;
+  }
+  
+  /* Responsive grid utilities */
+  .grid-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8;
+  }
+  
+  /* Responsive flex utilities */
+  .flex-responsive {
+    @apply flex flex-col sm:flex-row gap-4 sm:gap-6;
+  }
+  
+  /* Hide scrollbar on mobile for better UX */
+  @media (max-width: 640px) {
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  }
+  
+  /* Mobile-optimized tap targets */
+  .tap-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  /* Responsive max-width containers */
+  .max-w-responsive {
+    @apply max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl;
   }
 }

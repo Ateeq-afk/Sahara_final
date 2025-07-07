@@ -3,27 +3,34 @@
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ChevronDown } from 'lucide-react'
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion'
+import { Menu, X, ChevronDown, Search, ShoppingBag } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import Logo from '@/components/logo'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [hidden, setHidden] = useState(false)
+  const [lastScrollY, setLastScrollY] = useState(0)
   const pathname = usePathname()
+  const { scrollY } = useScroll()
 
   // Pages that should always have a solid navbar background
   const solidNavbarPages = ['/quote', '/contact', '/packages', '/gallery', '/services', '/about', '/tools', '/blog']
   const shouldUseSolidNavbar = solidNavbarPages.some(page => pathname.startsWith(page)) || pathname !== '/'
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10)
+  // Hide/show navbar on scroll
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = lastScrollY
+    if (latest > previous && latest > 150) {
+      setHidden(true)
+    } else {
+      setHidden(false)
     }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    setLastScrollY(latest)
+    setScrolled(latest > 10)
+  })
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -42,121 +49,140 @@ const Navbar = () => {
 
   const navLinks = [
     { title: 'Services', href: '/services' },
+    { title: 'Interior Design', href: '/services/interior-decor' },
+    { title: 'Projects', href: '/gallery' },
     { title: 'Packages', href: '/packages' },
-    { title: 'Gallery', href: '/gallery' },
-    { title: 'Blog', href: '/blog' },
     { title: 'About', href: '/about' },
     { title: 'Contact', href: '/contact' },
   ]
 
   return (
     <>
-      <header 
+      <motion.header 
+        animate={{
+          y: hidden ? -100 : 0,
+        }}
+        transition={{
+          duration: 0.3,
+          ease: [0.25, 0.46, 0.45, 0.94]
+        }}
         className={cn(
-          'fixed top-0 w-full z-50 transition-all duration-500',
+          'fixed top-0 w-full z-50 transition-all duration-700',
           isNavbarSolid 
-            ? 'bg-white/80 backdrop-blur-xl backdrop-saturate-150 border-b border-gray-200/50'
-            : 'bg-gray-900/40 backdrop-blur-xl backdrop-saturate-150 border-b border-white/10'
+            ? 'bg-white/70 backdrop-blur-2xl backdrop-saturate-200 supports-backdrop-blur:bg-white/60'
+            : 'bg-gray-900/20 backdrop-blur-2xl backdrop-saturate-200 supports-backdrop-blur:bg-gray-900/10'
         )}
+        style={{
+          borderBottom: isNavbarSolid ? '0.5px solid rgba(0, 0, 0, 0.08)' : '0.5px solid rgba(255, 255, 255, 0.08)'
+        }}
       >
-        <div className="container mx-auto px-6">
-          <nav className="h-[72px] flex items-center justify-between">
+        <div className="relative">
+          <nav className="h-20 max-w-[1200px] mx-auto px-4 sm:px-6 flex items-center justify-between">
             {/* Logo */}
             <Link 
               href="/" 
-              className="relative z-10 flex items-center gap-3 group"
+              className="relative z-10 flex items-center"
             >
               <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.2 }}
               >
                 <Logo 
                   variant={isNavbarSolid ? 'default' : 'dark'} 
-                  className="h-8 w-auto" 
+                  className="h-10 w-auto" 
                 />
               </motion.div>
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-8">
+            {/* Desktop Navigation - Centered */}
+            <div className="hidden md:flex items-center gap-7 absolute left-1/2 -translate-x-1/2">
               {navLinks.map((link) => (
                 <Link
                   key={link.title}
                   href={link.href}
                   className={cn(
-                    "text-[15px] font-medium tracking-[-0.01em] transition-all duration-300 relative",
+                    "text-sm font-normal tracking-[-0.01em] transition-all duration-200 relative py-1",
                     isNavbarSolid 
-                      ? "text-gray-800 hover:text-gray-900" 
-                      : "text-white/90 hover:text-white",
-                    pathname === link.href && "text-amber-600"
+                      ? pathname === link.href
+                        ? "text-gray-900"
+                        : "text-gray-600 hover:text-gray-900" 
+                      : pathname === link.href
+                        ? "text-white"
+                        : "text-white/80 hover:text-white"
                   )}
                 >
                   {link.title}
-                  {pathname === link.href && (
-                    <motion.span
-                      layoutId="navbar-indicator"
-                      className="absolute -bottom-[21px] left-0 right-0 h-[2px] bg-amber-600"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
                 </Link>
               ))}
             </div>
 
-            {/* Desktop CTA */}
-            <div className="hidden lg:block">
+            {/* Desktop Actions */}
+            <div className="hidden md:flex items-center gap-5">
+              <button
+                className={cn(
+                  "p-1 transition-opacity duration-200",
+                  isNavbarSolid 
+                    ? "text-gray-600 hover:text-gray-900" 
+                    : "text-white/80 hover:text-white"
+                )}
+                aria-label="Search"
+              >
+                <Search className="h-5 w-5" />
+              </button>
+              
               <Link
                 href="/quote"
                 className={cn(
-                  "inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[15px] font-medium transition-all duration-300",
-                  isNavbarSolid
-                    ? "bg-gray-900 text-white hover:bg-black"
-                    : "bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 border border-white/20"
+                  "text-sm font-normal transition-all duration-200",
+                  isNavbarSolid 
+                    ? "text-gray-600 hover:text-gray-900" 
+                    : "text-white/80 hover:text-white"
                 )}
               >
-                Get a Quote
+                Get Quote
               </Link>
             </div>
 
             {/* Mobile Menu Button */}
             <button
               className={cn(
-                "lg:hidden relative w-10 h-10 flex items-center justify-center rounded-lg transition-colors",
-                isNavbarSolid 
-                  ? "hover:bg-gray-100" 
-                  : "hover:bg-white/10"
+                "md:hidden relative w-9 h-9 flex items-center justify-center -mr-2",
+                "touch-manipulation"
               )}
               onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle menu"
+              aria-label="Menu"
             >
-              <div className="relative w-5 h-4 flex flex-col justify-between">
+              <div className="relative w-[18px] h-[14px] flex flex-col justify-between">
                 <motion.span
                   animate={isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
                   className={cn(
-                    "block h-0.5 w-5 rounded-full transition-colors origin-left",
-                    isNavbarSolid ? "bg-gray-800" : "bg-white"
+                    "block h-[1.5px] w-full rounded-sm transition-colors origin-left",
+                    isNavbarSolid ? "bg-gray-600" : "bg-white/80"
                   )}
                 />
                 <motion.span
                   animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+                  transition={{ duration: 0.2 }}
                   className={cn(
-                    "block h-0.5 w-5 rounded-full transition-colors",
-                    isNavbarSolid ? "bg-gray-800" : "bg-white"
+                    "block h-[1.5px] w-full rounded-sm transition-colors",
+                    isNavbarSolid ? "bg-gray-600" : "bg-white/80"
                   )}
                 />
                 <motion.span
                   animate={isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
                   className={cn(
-                    "block h-0.5 w-5 rounded-full transition-colors origin-left",
-                    isNavbarSolid ? "bg-gray-800" : "bg-white"
+                    "block h-[1.5px] w-full rounded-sm transition-colors origin-left",
+                    isNavbarSolid ? "bg-gray-600" : "bg-white/80"
                   )}
                 />
               </div>
             </button>
           </nav>
         </div>
-      </header>
+      </motion.header>
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
@@ -168,67 +194,88 @@ const Navbar = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+              className="fixed inset-0 bg-gray-900/20 backdrop-blur-sm z-40 md:hidden"
               onClick={() => setIsOpen(false)}
             />
 
-            {/* Menu Panel */}
+            {/* Menu Panel - Apple Style */}
             <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed right-0 top-0 bottom-0 w-full max-w-sm bg-white z-50 lg:hidden"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="fixed inset-x-0 top-20 z-50 md:hidden"
             >
-              <div className="flex flex-col h-full">
-                {/* Mobile Menu Header */}
-                <div className="flex items-center justify-between p-6 border-b">
-                  <Logo variant="default" className="h-8 w-auto" />
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
-                  >
-                    <X className="h-5 w-5" />
-                  </button>
-                </div>
-
+              <div className="mx-4 mt-2 rounded-2xl bg-white/95 backdrop-blur-2xl backdrop-saturate-200 shadow-2xl overflow-hidden"
+                style={{
+                  boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3)'
+                }}
+              >
                 {/* Mobile Menu Links */}
-                <div className="flex-1 overflow-y-auto py-8">
-                  <div className="px-6 space-y-1">
-                    {navLinks.map((link, index) => (
-                      <motion.div
-                        key={link.title}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
+                <nav className="py-2">
+                  {navLinks.map((link, index) => (
+                    <motion.div
+                      key={link.title}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ 
+                        delay: index * 0.05,
+                        duration: 0.5,
+                        ease: [0.25, 0.46, 0.45, 0.94]
+                      }}
+                    >
+                      <Link
+                        href={link.href}
+                        onClick={() => setIsOpen(false)}
+                        className={cn(
+                          "block px-5 py-4 text-[17px] transition-all duration-200",
+                          pathname === link.href
+                            ? "text-gray-900 bg-gray-100"
+                            : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                        )}
                       >
-                        <Link
-                          href={link.href}
-                          onClick={() => setIsOpen(false)}
-                          className={cn(
-                            "block py-3 text-[17px] font-medium transition-colors",
-                            pathname === link.href
-                              ? "text-amber-600"
-                              : "text-gray-900 hover:text-amber-600"
-                          )}
-                        >
-                          {link.title}
-                        </Link>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Mobile Menu Footer */}
-                <div className="p-6 border-t">
-                  <Link
-                    href="/quote"
-                    onClick={() => setIsOpen(false)}
-                    className="block w-full py-3 px-6 bg-gray-900 text-white text-center rounded-xl font-medium hover:bg-black transition-colors"
+                        {link.title}
+                      </Link>
+                    </motion.div>
+                  ))}
+                  
+                  {/* Divider */}
+                  <div className="my-2 h-px bg-gray-200/70" />
+                  
+                  {/* Mobile Actions */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ 
+                      delay: navLinks.length * 0.05,
+                      duration: 0.5,
+                      ease: [0.25, 0.46, 0.45, 0.94]
+                    }}
                   >
-                    Get a Quote
-                  </Link>
-                </div>
+                    <button className="w-full text-left px-5 py-4 text-[17px] text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-all duration-200 flex items-center justify-between">
+                      <span>Search</span>
+                      <Search className="h-4 w-4" />
+                    </button>
+                  </motion.div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ 
+                      delay: (navLinks.length + 1) * 0.05,
+                      duration: 0.5,
+                      ease: [0.25, 0.46, 0.45, 0.94]
+                    }}
+                  >
+                    <Link
+                      href="/quote"
+                      onClick={() => setIsOpen(false)}
+                      className="block px-5 py-4 text-[17px] text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-all duration-200"
+                    >
+                      Get Quote
+                    </Link>
+                  </motion.div>
+                </nav>
               </div>
             </motion.div>
           </>

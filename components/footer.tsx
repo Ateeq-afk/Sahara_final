@@ -1,153 +1,193 @@
 import Link from 'next/link'
-import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin, Clock } from 'lucide-react'
+import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin, Clock, ChevronRight } from 'lucide-react'
 import Logo from '@/components/logo'
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-12 sm:py-16 px-4 sm:px-6">
-      <div className="container mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
-          {/* Company Info */}
-          <div className="sm:col-span-2 lg:col-span-1">
-            <div className="mb-6">
-              <Logo variant="dark" className="h-12 w-auto" />
+    <footer className="bg-[#1d1d1f] text-[#f5f5f7]">
+      <div className="container mx-auto max-w-[980px] px-4 sm:px-6">
+        {/* Main Footer Content */}
+        <div className="py-8 sm:py-10 border-b border-[#424245]">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-3 sm:gap-x-6 gap-y-6 sm:gap-y-8 text-[11px] sm:text-xs">
+            {/* Shop and Learn */}
+            <div className="col-span-1">
+              <h3 className="font-medium text-[#f5f5f7] mb-2.5 sm:mb-3 tracking-tight text-[11px] sm:text-xs">Shop and Learn</h3>
+              <ul className="space-y-1.5 sm:space-y-2">
+                {[
+                  { text: "Services", href: "/services" },
+                  { text: "Construction", href: "/services/construction" },
+                  { text: "Interior Design", href: "/services/interior-decor" },
+                  { text: "Renovations", href: "/services/renovations" },
+                  { text: "Packages", href: "/packages" },
+                ].map((link, index) => (
+                  <li key={index}>
+                    <Link 
+                      href={link.href}
+                      className="text-[#a1a1a6] hover:text-[#f5f5f7] transition-colors duration-150 inline-block"
+                    >
+                      {link.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <p className="text-sm text-gray-400 mb-6 leading-relaxed">
-              Premium construction and interior design solutions with a legacy of over 20 years in Bangalore. 
-              Transforming visions into reality with excellence and innovation.
-            </p>
-            <div className="flex space-x-4">
-              <Link 
-                href="https://www.facebook.com/saharadevelopers" 
-                className="text-gray-400 hover:text-primary transition-colors duration-200"
-                aria-label="Follow us on Facebook"
-              >
-                <Facebook className="h-5 w-5" />
-              </Link>
-              <Link 
-                href="https://www.instagram.com/saharadevelopers" 
-                className="text-gray-400 hover:text-primary transition-colors duration-200"
-                aria-label="Follow us on Instagram"
-              >
-                <Instagram className="h-5 w-5" />
-              </Link>
-              <Link 
-                href="https://www.linkedin.com/company/saharadevelopers" 
-                className="text-gray-400 hover:text-primary transition-colors duration-200"
-                aria-label="Connect with us on LinkedIn"
-              >
-                <Linkedin className="h-5 w-5" />
-              </Link>
+
+            {/* Company */}
+            <div className="col-span-1">
+              <h3 className="font-medium text-[#f5f5f7] mb-2.5 sm:mb-3 tracking-tight text-[11px] sm:text-xs">Company</h3>
+              <ul className="space-y-1.5 sm:space-y-2">
+                {[
+                  { text: "About Us", href: "/about" },
+                  { text: "Portfolio", href: "/gallery" },
+                  { text: "Testimonials", href: "/testimonials" },
+                  { text: "Awards", href: "/awards" },
+                  { text: "Blog", href: "/blog" },
+                ].map((link, index) => (
+                  <li key={index}>
+                    <Link 
+                      href={link.href}
+                      className="text-[#a1a1a6] hover:text-[#f5f5f7] transition-colors duration-150 inline-block"
+                    >
+                      {link.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="font-semibold text-white mb-6">Quick Links</h3>
-            <ul className="space-y-4">
-              {[
-                { text: "Our Services", href: "/services" },
-                { text: "Construction", href: "/services/construction" },
-                { text: "Interior Design", href: "/services/interior-decor" },
-                { text: "Packages & Pricing", href: "/packages" },
-                { text: "Project Gallery", href: "/gallery" },
-                { text: "Get a Quote", href: "/quote" }
-              ].map((link, index) => (
-                <li key={index}>
-                  <Link 
-                    href={link.href}
-                    className="text-sm text-gray-400 hover:text-white transition-colors duration-200"
-                  >
-                    {link.text}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+            {/* For Business */}
+            <div className="col-span-1">
+              <h3 className="font-medium text-[#f5f5f7] mb-2.5 sm:mb-3 tracking-tight text-[11px] sm:text-xs">For Business</h3>
+              <ul className="space-y-1.5 sm:space-y-2">
+                {[
+                  { text: "Commercial", href: "/services/construction" },
+                  { text: "Corporate", href: "/services/interior-decor" },
+                  { text: "Turnkey", href: "/services/turnkey" },
+                  { text: "Consultancy", href: "/services" },
+                ].map((link, index) => (
+                  <li key={index}>
+                    <Link 
+                      href={link.href}
+                      className="text-[#a1a1a6] hover:text-[#f5f5f7] transition-colors duration-150 inline-block"
+                    >
+                      {link.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Services */}
-          <div>
-            <h3 className="font-semibold text-white mb-6">Our Expertise</h3>
-            <ul className="space-y-4">
-              {[
-                { text: "Residential Construction", href: "/services/construction" },
-                { text: "Commercial Projects", href: "/services/construction" },
-                { text: "Interior Design", href: "/services/interior-decor" },
-                { text: "Home Renovation", href: "/services/renovations" },
-                { text: "Turnkey Solutions", href: "/services/turnkey" },
-                { text: "Architectural Planning", href: "/services" }
-              ].map((service, index) => (
-                <li key={index}>
-                  <Link 
-                    href={service.href}
-                    className="text-sm text-gray-400 hover:text-white transition-colors duration-200"
-                  >
-                    {service.text}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+            {/* Support */}
+            <div className="col-span-1">
+              <h3 className="font-medium text-[#f5f5f7] mb-2.5 sm:mb-3 tracking-tight text-[11px] sm:text-xs">Support</h3>
+              <ul className="space-y-1.5 sm:space-y-2">
+                {[
+                  { text: "Contact Us", href: "/contact" },
+                  { text: "Get a Quote", href: "/quote" },
+                  { text: "FAQs", href: "/faqs" },
+                  { text: "Timeline", href: "/timeline" },
+                ].map((link, index) => (
+                  <li key={index}>
+                    <Link 
+                      href={link.href}
+                      className="text-[#a1a1a6] hover:text-[#f5f5f7] transition-colors duration-150 inline-block"
+                    >
+                      {link.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Contact Info */}
-          <div>
-            <h3 className="font-semibold text-white mb-6">Contact Us</h3>
-            <ul className="space-y-4">
-              <li className="flex items-start space-x-3">
-                <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm text-gray-400 leading-relaxed">
-                    <strong className="text-white">Sahara Developers</strong><br />
-                    100-feet Ring Road, 8th Main Road,<br />
-                    BTM Layout 1st Stage,<br />
-                    Bangalore - 560029, Karnataka
-                  </p>
-                </div>
-              </li>
-              <li className="flex items-center space-x-3">
-                <Phone className="h-5 w-5 text-primary shrink-0" />
-                <div>
-                  <a 
-                    href="tel:+919591837216" 
-                    className="text-sm text-gray-400 hover:text-white transition-colors"
-                  >
-                    +91 9591 837216
-                  </a>
-                </div>
-              </li>
-              <li className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-primary shrink-0" />
-                <div>
-                  <a 
-                    href="mailto:info@saharadevelopers.com" 
-                    className="text-sm text-gray-400 hover:text-white transition-colors"
-                  >
-                    info@saharadevelopers.com
-                  </a>
-                </div>
-              </li>
-              <li className="flex items-start space-x-3">
-                <Clock className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm text-gray-400">
-                    Mon - Sat: 9:00 AM - 6:00 PM<br />
-                    Sunday: By Appointment
-                  </p>
-                </div>
-              </li>
-            </ul>
+            {/* Sahara Values */}
+            <div className="col-span-2 md:col-span-1">
+              <h3 className="font-medium text-[#f5f5f7] mb-2.5 sm:mb-3 tracking-tight text-[11px] sm:text-xs">Sahara Values</h3>
+              <ul className="space-y-1.5 sm:space-y-2">
+                {[
+                  { text: "Quality", href: "/quality" },
+                  { text: "Sustainability", href: "/sustainability" },
+                  { text: "Innovation", href: "/innovation" },
+                  { text: "Careers", href: "/careers" },
+                ].map((link, index) => (
+                  <li key={index}>
+                    <Link 
+                      href={link.href}
+                      className="text-[#a1a1a6] hover:text-[#f5f5f7] transition-colors duration-150 inline-block"
+                    >
+                      {link.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-12 pt-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center text-sm text-gray-400">
-            <p>&copy; {new Date().getFullYear()} Sahara Developers. All rights reserved.</p>
-            <div className="flex space-x-6 mt-4 sm:mt-0">
-              <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
-              <Link href="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link>
-              <Link href="/sitemap" className="hover:text-white transition-colors">Sitemap</Link>
+        {/* Contact Section */}
+        <div className="py-3 sm:py-4 border-b border-[#424245]">
+          <div className="text-[10px] sm:text-xs leading-relaxed">
+            <p className="text-[#86868b]">
+              More ways to shop: <Link href="/contact" className="text-[#2997ff] hover:underline">Visit our showroom</Link> or <Link href="tel:+919591837216" className="text-[#2997ff] hover:underline">call +91 9591 837216</Link>.
+            </p>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <div className="py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-[10px] sm:text-xs">
+              <p className="text-[#86868b]">
+                Copyright © {new Date().getFullYear()} Sahara Developers. All rights reserved.
+              </p>
+              <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-4">
+                <Link href="/privacy-policy" className="text-[#a1a1a6] hover:text-[#f5f5f7] transition-colors duration-150">
+                  Privacy Policy
+                </Link>
+                <span className="text-[#424245] hidden sm:inline">|</span>
+                <Link href="/terms-of-service" className="text-[#a1a1a6] hover:text-[#f5f5f7] transition-colors duration-150">
+                  Terms of Use
+                </Link>
+                <span className="text-[#424245] hidden sm:inline">|</span>
+                <Link href="/sitemap" className="text-[#a1a1a6] hover:text-[#f5f5f7] transition-colors duration-150">
+                  Site Map
+                </Link>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 sm:gap-4">
+              <Link 
+                href="https://www.facebook.com/saharadevelopers" 
+                className="text-[#86868b] hover:text-[#f5f5f7] transition-colors duration-150"
+                aria-label="Facebook"
+              >
+                <Facebook className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              </Link>
+              <Link 
+                href="https://www.instagram.com/saharadevelopers" 
+                className="text-[#86868b] hover:text-[#f5f5f7] transition-colors duration-150"
+                aria-label="Instagram"
+              >
+                <Instagram className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              </Link>
+              <Link 
+                href="https://www.linkedin.com/company/saharadevelopers" 
+                className="text-[#86868b] hover:text-[#f5f5f7] transition-colors duration-150"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              </Link>
             </div>
           </div>
+        </div>
+
+        {/* Breadcrumb Navigation */}
+        <div className="py-2.5 sm:py-3 text-[10px] sm:text-xs">
+          <nav className="flex items-center gap-1.5 sm:gap-2 text-[#a1a1a6]">
+            <Link href="/" className="hover:text-[#f5f5f7] transition-colors duration-150">
+              <Logo variant="dark" className="h-3.5 w-auto sm:h-4" />
+            </Link>
+            <ChevronRight className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-[#424245]" />
+            <span className="text-[#f5f5f7]">Bangalore</span>
+          </nav>
         </div>
       </div>
     </footer>

@@ -1,10 +1,10 @@
 "use client"
 
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Plus } from 'lucide-react'
 
 const services = [
   {
@@ -13,7 +13,8 @@ const services = [
     subtitle: 'Visionary Design',
     description: 'Creating architectural masterpieces that blend form, function, and sustainability.',
     image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=90',
-    color: 'from-gray-900 to-gray-700',
+    accent: '#1d1d1f',
+    href: '/services/architecture',
   },
   {
     id: '02',
@@ -21,7 +22,8 @@ const services = [
     subtitle: 'Curated Spaces',
     description: 'Transforming interiors into expressions of refined taste and purposeful living.',
     image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=90',
-    color: 'from-amber-900 to-amber-700',
+    accent: '#86868b',
+    href: '/services/interior-decor',
   },
   {
     id: '03',
@@ -29,7 +31,8 @@ const services = [
     subtitle: 'Precision Building',
     description: 'Executing projects with meticulous attention to craftsmanship and quality.',
     image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=90',
-    color: 'from-stone-800 to-stone-600',
+    accent: '#424245',
+    href: '/services/construction',
   },
   {
     id: '04',
@@ -37,7 +40,8 @@ const services = [
     subtitle: 'Thoughtful Revival',
     description: 'Breathing new life into existing spaces while honoring their inherent character.',
     image: 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=1600&q=90',
-    color: 'from-slate-800 to-slate-600',
+    accent: '#6e6e73',
+    href: '/services/renovations',
   },
 ]
 
@@ -45,83 +49,149 @@ export default function ServicesSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [hoveredService, setHoveredService] = useState<string | null>(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  })
+  
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.6, 1, 1, 0.6])
 
   return (
-    <section ref={ref} className="py-32 bg-white">
-      <div className="container mx-auto px-8">
+    <section ref={ref} className="py-24 sm:py-32 lg:py-40 bg-[#fbfbfd]">
+      <div className="max-w-[1480px] mx-auto px-6 lg:px-8">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-16 lg:mb-24"
+          style={{ opacity }}
         >
-          <span className="text-sm font-medium text-gray-500 tracking-[0.2em] uppercase">
-            Our Services
-          </span>
-          <h2 className="text-5xl md:text-6xl font-semibold mt-4 mb-6 tracking-[-0.03em]">
-            Excellence in Every Detail
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We offer a complete ecosystem of services, seamlessly integrated to deliver exceptional results from concept to completion.
-          </p>
+          <motion.h2 
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-gray-900 mb-4 sm:mb-6"
+          >
+            Our expertise.
+            <br />
+            <span className="text-gray-600">
+              Your vision.
+            </span>
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto font-normal"
+          >
+            A complete ecosystem of services, seamlessly integrated to deliver
+            exceptional results from concept to completion.
+          </motion.p>
         </motion.div>
 
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
+        {/* Services Grid - Apple Style */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ 
+                duration: 0.7, 
+                delay: index * 0.1,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
               onMouseEnter={() => setHoveredService(service.id)}
               onMouseLeave={() => setHoveredService(null)}
               className="group relative"
             >
-              <Link href={`/services/${service.title.toLowerCase().replace(' ', '-')}`}>
-                <div className="relative h-[500px] rounded-2xl overflow-hidden cursor-pointer">
-                  {/* Image */}
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
+              <Link href={service.href}>
+                <div className="relative h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] rounded-2xl sm:rounded-3xl overflow-hidden bg-gray-100 cursor-pointer">
+                  {/* Image with Parallax */}
+                  <motion.div
+                    className="absolute inset-0"
+                    animate={{
+                      scale: hoveredService === service.id ? 1.05 : 1
+                    }}
+                    transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  >
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      priority={index < 2}
+                    />
+                  </motion.div>
                   
-                  {/* Gradient Overlay */}
-                  <div className={`absolute inset-0 bg-gradient-to-b ${service.color} opacity-60 group-hover:opacity-70 transition-opacity duration-500`} />
+                  {/* Gradient Overlay - Subtle */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                   
                   {/* Content */}
-                  <div className="absolute inset-0 p-10 flex flex-col justify-between">
-                    <div>
-                      <span className="text-white/80 text-6xl font-light">{service.id}</span>
+                  <div className="absolute inset-0 p-6 sm:p-8 lg:p-12 flex flex-col justify-between">
+                    {/* Service Number */}
+                    <div className="flex justify-between items-start">
+                      <span 
+                        className="text-white/60 text-sm font-medium"
+                        style={{ fontVariantNumeric: 'tabular-nums' }}
+                      >
+                        {service.id}
+                      </span>
+                      
+                      {/* Plus Icon */}
+                      <motion.div
+                        animate={{
+                          rotate: hoveredService === service.id ? 45 : 0,
+                          scale: hoveredService === service.id ? 1.1 : 1
+                        }}
+                        transition={{ duration: 0.3 }}
+                        className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center"
+                      >
+                        <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                      </motion.div>
                     </div>
                     
+                    {/* Bottom Content */}
                     <div>
-                      <p className="text-white/80 text-sm font-medium tracking-[0.2em] uppercase mb-2">
-                        {service.subtitle}
-                      </p>
-                      <h3 className="text-4xl font-semibold text-white mb-4">
+                      {/* Title */}
+                      <h3 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-white mb-2 sm:mb-3">
                         {service.title}
                       </h3>
-                      <p className="text-white/90 text-lg mb-6 leading-relaxed">
+                      
+                      {/* Description */}
+                      <p className="text-white/80 text-sm sm:text-base lg:text-lg mb-4 sm:mb-6 max-w-md leading-relaxed">
                         {service.description}
                       </p>
                       
-                      {/* Arrow */}
+                      {/* CTA */}
                       <motion.div
-                        initial={{ x: 0 }}
-                        animate={{ x: hoveredService === service.id ? 10 : 0 }}
+                        className="inline-flex items-center gap-2 text-white font-medium"
+                        animate={{
+                          gap: hoveredService === service.id ? '12px' : '8px'
+                        }}
                         transition={{ duration: 0.3 }}
-                        className="inline-flex items-center text-white font-medium"
                       >
-                        <span className="mr-2">Explore</span>
-                        <ArrowRight className="h-5 w-5" />
+                        <span className="text-xs sm:text-sm">Learn more</span>
+                        <ArrowRight className="w-4 h-4" />
                       </motion.div>
                     </div>
                   </div>
+                  
+                  {/* Hover Accent Border */}
+                  <motion.div
+                    className="absolute inset-0 rounded-3xl pointer-events-none"
+                    initial={{ opacity: 0 }}
+                    animate={{ 
+                      opacity: hoveredService === service.id ? 1 : 0
+                    }}
+                    transition={{ duration: 0.3 }}
+                    style={{
+                      border: `1px solid ${service.accent}20`,
+                      boxShadow: `inset 0 0 0 1px ${service.accent}10`
+                    }}
+                  />
                 </div>
               </Link>
             </motion.div>
@@ -130,17 +200,17 @@ export default function ServicesSection() {
 
         {/* Bottom CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-center mt-20"
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="text-center mt-16 lg:mt-24"
         >
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 text-lg font-medium text-gray-900 hover:text-gray-600 transition-colors duration-300"
+            className="inline-flex items-center gap-2 text-gray-900 font-medium hover:gap-3 transition-all duration-300 group"
           >
-            View All Services
-            <ArrowRight className="h-5 w-5" />
+            <span>Explore all services</span>
+            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </motion.div>
       </div>

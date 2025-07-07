@@ -61,7 +61,7 @@ export default function HomeHero() {
   }, [])
 
   return (
-    <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
+    <section ref={heroRef} className="relative min-h-screen pt-20 flex items-center justify-center overflow-hidden bg-black">
       {/* Background Image with Parallax */}
       <motion.div 
         className="absolute inset-0"
@@ -133,7 +133,7 @@ export default function HomeHero() {
 
       {/* Main Content */}
       <motion.div 
-        className="relative z-10 container mx-auto px-8"
+        className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8"
         style={{ 
           opacity: opacityTransform,
           y: textYTransform,
@@ -152,7 +152,7 @@ export default function HomeHero() {
           >
             <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-md">
               <Sparkles className="w-4 h-4 text-yellow-400" />
-              <span className="text-white/90 text-sm font-medium tracking-wider">
+              <span className="text-white/90 text-xs sm:text-sm font-medium tracking-wider">
                 PREMIUM CONSTRUCTION & DESIGN
               </span>
             </div>
@@ -176,7 +176,7 @@ export default function HomeHero() {
 
           {/* Main Heading with Split Animation */}
           <div className="mb-8">
-            <motion.h1 className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-[0.9] tracking-tighter">
+            <motion.h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-white leading-[0.9] tracking-tighter">
               {"Crafting".split("").map((char, i) => (
                 <motion.span
                   key={i}
@@ -194,7 +194,7 @@ export default function HomeHero() {
                 </motion.span>
               ))}
             </motion.h1>
-            <motion.h1 className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60 leading-[0.9] tracking-tighter">
+            <motion.h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60 leading-[0.9] tracking-tighter">
               {"Excellence".split("").map((char, i) => (
                 <motion.span
                   key={i}
@@ -219,7 +219,7 @@ export default function HomeHero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.8 }}
-            className="text-xl md:text-2xl lg:text-3xl text-white/80 mb-12 max-w-3xl font-light leading-relaxed"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-white/80 mb-8 sm:mb-10 lg:mb-12 max-w-3xl font-light leading-relaxed"
           >
             Where architectural innovation meets timeless craftsmanship to create 
             <span className="text-white font-medium"> extraordinary living spaces</span>
@@ -230,7 +230,7 @@ export default function HomeHero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1 }}
-            className="flex flex-wrap gap-8 mb-12"
+            className="flex flex-wrap gap-6 sm:gap-8 mb-8 sm:mb-10 lg:mb-12"
           >
             {[
               { number: "500+", label: "Projects Completed" },
@@ -242,11 +242,11 @@ export default function HomeHero() {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ duration: 0.5, delay: 1.2 + i * 0.1 }}
-                  className="text-3xl md:text-4xl font-bold mb-1"
+                  className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1"
                 >
                   {stat.number}
                 </motion.div>
-                <div className="text-sm text-white/60 uppercase tracking-wider">
+                <div className="text-xs sm:text-sm text-white/60 uppercase tracking-wider">
                   {stat.label}
                 </div>
               </div>
@@ -263,7 +263,7 @@ export default function HomeHero() {
             <Button
               asChild
               size="lg"
-              className="group h-16 px-10 text-lg bg-white text-black hover:bg-white/90 rounded-full font-medium transition-all duration-500 shadow-2xl hover:shadow-white/20 hover:scale-105"
+              className="group h-14 sm:h-16 px-6 sm:px-8 lg:px-10 text-base sm:text-lg bg-white text-black hover:bg-white/90 rounded-full font-medium transition-all duration-500 shadow-2xl hover:shadow-white/20 hover:scale-105"
             >
               <Link href="/quote" className="flex items-center gap-3">
                 <span>Start Your Project</span>
@@ -280,7 +280,7 @@ export default function HomeHero() {
               asChild
               size="lg"
               variant="ghost"
-              className="group h-16 px-10 text-lg text-white hover:bg-white/10 rounded-full font-medium backdrop-blur-md transition-all duration-500 border-2 border-white/30 hover:border-white/60 hover:scale-105"
+              className="group h-14 sm:h-16 px-6 sm:px-8 lg:px-10 text-base sm:text-lg text-white hover:bg-white/10 rounded-full font-medium backdrop-blur-md transition-all duration-500 border-2 border-white/30 hover:border-white/60 hover:scale-105"
             >
               <Link href="/gallery" className="flex items-center gap-3">
                 <Play className="h-5 w-5" />
@@ -308,7 +308,7 @@ export default function HomeHero() {
       </motion.div>
 
       {/* Enhanced Image Indicators */}
-      <div className="absolute bottom-12 right-12 flex items-center gap-4 z-20">
+      <div className="absolute bottom-8 sm:bottom-12 right-4 sm:right-8 lg:right-12 flex items-center gap-3 sm:gap-4 z-20">
         <div className="flex gap-2">
           {heroImages.map((_, index) => (
             <button
@@ -316,7 +316,7 @@ export default function HomeHero() {
               onClick={() => setCurrentImage(index)}
               className="relative group"
             >
-              <div className={`w-16 h-1 transition-all duration-500 ${
+              <div className={`w-12 sm:w-16 h-1 transition-all duration-500 ${
                 currentImage === index ? 'bg-white' : 'bg-white/30 hover:bg-white/50'
               }`} />
               {currentImage === index && (
@@ -329,7 +329,7 @@ export default function HomeHero() {
             </button>
           ))}
         </div>
-        <div className="text-white/60 text-sm">
+        <div className="text-white/60 text-xs sm:text-sm">
           {String(currentImage + 1).padStart(2, '0')} / {String(heroImages.length).padStart(2, '0')}
         </div>
       </div>
