@@ -118,6 +118,8 @@ const TrustedPartners = () => {
                       src={partner.logo}
                       alt={partner.name}
                       fill
+                      loading="lazy"
+                      sizes="(max-width: 768px) 50vw, 25vw"
                       className="object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500 opacity-70 group-hover:opacity-100"
                     />
                   </div>
@@ -153,6 +155,8 @@ const TrustedPartners = () => {
                       src={partner.logo}
                       alt={partner.name}
                       fill
+                      loading="lazy"
+                      sizes="(max-width: 768px) 50vw, 25vw"
                       className="object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500 opacity-70 group-hover:opacity-100"
                     />
                   </div>

@@ -102,7 +102,7 @@ export default function HomeHero() {
               linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
               linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
             `,
-            backgroundSize: '50px 50px'
+            backgroundSize: '30px 30px'
           }}
         />
       </div>
@@ -176,7 +176,7 @@ export default function HomeHero() {
 
           {/* Main Heading with Split Animation */}
           <div className="mb-8">
-            <motion.h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-white leading-[0.9] tracking-tighter">
+            <motion.h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-white leading-[0.9] tracking-tighter">
               {"Crafting".split("").map((char, i) => (
                 <motion.span
                   key={i}
@@ -194,7 +194,7 @@ export default function HomeHero() {
                 </motion.span>
               ))}
             </motion.h1>
-            <motion.h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60 leading-[0.9] tracking-tighter">
+            <motion.h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60 leading-[0.9] tracking-tighter">
               {"Excellence".split("").map((char, i) => (
                 <motion.span
                   key={i}
@@ -219,7 +219,7 @@ export default function HomeHero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.8 }}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-white/80 mb-8 sm:mb-10 lg:mb-12 max-w-3xl font-light leading-relaxed"
+            className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-white/80 mb-6 sm:mb-8 md:mb-10 lg:mb-12 max-w-3xl font-light leading-relaxed"
           >
             Where architectural innovation meets timeless craftsmanship to create 
             <span className="text-white font-medium"> extraordinary living spaces</span>

@@ -7,6 +7,7 @@ import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
 import WhatsAppWidget from '@/components/whatsapp-widget';
 import { Toaster } from '@/components/ui/toaster';
+import ErrorBoundary from '@/components/error-boundary';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -243,13 +244,15 @@ export default function RootLayout({
           defaultTheme="light"
           enableSystem
         >
-          <div className="flex min-h-screen flex-col">
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
-          <WhatsAppWidget />
-          <Toaster />
+          <ErrorBoundary>
+            <div className="flex min-h-screen flex-col">
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
+            <WhatsAppWidget />
+            <Toaster />
+          </ErrorBoundary>
         </ThemeProvider>
       </body>
     </html>

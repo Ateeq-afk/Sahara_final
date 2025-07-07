@@ -448,7 +448,7 @@ export default function QuotePage() {
               </div>
             </motion.div>
             
-            <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold tracking-[-0.04em] leading-[0.95]">
+            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold tracking-[-0.04em] leading-[0.95]">
               <motion.span
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -606,7 +606,7 @@ export default function QuotePage() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ duration: 0.3 }}
-                    className="p-12"
+                    className="p-4 sm:p-6 md:p-8 lg:p-12"
                   >
                     <Form {...form}>
                       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -791,7 +791,7 @@ export default function QuotePage() {
                                 render={({ field }) => (
                                   <FormItem>
                                     <FormLabel className="text-sm font-medium text-gray-700 mb-4 block">Service Type</FormLabel>
-                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4">
                                       {[
                                         { value: "construction", label: "Construction", icon: Building, desc: "New builds" },
                                         { value: "interior-decor", label: "Interior Design", icon: Palette, desc: "Space styling" },

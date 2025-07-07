@@ -11,8 +11,21 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Badge } from '@/components/ui/badge'
 import Image from 'next/image'
 
+// Material interface
+interface Material {
+  id: string
+  name: string
+  brand: string
+  price: { min: number; max: number }
+  unit: string
+  image: string
+  features: string[]
+  popular?: boolean
+  premium?: boolean
+}
+
 // Comprehensive material catalog
-const MATERIALS = {
+const MATERIALS: Record<string, Material[]> = {
   flooring: [
     {
       id: 'vitrified-tiles',

@@ -91,6 +91,7 @@ export default function CostCalculator() {
   }
 
   const downloadEstimate = () => {
+    const priceData = PRICING[projectType as 'construction' | 'interior'][quality as 'basic' | 'standard' | 'premium' | 'luxury']
     const estimate = `
 SAHARA CONSTRUCTION - COST ESTIMATE
 ====================================
@@ -99,7 +100,7 @@ Date: ${new Date().toLocaleDateString()}
 PROJECT DETAILS
 ---------------
 Type: ${projectType === 'construction' ? 'Construction' : 'Interior Design'}
-Quality: ${PRICING[projectType as keyof typeof PRICING][quality as keyof typeof PRICING.construction].name}
+Quality: ${priceData.name}
 Area: ${area[0]} sq ft
 Floors: ${floors[0]}
 Total Area: ${breakdown.totalArea} sq ft
