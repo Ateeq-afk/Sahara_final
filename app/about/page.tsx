@@ -62,7 +62,7 @@ export default function AboutPage() {
             <br />
             <span className="text-[#0A5C36]">Creating Legacy.</span>
           </h1>
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 font-light max-w-3xl mx-auto"
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 font-light max-w-3xl mx-auto">
             Two decades of excellence in construction and interior design, transforming Bangalore's skyline one project at a time.
           </p>
         </motion.div>
