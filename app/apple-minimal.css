@@ -22,6 +22,10 @@
   --apple-orange: #ff9500;
   --apple-red: #ff3b30;
   
+  /* Brand colors */
+  --brand-amber: #f59e0b;
+  --brand-amber-dark: #d97706;
+  
   /* Typography scale */
   --font-size-hero: clamp(3rem, 7vw, 6rem);
   --font-size-display: clamp(2.5rem, 5vw, 4rem);
@@ -203,11 +207,12 @@ body {
   left: 0;
   right: 0;
   height: var(--nav-height);
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   z-index: 9999;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all var(--transition-normal);
 }
 
 .apple-nav-link {
@@ -336,6 +341,21 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--apple-gray-400);
+}
+
+/* Glass Effects */
+.apple-glass {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.apple-glass-dark {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Responsive */

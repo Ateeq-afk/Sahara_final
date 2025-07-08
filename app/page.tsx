@@ -1,4 +1,4 @@
-import HeroMinimal from '@/components/home/hero-minimal'
+import HeroModern from '@/components/home/hero-modern'
 import AboutSection from '@/components/home/about-section'
 import ServicesSection from '@/components/home/services-section'
 import ProcessTimeline from '@/components/home/process-timeline'
@@ -12,7 +12,7 @@ import ContactSectionMinimal from '@/components/home/contact-section-minimal'
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
-      <HeroMinimal />
+      <HeroModern />
       <AboutSection />
       <ServicesSection />
       <ProcessTimeline />

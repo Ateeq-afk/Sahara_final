@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react'
 
 const footerLinks = {
   services: [
@@ -23,23 +24,55 @@ const footerLinks = {
 
 export default function FooterMinimal() {
   return (
-    <footer className="bg-gray-50 border-t border-gray-200">
-      <div className="apple-container apple-section-compact">
+    <footer className="relative bg-gray-900 text-white overflow-hidden">
+      {/* Subtle Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" 
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 1px)`,
+            backgroundSize: '50px 50px'
+          }}
+        />
+      </div>
+      
+      <div className="relative apple-container py-16 lg:py-20">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-16 mb-16">
           {/* Brand Column */}
           <div className="md:col-span-1">
-            <h3 className="font-semibold text-lg mb-4">Sahara Developers</h3>
-            <p className="apple-caption mb-6">
+            <h3 className="font-semibold text-xl mb-6">Sahara Developers</h3>
+            <p className="text-gray-400 mb-8 leading-relaxed">
               Crafting exceptional spaces in Bangalore for over 20 years.
             </p>
             {/* Contact Info - Integrated naturally */}
-            <div className="space-y-2">
-              <a href="tel:+919591837216" className="apple-link text-sm block">
+            <div className="space-y-4">
+              <a href="tel:+919591837216" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors">
+                <Phone className="w-4 h-4" />
                 +91 9591 837216
               </a>
-              <a href="mailto:info@saharadevelopers.com" className="apple-link text-sm block">
+              <a href="mailto:info@saharadevelopers.com" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors">
+                <Mail className="w-4 h-4" />
                 info@saharadevelopers.com
+              </a>
+              <div className="flex items-center gap-3 text-gray-400">
+                <MapPin className="w-4 h-4" />
+                <span>Bangalore, Karnataka</span>
+              </div>
+            </div>
+            
+            {/* Social Media Links */}
+            <div className="flex gap-4 mt-8">
+              <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-gray-700 rounded-full flex items-center justify-center transition-colors">
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-gray-700 rounded-full flex items-center justify-center transition-colors">
+                <Twitter className="w-5 h-5" />
+              </a>
+              <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-gray-700 rounded-full flex items-center justify-center transition-colors">
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-gray-700 rounded-full flex items-center justify-center transition-colors">
+                <Linkedin className="w-5 h-5" />
               </a>
             </div>
           </div>
@@ -47,11 +80,11 @@ export default function FooterMinimal() {
           {/* Links Columns */}
           <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-8">
             <div>
-              <h4 className="font-medium mb-4">Services</h4>
-              <ul className="space-y-3">
+              <h4 className="font-semibold text-white mb-6">Services</h4>
+              <ul className="space-y-4">
                 {footerLinks.services.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="apple-caption hover:text-gray-900 transition-colors">
+                    <Link href={link.href} className="text-gray-400 hover:text-white transition-colors duration-200">
                       {link.label}
                     </Link>
                   </li>
@@ -60,11 +93,11 @@ export default function FooterMinimal() {
             </div>
             
             <div>
-              <h4 className="font-medium mb-4">Company</h4>
-              <ul className="space-y-3">
+              <h4 className="font-semibold text-white mb-6">Company</h4>
+              <ul className="space-y-4">
                 {footerLinks.company.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="apple-caption hover:text-gray-900 transition-colors">
+                    <Link href={link.href} className="text-gray-400 hover:text-white transition-colors duration-200">
                       {link.label}
                     </Link>
                   </li>
@@ -73,11 +106,11 @@ export default function FooterMinimal() {
             </div>
             
             <div>
-              <h4 className="font-medium mb-4">Support</h4>
-              <ul className="space-y-3">
+              <h4 className="font-semibold text-white mb-6">Support</h4>
+              <ul className="space-y-4">
                 {footerLinks.support.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="apple-caption hover:text-gray-900 transition-colors">
+                    <Link href={link.href} className="text-gray-400 hover:text-white transition-colors duration-200">
                       {link.label}
                     </Link>
                   </li>
@@ -88,19 +121,19 @@ export default function FooterMinimal() {
         </div>
         
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-gray-200">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="apple-caption">
+        <div className="pt-12 border-t border-gray-800">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <p className="text-gray-400 text-sm">
               © 2024 Sahara Developers. All rights reserved.
             </p>
             
             {/* Social Links - Minimal */}
-            <div className="flex items-center gap-6">
-              <Link href="/privacy" className="apple-caption hover:text-gray-900 transition-colors">
+            <div className="flex items-center gap-8">
+              <Link href="/privacy" className="text-gray-400 text-sm hover:text-white transition-colors duration-200">
                 Privacy Policy
               </Link>
-              <span className="text-gray-300">|</span>
-              <Link href="/terms" className="apple-caption hover:text-gray-900 transition-colors">
+              <span className="text-gray-600">•</span>
+              <Link href="/terms" className="text-gray-400 text-sm hover:text-white transition-colors duration-200">
                 Terms of Service
               </Link>
             </div>

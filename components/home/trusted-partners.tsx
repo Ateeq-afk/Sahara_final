@@ -6,46 +6,86 @@ import { Building2, Banknote, Package2, HomeIcon } from 'lucide-react'
 
 const bankingPartners = [
   { 
-    name: "Emirates NBD", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Emirates_NBD_logo.svg/2560px-Emirates_NBD_logo.svg.png",
+    name: "State Bank of India", 
+    logo: "https://placehold.co/400x200/ffffff/1f2937?text=SBI",
     category: "banking"
   },
   { 
-    name: "ADIB", 
-    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/Abu_Dhabi_Islamic_Bank_logo.svg/2560px-Abu_Dhabi_Islamic_Bank_logo.svg.png",
+    name: "HDFC Bank", 
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HDFC_Bank_Logo.svg/2560px-HDFC_Bank_Logo.svg.png",
     category: "banking"
   },
   { 
-    name: "Dubai Islamic Bank", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Dubai_Islamic_Bank_logo.svg/2560px-Dubai_Islamic_Bank_logo.svg.png",
+    name: "ICICI Bank", 
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/ICICI_Bank_Logo.svg/2560px-ICICI_Bank_Logo.svg.png",
     category: "banking"
   },
   { 
-    name: "Mashreq Bank", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Mashreq_logo.svg/2560px-Mashreq_logo.svg.png",
+    name: "Axis Bank", 
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Axis_Bank_logo.svg/2560px-Axis_Bank_logo.svg.png",
+    category: "banking"
+  },
+  { 
+    name: "Punjab National Bank", 
+    logo: "https://placehold.co/400x200/ffffff/1f2937?text=PNB",
+    category: "banking"
+  },
+  { 
+    name: "Bank of Baroda", 
+    logo: "https://placehold.co/400x200/ffffff/ff6600?text=Bank+of+Baroda",
+    category: "banking"
+  },
+  { 
+    name: "Kotak Mahindra Bank", 
+    logo: "https://placehold.co/400x200/ffffff/ed1c24?text=Kotak",
+    category: "banking"
+  },
+  { 
+    name: "Canara Bank", 
+    logo: "https://placehold.co/400x200/ffffff/0066b2?text=Canara+Bank",
     category: "banking"
   }
 ]
 
 const materialPartners = [
   { 
-    name: "RAK Ceramics", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/RAK_Ceramics_logo.svg/2560px-RAK_Ceramics_logo.svg.png",
+    name: "UltraTech Cement", 
+    logo: "https://placehold.co/400x200/ffffff/666666?text=UltraTech",
     category: "materials"
   },
   { 
-    name: "Jotun Paints", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Jotun_logo.svg/2560px-Jotun_logo.svg.png",
+    name: "Asian Paints", 
+    logo: "https://placehold.co/400x200/ffffff/0070ba?text=Asian+Paints",
     category: "materials"
   },
   { 
-    name: "Saint-Gobain", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Saint-Gobain_logo.svg/2560px-Saint-Gobain_logo.svg.png",
+    name: "Kajaria Ceramics", 
+    logo: "https://placehold.co/400x200/ffffff/8b0000?text=Kajaria",
     category: "materials"
   },
   { 
-    name: "Danube", 
-    logo: "https://danubehome.com/media/logo/default/danube-logo.png",
+    name: "Jindal Steel", 
+    logo: "https://placehold.co/400x200/ffffff/004b87?text=Jindal+Steel",
+    category: "materials"
+  },
+  { 
+    name: "Somany Ceramics", 
+    logo: "https://placehold.co/400x200/f3f4f6/1f2937?text=Somany+Ceramics",
+    category: "materials"
+  },
+  { 
+    name: "Berger Paints", 
+    logo: "https://placehold.co/400x200/ffffff/ed1c24?text=Berger+Paints",
+    category: "materials"
+  },
+  { 
+    name: "Tata Steel", 
+    logo: "https://placehold.co/400x200/ffffff/0080ff?text=TATA+Steel",
+    category: "materials"
+  },
+  { 
+    name: "ACC Cement", 
+    logo: "https://placehold.co/400x200/ffffff/ff0000?text=ACC",
     category: "materials"
   }
 ]
@@ -104,7 +144,7 @@ const TrustedPartners = () => {
             <h3 className="text-2xl font-medium text-gray-800">Banking Partners</h3>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {bankingPartners.map((partner, index) => (
               <motion.div 
                 key={index}
@@ -141,7 +181,7 @@ const TrustedPartners = () => {
             <h3 className="text-2xl font-medium text-gray-800">Material Partners</h3>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {materialPartners.map((partner, index) => (
               <motion.div 
                 key={index}
@@ -179,8 +219,8 @@ const TrustedPartners = () => {
             <p className="text-gray-600">Years of Partnership</p>
           </div>
           <div>
-            <div className="text-4xl font-semibold text-gray-900 mb-2">100%</div>
-            <p className="text-gray-600">Financing Approval Rate</p>
+            <div className="text-4xl font-semibold text-gray-900 mb-2">95%</div>
+            <p className="text-gray-600">Home Loan Approval Rate</p>
           </div>
           <div>
             <div className="text-4xl font-semibold text-gray-900 mb-2">A+</div>

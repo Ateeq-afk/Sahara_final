@@ -64,8 +64,8 @@ export default function HeroMinimal() {
               priority={index === 0}
               quality={95}
             />
-            {/* Subtle gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-white/60" />
+            {/* Enhanced gradient overlay for better text visibility */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-white/80" />
           </motion.div>
         ))}
       </motion.div>
@@ -81,7 +81,7 @@ export default function HeroMinimal() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="apple-caption apple-mb-md"
+            className="apple-caption apple-mb-md text-white drop-shadow-lg"
           >
             SAHARA DEVELOPERS
           </motion.p>
@@ -91,7 +91,8 @@ export default function HeroMinimal() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 30 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="apple-hero-text apple-mb-lg"
+            className="apple-hero-text apple-mb-lg text-white drop-shadow-2xl"
+            style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}
           >
             Crafting spaces<br />
             that inspire.
@@ -102,7 +103,8 @@ export default function HeroMinimal() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 30 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="apple-headline-text apple-text-muted apple-mb-xl max-w-2xl"
+            className="apple-headline-text apple-mb-xl max-w-2xl text-white/90 drop-shadow-lg"
+            style={{ textShadow: '0 1px 6px rgba(0,0,0,0.4)' }}
           >
             Two decades of architectural excellence in Bangalore. 
             Creating homes and spaces that blend innovation with timeless design.
@@ -115,10 +117,10 @@ export default function HeroMinimal() {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="flex flex-wrap gap-4"
           >
-            <Link href="/quote" className="apple-button apple-button-primary">
+            <Link href="/quote" className="apple-button apple-button-primary shadow-lg">
               Get Started
             </Link>
-            <Link href="/gallery" className="apple-button apple-button-text">
+            <Link href="/gallery" className="apple-button apple-button-text backdrop-blur-sm bg-white/10 hover:bg-white/20 text-white border-white/30">
               View Our Work →
             </Link>
           </motion.div>
@@ -131,18 +133,18 @@ export default function HeroMinimal() {
             className="apple-mt-3xl flex items-center gap-8"
           >
             <div>
-              <div className="apple-title-text">500+</div>
-              <div className="apple-caption">Projects</div>
+              <div className="apple-title-text text-white drop-shadow-lg">500+</div>
+              <div className="apple-caption text-white/80 drop-shadow">Projects</div>
             </div>
-            <div className="w-px h-12 bg-gray-300"></div>
+            <div className="w-px h-12 bg-white/40"></div>
             <div>
-              <div className="apple-title-text">20+</div>
-              <div className="apple-caption">Years</div>
+              <div className="apple-title-text text-white drop-shadow-lg">20+</div>
+              <div className="apple-caption text-white/80 drop-shadow">Years</div>
             </div>
-            <div className="w-px h-12 bg-gray-300"></div>
+            <div className="w-px h-12 bg-white/40"></div>
             <div>
-              <div className="apple-title-text">100%</div>
-              <div className="apple-caption">Satisfaction</div>
+              <div className="apple-title-text text-white drop-shadow-lg">100%</div>
+              <div className="apple-caption text-white/80 drop-shadow">Satisfaction</div>
             </div>
           </motion.div>
         </div>

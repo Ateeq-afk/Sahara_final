@@ -201,7 +201,7 @@ export default function GalleryPage() {
   return (
     <main className="min-h-screen bg-white">
       {/* Hero Section - Apple Style */}
-      <section ref={heroRef} className="relative pt-32 pb-32 overflow-hidden bg-white">
+      <section ref={heroRef} className="relative pt-24 pb-20 overflow-hidden bg-white">
         {/* Subtle background pattern */}
         <div className="absolute inset-0 opacity-[0.02]">
           <div className="h-full w-full" 
@@ -213,7 +213,7 @@ export default function GalleryPage() {
             }}
           />
         </div>
-        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-br from-amber-400/10 to-amber-600/10 rounded-full blur-3xl" />
+        <div className="absolute top-10 left-10 w-72 h-72 bg-gradient-to-br from-amber-400/10 to-amber-600/10 rounded-full blur-3xl" />
         
         <div className="relative container mx-auto px-8">
           <motion.div
@@ -237,7 +237,7 @@ export default function GalleryPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={heroInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-6xl md:text-7xl lg:text-[6rem] font-semibold mb-8 tracking-tight leading-[0.9]"
+              className="text-5xl md:text-6xl lg:text-7xl font-semibold mb-8 tracking-tight leading-[0.9]"
             >
               Crafted with
               <br />
@@ -260,9 +260,9 @@ export default function GalleryPage() {
       </section>
       
       {/* Filter Bar - Apple Style */}
-      <section className="sticky top-20 z-30 apple-glass border-b border-gray-200/50">
+      <section className="sticky top-12 z-30 bg-white/95 backdrop-blur-xl border-b border-gray-200/50">
         <div className="container mx-auto px-8">
-          <div className="flex items-center justify-between py-6">
+          <div className="flex items-center justify-between py-4">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}

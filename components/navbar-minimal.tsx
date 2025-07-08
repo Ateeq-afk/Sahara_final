@@ -39,7 +39,7 @@ export default function NavbarMinimal() {
   
   return (
     <nav className={`apple-nav transition-all duration-300 ${
-      isScrolled ? 'shadow-sm' : ''
+      isScrolled ? 'shadow-sm bg-white/95' : 'bg-white/80'
     }`}>
       <div className="apple-container h-full flex items-center justify-between">
         {/* Logo */}

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin, Clock, ChevronRight } from 'lucide-react'
+import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin, Clock, ChevronRight, UserCheck } from 'lucide-react'
 import Logo from '@/components/logo'
 
 const Footer = () => {
@@ -150,6 +150,12 @@ const Footer = () => {
                 <span className="text-[#424245] hidden sm:inline">|</span>
                 <Link href="/sitemap" className="text-[#a1a1a6] hover:text-[#f5f5f7] transition-colors duration-150">
                   Site Map
+                </Link>
+                <span className="text-[#424245] hidden sm:inline">|</span>
+                <Link href="/crm/login" className="text-[#a1a1a6] hover:text-[#f5f5f7] transition-colors duration-150 inline-flex items-center gap-1">
+                  <UserCheck className="h-3 w-3" />
+                  <span className="hidden sm:inline">Employee Portal</span>
+                  <span className="sm:hidden">Login</span>
                 </Link>
               </div>
             </div>
