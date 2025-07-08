@@ -137,7 +137,7 @@ const Footer = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-[10px] sm:text-xs">
               <p className="text-[#86868b]">
-                Copyright © {new Date().getFullYear()} Sahara Developers. All rights reserved.
+                Copyright © 2024 Sahara Developers. All rights reserved.
               </p>
               <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-4">
                 <Link href="/privacy-policy" className="text-[#a1a1a6] hover:text-[#f5f5f7] transition-colors duration-150">

@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import Image from 'next/image'
+import { generateId } from '@/lib/generate-id'
+import { formatTime } from '@/lib/format-time'
 
 interface WhatsAppMessage {
   id: string
@@ -35,6 +37,34 @@ const WhatsAppWidget = () => {
     "Renovation services",
     "View packages & pricing",
     "Schedule site visit"
+  ]
+
+  // Quick action buttons
+  const quickActions = [
+    {
+      icon: "📋",
+      label: "Get Instant Quote",
+      action: "quote",
+      color: "bg-blue-500"
+    },
+    {
+      icon: "📅",
+      label: "Book Site Visit",
+      action: "visit",
+      color: "bg-green-500"
+    },
+    {
+      icon: "💰",
+      label: "Check Packages",
+      action: "packages",
+      color: "bg-purple-500"
+    },
+    {
+      icon: "🏠",
+      label: "View Portfolio",
+      action: "portfolio",
+      color: "bg-orange-500"
+    }
   ]
 
   // Auto-responses based on keywords
@@ -83,7 +113,7 @@ const WhatsAppWidget = () => {
     setIsTyping(true)
     setTimeout(() => {
       setMessages(prev => [...prev, {
-        id: Date.now().toString(),
+        id: generateId('msg'),
         text,
         isUser: false,
         timestamp: new Date()
@@ -94,7 +124,7 @@ const WhatsAppWidget = () => {
 
   const addUserMessage = (text: string) => {
     const newMessage: WhatsAppMessage = {
-      id: Date.now().toString(),
+      id: generateId('msg'),
       text,
       isUser: true,
       timestamp: new Date()
@@ -141,13 +171,7 @@ const WhatsAppWidget = () => {
     window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank')
   }
 
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', { 
-      hour: '2-digit', 
-      minute: '2-digit',
-      hour12: true 
-    })
-  }
+  // formatTime is now imported from lib/format-time.ts
 
   return (
     <>
@@ -259,24 +283,64 @@ const WhatsAppWidget = () => {
             <div className="h-96 flex flex-col">
               {step === 'welcome' && (
                 <div className="flex-1 p-6 flex flex-col justify-center">
-                  <div className="text-center mb-6">
+                  <div className="text-center mb-4">
                     <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                       <MessageCircle className="h-8 w-8 text-green-600" />
                     </div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      Start a Conversation
+                      How can we help you?
                     </h3>
                     <p className="text-gray-600 text-sm">
-                      Hi! Click one of our team members below to chat on WhatsApp
+                      Choose a quick action or chat with our team
                     </p>
                   </div>
 
-                  <div className="space-y-3">
+                  {/* Quick Action Buttons */}
+                  <div className="grid grid-cols-2 gap-2 mb-4">
+                    {quickActions.map((action, index) => (
+                      <motion.button
+                        key={index}
+                        onClick={() => {
+                          if (action.action === 'portfolio') {
+                            window.location.href = '/gallery'
+                          } else {
+                            setStep('details')
+                            setTimeout(() => {
+                              if (action.action === 'quote') {
+                                addUserMessage("I need a construction quote")
+                              } else if (action.action === 'visit') {
+                                addUserMessage("I'd like to schedule a site visit")
+                              } else if (action.action === 'packages') {
+                                addUserMessage("Show me your packages and pricing")
+                              }
+                            }, 100)
+                          }
+                        }}
+                        className={`${action.color} text-white p-3 rounded-xl hover:opacity-90 transition-all flex flex-col items-center justify-center space-y-1`}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <span className="text-2xl">{action.icon}</span>
+                        <span className="text-xs font-medium">{action.label}</span>
+                      </motion.button>
+                    ))}
+                  </div>
+
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-gray-200"></div>
+                    </div>
+                    <div className="relative flex justify-center text-sm">
+                      <span className="bg-white px-2 text-gray-500">or chat with team</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 mt-3">
                     {teamMembers.map((member, index) => (
                       <motion.button
                         key={index}
                         onClick={() => openWhatsApp(`Hi ${member.name}! I'd like to speak with you about construction services.`, member.phone)}
-                        className="w-full flex items-center space-x-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors"
+                        className="w-full flex items-center space-x-3 p-2 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
@@ -284,28 +348,19 @@ const WhatsAppWidget = () => {
                           <Image
                             src={member.avatar}
                             alt={member.name}
-                            width={40}
-                            height={40}
+                            width={32}
+                            height={32}
                             className="rounded-full"
                           />
-                          <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+                          <div className="absolute -bottom-1 -right-1 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"></div>
                         </div>
                         <div className="flex-1 text-left">
-                          <div className="font-medium text-gray-900">{member.name}</div>
-                          <div className="text-sm text-gray-600">{member.role}</div>
+                          <div className="font-medium text-gray-900 text-sm">{member.name}</div>
+                          <div className="text-xs text-gray-600">{member.role}</div>
                         </div>
-                        <MessageCircle className="h-5 w-5 text-green-600" />
+                        <MessageCircle className="h-4 w-4 text-green-600" />
                       </motion.button>
                     ))}
-                  </div>
-
-                  <div className="mt-6 pt-4 border-t border-gray-200">
-                    <Button
-                      onClick={() => setStep('details')}
-                      className="w-full bg-green-500 hover:bg-green-600 text-white rounded-xl"
-                    >
-                      Start Quick Chat with Neha
-                    </Button>
                   </div>
                 </div>
               )}

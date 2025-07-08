@@ -63,9 +63,16 @@ export default function TimelineEstimator() {
   const [projectType, setProjectType] = useState('construction')
   const [projectSize, setProjectSize] = useState([2500])
   const [complexity, setComplexity] = useState('standard')
-  const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0])
+  const [startDate, setStartDate] = useState('')
   const [fastTrack, setFastTrack] = useState(false)
   const [timeline, setTimeline] = useState<any>(null)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+    // Set default date only on client side
+    setStartDate(new Date().toISOString().split('T')[0])
+  }, [])
 
   const calculateTimeline = () => {
     const phases = PROJECT_PHASES[projectType as keyof typeof PROJECT_PHASES]
@@ -230,7 +237,7 @@ export default function TimelineEstimator() {
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
               className="w-full px-3 py-2 border rounded-md"
-              min={new Date().toISOString().split('T')[0]}
+              min={mounted ? new Date().toISOString().split('T')[0] : ''}
             />
           </div>
 

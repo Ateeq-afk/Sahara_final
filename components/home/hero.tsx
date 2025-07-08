@@ -109,26 +109,34 @@ export default function HomeHero() {
 
       {/* Floating Particles */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-white/20 rounded-full"
-            initial={{ 
-              x: Math.random() * 100 + '%',
-              y: '110%'
-            }}
-            animate={{ 
-              y: '-10%',
-              x: `${Math.random() * 100}%`
-            }}
-            transition={{
-              duration: Math.random() * 20 + 20,
-              repeat: Infinity,
-              ease: "linear",
-              delay: Math.random() * 20
-            }}
-          />
-        ))}
+        {[...Array(20)].map((_, i) => {
+          // Use deterministic values based on index
+          const startX = (i * 5) % 100;
+          const endX = ((i * 7) + 20) % 100;
+          const duration = 20 + (i % 10) * 2;
+          const delay = (i % 20);
+          
+          return (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-white/20 rounded-full"
+              initial={{ 
+                x: startX + '%',
+                y: '110%'
+              }}
+              animate={{ 
+                y: '-10%',
+                x: `${endX}%`
+              }}
+              transition={{
+                duration: duration,
+                repeat: Infinity,
+                ease: "linear",
+                delay: delay
+              }}
+            />
+          );
+        })}
       </div>
 
       {/* Main Content */}

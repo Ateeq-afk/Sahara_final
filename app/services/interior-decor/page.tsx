@@ -5,13 +5,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight, X, MessageCircle, ArrowUpRight, Quote, Check, ChevronLeft, ChevronRight, Phone, Download } from 'lucide-react'
+import { ArrowRight, X, MessageCircle, ArrowUpRight, Quote, Check, ChevronLeft, ChevronRight, Phone, Download, Palette, Home, Filter, Sparkles } from 'lucide-react'
 
 export default function InteriorDecorPage() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [showExitPopup, setShowExitPopup] = useState(false)
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  const [activeFilter, setActiveFilter] = useState('all')
   const router = useRouter()
   
   const heroRef = useRef(null)
@@ -29,18 +30,23 @@ export default function InteriorDecorPage() {
     }
 
     const handleMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 0 && !showExitPopup && !localStorage.getItem('exitPopupShown')) {
-        setShowExitPopup(true)
-        localStorage.setItem('exitPopupShown', 'true')
+      if (typeof window !== 'undefined' && e.clientY <= 0 && !showExitPopup) {
+        const exitPopupShown = localStorage.getItem('exitPopupShown')
+        if (!exitPopupShown) {
+          setShowExitPopup(true)
+          localStorage.setItem('exitPopupShown', 'true')
+        }
       }
     }
 
-    window.addEventListener('scroll', handleScroll)
-    document.addEventListener('mouseleave', handleMouseLeave)
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', handleScroll)
+      document.addEventListener('mouseleave', handleMouseLeave)
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-      document.removeEventListener('mouseleave', handleMouseLeave)
+      return () => {
+        window.removeEventListener('scroll', handleScroll)
+        document.removeEventListener('mouseleave', handleMouseLeave)
+      }
     }
   }, [showExitPopup])
 
@@ -65,14 +71,25 @@ export default function InteriorDecorPage() {
     }
   ]
 
-  const portfolio = [
-    { id: 1, title: "Minimalist Living Room", category: "Residential", image: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg" },
-    { id: 2, title: "Executive Office Suite", category: "Commercial", image: "https://images.pexels.com/photos/1957477/pexels-photo-1957477.jpeg" },
-    { id: 3, title: "Modern Kitchen Design", category: "Residential", image: "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg" },
-    { id: 4, title: "Luxury Bedroom", category: "Residential", image: "https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg" },
-    { id: 5, title: "Restaurant Interior", category: "Hospitality", image: "https://images.pexels.com/photos/2290753/pexels-photo-2290753.jpeg" },
-    { id: 6, title: "Boutique Hotel Lobby", category: "Hospitality", image: "https://images.pexels.com/photos/1579253/pexels-photo-1579253.jpeg" }
+  const filters = [
+    { id: 'all', label: 'All Projects' },
+    { id: 'residential', label: 'Residential' },
+    { id: 'commercial', label: 'Commercial' },
+    { id: 'hospitality', label: 'Hospitality' }
   ]
+
+  const portfolio = [
+    { id: 1, title: "Minimalist Living Room", category: "Residential", image: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg", style: "Minimalist", budget: "Premium" },
+    { id: 2, title: "Executive Office Suite", category: "Commercial", image: "https://images.pexels.com/photos/1957477/pexels-photo-1957477.jpeg", style: "Modern", budget: "Luxury" },
+    { id: 3, title: "Modern Kitchen Design", category: "Residential", image: "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg", style: "Contemporary", budget: "Mid-range" },
+    { id: 4, title: "Luxury Bedroom", category: "Residential", image: "https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg", style: "Classic", budget: "Premium" },
+    { id: 5, title: "Restaurant Interior", category: "Hospitality", image: "https://images.pexels.com/photos/2290753/pexels-photo-2290753.jpeg", style: "Industrial", budget: "Mid-range" },
+    { id: 6, title: "Boutique Hotel Lobby", category: "Hospitality", image: "https://images.pexels.com/photos/1579253/pexels-photo-1579253.jpeg", style: "Luxury", budget: "Premium" }
+  ]
+
+  const filteredPortfolio = activeFilter === 'all' 
+    ? portfolio 
+    : portfolio.filter(item => item.category.toLowerCase() === activeFilter)
 
   const testimonials = [
     {
@@ -271,7 +288,7 @@ export default function InteriorDecorPage() {
         </div>
       </section>
 
-      {/* Portfolio Gallery with Lightbox */}
+      {/* Enhanced Portfolio Gallery with Filtering */}
       <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -279,7 +296,7 @@ export default function InteriorDecorPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-12"
           >
             <h2 className="text-4xl sm:text-5xl font-light mb-4">Featured Projects</h2>
             <p className="text-gray-600 text-lg max-w-3xl mx-auto">
@@ -287,8 +304,36 @@ export default function InteriorDecorPage() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {portfolio.map((project, index) => (
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {filters.map((filter) => (
+              <motion.button
+                key={filter.id}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setActiveFilter(filter.id)}
+                className={`px-6 py-3 rounded-full font-medium transition-all inline-flex items-center gap-2 ${
+                  activeFilter === filter.id
+                    ? 'bg-[#0A5C36] text-white'
+                    : 'bg-white border-2 border-gray-200 text-gray-700 hover:border-[#0A5C36]'
+                }`}
+              >
+                <Filter className="w-4 h-4" />
+                {filter.label}
+              </motion.button>
+            ))}
+          </div>
+
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={activeFilter}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              {filteredPortfolio.map((project, index) => (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -309,13 +354,22 @@ export default function InteriorDecorPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-all duration-500">
                     <div className="absolute bottom-0 left-0 p-6 text-white">
                       <p className="text-sm mb-1 opacity-80">{project.category}</p>
-                      <h3 className="text-xl font-light">{project.title}</h3>
+                      <h3 className="text-xl font-light mb-2">{project.title}</h3>
+                      <div className="flex gap-2">
+                        <span className="px-2 py-1 bg-white/20 backdrop-blur rounded text-xs">
+                          {project.style}
+                        </span>
+                        <span className="px-2 py-1 bg-white/20 backdrop-blur rounded text-xs">
+                          {project.budget}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </motion.div>
             ))}
-          </div>
+            </motion.div>
+          </AnimatePresence>
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -334,6 +388,80 @@ export default function InteriorDecorPage() {
               <ArrowUpRight className="w-4 h-4" />
             </motion.button>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Interactive 360° Room Viewer */}
+      <section className="py-24 sm:py-32 bg-[#0A5C36] text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-4xl sm:text-5xl font-light mb-4">Experience Our Spaces</h2>
+            <p className="text-white/80 text-lg max-w-3xl mx-auto">
+              Take a virtual tour of our latest projects. Click and drag to explore 360° views.
+            </p>
+          </motion.div>
+
+          <div className="grid lg:grid-cols-3 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="bg-white/10 backdrop-blur rounded-2xl p-8 text-center hover:bg-white/20 transition-colors cursor-pointer group"
+              onClick={() => router.push('/virtual-tour')}
+            >
+              <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                <Home className="w-10 h-10" />
+              </div>
+              <h3 className="text-2xl font-light mb-3">Living Spaces</h3>
+              <p className="text-white/70 mb-6">Explore our residential designs in immersive 360°</p>
+              <span className="text-white/90 font-medium inline-flex items-center gap-2 group-hover:gap-3 transition-all">
+                Start Tour <ArrowRight className="w-4 h-4" />
+              </span>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="bg-white/10 backdrop-blur rounded-2xl p-8 text-center hover:bg-white/20 transition-colors cursor-pointer group"
+              onClick={() => router.push('/virtual-tour')}
+            >
+              <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                <Sparkles className="w-10 h-10" />
+              </div>
+              <h3 className="text-2xl font-light mb-3">Office Spaces</h3>
+              <p className="text-white/70 mb-6">Walk through our commercial interior designs</p>
+              <span className="text-white/90 font-medium inline-flex items-center gap-2 group-hover:gap-3 transition-all">
+                Start Tour <ArrowRight className="w-4 h-4" />
+              </span>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="bg-white/10 backdrop-blur rounded-2xl p-8 text-center hover:bg-white/20 transition-colors cursor-pointer group"
+              onClick={() => router.push('/virtual-tour')}
+            >
+              <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                <Palette className="w-10 h-10" />
+              </div>
+              <h3 className="text-2xl font-light mb-3">Hospitality</h3>
+              <p className="text-white/70 mb-6">Experience our hotel and restaurant designs</p>
+              <span className="text-white/90 font-medium inline-flex items-center gap-2 group-hover:gap-3 transition-all">
+                Start Tour <ArrowRight className="w-4 h-4" />
+              </span>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -497,7 +625,11 @@ export default function InteriorDecorPage() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => alert('Style guide download coming soon!')}
+                onClick={() => {
+                  if (typeof window !== 'undefined') {
+                    alert('Style guide download coming soon!')
+                  }
+                }}
                 className="border-2 border-white text-white px-8 py-4 rounded-full font-medium hover:bg-white/10 transition-all inline-flex items-center gap-2"
               >
                 Download Style Guide
@@ -512,9 +644,9 @@ export default function InteriorDecorPage() {
       <motion.button
         onClick={() => router.push('/quote')}
         className="fixed bottom-24 right-6 bg-[#0A5C36] text-white px-6 py-3 rounded-full shadow-lg hover:bg-[#084a2e] transition-colors z-40 font-medium flex items-center gap-2"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 1, type: "spring" }}
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 0.5, type: "spring", duration: 0.5 }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >

@@ -1,24 +1,11 @@
 import './globals.css';
-import './apple-design.css';
+import './apple-minimal.css';
 import type { Metadata } from 'next';
-import { Inter, DM_Serif_Display } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
-import Navbar from '@/components/navbar';
-import Footer from '@/components/footer';
-import WhatsAppWidget from '@/components/whatsapp-widget';
+import NavbarMinimal from '@/components/navbar-minimal';
+import FooterMinimal from '@/components/footer-minimal';
 import { Toaster } from '@/components/ui/toaster';
 import ErrorBoundary from '@/components/error-boundary';
-
-const inter = Inter({ 
-  subsets: ['latin'],
-  variable: '--font-inter'
-});
-
-const dmSerif = DM_Serif_Display({ 
-  weight: '400',
-  subsets: ['latin'],
-  variable: '--font-dm-serif'
-});
 
 export const metadata: Metadata = {
   title: 'Sahara Developers | Premier Contractors in Bangalore | Construction & Interior Design',
@@ -238,19 +225,19 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${dmSerif.variable} font-sans`}>
+      <body suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
           enableSystem
+          disableTransitionOnChange
         >
           <ErrorBoundary>
             <div className="flex min-h-screen flex-col">
-              <Navbar />
+              <NavbarMinimal />
               <main className="flex-1">{children}</main>
-              <Footer />
+              <FooterMinimal />
             </div>
-            <WhatsAppWidget />
             <Toaster />
           </ErrorBoundary>
         </ThemeProvider>

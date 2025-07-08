@@ -193,7 +193,7 @@ export default function MaterialSelector() {
   const [searchQuery, setSearchQuery] = useState('')
   const [priceFilter, setPriceFilter] = useState('all')
 
-  const filteredMaterials = MATERIALS[category as keyof typeof MATERIALS].filter(material => {
+  const filteredMaterials = (MATERIALS[category as keyof typeof MATERIALS] || []).filter(material => {
     const matchesSearch = material.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          material.brand.toLowerCase().includes(searchQuery.toLowerCase())
     
