@@ -2,49 +2,50 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Box, Move, Palette, Download, RotateCw, Maximize2, Layers } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Slider } from '@/components/ui/slider'
-import { Label } from '@/components/ui/label'
+import { Box, Move, Palette, Download, RotateCw, Maximize2, Layers, Eye, Grid3X3, Ruler, Sofa, Bed, ChefHat, Bath } from 'lucide-react'
+// import { roomVisualizerMockData } from '@/src/data/mockData'
 
 // Room presets with styles
 const ROOM_STYLES = {
   modern: {
-    name: 'Modern Minimal',
-    wallColor: '#F5F5F5',
-    floorColor: '#8B7355',
+    name: 'Modern',
+    description: 'Clean lines, neutral palette',
+    wallColor: '#F8F8F8',
+    floorColor: '#A8967E',
     ceilingColor: '#FFFFFF',
-    accentColor: '#2563EB'
+    accentColor: '#1D1D1F'
   },
   traditional: {
-    name: 'Classic Elegant',
+    name: 'Traditional',
+    description: 'Timeless elegance',
     wallColor: '#E8DCC6',
-    floorColor: '#654321',
-    ceilingColor: '#FFF8DC',
-    accentColor: '#DC2626'
+    floorColor: '#6B4423',
+    ceilingColor: '#FFF8F0',
+    accentColor: '#8B4513'
   },
   industrial: {
-    name: 'Urban Industrial',
-    wallColor: '#9B9B9B',
-    floorColor: '#4A4A4A',
+    name: 'Industrial',
+    description: 'Raw and sophisticated',
+    wallColor: '#A9A9A9',
+    floorColor: '#505050',
     ceilingColor: '#D3D3D3',
-    accentColor: '#F59E0B'
+    accentColor: '#FF6500'
   },
   scandinavian: {
-    name: 'Nordic Light',
+    name: 'Scandinavian',
+    description: 'Light and airy',
     wallColor: '#FAFAFA',
-    floorColor: '#DEB887',
+    floorColor: '#D2B48C',
     ceilingColor: '#FFFFFF',
-    accentColor: '#10B981'
+    accentColor: '#6B8E23'
   }
 }
 
 const ROOM_TYPES = {
-  livingRoom: { name: 'Living Room', defaultSize: { width: 20, length: 25, height: 10 } },
-  bedroom: { name: 'Master Bedroom', defaultSize: { width: 15, length: 18, height: 10 } },
-  kitchen: { name: 'Modern Kitchen', defaultSize: { width: 12, length: 15, height: 10 } },
-  bathroom: { name: 'Luxury Bathroom', defaultSize: { width: 8, length: 10, height: 9 } }
+  livingRoom: { name: 'Living Room', icon: Sofa, defaultSize: { width: 20, length: 25, height: 10 } },
+  bedroom: { name: 'Bedroom', icon: Bed, defaultSize: { width: 15, length: 18, height: 10 } },
+  kitchen: { name: 'Kitchen', icon: ChefHat, defaultSize: { width: 12, length: 15, height: 10 } },
+  bathroom: { name: 'Bathroom', icon: Bath, defaultSize: { width: 8, length: 10, height: 9 } }
 }
 
 export default function RoomVisualizer() {
@@ -52,7 +53,8 @@ export default function RoomVisualizer() {
   const [style, setStyle] = useState('modern')
   const [dimensions, setDimensions] = useState(ROOM_TYPES.livingRoom.defaultSize)
   const [rotation, setRotation] = useState({ x: -20, y: 45 })
-  const [zoom, setZoom] = useState([1])
+  const [zoom, setZoom] = useState(1)
+  const [viewMode, setViewMode] = useState('3d')
 
   const currentStyle = ROOM_STYLES[style as keyof typeof ROOM_STYLES]
   const currentRoom = ROOM_TYPES[roomType as keyof typeof ROOM_TYPES]
@@ -64,294 +66,384 @@ export default function RoomVisualizer() {
 
   const resetView = () => {
     setRotation({ x: -20, y: 45 })
-    setZoom([1])
+    setZoom(1)
   }
 
   return (
-    <div className="p-12 bg-white">
-      <div className="mb-12 text-center">
-        <h2 className="text-5xl font-light text-gray-900 mb-4">
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <div className="px-6 py-12 md:px-12 md:py-16 text-center">
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-4xl md:text-6xl font-light tracking-tight text-gray-900 mb-4"
+        >
           3D Room Visualizer
-        </h2>
-        <p className="text-xl text-gray-600">Experience your space before it's built</p>
+        </motion.h1>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-lg md:text-xl text-gray-600 font-light"
+        >
+          Visualize your space in three dimensions
+        </motion.p>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
-        <div className="lg:col-span-2">
-          {/* 3D Visualization Area */}
-          <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl p-8 border border-gray-200" style={{ height: '700px' }}>
-            <div className="absolute top-6 right-6 flex gap-3 z-10">
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={resetView}
-                className="bg-white/80 backdrop-blur"
+      <div className="px-6 md:px-12 pb-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
+            {/* 3D Visualization Area */}
+            <div className="lg:col-span-2">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="relative bg-gray-50 rounded-2xl overflow-hidden" 
+                style={{ height: '600px' }}
               >
-                <RotateCw className="w-4 h-4 mr-1" />
-                Reset
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                className="bg-white/80 backdrop-blur"
-              >
-                <Maximize2 className="w-4 h-4 mr-1" />
-                Fullscreen
-              </Button>
-            </div>
-
-            {/* 3D Room Visualization */}
-            <motion.div
-              className="w-full h-full flex items-center justify-center perspective-1000"
-              animate={{
-                rotateX: rotation.x,
-                rotateY: rotation.y,
-                scale: zoom[0]
-              }}
-              transition={{ type: 'spring', stiffness: 100 }}
-            >
-              <div 
-                className="relative transform-gpu"
-                style={{
-                  width: `${dimensions.width * 20}px`,
-                  height: `${dimensions.height * 20}px`,
-                  transformStyle: 'preserve-3d'
-                }}
-              >
-                {/* Floor */}
-                <div
-                  className="absolute inset-0 border border-gray-300"
-                  style={{
-                    backgroundColor: currentStyle.floorColor,
-                    transform: `rotateX(90deg) translateZ(-${dimensions.height * 10}px)`,
-                    width: `${dimensions.width * 20}px`,
-                    height: `${dimensions.length * 20}px`,
-                    boxShadow: 'inset 0 0 50px rgba(0,0,0,0.1)'
-                  }}
-                />
-                
-                {/* Back Wall */}
-                <div
-                  className="absolute inset-0 border border-gray-300"
-                  style={{
-                    backgroundColor: currentStyle.wallColor,
-                    transform: `translateZ(-${dimensions.length * 10}px)`,
-                    width: `${dimensions.width * 20}px`,
-                    height: `${dimensions.height * 20}px`,
-                    boxShadow: 'inset 0 0 30px rgba(0,0,0,0.05)'
-                  }}
-                />
-                
-                {/* Left Wall */}
-                <div
-                  className="absolute inset-0 border border-gray-300"
-                  style={{
-                    backgroundColor: currentStyle.wallColor,
-                    transform: `rotateY(-90deg) translateZ(-${dimensions.width * 10}px)`,
-                    width: `${dimensions.length * 20}px`,
-                    height: `${dimensions.height * 20}px`,
-                    boxShadow: 'inset 0 0 30px rgba(0,0,0,0.05)'
-                  }}
-                />
-                
-                {/* Right Wall */}
-                <div
-                  className="absolute inset-0 border border-gray-300"
-                  style={{
-                    backgroundColor: currentStyle.wallColor,
-                    transform: `rotateY(90deg) translateZ(${dimensions.width * 10}px)`,
-                    width: `${dimensions.length * 20}px`,
-                    height: `${dimensions.height * 20}px`,
-                    left: `${dimensions.width * 20}px`,
-                    boxShadow: 'inset 0 0 30px rgba(0,0,0,0.05)'
-                  }}
-                />
-                
-                {/* Ceiling */}
-                <div
-                  className="absolute inset-0 border border-gray-300 opacity-95"
-                  style={{
-                    backgroundColor: currentStyle.ceilingColor,
-                    transform: `rotateX(-90deg) translateZ(${dimensions.height * 10}px)`,
-                    width: `${dimensions.width * 20}px`,
-                    height: `${dimensions.length * 20}px`,
-                    boxShadow: 'inset 0 0 20px rgba(0,0,0,0.02)'
-                  }}
-                />
-
-                {/* Accent Feature Wall */}
-                <div
-                  className="absolute"
-                  style={{
-                    backgroundColor: currentStyle.accentColor,
-                    transform: `translateZ(-${dimensions.length * 10 - 1}px)`,
-                    width: `${dimensions.width * 20}px`,
-                    height: `${dimensions.height * 6}px`,
-                    opacity: 0.8,
-                    bottom: 0
-                  }}
-                />
-              </div>
-            </motion.div>
-
-            {/* Controls Overlay */}
-            <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-gray-200 shadow-sm">
-              <Label className="text-sm font-medium mb-3 block text-gray-700">Navigation</Label>
-              <div className="space-y-2 text-xs">
-                <div className="flex items-center gap-2">
-                  <Move className="w-4 h-4 text-gray-500" />
-                  <span className="text-gray-600">Drag to rotate view</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Layers className="w-4 h-4 text-gray-500" />
-                  <span className="text-gray-600">Scroll to zoom</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Zoom Control */}
-          <div className="mt-6 bg-gray-50 rounded-2xl p-6 border border-gray-200">
-            <Label className="text-sm font-medium mb-3 block text-gray-700">Zoom Level</Label>
-            <Slider
-              value={zoom}
-              onValueChange={setZoom}
-              min={0.5}
-              max={2}
-              step={0.1}
-              className="w-full"
-            />
-          </div>
-        </div>
-
-        <div className="space-y-6">
-          {/* Room Type Selection */}
-          <div className="bg-gray-50 rounded-2xl p-6 border border-gray-200">
-            <Label className="text-lg font-light mb-4 block text-gray-900">Space Type</Label>
-            <Tabs value={roomType} onValueChange={handleRoomTypeChange}>
-              <TabsList className="grid grid-cols-2 gap-2 bg-gray-100">
-                {Object.entries(ROOM_TYPES).map(([key, room]) => (
-                  <TabsTrigger 
-                    key={key} 
-                    value={key} 
-                    className="text-xs data-[state=active]:bg-white"
+                {/* View Controls */}
+                <div className="absolute top-4 right-4 flex gap-2 z-10">
+                  <button
+                    onClick={() => setViewMode('3d')}
+                    className={`px-4 py-2 rounded-lg backdrop-blur-md transition-all ${
+                      viewMode === '3d' 
+                        ? 'bg-gray-900 text-white' 
+                        : 'bg-white/80 hover:bg-white'
+                    }`}
                   >
-                    {room.name}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
-          </div>
+                    <Eye className="w-4 h-4 inline mr-2" />
+                    3D View
+                  </button>
+                  <button
+                    onClick={() => setViewMode('floor')}
+                    className={`px-4 py-2 rounded-lg backdrop-blur-md transition-all ${
+                      viewMode === 'floor' 
+                        ? 'bg-gray-900 text-white' 
+                        : 'bg-white/80 hover:bg-white'
+                    }`}
+                  >
+                    <Grid3X3 className="w-4 h-4 inline mr-2" />
+                    Floor Plan
+                  </button>
+                  <button
+                    onClick={resetView}
+                    className="px-4 py-2 bg-white/80 hover:bg-white rounded-lg backdrop-blur-md transition-all"
+                  >
+                    <RotateCw className="w-4 h-4" />
+                  </button>
+                </div>
 
-          {/* Style Selection */}
-          <div className="bg-gray-50 rounded-2xl p-6 border border-gray-200">
-            <Label className="text-lg font-light mb-4 block text-gray-900">Design Style</Label>
-            <div className="grid grid-cols-2 gap-3">
-              {Object.entries(ROOM_STYLES).map(([key, styleOption]) => (
-                <button
-                  key={key}
-                  onClick={() => setStyle(key)}
-                  className={`p-4 rounded-xl border-2 transition-all ${
-                    style === key 
-                      ? 'border-purple-500 bg-purple-50' 
-                      : 'border-gray-300 hover:border-gray-400 bg-white'
-                  }`}
-                >
-                  <div className="flex gap-2 mb-2">
-                    <div 
-                      className="w-6 h-6 rounded border border-gray-300"
-                      style={{ backgroundColor: styleOption.wallColor }}
+                {/* 3D Room Visualization */}
+                <div className="w-full h-full flex items-center justify-center perspective-1000">
+                  <motion.div
+                    className="relative"
+                    animate={{
+                      rotateX: rotation.x,
+                      rotateY: rotation.y,
+                      scale: zoom
+                    }}
+                    transition={{ type: 'spring', stiffness: 100 }}
+                    style={{
+                      width: `${dimensions.width * 16}px`,
+                      height: `${dimensions.height * 16}px`,
+                      transformStyle: 'preserve-3d'
+                    }}
+                  >
+                    {/* Floor */}
+                    <div
+                      className="absolute border border-gray-200"
+                      style={{
+                        backgroundColor: currentStyle.floorColor,
+                        transform: `rotateX(90deg) translateZ(-${dimensions.height * 8}px)`,
+                        width: `${dimensions.width * 16}px`,
+                        height: `${dimensions.length * 16}px`,
+                        boxShadow: 'inset 0 0 50px rgba(0,0,0,0.1)'
+                      }}
+                    >
+                      <div className="absolute inset-0 opacity-20" 
+                        style={{
+                          backgroundImage: 'repeating-linear-gradient(90deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 40px)',
+                          backgroundSize: '40px 40px'
+                        }}
+                      />
+                    </div>
+                    
+                    {/* Back Wall */}
+                    <div
+                      className="absolute border border-gray-200"
+                      style={{
+                        backgroundColor: currentStyle.wallColor,
+                        transform: `translateZ(-${dimensions.length * 8}px)`,
+                        width: `${dimensions.width * 16}px`,
+                        height: `${dimensions.height * 16}px`,
+                        boxShadow: 'inset 0 -20px 40px -20px rgba(0,0,0,0.1)'
+                      }}
                     />
-                    <div 
-                      className="w-6 h-6 rounded border border-gray-300"
-                      style={{ backgroundColor: styleOption.floorColor }}
+                    
+                    {/* Left Wall */}
+                    <div
+                      className="absolute border border-gray-200"
+                      style={{
+                        backgroundColor: currentStyle.wallColor,
+                        transform: `rotateY(-90deg) translateZ(-${dimensions.width * 8}px)`,
+                        width: `${dimensions.length * 16}px`,
+                        height: `${dimensions.height * 16}px`,
+                        boxShadow: 'inset -20px 0 40px -20px rgba(0,0,0,0.1)'
+                      }}
                     />
+                    
+                    {/* Right Wall */}
+                    <div
+                      className="absolute border border-gray-200"
+                      style={{
+                        backgroundColor: currentStyle.wallColor,
+                        transform: `rotateY(90deg) translateZ(${dimensions.width * 8}px)`,
+                        width: `${dimensions.length * 16}px`,
+                        height: `${dimensions.height * 16}px`,
+                        left: `${dimensions.width * 16}px`,
+                        boxShadow: 'inset 20px 0 40px -20px rgba(0,0,0,0.1)'
+                      }}
+                    />
+                    
+                    {/* Ceiling */}
+                    <div
+                      className="absolute border border-gray-200 opacity-95"
+                      style={{
+                        backgroundColor: currentStyle.ceilingColor,
+                        transform: `rotateX(-90deg) translateZ(${dimensions.height * 8}px)`,
+                        width: `${dimensions.width * 16}px`,
+                        height: `${dimensions.length * 16}px`
+                      }}
+                    />
+
+                    {/* Accent Feature */}
+                    <div
+                      className="absolute"
+                      style={{
+                        backgroundColor: currentStyle.accentColor,
+                        transform: `translateZ(-${dimensions.length * 8 - 1}px)`,
+                        width: `${dimensions.width * 16}px`,
+                        height: '4px',
+                        top: '30%'
+                      }}
+                    />
+                  </motion.div>
+                </div>
+
+                {/* Navigation Guide */}
+                <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-3">
+                  <div className="flex items-center gap-6 text-xs text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <Move className="w-4 h-4" />
+                      <span>Drag to rotate</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Layers className="w-4 h-4" />
+                      <span>Scroll to zoom</span>
+                    </div>
                   </div>
-                  <p className="text-sm font-light text-left text-gray-900">{styleOption.name}</p>
+                </div>
+              </motion.div>
+
+              {/* Zoom Control */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="mt-6 bg-gray-50 rounded-2xl p-6"
+              >
+                <div className="flex justify-between items-center mb-4">
+                  <label className="text-sm font-medium text-gray-600">Zoom Level</label>
+                  <span className="text-sm text-gray-900">{Math.round(zoom * 100)}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="0.5"
+                  max="2"
+                  step="0.1"
+                  value={zoom}
+                  onChange={(e) => setZoom(parseFloat(e.target.value))}
+                  className="w-full h-1.5 bg-gray-200 rounded-full appearance-none cursor-pointer slider"
+                />
+                <style jsx>{`
+                  .slider::-webkit-slider-thumb {
+                    appearance: none;
+                    width: 20px;
+                    height: 20px;
+                    background: #111827;
+                    border-radius: 50%;
+                    cursor: pointer;
+                  }
+                  
+                  .slider::-moz-range-thumb {
+                    width: 20px;
+                    height: 20px;
+                    background: #111827;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    border: none;
+                  }
+                `}</style>
+              </motion.div>
+            </div>
+
+            {/* Controls Panel */}
+            <div className="space-y-6">
+              {/* Room Type Selection */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="bg-gray-50 rounded-2xl p-6"
+              >
+                <h3 className="text-lg font-medium mb-4">Room Type</h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {Object.entries(ROOM_TYPES).map(([key, room]) => (
+                    <button
+                      key={key}
+                      onClick={() => handleRoomTypeChange(key)}
+                      className={`p-4 rounded-xl border-2 transition-all ${
+                        roomType === key 
+                          ? 'border-gray-900 bg-gray-900 text-white' 
+                          : 'border-gray-200 hover:border-gray-300 bg-white'
+                      }`}
+                    >
+                      <room.icon className="w-5 h-5 mx-auto mb-2" />
+                      <div className="text-sm font-medium">{room.name}</div>
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Style Selection */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="bg-gray-50 rounded-2xl p-6"
+              >
+                <h3 className="text-lg font-medium mb-4">Design Style</h3>
+                <div className="space-y-3">
+                  {Object.entries(ROOM_STYLES).map(([key, styleOption]) => (
+                    <button
+                      key={key}
+                      onClick={() => setStyle(key)}
+                      className={`w-full p-4 rounded-xl border-2 transition-all text-left ${
+                        style === key 
+                          ? 'border-gray-900 bg-gray-900 text-white' 
+                          : 'border-gray-200 hover:border-gray-300 bg-white'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="font-medium">{styleOption.name}</div>
+                          <div className={`text-sm mt-0.5 ${style === key ? 'text-gray-300' : 'text-gray-500'}`}>
+                            {styleOption.description}
+                          </div>
+                        </div>
+                        <div className="flex gap-1">
+                          <div 
+                            className="w-6 h-6 rounded border border-gray-300"
+                            style={{ backgroundColor: styleOption.wallColor }}
+                          />
+                          <div 
+                            className="w-6 h-6 rounded border border-gray-300"
+                            style={{ backgroundColor: styleOption.floorColor }}
+                          />
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Dimensions */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="bg-gray-50 rounded-2xl p-6"
+              >
+                <h3 className="text-lg font-medium mb-4">Dimensions</h3>
+                <div className="space-y-4">
+                  {[
+                    { label: 'Width', key: 'width', min: 8, max: 30, unit: 'ft' },
+                    { label: 'Length', key: 'length', min: 8, max: 40, unit: 'ft' },
+                    { label: 'Height', key: 'height', min: 8, max: 15, unit: 'ft', step: 0.5 }
+                  ].map((dim) => (
+                    <div key={dim.key}>
+                      <div className="flex justify-between items-baseline mb-2">
+                        <label className="text-sm font-medium text-gray-600">{dim.label}</label>
+                        <span className="text-lg font-light">
+                          {dimensions[dim.key as keyof typeof dimensions]} {dim.unit}
+                        </span>
+                      </div>
+                      <input
+                        type="range"
+                        min={dim.min}
+                        max={dim.max}
+                        step={dim.step || 1}
+                        value={dimensions[dim.key as keyof typeof dimensions]}
+                        onChange={(e) => setDimensions({ 
+                          ...dimensions, 
+                          [dim.key]: parseFloat(e.target.value) 
+                        })}
+                        className="w-full h-1.5 bg-gray-200 rounded-full appearance-none cursor-pointer"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Space Analysis */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="bg-gray-900 text-white rounded-2xl p-6"
+              >
+                <h4 className="font-medium mb-4 flex items-center">
+                  <Ruler className="w-4 h-4 mr-2" />
+                  Space Analysis
+                </h4>
+                <div className="space-y-3 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Floor Area</span>
+                    <span className="font-light">{(dimensions.width * dimensions.length).toLocaleString()} sq ft</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Wall Area</span>
+                    <span className="font-light">
+                      {(2 * dimensions.height * (dimensions.width + dimensions.length)).toLocaleString()} sq ft
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Volume</span>
+                    <span className="font-light">
+                      {(dimensions.width * dimensions.length * dimensions.height).toLocaleString()} cu ft
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Actions */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="space-y-3"
+              >
+                <button className="w-full py-3 px-4 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-all font-medium">
+                  <Palette className="w-4 h-4 inline mr-2" />
+                  Customize Materials
                 </button>
-              ))}
+                <button className="w-full py-3 px-4 border-2 border-gray-200 rounded-xl hover:border-gray-300 transition-all font-medium">
+                  <Download className="w-4 h-4 inline mr-2" />
+                  Export Design
+                </button>
+              </motion.div>
             </div>
-          </div>
-
-          {/* Dimensions */}
-          <div className="bg-gray-50 rounded-2xl p-6 border border-gray-200">
-            <Label className="text-lg font-light mb-4 block text-gray-900">Dimensions</Label>
-            <div className="space-y-4">
-              <div>
-                <div className="flex justify-between mb-2">
-                  <Label className="text-sm text-gray-600">Width</Label>
-                  <span className="text-sm font-light text-gray-900">{dimensions.width} ft</span>
-                </div>
-                <Slider
-                  value={[dimensions.width]}
-                  onValueChange={(value) => setDimensions({ ...dimensions, width: value[0] })}
-                  min={8}
-                  max={30}
-                  step={1}
-                />
-              </div>
-              <div>
-                <div className="flex justify-between mb-2">
-                  <Label className="text-sm text-gray-600">Length</Label>
-                  <span className="text-sm font-light text-gray-900">{dimensions.length} ft</span>
-                </div>
-                <Slider
-                  value={[dimensions.length]}
-                  onValueChange={(value) => setDimensions({ ...dimensions, length: value[0] })}
-                  min={8}
-                  max={40}
-                  step={1}
-                />
-              </div>
-              <div>
-                <div className="flex justify-between mb-2">
-                  <Label className="text-sm text-gray-600">Height</Label>
-                  <span className="text-sm font-light text-gray-900">{dimensions.height} ft</span>
-                </div>
-                <Slider
-                  value={[dimensions.height]}
-                  onValueChange={(value) => setDimensions({ ...dimensions, height: value[0] })}
-                  min={8}
-                  max={15}
-                  step={0.5}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Room Info */}
-          <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-6 border border-gray-200">
-            <h4 className="font-medium mb-4 text-gray-900">Space Analysis</h4>
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Floor Area</span>
-                <span className="font-light text-gray-900">{dimensions.width * dimensions.length} sq ft</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Wall Area</span>
-                <span className="font-light text-gray-900">
-                  {2 * dimensions.height * (dimensions.width + dimensions.length)} sq ft
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Volume</span>
-                <span className="font-light text-gray-900">
-                  {(dimensions.width * dimensions.length * dimensions.height).toLocaleString()} cu ft
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Actions */}
-          <div className="space-y-3">
-            <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0">
-              <Palette className="w-4 h-4 mr-2" />
-              Customize Materials
-            </Button>
-            <Button variant="outline" className="w-full">
-              <Download className="w-4 h-4 mr-2" />
-              Export Design
-            </Button>
           </div>
         </div>
       </div>

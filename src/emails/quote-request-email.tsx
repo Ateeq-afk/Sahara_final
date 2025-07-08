@@ -122,7 +122,7 @@ export const QuoteRequestEmail = ({
 
           <Section style={requirementsSection}>
             <Text style={sectionTitle}>Project Requirements</Text>
-            <Text style={requirements}>{requirements}</Text>
+            <Text style={requirementsStyle}>{requirements}</Text>
           </Section>
 
           <Section style={actionSection}>
@@ -281,7 +281,7 @@ const requirementsSection = {
   margin: "0 32px 24px",
 };
 
-const requirements = {
+const requirementsStyle = {
   fontSize: "16px",
   lineHeight: "24px",
   color: "#333",

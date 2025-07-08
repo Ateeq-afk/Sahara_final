@@ -1,58 +1,85 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
+import { NextRequest, NextResponse } from 'next/server'
+import dbConnect from '@/lib/mongodb'
+import Contact from '@/models/Contact'
 
-const contactSchema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  phone: z.string().min(10),
-  subject: z.string().min(5),
-  message: z.string().min(20),
-});
-
-export async function POST(request: NextRequest) {
+// GET all contacts
+export async function GET(request: NextRequest) {
   try {
-    const body = await request.json();
+    await dbConnect()
     
-    // Validate the request body
-    const validatedData = contactSchema.parse(body);
+    const searchParams = request.nextUrl.searchParams
+    const page = parseInt(searchParams.get('page') || '1')
+    const limit = parseInt(searchParams.get('limit') || '10')
+    const status = searchParams.get('status')
     
-    // TODO: Implement actual email sending logic here
-    // Options:
-    // 1. Use a service like SendGrid, Mailgun, or AWS SES
-    // 2. Save to a database
-    // 3. Send to a CRM system
+    const skip = (page - 1) * limit
     
-    // For now, we'll simulate a successful submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // Build query
+    const query: any = {}
+    if (status) query.status = status
     
-    // In production, you would:
-    // - Send an email to the admin
-    // - Send a confirmation email to the user
-    // - Save the inquiry to a database
-    // - Integrate with a CRM
+    // Get contacts with pagination
+    const [contacts, total] = await Promise.all([
+      Contact.find(query)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .lean(),
+      Contact.countDocuments(query)
+    ])
     
     return NextResponse.json({
       success: true,
-      message: 'Contact form submitted successfully',
-      data: {
-        id: `contact-${Date.now()}`,
-        ...validatedData,
-        submittedAt: new Date().toISOString(),
+      data: contacts,
+      pagination: {
+        page,
+        limit,
+        total,
+        pages: Math.ceil(total / limit)
       }
-    });
+    })
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json({
-        success: false,
-        message: 'Validation error',
-        errors: error.errors,
-      }, { status: 400 });
+    console.error('Error fetching contacts:', error)
+    return NextResponse.json(
+      { success: false, error: 'Failed to fetch contacts' },
+      { status: 500 }
+    )
+  }
+}
+
+// POST create new contact
+export async function POST(request: NextRequest) {
+  try {
+    await dbConnect()
+    
+    const body = await request.json()
+    
+    // Create new contact
+    const contact = await Contact.create(body)
+    
+    // TODO: Send email notification to admin
+    // TODO: Send auto-reply to customer
+    
+    return NextResponse.json({
+      success: true,
+      data: contact,
+      message: 'Contact form submitted successfully. We will get back to you soon!'
+    }, { status: 201 })
+  } catch (error: any) {
+    console.error('Error creating contact:', error)
+    
+    // Handle validation errors
+    if (error.name === 'ValidationError') {
+      const errors = Object.values(error.errors).map((err: any) => err.message)
+      return NextResponse.json(
+        { success: false, errors },
+        { status: 400 }
+      )
     }
     
-    console.error('Contact form error:', error);
-    return NextResponse.json({
-      success: false,
-      message: 'Internal server error',
-    }, { status: 500 });
+    return NextResponse.json(
+      { success: false, error: 'Failed to submit contact form' },
+      { status: 500 }
+    )
   }
 }

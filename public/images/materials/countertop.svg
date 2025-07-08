@@ -1,0 +1,26 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    
+    <pattern id="marble" patternUnits="userSpaceOnUse" width="100" height="100">
+      <rect width="100" height="100" fill="#F5F5F4"/>
+      <path d="M10,20 Q30,10 50,20 T90,20" stroke="#F5F5F4" stroke-width="1" opacity="0.2" fill="none"/>
+      <path d="M0,50 Q20,40 40,50 T80,50" stroke="#F5F5F4" stroke-width="1" opacity="0.15" fill="none"/>
+      <path d="M20,80 Q40,70 60,80 T100,80" stroke="#F5F5F4" stroke-width="1" opacity="0.2" fill="none"/>
+    </pattern>
+  
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#marble)"/>
+  
+  <!-- Label Background -->
+  <rect x="0" y="230" width="400" height="70" fill="rgba(0,0,0,0.7)"/>
+  
+  <!-- Label Text -->
+  <text x="200" y="265" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">
+    Quartz Countertop
+  </text>
+  
+  <!-- Border -->
+  <rect width="400" height="300" fill="none" stroke="#E5E7EB" stroke-width="2"/>
+</svg>

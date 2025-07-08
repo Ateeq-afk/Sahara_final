@@ -169,7 +169,7 @@ export default function Logo({ variant = 'default', className = '' }: LogoProps)
     )
   }
 
-  // Default variant - Unique design-inspired logo
+  // Default variant - Hand supporting building design (Sahara = Support)
   return (
     <svg viewBox="0 0 320 80" xmlns="http://www.w3.org/2000/svg" className={className}>
       <defs>
@@ -182,51 +182,66 @@ export default function Logo({ variant = 'default', className = '' }: LogoProps)
           <stop offset="0%" style={{stopColor:"#d4a574", stopOpacity:1}} />
           <stop offset="100%" style={{stopColor:"#daa520", stopOpacity:1}} />
         </linearGradient>
-        <linearGradient id="defaultSun" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style={{stopColor:"#ffd700", stopOpacity:0.6}} />
-          <stop offset="100%" style={{stopColor:"#ffa500", stopOpacity:0.3}} />
+        <linearGradient id="handGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style={{stopColor:"#ffd700", stopOpacity:0.8}} />
+          <stop offset="100%" style={{stopColor:"#daa520", stopOpacity:0.9}} />
         </linearGradient>
       </defs>
       
       <g transform="translate(25, 40)">
-        {/* Unique design: Desert landscape with modern architecture */}
-        <g transform="scale(1.3)">
-          {/* Desert sun in background */}
-          <circle cx="5" cy="-8" r="10" fill="url(#defaultSun)"/>
-          
-          {/* Flowing desert dunes */}
-          <path d="M -25 12 Q -10 0, 5 5 T 30 0"
-                fill="none"
-                stroke="url(#defaultGradient)"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                opacity="0.8"/>
-          <path d="M -20 16 Q -5 8, 10 10 T 25 6"
-                fill="none"
-                stroke="url(#defaultGradient)"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                opacity="0.5"/>
-          
-          {/* Modern architectural skyline rising from desert */}
-          <g transform="translate(5, -3)">
-            {/* Main tower with golden accent */}
-            <rect x="-2" y="-15" width="4" height="25" fill="url(#defaultAccent)" rx="2"/>
-            {/* Supporting structures creating rhythm */}
-            <rect x="-10" y="-10" width="3" height="20" fill="url(#defaultGradient)" rx="1.5" opacity="0.9"/>
-            <rect x="7" y="-12" width="3" height="22" fill="url(#defaultGradient)" rx="1.5" opacity="0.9"/>
-            <rect x="-16" y="-8" width="3" height="18" fill="url(#defaultGradient)" rx="1.5" opacity="0.7"/>
-            <rect x="13" y="-9" width="3" height="19" fill="url(#defaultGradient)" rx="1.5" opacity="0.7"/>
+        {/* Logo concept: Supporting hand holding up a building - "Sahara" meaning support */}
+        <g transform="scale(1.2)">
+          {/* Supporting hand - palm and fingers */}
+          <g transform="translate(0, 5)">
+            {/* Palm */}
+            <ellipse cx="0" cy="0" rx="8" ry="12" fill="url(#handGradient)" opacity="0.8"/>
             
-            {/* Horizontal elements connecting structures */}
-            <rect x="-16" y="2" width="32" height="1.5" fill="url(#defaultAccent)" rx="0.75" opacity="0.5"/>
-            <rect x="-10" y="-4" width="20" height="1" fill="url(#defaultGradient)" rx="0.5" opacity="0.4"/>
+            {/* Fingers supporting the building */}
+            <ellipse cx="-6" cy="-10" rx="2" ry="6" fill="url(#handGradient)" opacity="0.9"/>
+            <ellipse cx="-2" cy="-12" rx="2" ry="7" fill="url(#handGradient)" opacity="0.9"/>
+            <ellipse cx="2" cy="-12" rx="2" ry="7" fill="url(#handGradient)" opacity="0.9"/>
+            <ellipse cx="6" cy="-10" rx="2" ry="6" fill="url(#handGradient)" opacity="0.9"/>
+            
+            {/* Thumb */}
+            <ellipse cx="-8" cy="-2" rx="2.5" ry="4" fill="url(#handGradient)" opacity="0.8" transform="rotate(-30)"/>
           </g>
           
-          {/* Desert details */}
-          <circle cx="-15" cy="14" r="1" fill="url(#defaultGradient)" opacity="0.4"/>
-          <circle cx="20" cy="12" r="0.8" fill="url(#defaultGradient)" opacity="0.3"/>
-          <circle cx="-5" cy="16" r="1.2" fill="url(#defaultGradient)" opacity="0.35"/>
+          {/* Building being supported by the hand */}
+          <g transform="translate(0, -15)">
+            {/* Main building structure */}
+            <rect x="-12" y="-8" width="24" height="16" fill="url(#defaultGradient)" rx="1"/>
+            
+            {/* Building floors/windows */}
+            <rect x="-10" y="-6" width="4" height="3" fill="url(#defaultAccent)" rx="0.5" opacity="0.7"/>
+            <rect x="-4" y="-6" width="4" height="3" fill="url(#defaultAccent)" rx="0.5" opacity="0.7"/>
+            <rect x="2" y="-6" width="4" height="3" fill="url(#defaultAccent)" rx="0.5" opacity="0.7"/>
+            <rect x="8" y="-6" width="4" height="3" fill="url(#defaultAccent)" rx="0.5" opacity="0.7"/>
+            
+            <rect x="-10" y="-1" width="4" height="3" fill="url(#defaultAccent)" rx="0.5" opacity="0.7"/>
+            <rect x="-4" y="-1" width="4" height="3" fill="url(#defaultAccent)" rx="0.5" opacity="0.7"/>
+            <rect x="2" y="-1" width="4" height="3" fill="url(#defaultAccent)" rx="0.5" opacity="0.7"/>
+            <rect x="8" y="-1" width="4" height="3" fill="url(#defaultAccent)" rx="0.5" opacity="0.7"/>
+            
+            <rect x="-10" y="4" width="4" height="3" fill="url(#defaultAccent)" rx="0.5" opacity="0.7"/>
+            <rect x="-4" y="4" width="4" height="3" fill="url(#defaultAccent)" rx="0.5" opacity="0.7"/>
+            <rect x="2" y="4" width="4" height="3" fill="url(#defaultAccent)" rx="0.5" opacity="0.7"/>
+            <rect x="8" y="4" width="4" height="3" fill="url(#defaultAccent)" rx="0.5" opacity="0.7"/>
+            
+            {/* Rooftop */}
+            <rect x="-12" y="-10" width="24" height="2" fill="url(#defaultAccent)" rx="1"/>
+            
+            {/* Additional architectural elements */}
+            <rect x="-14" y="-12" width="2" height="20" fill="url(#defaultGradient)" rx="1" opacity="0.8"/>
+            <rect x="12" y="-12" width="2" height="20" fill="url(#defaultGradient)" rx="1" opacity="0.8"/>
+          </g>
+          
+          {/* Support lines connecting hand to building */}
+          <g opacity="0.4">
+            <line x1="-6" y1="-5" x2="-10" y2="-7" stroke="url(#handGradient)" strokeWidth="1"/>
+            <line x1="-2" y1="-5" x2="-4" y2="-7" stroke="url(#handGradient)" strokeWidth="1"/>
+            <line x1="2" y1="-5" x2="4" y2="-7" stroke="url(#handGradient)" strokeWidth="1"/>
+            <line x1="6" y1="-5" x2="10" y2="-7" stroke="url(#handGradient)" strokeWidth="1"/>
+          </g>
         </g>
       </g>
       
@@ -247,6 +262,15 @@ export default function Logo({ variant = 'default', className = '' }: LogoProps)
               fill="#4a4a4a"
               letterSpacing="-1.5"
               className="text-[28px] sm:text-[34px]">Developers</text>
+        
+        {/* Subtle tagline emphasizing support */}
+        <text x="0" y="18" 
+              fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif" 
+              fontSize="9" 
+              fontWeight="400" 
+              fill="#8a8a8a"
+              letterSpacing="1.5"
+              className="text-[8px] sm:text-[9px]">BUILDING SUPPORT</text>
       </g>
     </svg>
   )

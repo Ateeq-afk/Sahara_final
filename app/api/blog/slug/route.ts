@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import dbConnect from '@/lib/mongodb';
-import BlogPost from '@/models/BlogPost';
 
 function generateSlug(title: string): string {
   return title
@@ -11,8 +9,6 @@ function generateSlug(title: string): string {
 
 export async function POST(request: NextRequest) {
   try {
-    await dbConnect();
-    
     const { title } = await request.json();
     
     if (!title) {
@@ -24,12 +20,8 @@ export async function POST(request: NextRequest) {
     
     let baseSlug = generateSlug(title);
     let slug = baseSlug;
-    let counter = 1;
     
-    while (await BlogPost.findOne({ slug })) {
-      slug = `${baseSlug}-${counter}`;
-      counter++;
-    }
+    // TODO: Check for uniqueness when BlogPost model is created
     
     return NextResponse.json({ slug });
   } catch (error) {

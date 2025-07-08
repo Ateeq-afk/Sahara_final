@@ -48,15 +48,15 @@ export default function FooterMinimal() {
             <div className="space-y-4">
               <a href="tel:+919591837216" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors">
                 <Phone className="w-4 h-4" />
-                +91 9591 837216
+                +91 95918 37216
               </a>
-              <a href="mailto:info@saharadevelopers.com" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors">
+              <a href="mailto:info@saharadevelopers.in" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors">
                 <Mail className="w-4 h-4" />
-                info@saharadevelopers.com
+                info@saharadevelopers.in
               </a>
               <div className="flex items-center gap-3 text-gray-400">
                 <MapPin className="w-4 h-4" />
-                <span>Bangalore, Karnataka</span>
+                <span>100-feet Ring Road, 8th Main Road, BTM Layout 1st Stage, Bangalore - 560029</span>
               </div>
             </div>
             

@@ -6,12 +6,17 @@ import { Download, FileText, CheckCircle, X, ArrowRight, Sparkles } from 'lucide
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Card } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 import Image from 'next/image'
+import { generateCostGuideContent } from '@/lib/generate-cost-guide'
+import { generateInteriorGuideContent } from '@/lib/generate-interior-guide'
+import { generateRenovationGuideContent } from '@/lib/generate-renovation-guide'
 
 const guides = [
   {
     id: 'construction-cost-guide',
-    title: '2024 Bangalore Construction Cost Guide',
+    title: '2025 Bangalore Construction Cost Guide',
     description: 'Complete pricing breakdown for residential construction',
     pages: 28,
     fileSize: '2.4 MB',
@@ -84,35 +89,41 @@ export default function LeadMagnet() {
       if (response.ok) {
         setIsSuccess(true)
         
-        // Create downloadable content
-        const content = `
-SAHARA CONSTRUCTION - ${selectedGuide.title.toUpperCase()}
-==================================================
-
-Thank you for downloading our guide, ${name}!
-
-This guide contains valuable insights to help you plan your construction project.
-
-For personalized assistance, contact us:
-Phone: +91 9591-837216
-Email: hello@sahara.com
-
-Visit our cost calculator at: https://sahara.com/tools
-
-==================================================
-${selectedGuide.highlights.map(h => `• ${h}`).join('\n')}
-
-[Full guide content would be here in production]
-        `
+        // Create downloadable content based on selected guide
+        let content = ''
+        let filename = ''
+        
+        switch (selectedGuide.id) {
+          case 'construction-cost-guide':
+            content = generateCostGuideContent(name)
+            filename = 'sahara-construction-cost-guide-2025.txt'
+            break
+          case 'interior-design-guide':
+            content = generateInteriorGuideContent(name)
+            filename = 'sahara-interior-design-guide-2025.txt'
+            break
+          case 'renovation-checklist':
+            content = generateRenovationGuideContent(name)
+            filename = 'sahara-renovation-checklist-2025.txt'
+            break
+          default:
+            content = generateCostGuideContent(name)
+            filename = 'sahara-guide-2025.txt'
+        }
+        
+        console.log('Generated content length:', content.length)
+        console.log('Guide type:', selectedGuide.id)
 
         // Download file (only on client)
         if (typeof window !== 'undefined') {
-          const blob = new Blob([content], { type: 'text/plain' })
+          const blob = new Blob([content], { type: 'text/plain; charset=utf-8' })
           const url = window.URL.createObjectURL(blob)
           const a = document.createElement('a')
           a.href = url
-          a.download = `sahara-${selectedGuide.id}.txt`
+          a.download = filename
+          document.body.appendChild(a)
           a.click()
+          document.body.removeChild(a)
           window.URL.revokeObjectURL(url)
         }
 
@@ -185,34 +196,56 @@ ${selectedGuide.highlights.map(h => `• ${h}`).join('\n')}
                         <motion.div
                           key={guide.id}
                           whileHover={{ y: -5 }}
-                          whileTap={{ scale: 0.98 }}
-                          onClick={() => setSelectedGuide(guide)}
                           className="cursor-pointer"
                         >
-                          <div className="bg-gray-50 rounded-2xl p-6 hover:bg-gray-100 transition-all duration-300 border border-gray-200 hover:border-gray-300 hover:shadow-lg">
-                            <div className="text-4xl mb-4">{guide.icon}</div>
-                            <h3 className="font-semibold text-lg mb-2">{guide.title}</h3>
-                            <p className="text-sm text-gray-600 mb-4">{guide.description}</p>
-                            
-                            <div className="space-y-2 mb-4">
-                              {guide.highlights.slice(0, 2).map((highlight, idx) => (
-                                <div key={idx} className="flex items-start gap-2">
-                                  <CheckCircle className="w-4 h-4 text-green-600 mt-0.5" />
-                                  <span className="text-xs text-gray-700">{highlight}</span>
+                          <Card className="border-2 hover:border-slate-900 transition-all duration-300 hover:shadow-xl overflow-hidden">
+                            <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-6">
+                              <div className="flex justify-between items-start mb-4">
+                                <div>
+                                  <h3 className="font-bold text-xl mb-1">{guide.title}</h3>
+                                  <p className="text-slate-300 text-sm">{guide.subtitle}</p>
                                 </div>
-                              ))}
+                                <Badge className="bg-green-500 text-white border-0">
+                                  FREE
+                                </Badge>
+                              </div>
+                              
+                              <div className="flex items-center gap-4 text-sm text-slate-300">
+                                <span className="flex items-center gap-1">
+                                  <FileText className="w-4 h-4" />
+                                  {guide.pages} pages
+                                </span>
+                                <span>•</span>
+                                <span>{guide.format}</span>
+                                <span>•</span>
+                                <span className="text-green-400 font-semibold">₹{guide.value} value</span>
+                              </div>
                             </div>
+                            
+                            <div className="p-6">
+                              <p className="text-gray-600 mb-6">{guide.description}</p>
+                              
+                              <div className="mb-6">
+                                <h4 className="font-semibold text-sm mb-3 text-slate-900">What's Included:</h4>
+                                <div className="grid gap-2">
+                                  {guide.highlights.slice(0, 4).map((highlight, idx) => (
+                                    <div key={idx} className="flex items-start gap-2">
+                                      <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                                      <span className="text-sm text-gray-700">{highlight}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
 
-                            <div className="flex items-center justify-between text-xs text-gray-500">
-                              <span>{guide.pages} pages</span>
-                              <span>{guide.fileSize}</span>
+                              <Button 
+                                onClick={() => setSelectedGuide(guide)}
+                                className="w-full bg-slate-900 hover:bg-slate-800 text-white"
+                              >
+                                Get Instant Access
+                                <ArrowRight className="w-4 h-4 ml-2" />
+                              </Button>
                             </div>
-
-                            <Button className="w-full mt-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                              Select Guide
-                              <ArrowRight className="w-4 h-4 ml-2" />
-                            </Button>
-                          </div>
+                          </Card>
                         </motion.div>
                       ))}
                     </div>

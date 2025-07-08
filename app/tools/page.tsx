@@ -2,11 +2,13 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Calculator, Palette, Clock, Box, ArrowRight } from 'lucide-react'
+import { Calculator, Palette, Clock, Box, ArrowRight, Shield, Video } from 'lucide-react'
 import CostCalculator from '@/components/tools/cost-calculator'
 import RoomVisualizer from '@/components/tools/room-visualizer'
 import MaterialSelector from '@/components/tools/material-selector'
-import TimelineEstimator from '@/components/tools/timeline-estimator'
+import TimelineEstimatorAI from '@/components/tools/timeline-estimator-ai'
+import { ComplianceChecker } from '@/components/tools/compliance-checker'
+import { VirtualSiteVisit } from '@/components/tools/virtual-site-visit'
 
 const tools = [
   {
@@ -47,7 +49,27 @@ const tools = [
     icon: Clock,
     gradient: 'from-orange-500 to-orange-600',
     lightGradient: 'from-orange-50 to-orange-100',
-    component: TimelineEstimator
+    component: TimelineEstimatorAI
+  },
+  {
+    id: 'compliance-checker',
+    title: 'Compliance Checker',
+    subtitle: 'Bangalore Regulations',
+    description: 'Navigate BBMP approvals and building regulations with our comprehensive compliance guide.',
+    icon: Shield,
+    gradient: 'from-red-500 to-red-600',
+    lightGradient: 'from-red-50 to-red-100',
+    component: ComplianceChecker
+  },
+  {
+    id: 'virtual-site-visit',
+    title: 'Virtual Site Visits',
+    subtitle: 'Remote Consultations',
+    description: 'Schedule video consultations for real-time site inspections and progress reviews.',
+    icon: Video,
+    gradient: 'from-indigo-500 to-indigo-600',
+    lightGradient: 'from-indigo-50 to-indigo-100',
+    component: VirtualSiteVisit
   }
 ]
 

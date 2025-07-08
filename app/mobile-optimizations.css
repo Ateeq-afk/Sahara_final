@@ -1,0 +1,179 @@
+/* Mobile Touch Target Optimization */
+@media (max-width: 768px) {
+  /* Ensure all interactive elements have minimum 44px touch targets */
+  button,
+  a,
+  input,
+  select,
+  textarea,
+  [role="button"],
+  [role="link"],
+  .clickable {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Increase padding for better touch targets */
+  .btn,
+  button {
+    padding: 12px 20px;
+  }
+
+  /* Form inputs optimization */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  select,
+  textarea {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+    padding: 12px 16px;
+    min-height: 48px;
+  }
+
+  /* Prevent horizontal scroll */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Reduce animation duration for better performance */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.2s !important;
+    transition-duration: 0.2s !important;
+  }
+
+  /* Disable hover effects on touch devices */
+  @media (hover: none) {
+    button:hover,
+    a:hover {
+      background-color: inherit !important;
+      color: inherit !important;
+    }
+  }
+
+  /* Optimize navigation spacing */
+  nav a,
+  nav button {
+    padding: 12px 16px;
+    margin: 4px 0;
+  }
+
+  /* Better spacing for mobile forms */
+  form > * + * {
+    margin-top: 16px;
+  }
+
+  /* Optimize modal and popup sizes */
+  .modal,
+  [role="dialog"] {
+    margin: 16px;
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Fix position for better mobile UX */
+  .fixed-bottom {
+    position: fixed;
+    bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  /* Better text readability */
+  p,
+  li {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* Optimize images */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Floating buttons positioning */
+  .floating-cta {
+    bottom: calc(20px + env(safe-area-inset-bottom, 0));
+    right: 16px;
+  }
+
+  /* Optimize cards and containers */
+  .card {
+    margin: 8px;
+    padding: 16px;
+  }
+
+  /* Better table scroll */
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Optimize dropdown menus */
+  .dropdown-menu {
+    position: fixed !important;
+    width: calc(100vw - 32px) !important;
+    max-width: 400px;
+  }
+}
+
+/* iOS Specific Fixes */
+@supports (-webkit-touch-callout: none) {
+  /* Fix iOS input zoom */
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Fix iOS scroll bounce */
+  body {
+    position: fixed;
+    width: 100%;
+  }
+
+  /* Better iOS tap highlight */
+  * {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Safe area insets for notched devices */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top, 0);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.safe-area-left {
+  padding-left: env(safe-area-inset-left, 0);
+}
+
+.safe-area-right {
+  padding-right: env(safe-area-inset-right, 0);
+}
+
+/* Performance optimizations */
+@media (max-width: 768px) {
+  /* Disable complex animations on mobile */
+  .animate-complex {
+    animation: none !important;
+  }
+
+  /* Use GPU acceleration for transforms */
+  .mobile-optimized {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  /* Optimize shadows for performance */
+  .shadow-lg {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+}

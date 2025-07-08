@@ -76,7 +76,7 @@ export const ContactFormEmail = ({
 
           <Section style={messageSection}>
             <Text style={sectionTitle}>Message</Text>
-            <Text style={message}>{message}</Text>
+            <Text style={messageStyle}>{message}</Text>
           </Section>
 
           <Section style={footerSection}>
@@ -173,7 +173,7 @@ const link = {
   textDecoration: "none",
 };
 
-const message = {
+const messageStyle = {
   fontSize: "16px",
   lineHeight: "24px",
   color: "#333",

@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+
+# Disallow Google Ads landing pages from organic search
+Disallow: /quote/landing/
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /crm/
+
+# Disallow API endpoints
+Disallow: /api/
+
+# Disallow temporary files
+Disallow: /tmp/
+Disallow: /*.tmp$
+
+# Allow important pages
+Allow: /
+Allow: /about
+Allow: /services
+Allow: /projects
+Allow: /contact
+Allow: /quote
+
+# Sitemap location
+Sitemap: https://saharadevelopers.com/sitemap.xml

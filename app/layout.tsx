@@ -1,11 +1,24 @@
 import './globals.css';
 import './apple-minimal.css';
+import './mobile-optimizations.css';
 import type { Metadata } from 'next';
 import { ThemeProvider } from '@/components/theme-provider';
 import NavbarMinimal from '@/components/navbar-minimal';
 import FooterMinimal from '@/components/footer-minimal';
 import { Toaster } from '@/components/ui/toaster';
 import ErrorBoundary from '@/components/error-boundary';
+import dynamic from 'next/dynamic';
+
+// Dynamic imports for performance
+const ExitIntentPopup = dynamic(() => import('@/components/exit-intent-popup'), {
+  ssr: false
+});
+const FloatingCTA = dynamic(() => import('@/components/floating-cta'), {
+  ssr: false
+});
+const SocialProofNotifications = dynamic(() => import('@/components/social-proof-notifications'), {
+  ssr: false
+});
 
 export const metadata: Metadata = {
   title: 'Sahara Developers | Premier Contractors in Bangalore | Construction & Interior Design',
@@ -72,7 +85,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -224,6 +237,19 @@ export default function RootLayout({
             })
           }}
         />
+        
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-TLV992L06Y"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-TLV992L06Y');
+            `,
+          }}
+        />
       </head>
       <body suppressHydrationWarning>
         <ThemeProvider
@@ -239,6 +265,10 @@ export default function RootLayout({
               <FooterMinimal />
             </div>
             <Toaster />
+            {/* Temporarily disabled to debug MessageSquare error */}
+            {/* <ExitIntentPopup />
+            <FloatingCTA />
+            <SocialProofNotifications /> */}
           </ErrorBoundary>
         </ThemeProvider>
       </body>

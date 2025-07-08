@@ -14,17 +14,21 @@ import {
   Mail,
   Image,
   UserCheck,
+  Gift,
+  DollarSign,
 } from 'lucide-react';
 import Logo from '@/components/logo';
 
 const navigation = [
   { name: 'Dashboard', href: '/crm', icon: LayoutDashboard },
   { name: 'Leads', href: '/crm/leads', icon: Users },
+  { name: 'Quotes', href: '/crm/quotes', icon: DollarSign },
+  { name: 'Messages', href: '/crm/messages', icon: MessageSquare },
   { name: 'Blog Posts', href: '/crm/blog', icon: FileText },
   { name: 'Media Library', href: '/crm/media', icon: Image },
-  { name: 'Messages', href: '/crm/messages', icon: MessageSquare },
   { name: 'Calendar', href: '/crm/calendar', icon: Calendar },
-  { name: 'Email Campaigns', href: '/crm/campaigns', icon: Mail },
+  { name: 'Campaigns', href: '/crm/campaigns', icon: Mail },
+  { name: 'Referrals', href: '/crm/referrals', icon: Gift },
   { name: 'Analytics', href: '/crm/analytics', icon: BarChart3 },
   { name: 'Employees', href: '/crm/employees', icon: UserCheck },
   { name: 'Settings', href: '/crm/settings', icon: Settings },

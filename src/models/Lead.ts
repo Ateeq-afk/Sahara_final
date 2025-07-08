@@ -167,7 +167,7 @@ leadSchema.pre('save', function (next) {
       createdAt: new Date(),
     });
     
-    this.calculateScore();
+    (this as any).calculateScore();
   }
   
   next();

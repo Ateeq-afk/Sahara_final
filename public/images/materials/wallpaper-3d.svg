@@ -1,0 +1,25 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    
+    <pattern id="geometric" patternUnits="userSpaceOnUse" width="60" height="60">
+      <rect width="60" height="60" fill="#DDD6FE"/>
+      <polygon points="30,0 60,30 30,60 0,30" fill="#DDD6FE" opacity="0.8"/>
+      <polygon points="30,10 50,30 30,50 10,30" fill="white" opacity="0.1"/>
+    </pattern>
+  
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#geometric)"/>
+  
+  <!-- Label Background -->
+  <rect x="0" y="230" width="400" height="70" fill="rgba(0,0,0,0.7)"/>
+  
+  <!-- Label Text -->
+  <text x="200" y="265" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">
+    3D Wallpaper
+  </text>
+  
+  <!-- Border -->
+  <rect width="400" height="300" fill="none" stroke="#E5E7EB" stroke-width="2"/>
+</svg>

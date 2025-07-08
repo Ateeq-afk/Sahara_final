@@ -190,7 +190,7 @@ export default function ContactPage() {
     {
       icon: PhoneCall,
       title: "Phone",
-      details: ["+91 9591-837216", "+91 98450 54321"],
+      details: ["+91 95918 37216"],
       action: "tel:+919591837216",
       color: "from-blue-500 to-indigo-600",
       description: "Mon-Sat 9AM-6PM"
@@ -198,15 +198,15 @@ export default function ContactPage() {
     {
       icon: Mail,
       title: "Email",
-      details: ["hello@sahara.com", "support@sahara.com"],
-      action: "mailto:hello@sahara.com",
+      details: ["info@saharadevelopers.in"],
+      action: "mailto:info@saharadevelopers.in",
       color: "from-purple-500 to-pink-600",
       description: "24/7 Support"
     },
     {
       icon: MessageCircle,
       title: "WhatsApp",
-      details: ["+91 9591-837216"],
+      details: ["+91 95918 37216"],
       action: "https://wa.me/919591837216",
       color: "from-green-500 to-emerald-600",
       description: "Quick Response"
@@ -214,7 +214,7 @@ export default function ContactPage() {
     {
       icon: MapPin,
       title: "Studio",
-      details: ["100-feet Ring Road", "BTM Layout, Bangalore"],
+      details: ["100-feet Ring Road, 8th Main Road", "BTM Layout 1st Stage, Bangalore - 560029"],
       action: null,
       color: "from-amber-500 to-orange-600",
       description: "Visit Us"
@@ -877,8 +877,8 @@ export default function ContactPage() {
                     <div className="flex items-start gap-3">
                       <MapPin className="w-5 h-5 text-amber-600 mt-0.5" />
                       <div>
-                        <p className="font-medium">100-feet Ring Road, BTM Layout</p>
-                        <p className="text-sm text-gray-500">Bangalore, Karnataka 560029</p>
+                        <p className="font-medium">100-feet Ring Road, 8th Main Road</p>
+                        <p className="text-sm text-gray-500">BTM Layout 1st Stage, Bangalore - 560029</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
@@ -891,7 +891,7 @@ export default function ContactPage() {
                     <div className="flex items-center gap-3">
                       <Phone className="w-5 h-5 text-amber-600" />
                       <a href="tel:+919591837216" className="font-medium hover:text-amber-600 transition-colors">
-                        +91 9591-837216
+                        +91 95918 37216
                       </a>
                     </div>
                   </div>

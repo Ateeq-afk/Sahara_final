@@ -11,6 +11,11 @@ const nextConfig = {
     minimumCacheTTL: 60,
   },
   transpilePackages: ['framer-motion'],
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
+  },
   // Temporarily disabled to fix module resolution issues
   // experimental: {
   //   optimizePackageImports: ['framer-motion', 'lucide-react', '@radix-ui/react-accordion', '@radix-ui/react-dialog']

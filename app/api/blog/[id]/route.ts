@@ -1,30 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
-import dbConnect from '@/lib/mongodb';
-import BlogPost from '@/models/BlogPost';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    await dbConnect();
-    
     const { id } = params;
     
-    const post = await BlogPost.findById(id)
-      .populate('author', 'name email avatar')
-      .lean();
-    
-    if (!post) {
-      return NextResponse.json(
-        { error: 'Blog post not found' },
-        { status: 404 }
-      );
-    }
-    
-    await BlogPost.findByIdAndUpdate(id, { $inc: { views: 1 } });
-    
-    return NextResponse.json(post);
+    // TODO: Implement blog post fetching when BlogPost model is created
+    return NextResponse.json(
+      { error: 'Blog feature not implemented yet' },
+      { status: 404 }
+    );
   } catch (error) {
     console.error('Error fetching blog post:', error);
     return NextResponse.json(
@@ -39,40 +26,13 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    await dbConnect();
-    
     const { id } = params;
-    const body = await request.json();
     
-    const existingPost = await BlogPost.findById(id);
-    if (!existingPost) {
-      return NextResponse.json(
-        { error: 'Blog post not found' },
-        { status: 404 }
-      );
-    }
-    
-    if (body.slug && body.slug !== existingPost.slug) {
-      const duplicateSlug = await BlogPost.findOne({ 
-        slug: body.slug,
-        _id: { $ne: id }
-      });
-      
-      if (duplicateSlug) {
-        return NextResponse.json(
-          { error: 'A post with this slug already exists' },
-          { status: 400 }
-        );
-      }
-    }
-    
-    const updatedPost = await BlogPost.findByIdAndUpdate(
-      id,
-      { $set: body },
-      { new: true, runValidators: true }
-    ).populate('author', 'name email avatar');
-    
-    return NextResponse.json(updatedPost);
+    // TODO: Implement blog post updating when BlogPost model is created
+    return NextResponse.json(
+      { error: 'Blog feature not implemented yet' },
+      { status: 404 }
+    );
   } catch (error) {
     console.error('Error updating blog post:', error);
     return NextResponse.json(
@@ -87,22 +47,12 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    await dbConnect();
-    
     const { id } = params;
     
-    const deletedPost = await BlogPost.findByIdAndDelete(id);
-    
-    if (!deletedPost) {
-      return NextResponse.json(
-        { error: 'Blog post not found' },
-        { status: 404 }
-      );
-    }
-    
+    // TODO: Implement blog post deletion when BlogPost model is created
     return NextResponse.json(
-      { message: 'Blog post deleted successfully' },
-      { status: 200 }
+      { error: 'Blog feature not implemented yet' },
+      { status: 404 }
     );
   } catch (error) {
     console.error('Error deleting blog post:', error);

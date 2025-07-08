@@ -127,7 +127,7 @@ const Footer = () => {
         <div className="py-3 sm:py-4 border-b border-[#424245]">
           <div className="text-[10px] sm:text-xs leading-relaxed">
             <p className="text-[#86868b]">
-              More ways to shop: <Link href="/contact" className="text-[#2997ff] hover:underline">Visit our showroom</Link> or <Link href="tel:+919591837216" className="text-[#2997ff] hover:underline">call +91 9591 837216</Link>.
+              More ways to shop: <Link href="/contact" className="text-[#2997ff] hover:underline">Visit our showroom</Link> or <Link href="tel:+919591837216" className="text-[#2997ff] hover:underline">call +91 95918 37216</Link>.
             </p>
           </div>
         </div>

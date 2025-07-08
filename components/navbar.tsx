@@ -17,7 +17,7 @@ const Navbar = () => {
   const { scrollY } = useScroll()
 
   // Pages that should always have a solid navbar background
-  const solidNavbarPages = ['/quote', '/contact', '/packages', '/gallery', '/services', '/about', '/tools', '/blog']
+  const solidNavbarPages = ['/quote', '/contact', '/packages', '/gallery', '/services', '/about', '/tools', '/blog', '/marketplace']
   const shouldUseSolidNavbar = solidNavbarPages.some(page => pathname.startsWith(page)) || pathname !== '/'
 
   // Hide/show navbar on scroll
@@ -52,6 +52,7 @@ const Navbar = () => {
     { title: 'Interior Design', href: '/services/interior-decor' },
     { title: 'Projects', href: '/gallery' },
     { title: 'Packages', href: '/packages' },
+    { title: 'Marketplace', href: '/marketplace' },
     { title: 'About', href: '/about' },
     { title: 'Contact', href: '/contact' },
   ]

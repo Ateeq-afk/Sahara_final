@@ -1,0 +1,26 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    
+    <pattern id="tiles" patternUnits="userSpaceOnUse" width="40" height="40">
+      <rect width="40" height="40" fill="#F3F4F6"/>
+      <rect x="1" y="1" width="38" height="38" fill="#F3F4F6" opacity="0.8"/>
+      <line x1="0" y1="20" x2="40" y2="20" stroke="white" stroke-width="1" opacity="0.3"/>
+      <line x1="20" y1="0" x2="20" y2="40" stroke="white" stroke-width="1" opacity="0.3"/>
+    </pattern>
+  
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#tiles)"/>
+  
+  <!-- Label Background -->
+  <rect x="0" y="230" width="400" height="70" fill="rgba(0,0,0,0.7)"/>
+  
+  <!-- Label Text -->
+  <text x="200" y="265" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">
+    Vitrified Tiles
+  </text>
+  
+  <!-- Border -->
+  <rect width="400" height="300" fill="none" stroke="#E5E7EB" stroke-width="2"/>
+</svg>

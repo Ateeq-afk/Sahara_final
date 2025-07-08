@@ -1,120 +1,100 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
+import { NextRequest, NextResponse } from 'next/server'
+import dbConnect from '@/lib/mongodb'
+import Quote from '@/models/Quote'
 
-const quoteSchema = z.object({
-  // Personal Information
-  fullName: z.string().min(2),
-  email: z.string().email(),
-  phone: z.string().min(10),
-  company: z.string().optional(),
-  
-  // Project Details
-  projectType: z.enum(['new-construction', 'renovation', 'interior-design', 'commercial', 'other']),
-  projectScope: z.array(z.string()),
-  estimatedBudget: z.string(),
-  timeline: z.string(),
-  
-  // Property Details
-  propertyType: z.string(),
-  propertySize: z.string(),
-  propertyLocation: z.string(),
-  currentCondition: z.string(),
-  
-  // Design Preferences
-  designStyle: z.array(z.string()),
-  keyFeatures: z.array(z.string()),
-  specialRequirements: z.string(),
-  
-  // Additional Information
-  hearAboutUs: z.string(),
-  additionalComments: z.string().optional(),
-});
-
+// POST create new quote from the quote form
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    await dbConnect()
     
-    // Validate the request body
-    const validatedData = quoteSchema.parse(body);
+    const body = await request.json()
     
-    // TODO: Implement actual quote processing logic here
-    // Options:
-    // 1. Send email notification to sales team
-    // 2. Save to database for follow-up
-    // 3. Integrate with CRM system
-    // 4. Generate PDF quote estimate
+    // Transform the form data to match our Quote model
+    const quoteData = {
+      name: body.name || body.fullName,
+      email: body.email, 
+      phone: body.phone,
+      projectType: body.serviceType || body.projectType || 'construction',
+      propertyType: body.projectType || body.propertyType || 'other',
+      area: body.propertySize ? 
+        (body.propertySize.includes('under') || body.propertySize.includes('<') ? 800 :
+         body.propertySize.includes('1000-2000') || body.propertySize.includes('1000') ? 1500 :
+         body.propertySize.includes('2000-3000') || body.propertySize.includes('2000') ? 2500 :
+         body.propertySize.includes('above') || body.propertySize.includes('>') ? 3500 : 
+         parseInt(body.propertySize) || 1500)
+        : 1500,
+      location: body.location || body.propertyLocation || 'Bangalore',
+      budget: {
+        min: body.budget ? 
+          (body.budget.includes('10-20') || body.budget.includes('10') ? 1000000 :
+           body.budget.includes('20-50') || body.budget.includes('20') ? 2000000 :
+           body.budget.includes('50-100') || body.budget.includes('50') ? 5000000 :
+           body.budget.includes('100+') || body.budget.includes('100') ? 10000000 : 
+           parseInt(body.budget) * 100000 || 1000000)
+          : parseInt(body.estimatedBudget) || 1000000,
+        max: body.budget ?
+          (body.budget.includes('10-20') ? 2000000 :
+           body.budget.includes('20-50') ? 5000000 :
+           body.budget.includes('50-100') ? 10000000 :
+           body.budget.includes('100+') ? 50000000 : 
+           parseInt(body.budget) * 150000 || 5000000)
+          : parseInt(body.estimatedBudget) * 1.5 || 5000000
+      },
+      expectedStartDate: body.timeline === 'immediate' || body.timeline === 'asap'
+        ? new Date() 
+        : body.timeline === '3-months' || body.timeline === '1-3months'
+          ? new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)
+          : new Date(Date.now() + 180 * 24 * 60 * 60 * 1000),
+      urgency: body.timeline === 'immediate' || body.timeline === 'asap' ? 'immediate' :
+               body.timeline === '3-months' || body.timeline === '1-3months' ? '1-3months' : 
+               '3-6months',
+      requirements: `${body.message || body.specialRequirements || body.additionalComments || ''}\n\nDesign Styles: ${(body.designStyle || []).join(', ')}\nKey Features: ${(body.keyFeatures || []).join(', ')}`,
+      referralSource: body.hearAboutUs || 'website-quote-form'
+    }
     
-    // For now, we'll simulate a successful submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    // Create new quote
+    const quote = await Quote.create(quoteData)
     
-    // Calculate estimated quote based on project details
-    const basePrice = calculateBasePrice(validatedData);
+    // Calculate estimated cost
+    const estimatedCost = quote.getEstimatedCost()
+    
+    // TODO: Send email notification to admin
+    // TODO: Send confirmation email to customer
     
     return NextResponse.json({
       success: true,
-      message: 'Quote request submitted successfully',
       data: {
-        id: `quote-${Date.now()}`,
-        ...validatedData,
+        id: quote._id,
+        quoteId: quote.projectId,
+        estimatedCost,
         estimatedQuote: {
-          basePrice,
+          basePrice: estimatedCost,
           priceRange: {
-            min: basePrice * 0.9,
-            max: basePrice * 1.2,
+            min: estimatedCost * 0.9,
+            max: estimatedCost * 1.2,
           },
           currency: 'INR',
           validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-        },
-        submittedAt: new Date().toISOString(),
-        expectedResponseTime: '2-4 hours',
-      }
-    });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json({
-        success: false,
-        message: 'Validation error',
-        errors: error.errors,
-      }, { status: 400 });
+        }
+      },
+      message: 'Quote request submitted successfully! We will contact you within 2-4 hours.',
+      expectedResponseTime: '2-4 hours'
+    }, { status: 201 })
+  } catch (error: any) {
+    console.error('Error creating quote:', error)
+    
+    // Handle validation errors
+    if (error.name === 'ValidationError') {
+      const errors = Object.values(error.errors).map((err: any) => err.message)
+      return NextResponse.json(
+        { success: false, errors },
+        { status: 400 }
+      )
     }
     
-    console.error('Quote form error:', error);
-    return NextResponse.json({
-      success: false,
-      message: 'Internal server error',
-    }, { status: 500 });
+    return NextResponse.json(
+      { success: false, error: 'Failed to create quote' },
+      { status: 500 }
+    )
   }
-}
-
-function calculateBasePrice(data: z.infer<typeof quoteSchema>): number {
-  // Simple price calculation logic
-  let basePrice = 0;
-  
-  // Base price by project type
-  const projectTypePrices: Record<string, number> = {
-    'new-construction': 5000000,
-    'renovation': 2000000,
-    'interior-design': 1000000,
-    'commercial': 8000000,
-    'other': 3000000,
-  };
-  
-  basePrice = projectTypePrices[data.projectType] || 3000000;
-  
-  // Adjust based on property size (assuming it's in sq ft)
-  const sizeMatch = data.propertySize.match(/(\d+)/);
-  if (sizeMatch) {
-    const size = parseInt(sizeMatch[1]);
-    basePrice = basePrice * (size / 2000); // Assuming 2000 sq ft as base
-  }
-  
-  // Adjust based on features
-  basePrice += data.keyFeatures.length * 100000;
-  
-  // Adjust based on design styles
-  if (data.designStyle.includes('luxury') || data.designStyle.includes('premium')) {
-    basePrice *= 1.5;
-  }
-  
-  return Math.round(basePrice);
 }

@@ -2,13 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Palette, Filter, Search, Check, Info, ShoppingCart } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Badge } from '@/components/ui/badge'
+import { Palette, Filter, Search, Check, Info, ShoppingCart, X } from 'lucide-react'
 import Image from 'next/image'
 
 // Material interface
@@ -22,6 +16,9 @@ interface Material {
   features: string[]
   popular?: boolean
   premium?: boolean
+  description?: string
+  rating?: number
+  reviews?: number
 }
 
 // Comprehensive material catalog
@@ -33,9 +30,12 @@ const MATERIALS: Record<string, Material[]> = {
       brand: 'Kajaria',
       price: { min: 45, max: 250 },
       unit: 'sq ft',
-      image: '/images/materials/vitrified-tiles.jpg',
+      image: '/images/materials/vitrified-tiles-premium.svg',
       features: ['Stain Resistant', 'Low Maintenance', 'Durable'],
-      popular: true
+      description: 'Premium quality vitrified tiles with superior finish',
+      popular: true,
+      rating: 4.8,
+      reviews: 245
     },
     {
       id: 'marble',
@@ -43,18 +43,24 @@ const MATERIALS: Record<string, Material[]> = {
       brand: 'Imported',
       price: { min: 200, max: 800 },
       unit: 'sq ft',
-      image: '/images/materials/marble.jpg',
+      image: '/images/materials/marble-carrara.svg',
       features: ['Premium Look', 'Natural Stone', 'Unique Patterns'],
-      premium: true
+      description: 'Authentic Italian marble for luxury spaces',
+      premium: true,
+      rating: 4.9,
+      reviews: 89
     },
     {
       id: 'wooden-flooring',
-      name: 'Wooden Flooring',
+      name: 'Engineered Wood',
       brand: 'Pergo',
       price: { min: 150, max: 400 },
       unit: 'sq ft',
-      image: '/images/materials/wooden.jpg',
-      features: ['Warm Feel', 'Sound Insulation', 'Elegant']
+      image: '/images/materials/wooden-oak.svg',
+      features: ['Warm Feel', 'Sound Insulation', 'Elegant'],
+      description: 'Multi-layer engineered wood with natural finish',
+      rating: 4.7,
+      reviews: 156
     },
     {
       id: 'granite',
@@ -62,8 +68,11 @@ const MATERIALS: Record<string, Material[]> = {
       brand: 'Local',
       price: { min: 60, max: 200 },
       unit: 'sq ft',
-      image: '/images/materials/granite.jpg',
-      features: ['Durable', 'Heat Resistant', 'Natural']
+      image: '/images/materials/granite-galaxy.svg',
+      features: ['Durable', 'Heat Resistant', 'Natural'],
+      description: 'Locally sourced premium granite',
+      rating: 4.6,
+      reviews: 312
     }
   ],
   wall: [
@@ -73,9 +82,12 @@ const MATERIALS: Record<string, Material[]> = {
       brand: 'Asian Paints Royale',
       price: { min: 45, max: 65 },
       unit: 'sq ft',
-      image: '/images/materials/paint.jpg',
+      image: '/images/materials/paint-weather.svg',
       features: ['Washable', 'Anti-bacterial', '10 Year Warranty'],
-      popular: true
+      description: 'Luxury interior emulsion with Teflon surface protector',
+      popular: true,
+      rating: 4.8,
+      reviews: 567
     },
     {
       id: 'wallpaper',
@@ -83,8 +95,11 @@ const MATERIALS: Record<string, Material[]> = {
       brand: 'Nilaya',
       price: { min: 80, max: 300 },
       unit: 'sq ft',
-      image: '/images/materials/wallpaper.jpg',
-      features: ['Designer Patterns', 'Easy Installation', 'Removable']
+      image: '/images/materials/wallpaper-3d.svg',
+      features: ['Designer Patterns', 'Easy Installation', 'Removable'],
+      description: 'Curated designer wallpapers from Europe',
+      rating: 4.5,
+      reviews: 134
     },
     {
       id: 'texture-paint',
@@ -92,8 +107,11 @@ const MATERIALS: Record<string, Material[]> = {
       brand: 'Berger',
       price: { min: 70, max: 150 },
       unit: 'sq ft',
-      image: '/images/materials/texture.jpg',
-      features: ['3D Effect', 'Hide Imperfections', 'Unique Look']
+      image: '/images/materials/texture-paint.svg',
+      features: ['3D Effect', 'Hide Imperfections', 'Unique Look'],
+      description: 'Create stunning textured walls',
+      rating: 4.4,
+      reviews: 198
     },
     {
       id: 'stone-cladding',
@@ -101,21 +119,27 @@ const MATERIALS: Record<string, Material[]> = {
       brand: 'Natural Stone',
       price: { min: 150, max: 400 },
       unit: 'sq ft',
-      image: '/images/materials/stone-wall.jpg',
+      image: '/images/materials/stone-cladding.svg',
       features: ['Natural Look', 'Durable', 'Weather Resistant'],
-      premium: true
+      description: 'Natural stone veneer for accent walls',
+      premium: true,
+      rating: 4.7,
+      reviews: 87
     }
   ],
   bathroom: [
     {
       id: 'sanitaryware-premium',
-      name: 'Premium Sanitaryware Set',
+      name: 'Premium Sanitaryware',
       brand: 'Kohler',
       price: { min: 25000, max: 75000 },
       unit: 'set',
-      image: '/images/materials/sanitaryware.jpg',
+      image: '/images/materials/sanitaryware.svg',
       features: ['Water Efficient', 'Modern Design', '10 Year Warranty'],
-      premium: true
+      description: 'Complete bathroom suite with WC, basin, and accessories',
+      premium: true,
+      rating: 4.9,
+      reviews: 156
     },
     {
       id: 'cp-fittings',
@@ -123,18 +147,24 @@ const MATERIALS: Record<string, Material[]> = {
       brand: 'Jaquar',
       price: { min: 5000, max: 25000 },
       unit: 'set',
-      image: '/images/materials/fittings.jpg',
+      image: '/images/materials/fittings.svg',
       features: ['Rust Proof', 'Chrome Finish', 'Lifetime Warranty'],
-      popular: true
+      description: 'Premium chrome-plated brass fittings',
+      popular: true,
+      rating: 4.8,
+      reviews: 423
     },
     {
       id: 'shower-enclosure',
-      name: 'Glass Shower Enclosure',
+      name: 'Shower Enclosure',
       brand: 'Saint-Gobain',
       price: { min: 35000, max: 80000 },
       unit: 'unit',
-      image: '/images/materials/shower.jpg',
-      features: ['Tempered Glass', 'Frameless Design', 'Easy Clean']
+      image: '/images/materials/shower.svg',
+      features: ['Tempered Glass', 'Frameless Design', 'Easy Clean'],
+      description: '8mm tempered glass with nano coating',
+      rating: 4.7,
+      reviews: 98
     },
     {
       id: 'bathroom-tiles',
@@ -142,8 +172,11 @@ const MATERIALS: Record<string, Material[]> = {
       brand: 'Johnson',
       price: { min: 45, max: 120 },
       unit: 'sq ft',
-      image: '/images/materials/bathroom-tiles.jpg',
-      features: ['Anti-skid', 'Water Resistant', 'Easy Maintenance']
+      image: '/images/materials/bathroom-tiles.svg',
+      features: ['Anti-skid', 'Water Resistant', 'Easy Maintenance'],
+      description: 'Specially designed tiles for wet areas',
+      rating: 4.5,
+      reviews: 267
     }
   ],
   kitchen: [
@@ -153,18 +186,24 @@ const MATERIALS: Record<string, Material[]> = {
       brand: 'Godrej',
       price: { min: 125000, max: 500000 },
       unit: 'complete',
-      image: '/images/materials/modular-kitchen.jpg',
+      image: '/images/materials/modular-kitchen.svg',
       features: ['Soft Close', 'Lifetime Warranty', 'Custom Design'],
-      popular: true
+      description: 'Complete modular kitchen with appliances',
+      popular: true,
+      rating: 4.8,
+      reviews: 189
     },
     {
       id: 'kitchen-countertop',
-      name: 'Granite Countertop',
-      brand: 'Local',
+      name: 'Quartz Countertop',
+      brand: 'Caesarstone',
       price: { min: 150, max: 400 },
       unit: 'sq ft',
-      image: '/images/materials/countertop.jpg',
-      features: ['Heat Resistant', 'Scratch Proof', 'Easy Clean']
+      image: '/images/materials/countertop.svg',
+      features: ['Heat Resistant', 'Scratch Proof', 'Non-porous'],
+      description: 'Engineered quartz with lifetime warranty',
+      rating: 4.9,
+      reviews: 234
     },
     {
       id: 'chimney',
@@ -172,8 +211,11 @@ const MATERIALS: Record<string, Material[]> = {
       brand: 'Faber',
       price: { min: 15000, max: 50000 },
       unit: 'unit',
-      image: '/images/materials/chimney.jpg',
-      features: ['Auto Clean', 'Touch Control', 'Silent Operation']
+      image: '/images/materials/chimney.svg',
+      features: ['Auto Clean', 'Touch Control', 'Silent Operation'],
+      description: '90cm filterless technology chimney',
+      rating: 4.6,
+      reviews: 167
     },
     {
       id: 'kitchen-sink',
@@ -181,15 +223,18 @@ const MATERIALS: Record<string, Material[]> = {
       brand: 'Franke',
       price: { min: 8000, max: 30000 },
       unit: 'unit',
-      image: '/images/materials/sink.jpg',
-      features: ['Scratch Resistant', 'Sound Dampening', 'Lifetime Warranty']
+      image: '/images/materials/sink.svg',
+      features: ['Scratch Resistant', 'Sound Dampening', 'Deep Bowl'],
+      description: 'Premium 304-grade stainless steel',
+      rating: 4.7,
+      reviews: 298
     }
   ]
 }
 
 export default function MaterialSelector() {
   const [category, setCategory] = useState('flooring')
-  const [selectedMaterials, setSelectedMaterials] = useState<any[]>([])
+  const [selectedMaterials, setSelectedMaterials] = useState<Material[]>([])
   const [searchQuery, setSearchQuery] = useState('')
   const [priceFilter, setPriceFilter] = useState('all')
 
@@ -205,7 +250,7 @@ export default function MaterialSelector() {
     return matchesSearch && matchesPrice
   })
 
-  const toggleMaterial = (material: any) => {
+  const toggleMaterial = (material: Material) => {
     const exists = selectedMaterials.find(m => m.id === material.id)
     if (exists) {
       setSelectedMaterials(selectedMaterials.filter(m => m.id !== material.id))
@@ -220,209 +265,294 @@ export default function MaterialSelector() {
     }, 0)
   }
 
+  const categories = [
+    { id: 'flooring', label: 'Flooring' },
+    { id: 'wall', label: 'Wall Finish' },
+    { id: 'bathroom', label: 'Bathroom' },
+    { id: 'kitchen', label: 'Kitchen' }
+  ]
+
+  const priceFilters = [
+    { id: 'all', label: 'All Prices' },
+    { id: 'budget', label: 'Budget' },
+    { id: 'mid', label: 'Mid-range' },
+    { id: 'premium', label: 'Premium' }
+  ]
+
   return (
-    <Card className="p-8">
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2 flex items-center">
-          <Palette className="w-8 h-8 mr-3 text-primary" />
-          Material Selection Tool
-        </h2>
-        <p className="text-gray-600">Browse and compare premium construction materials</p>
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <div className="px-6 py-12 md:px-12 md:py-16 text-center">
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-4xl md:text-6xl font-light tracking-tight text-gray-900 mb-4"
+        >
+          Material Library
+        </motion.h1>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-lg md:text-xl text-gray-600 font-light"
+        >
+          Curated selection of premium construction materials
+        </motion.p>
       </div>
 
-      <div className="grid lg:grid-cols-4 gap-8">
-        <div className="lg:col-span-3">
+      <div className="px-6 md:px-12 pb-20">
+        <div className="max-w-7xl mx-auto">
           {/* Search and Filters */}
-          <div className="flex flex-col sm:flex-row gap-4 mb-6">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <Input
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="mb-8"
+          >
+            <div className="flex flex-col md:flex-row gap-4 mb-6">
+              <div className="flex-1 relative">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <input
+                  type="text"
                   placeholder="Search materials or brands..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10"
+                  className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
                 />
               </div>
+              <div className="flex gap-2">
+                {priceFilters.map((filter) => (
+                  <button
+                    key={filter.id}
+                    onClick={() => setPriceFilter(filter.id)}
+                    className={`px-4 py-3 rounded-xl border-2 transition-all ${
+                      priceFilter === filter.id 
+                        ? 'border-gray-900 bg-gray-900 text-white' 
+                        : 'border-gray-200 hover:border-gray-300 bg-white'
+                    }`}
+                  >
+                    {filter.label}
+                  </button>
+                ))}
+              </div>
             </div>
-            <div className="flex gap-2">
-              <Button
-                variant={priceFilter === 'all' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setPriceFilter('all')}
-              >
-                All
-              </Button>
-              <Button
-                variant={priceFilter === 'budget' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setPriceFilter('budget')}
-              >
-                Budget
-              </Button>
-              <Button
-                variant={priceFilter === 'mid' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setPriceFilter('mid')}
-              >
-                Mid-range
-              </Button>
-              <Button
-                variant={priceFilter === 'premium' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setPriceFilter('premium')}
-              >
-                Premium
-              </Button>
+
+            {/* Category Tabs */}
+            <div className="flex gap-1 p-1 bg-gray-100 rounded-xl">
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setCategory(cat.id)}
+                  className={`flex-1 py-3 px-6 rounded-lg font-medium transition-all ${
+                    category === cat.id 
+                      ? 'bg-white shadow-sm' 
+                      : 'hover:bg-gray-50'
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              ))}
             </div>
-          </div>
+          </motion.div>
 
-          {/* Category Tabs */}
-          <Tabs value={category} onValueChange={setCategory}>
-            <TabsList className="grid grid-cols-4 w-full mb-6">
-              <TabsTrigger value="flooring">Flooring</TabsTrigger>
-              <TabsTrigger value="wall">Wall Finish</TabsTrigger>
-              <TabsTrigger value="bathroom">Bathroom</TabsTrigger>
-              <TabsTrigger value="kitchen">Kitchen</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value={category} className="mt-0">
+          <div className="grid lg:grid-cols-4 gap-8">
+            {/* Materials Grid */}
+            <div className="lg:col-span-3">
               <div className="grid md:grid-cols-2 gap-6">
                 {filteredMaterials.map((material, index) => (
                   <motion.div
                     key={material.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
                   >
-                    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-                      <div className="relative h-48 bg-gray-200">
-                        <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                          <Palette className="w-16 h-16 text-gray-400" />
-                        </div>
-                        {material.popular && (
-                          <Badge className="absolute top-2 right-2 bg-orange-500">Popular</Badge>
+                    <div className="group relative bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-gray-300 transition-all">
+                      {/* Image */}
+                      <div className="relative h-48 bg-gray-100">
+                        {material.image && (
+                          <Image
+                            src={material.image}
+                            alt={material.name}
+                            fill
+                            className="object-cover"
+                          />
                         )}
-                        {material.premium && (
-                          <Badge className="absolute top-2 right-2 bg-purple-600">Premium</Badge>
+                        <div className="absolute inset-0 bg-gradient-to-t from-gray-200/50 to-transparent" />
+                        {(material.popular || material.premium) && (
+                          <div className="absolute top-4 right-4">
+                            <span className={`px-3 py-1 text-xs font-medium rounded-full ${
+                              material.premium 
+                                ? 'bg-gray-900 text-white' 
+                                : 'bg-white text-gray-900 shadow-sm'
+                            }`}>
+                              {material.premium ? 'Premium' : 'Popular'}
+                            </span>
+                          </div>
                         )}
                       </div>
                       
-                      <div className="p-4">
+                      {/* Content */}
+                      <div className="p-6">
                         <div className="mb-3">
-                          <h3 className="font-semibold text-lg">{material.name}</h3>
-                          <p className="text-sm text-gray-600">{material.brand}</p>
+                          <h3 className="text-lg font-medium text-gray-900">{material.name}</h3>
+                          <p className="text-sm text-gray-500">{material.brand}</p>
                         </div>
+
+                        {material.description && (
+                          <p className="text-sm text-gray-600 mb-3">{material.description}</p>
+                        )}
                         
-                        <div className="flex items-baseline justify-between mb-3">
+                        {material.rating && (
+                          <div className="flex items-center gap-2 mb-3">
+                            <div className="flex gap-0.5">
+                              {[...Array(5)].map((_, i) => (
+                                <svg
+                                  key={i}
+                                  className={`w-4 h-4 ${
+                                    i < Math.floor(material.rating!) ? 'text-yellow-400' : 'text-gray-200'
+                                  }`}
+                                  fill="currentColor"
+                                  viewBox="0 0 20 20"
+                                >
+                                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                              ))}
+                            </div>
+                            <span className="text-sm text-gray-600">
+                              {material.rating} ({material.reviews} reviews)
+                            </span>
+                          </div>
+                        )}
+                        
+                        <div className="flex items-baseline justify-between mb-4">
                           <div>
-                            <span className="text-2xl font-bold text-primary">
-                              ₹{material.price.min}
+                            <span className="text-2xl font-light text-gray-900">
+                              ₹{material.price.min.toLocaleString('en-IN')}
                             </span>
-                            <span className="text-sm text-gray-500">
-                              {material.price.max > material.price.min && ` - ₹${material.price.max}`}
-                            </span>
+                            {material.price.max > material.price.min && (
+                              <span className="text-sm text-gray-500">
+                                {' - '}₹{material.price.max.toLocaleString('en-IN')}
+                              </span>
+                            )}
                             <span className="text-sm text-gray-500 ml-1">/{material.unit}</span>
                           </div>
                         </div>
 
-                        <div className="flex flex-wrap gap-1 mb-4">
-                          {material.features.map((feature, i) => (
-                            <Badge key={i} variant="secondary" className="text-xs">
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {material.features.slice(0, 3).map((feature, i) => (
+                            <span key={i} className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-md">
                               {feature}
-                            </Badge>
+                            </span>
                           ))}
                         </div>
 
-                        <Button
-                          className="w-full"
-                          variant={selectedMaterials.find(m => m.id === material.id) ? 'default' : 'outline'}
+                        <button
                           onClick={() => toggleMaterial(material)}
+                          className={`w-full py-3 px-4 rounded-xl font-medium transition-all ${
+                            selectedMaterials.find(m => m.id === material.id)
+                              ? 'bg-gray-900 text-white hover:bg-gray-800' 
+                              : 'border-2 border-gray-200 hover:border-gray-300'
+                          }`}
                         >
                           {selectedMaterials.find(m => m.id === material.id) ? (
                             <>
-                              <Check className="w-4 h-4 mr-2" />
+                              <Check className="w-4 h-4 inline mr-2" />
                               Selected
                             </>
                           ) : (
-                            <>
-                              <ShoppingCart className="w-4 h-4 mr-2" />
-                              Select Material
-                            </>
+                            'Select Material'
                           )}
-                        </Button>
+                        </button>
                       </div>
-                    </Card>
+                    </div>
                   </motion.div>
                 ))}
               </div>
-            </TabsContent>
-          </Tabs>
-        </div>
 
-        {/* Selection Summary */}
-        <div className="lg:col-span-1">
-          <div className="sticky top-24">
-            <Card className="p-6">
-              <h3 className="font-semibold text-lg mb-4 flex items-center">
-                <ShoppingCart className="w-5 h-5 mr-2" />
-                Selected Materials ({selectedMaterials.length})
-              </h3>
-              
-              {selectedMaterials.length === 0 ? (
-                <p className="text-gray-500 text-sm">No materials selected yet</p>
-              ) : (
-                <>
-                  <div className="space-y-3 mb-4 max-h-96 overflow-y-auto">
-                    {selectedMaterials.map(material => (
-                      <div key={material.id} className="flex items-center justify-between text-sm">
-                        <div>
-                          <p className="font-medium">{material.name}</p>
-                          <p className="text-gray-500">{material.brand}</p>
+              {filteredMaterials.length === 0 && (
+                <div className="text-center py-20">
+                  <p className="text-gray-500">No materials found matching your criteria.</p>
+                </div>
+              )}
+            </div>
+
+            {/* Selection Summary */}
+            <div className="lg:col-span-1">
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 }}
+                className="sticky top-8"
+              >
+                <div className="bg-gray-50 rounded-2xl p-6 mb-4">
+                  <h3 className="font-medium text-lg mb-4 flex items-center justify-between">
+                    <span>Selected Materials</span>
+                    <span className="text-sm font-normal text-gray-500">
+                      {selectedMaterials.length} items
+                    </span>
+                  </h3>
+                  
+                  {selectedMaterials.length === 0 ? (
+                    <p className="text-gray-500 text-sm text-center py-8">
+                      No materials selected yet
+                    </p>
+                  ) : (
+                    <>
+                      <div className="space-y-3 mb-6 max-h-96 overflow-y-auto">
+                        {selectedMaterials.map(material => (
+                          <div key={material.id} className="flex items-start justify-between bg-white rounded-lg p-3">
+                            <div className="flex-1">
+                              <p className="font-medium text-sm">{material.name}</p>
+                              <p className="text-xs text-gray-500">{material.brand}</p>
+                              <p className="text-xs text-gray-600 mt-1">
+                                ₹{((material.price.min + material.price.max) / 2).toLocaleString('en-IN')} avg
+                              </p>
+                            </div>
+                            <button
+                              onClick={() => toggleMaterial(material)}
+                              className="ml-2 p-1 hover:bg-gray-100 rounded-lg transition-colors"
+                            >
+                              <X className="w-4 h-4 text-gray-400" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                      
+                      <div className="border-t pt-4">
+                        <div className="flex justify-between items-center mb-4">
+                          <span className="text-sm text-gray-600">Estimated Total</span>
+                          <span className="text-2xl font-light text-gray-900">
+                            ₹{getTotalEstimate().toLocaleString('en-IN')}
+                          </span>
                         </div>
-                        <button
-                          onClick={() => toggleMaterial(material)}
-                          className="text-red-500 hover:text-red-600"
-                        >
-                          Remove
+                        
+                        <button className="w-full py-3 px-4 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-all font-medium mb-2">
+                          Get Detailed Quote
+                        </button>
+                        <button className="w-full py-3 px-4 border-2 border-gray-200 rounded-xl hover:border-gray-300 transition-all font-medium">
+                          Save Selection
                         </button>
                       </div>
-                    ))}
-                  </div>
-                  
-                  <div className="border-t pt-4">
-                    <div className="flex justify-between items-center mb-4">
-                      <span className="font-semibold">Estimated Range:</span>
-                      <span className="text-lg font-bold text-primary">
-                        ₹{getTotalEstimate().toLocaleString('en-IN')}
-                      </span>
-                    </div>
-                    
-                    <Button className="w-full mb-2">
-                      Get Detailed Quote
-                    </Button>
-                    <Button variant="outline" className="w-full">
-                      Save Selection
-                    </Button>
-                  </div>
-                </>
-              )}
-            </Card>
-
-            <Card className="p-4 mt-4 bg-blue-50 border-blue-200">
-              <div className="flex items-start">
-                <Info className="w-5 h-5 text-blue-600 mr-2 flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-medium text-blue-900">Pro Tip</p>
-                  <p className="text-xs text-blue-700 mt-1">
-                    Mix premium materials in focal areas with budget options in less visible spaces to optimize costs.
-                  </p>
+                    </>
+                  )}
                 </div>
-              </div>
-            </Card>
+
+                <div className="bg-blue-50 rounded-2xl p-4">
+                  <div className="flex items-start">
+                    <Info className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-medium text-blue-900">Pro Tip</p>
+                      <p className="text-xs text-blue-700 mt-1">
+                        Mix premium materials in focal areas with budget options elsewhere to optimize costs without compromising on aesthetics.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </div>
-    </Card>
+    </div>
   )
 }

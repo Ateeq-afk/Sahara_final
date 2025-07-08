@@ -107,6 +107,13 @@ export default function FAQChatbot() {
     }
   }, [isOpen, messages.length])
 
+  // Listen for external trigger events
+  useEffect(() => {
+    const handleOpenChatbot = () => setIsOpen(true)
+    window.addEventListener('openChatbot', handleOpenChatbot)
+    return () => window.removeEventListener('openChatbot', handleOpenChatbot)
+  }, [])
+
   const addBotMessage = (text: string, type?: string) => {
     const newMessage: Message = {
       id: generateId('faq'),

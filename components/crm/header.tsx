@@ -1,6 +1,4 @@
 'use client';
-
-import { signOut } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -85,10 +83,10 @@ export default function CRMHeader({ user }: CRMHeaderProps) {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="text-red-600"
-                onClick={() => signOut({ callbackUrl: '/crm/login' })}
+                onClick={() => window.location.href = '/'}
               >
                 <LogOut className="mr-2 h-4 w-4" />
-                <span>Log out</span>
+                <span>Go to Home</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
