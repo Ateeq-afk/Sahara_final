@@ -35,7 +35,7 @@ export default function FooterMinimal() {
         />
       </div>
       
-      <div className="relative apple-container py-16 lg:py-20">
+      <div className="relative apple-container pt-20 pb-16 lg:pt-24 lg:pb-20">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-16 mb-16">
           {/* Brand Column */}

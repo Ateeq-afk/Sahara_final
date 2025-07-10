@@ -275,4 +275,6 @@ ProjectSchema.methods.updateProgress = function(percentage: number, phase?: stri
   return this.save()
 }
 
-export default mongoose.models.Project || mongoose.model<IProject>('Project', ProjectSchema)
+const Project = (mongoose.models.Project as mongoose.Model<IProject>) || mongoose.model<IProject>('Project', ProjectSchema);
+
+export default Project;

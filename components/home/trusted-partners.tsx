@@ -3,46 +3,55 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Building2, Banknote, Package2, HomeIcon } from 'lucide-react'
+import { useState } from 'react'
 
 const bankingPartners = [
   { 
     name: "State Bank of India", 
-    logo: "https://placehold.co/400x200/ffffff/1f2937?text=SBI",
+    logo: "/partner-logos/sbi-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/SBI-logo.svg/2560px-SBI-logo.svg.png",
     category: "banking"
   },
   { 
     name: "HDFC Bank", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HDFC_Bank_Logo.svg/2560px-HDFC_Bank_Logo.svg.png",
+    logo: "/partner-logos/hdfc-bank-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HDFC_Bank_Logo.svg/2560px-HDFC_Bank_Logo.svg.png",
     category: "banking"
   },
   { 
     name: "ICICI Bank", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/ICICI_Bank_Logo.svg/2560px-ICICI_Bank_Logo.svg.png",
+    logo: "/partner-logos/icici-bank-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/ICICI_Bank_Logo.svg/2560px-ICICI_Bank_Logo.svg.png",
     category: "banking"
   },
   { 
     name: "Axis Bank", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Axis_Bank_logo.svg/2560px-Axis_Bank_logo.svg.png",
+    logo: "/partner-logos/axis-bank-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Axis_Bank_logo.svg/2560px-Axis_Bank_logo.svg.png",
     category: "banking"
   },
   { 
     name: "Punjab National Bank", 
-    logo: "https://placehold.co/400x200/ffffff/1f2937?text=PNB",
+    logo: "/partner-logos/pnb-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/Punjab_National_Bank_logo.svg/2560px-Punjab_National_Bank_logo.svg.png",
     category: "banking"
   },
   { 
     name: "Bank of Baroda", 
-    logo: "https://placehold.co/400x200/ffffff/ff6600?text=Bank+of+Baroda",
+    logo: "/partner-logos/bob-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Bank_of_Baroda_Logo.svg/2560px-Bank_of_Baroda_Logo.svg.png",
     category: "banking"
   },
   { 
     name: "Kotak Mahindra Bank", 
-    logo: "https://placehold.co/400x200/ffffff/ed1c24?text=Kotak",
+    logo: "/partner-logos/kotak-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Kotak_Mahindra_Bank_logo.svg/2560px-Kotak_Mahindra_Bank_logo.svg.png",
     category: "banking"
   },
   { 
     name: "Canara Bank", 
-    logo: "https://placehold.co/400x200/ffffff/0066b2?text=Canara+Bank",
+    logo: "/partner-logos/canara-bank-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Canara_Bank_Logo.svg/2560px-Canara_Bank_Logo.svg.png",
     category: "banking"
   }
 ]
@@ -50,47 +59,65 @@ const bankingPartners = [
 const materialPartners = [
   { 
     name: "UltraTech Cement", 
-    logo: "https://placehold.co/400x200/ffffff/666666?text=UltraTech",
+    logo: "/partner-logos/ultratech-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/UltraTech_Cement_Logo.svg/2560px-UltraTech_Cement_Logo.svg.png",
     category: "materials"
   },
   { 
     name: "Asian Paints", 
-    logo: "https://placehold.co/400x200/ffffff/0070ba?text=Asian+Paints",
+    logo: "/partner-logos/asian-paints-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Asian_Paints_Logo.svg/2560px-Asian_Paints_Logo.svg.png",
     category: "materials"
   },
   { 
     name: "Kajaria Ceramics", 
-    logo: "https://placehold.co/400x200/ffffff/8b0000?text=Kajaria",
+    logo: "/partner-logos/kajaria-logo.png",
+    fallback: "https://www.kajariaceramics.com/assets/frontend/images/logo.png",
     category: "materials"
   },
   { 
     name: "Jindal Steel", 
-    logo: "https://placehold.co/400x200/ffffff/004b87?text=Jindal+Steel",
+    logo: "/partner-logos/jindal-steel-logo.png",
+    fallback: "https://www.jindalsteelpower.com/img/jindal-logo.png",
     category: "materials"
   },
   { 
     name: "Somany Ceramics", 
-    logo: "https://placehold.co/400x200/f3f4f6/1f2937?text=Somany+Ceramics",
+    logo: "/partner-logos/somany-logo.png",
+    fallback: "https://www.somanyceramics.com/assets/images/logo.png",
     category: "materials"
   },
   { 
     name: "Berger Paints", 
-    logo: "https://placehold.co/400x200/ffffff/ed1c24?text=Berger+Paints",
+    logo: "/partner-logos/berger-paints-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Berger_Paints.svg/2560px-Berger_Paints.svg.png",
     category: "materials"
   },
   { 
     name: "Tata Steel", 
-    logo: "https://placehold.co/400x200/ffffff/0080ff?text=TATA+Steel",
+    logo: "/partner-logos/tata-steel-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Tata_Steel_Logo.svg/2560px-Tata_Steel_Logo.svg.png",
     category: "materials"
   },
   { 
     name: "ACC Cement", 
-    logo: "https://placehold.co/400x200/ffffff/ff0000?text=ACC",
+    logo: "/partner-logos/acc-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/ACC_Limited_Logo.svg/2560px-ACC_Limited_Logo.svg.png",
     category: "materials"
   }
 ]
 
 const TrustedPartners = () => {
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
+
+  const handleImageError = (partnerName: string, fallbackUrl: string) => {
+    setImageErrors(prev => ({ ...prev, [partnerName]: true }))
+  }
+
+  const getImageSrc = (partner: any) => {
+    return imageErrors[partner.name] ? partner.fallback : partner.logo
+  }
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -155,12 +182,13 @@ const TrustedPartners = () => {
                 <div className="bg-white rounded-2xl p-8 h-32 flex items-center justify-center shadow-sm hover:shadow-lg transition-all duration-500 border border-gray-100 hover:border-gray-200">
                   <div className="relative w-full h-full">
                     <Image
-                      src={partner.logo}
+                      src={getImageSrc(partner)}
                       alt={partner.name}
                       fill
                       loading="lazy"
                       sizes="(max-width: 768px) 50vw, 25vw"
                       className="object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500 opacity-70 group-hover:opacity-100"
+                      onError={() => handleImageError(partner.name, partner.fallback)}
                     />
                   </div>
                 </div>
@@ -192,12 +220,13 @@ const TrustedPartners = () => {
                 <div className="bg-white rounded-2xl p-8 h-32 flex items-center justify-center shadow-sm hover:shadow-lg transition-all duration-500 border border-gray-100 hover:border-gray-200">
                   <div className="relative w-full h-full">
                     <Image
-                      src={partner.logo}
+                      src={getImageSrc(partner)}
                       alt={partner.name}
                       fill
                       loading="lazy"
                       sizes="(max-width: 768px) 50vw, 25vw"
                       className="object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500 opacity-70 group-hover:opacity-100"
+                      onError={() => handleImageError(partner.name, partner.fallback)}
                     />
                   </div>
                 </div>

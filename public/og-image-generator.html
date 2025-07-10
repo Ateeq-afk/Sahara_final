@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, height=630">
+    <title>Sahara Developers - OG Image Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+            background: #FFF8F0;
+            width: 1200px;
+            height: 630px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, #FFF8F0 0%, #F5E6D3 100%);
+        }
+        
+        /* Background pattern */
+        .pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            background-image: 
+                repeating-linear-gradient(45deg, #8b6914 0, #8b6914 1px, transparent 1px, transparent 40px),
+                repeating-linear-gradient(-45deg, #8b6914 0, #8b6914 1px, transparent 1px, transparent 40px);
+        }
+        
+        /* Content */
+        .content {
+            text-align: center;
+            z-index: 10;
+            padding: 60px;
+        }
+        
+        .logo-container {
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+        }
+        
+        .title {
+            font-size: 72px;
+            font-weight: 700;
+            color: #2C1810;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            font-size: 32px;
+            font-weight: 400;
+            color: #654321;
+            letter-spacing: -0.02em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .tagline {
+            font-size: 24px;
+            color: #8b6914;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+        
+        /* Decorative elements */
+        .corner-accent {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #d4a574 0%, #8b6914 50%, #654321 100%);
+            opacity: 0.1;
+        }
+        
+        .corner-accent.top-left {
+            top: -100px;
+            left: -100px;
+            transform: rotate(45deg);
+        }
+        
+        .corner-accent.bottom-right {
+            bottom: -100px;
+            right: -100px;
+            transform: rotate(45deg);
+        }
+        
+        /* Page variations */
+        .page-about .title {
+            font-size: 64px;
+        }
+        
+        .page-services .content {
+            text-align: left;
+            max-width: 900px;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .service-item {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(139, 105, 20, 0.1);
+        }
+        
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #d4a574 0%, #8b6914 100%);
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .service-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2C1810;
+        }
+    </style>
+</head>
+<body>
+    <!-- Default Home Page OG Image -->
+    <div class="container" id="home">
+        <div class="pattern"></div>
+        <div class="corner-accent top-left"></div>
+        <div class="corner-accent bottom-right"></div>
+        
+        <div class="content">
+            <div class="logo-container">
+                <svg class="logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#d4a574;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#8b6914;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#654321;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <g transform="translate(256, 256)">
+                        <path d="M -80 40 C -80 20, -70 10, -50 10 L -30 10 C -20 10, -15 15, -15 25 L -15 50 L -5 50 C 5 50, 10 45, 10 35 L 10 20 L 20 20 C 30 20, 35 25, 35 35 L 35 45 L 45 45 C 55 45, 60 50, 60 60 L 60 70 C 60 90, 50 100, 30 100 L -50 100 C -70 100, -80 90, -80 70 Z" fill="url(#gradient1)" opacity="0.9"/>
+                        <g transform="translate(0, -80)">
+                            <rect x="-15" y="-40" width="30" height="80" fill="url(#gradient1)" rx="4"/>
+                            <rect x="-40" y="-20" width="20" height="60" fill="url(#gradient1)" opacity="0.8" rx="3"/>
+                            <rect x="20" y="-30" width="20" height="70" fill="url(#gradient1)" opacity="0.8" rx="3"/>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            
+            <h1 class="title">SAHARA DEVELOPERS</h1>
+            <p class="subtitle">Premier Construction & Interior Design</p>
+            <p class="tagline">Building Dreams Since 2003 • Bangalore</p>
+        </div>
+    </div>
+    
+    <!-- Instructions -->
+    <div style="margin-top: 50px; padding: 40px; background: white; border-radius: 12px; max-width: 1200px; margin: 50px auto;">
+        <h2 style="margin-bottom: 20px; color: #2C1810;">How to Generate OG Images:</h2>
+        <ol style="line-height: 1.8; color: #654321;">
+            <li>Open this file in a browser</li>
+            <li>Use browser developer tools to set viewport to exactly 1200x630</li>
+            <li>Take a screenshot of each section</li>
+            <li>Save as: og-image.jpg, og-image-about.jpg, og-image-services.jpg, etc.</li>
+            <li>Optimize images using tools like TinyPNG or ImageOptim</li>
+        </ol>
+        
+        <h3 style="margin-top: 30px; margin-bottom: 20px; color: #2C1810;">Required OG Images:</h3>
+        <ul style="line-height: 1.8; color: #654321;">
+            <li>og-image.jpg - Main/default image (shown above)</li>
+            <li>og-image-about.jpg - About page</li>
+            <li>og-image-services.jpg - Services page</li>
+            <li>og-image-gallery.jpg - Gallery page</li>
+            <li>og-image-contact.jpg - Contact page</li>
+            <li>twitter-card.jpg - Twitter (1200x600)</li>
+            <li>linkedin-banner.jpg - LinkedIn (1584x396)</li>
+            <li>facebook-cover.jpg - Facebook (820x312)</li>
+        </ul>
+    </div>
+</body>
+</html>

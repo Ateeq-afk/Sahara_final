@@ -11,6 +11,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Bell, Search, LogOut, User, Settings } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { signOut } from 'next-auth/react';
 
 interface CRMHeaderProps {
   user: {
@@ -83,10 +84,10 @@ export default function CRMHeader({ user }: CRMHeaderProps) {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="text-red-600"
-                onClick={() => window.location.href = '/'}
+                onClick={() => signOut({ callbackUrl: '/login' })}
               >
                 <LogOut className="mr-2 h-4 w-4" />
-                <span>Go to Home</span>
+                <span>Logout</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

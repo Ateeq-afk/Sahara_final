@@ -98,4 +98,6 @@ ContactSchema.methods.markAsResponded = function(notes?: string) {
   return this.save()
 }
 
-export default mongoose.models.Contact || mongoose.model<IContact>('Contact', ContactSchema)
+const Contact = (mongoose.models.Contact as mongoose.Model<IContact>) || mongoose.model<IContact>('Contact', ContactSchema);
+
+export default Contact;

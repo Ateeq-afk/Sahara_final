@@ -105,4 +105,6 @@ CampaignExecutionSchema.index({ status: 1, createdAt: 1 });
 // Compound index for finding unique executions
 CampaignExecutionSchema.index({ campaignId: 1, recipientId: 1, variantId: 1 }, { unique: true });
 
-export default mongoose.models.CampaignExecution || mongoose.model<ICampaignExecution>('CampaignExecution', CampaignExecutionSchema);
+const CampaignExecution = (mongoose.models.CampaignExecution as mongoose.Model<ICampaignExecution>) || mongoose.model<ICampaignExecution>('CampaignExecution', CampaignExecutionSchema);
+
+export default CampaignExecution;

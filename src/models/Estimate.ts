@@ -216,4 +216,6 @@ EstimateSchema.pre('save', function(next) {
   next()
 })
 
-export default mongoose.models.Estimate || mongoose.model('Estimate', EstimateSchema)
+const Estimate = (mongoose.models.Estimate as mongoose.Model<any>) || mongoose.model('Estimate', EstimateSchema);
+
+export default Estimate;

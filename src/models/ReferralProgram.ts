@@ -221,4 +221,6 @@ ReferralProgramSchema.methods.isActive = function() {
          (!this.endDate || this.endDate >= now);
 };
 
-export default mongoose.models.ReferralProgram || mongoose.model<IReferralProgram>('ReferralProgram', ReferralProgramSchema);
+const ReferralProgram = (mongoose.models.ReferralProgram as mongoose.Model<IReferralProgram>) || mongoose.model<IReferralProgram>('ReferralProgram', ReferralProgramSchema);
+
+export default ReferralProgram;

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
-require('dotenv').config()
+require('dotenv').config({ path: '.env.local' })
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/construction'
 
@@ -116,7 +116,10 @@ const MaterialSchema = new mongoose.Schema({
     url: String,
     alt: String,
     isPrimary: Boolean,
-    type: String
+    type: {
+      type: String,
+      enum: ['product', 'technical', 'installation']
+    }
   }],
   pricing: {
     basePrice: Number,
@@ -788,11 +791,23 @@ async function seedAllData() {
     console.log('Creating materials...')
     const materialsWithSuppliers = materials.map((material, index) => {
       const supplier = createdSuppliers[index % createdSuppliers.length]
+      const supplierObj = supplier.toObject()
       return {
         ...material,
         supplier: {
           id: supplier._id,
-          ...supplier.toObject()
+          name: supplierObj.name,
+          logo: supplierObj.logo,
+          description: supplierObj.description,
+          verified: supplierObj.verified,
+          rating: supplierObj.rating,
+          totalReviews: supplierObj.totalReviews,
+          contact: supplierObj.contact,
+          categories: supplierObj.categories,
+          certifications: supplierObj.certifications?.map(cert => cert.name) || [],
+          establishedYear: supplierObj.establishedYear,
+          deliveryAreas: supplierObj.deliveryAreas?.map(area => area.area) || [],
+          paymentTerms: supplierObj.paymentTerms
         }
       }
     })

@@ -277,5 +277,6 @@ MaterialOrderSchema.methods.generateInvoice = async function() {
   return invoiceNumber
 }
 
-const MaterialOrder = mongoose.models.MaterialOrder || mongoose.model('MaterialOrder', MaterialOrderSchema)
-export default MaterialOrder
+const MaterialOrder = (mongoose.models.MaterialOrder as mongoose.Model<any>) || mongoose.model('MaterialOrder', MaterialOrderSchema);
+
+export default MaterialOrder;

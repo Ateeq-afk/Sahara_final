@@ -125,6 +125,6 @@ blogPostSchema.pre('save', function (next) {
   next();
 });
 
-const BlogPost = mongoose.models.BlogPost || mongoose.model<IBlogPost>('BlogPost', blogPostSchema);
+const BlogPost = (mongoose.models.BlogPost as mongoose.Model<IBlogPost>) || mongoose.model<IBlogPost>('BlogPost', blogPostSchema);
 
 export default BlogPost;

@@ -111,6 +111,6 @@ LeadSchema.virtual('displayName').get(function() {
   return this.name
 })
 
-const Lead = mongoose.models.Lead || mongoose.model<ILead>('Lead', LeadSchema)
+const Lead = (mongoose.models.Lead as mongoose.Model<ILead>) || mongoose.model<ILead>('Lead', LeadSchema);
 
-export default Lead
+export default Lead;

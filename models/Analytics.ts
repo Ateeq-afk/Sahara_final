@@ -147,6 +147,6 @@ AnalyticsSchema.pre('save', function(next) {
   next()
 })
 
-const Analytics = mongoose.models.Analytics || mongoose.model<IAnalytics>('Analytics', AnalyticsSchema)
+const Analytics = (mongoose.models.Analytics as mongoose.Model<IAnalytics>) || mongoose.model<IAnalytics>('Analytics', AnalyticsSchema);
 
-export default Analytics
+export default Analytics;

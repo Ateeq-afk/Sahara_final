@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/src/lib/auth-options';
+import { authOptions } from '@/lib/auth';
 import dbConnect from '@/src/lib/mongodb';
 import ReferralProgram from '@/src/models/ReferralProgram';
 import { z } from 'zod';

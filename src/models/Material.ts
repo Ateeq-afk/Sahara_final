@@ -256,5 +256,6 @@ MaterialSchema.methods.checkAvailability = function(quantity: number) {
   }
 }
 
-const Material = mongoose.models.Material || mongoose.model('Material', MaterialSchema)
-export default Material
+const Material = (mongoose.models.Material as mongoose.Model<any>) || mongoose.model('Material', MaterialSchema);
+
+export default Material;

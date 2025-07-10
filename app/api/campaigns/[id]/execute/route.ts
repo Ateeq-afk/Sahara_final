@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/src/lib/auth-options';
+import { authOptions } from '@/lib/auth';
 import dbConnect from '@/lib/mongodb';
 import Campaign from '@/src/models/Campaign';
 import CampaignExecution from '@/src/models/CampaignExecution';
@@ -85,7 +85,11 @@ export async function POST(
         try {
           const lead = leads.find(l => l._id.toString() === execution.recipientId.toString());
           if (lead) {
-            await sendCampaignEmail(campaign, lead, execution);
+            await sendCampaignEmail(campaign, {
+              _id: lead._id.toString(),
+              email: lead.email,
+              name: lead.name
+            }, execution);
           }
         } catch (error) {
           console.error('Error sending campaign email:', error);

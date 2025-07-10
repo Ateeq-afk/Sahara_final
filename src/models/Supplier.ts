@@ -243,5 +243,6 @@ SupplierSchema.methods.isWorkingNow = function() {
   return currentTime >= workingHours.open && currentTime <= workingHours.close
 }
 
-const Supplier = mongoose.models.Supplier || mongoose.model('Supplier', SupplierSchema)
-export default Supplier
+const Supplier = (mongoose.models.Supplier as mongoose.Model<any>) || mongoose.model('Supplier', SupplierSchema);
+
+export default Supplier;

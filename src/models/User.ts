@@ -5,9 +5,11 @@ export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
-  role: 'admin' | 'editor' | 'viewer';
+  phone?: string;
+  role: 'admin' | 'editor' | 'viewer' | 'customer';
   avatar?: string;
   isActive: boolean;
+  isVerified?: boolean;
   lastLogin?: Date;
   createdAt: Date;
   updatedAt: Date;
@@ -37,8 +39,16 @@ const userSchema = new Schema<IUser>(
     },
     role: {
       type: String,
-      enum: ['admin', 'editor', 'viewer'],
-      default: 'viewer',
+      enum: ['admin', 'editor', 'viewer', 'customer'],
+      default: 'customer',
+    },
+    phone: {
+      type: String,
+      default: null,
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
     },
     avatar: {
       type: String,
@@ -74,6 +84,6 @@ userSchema.methods.comparePassword = async function (candidatePassword: string):
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-const User = mongoose.models.User || mongoose.model<IUser>('User', userSchema);
+const User = (mongoose.models.User as mongoose.Model<IUser>) || mongoose.model<IUser>('User', userSchema);
 
 export default User;

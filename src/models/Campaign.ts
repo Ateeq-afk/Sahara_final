@@ -191,4 +191,6 @@ CampaignSchema.index({ status: 1, 'triggers.type': 1 });
 CampaignSchema.index({ 'triggers.schedule.startDate': 1 });
 CampaignSchema.index({ createdBy: 1 });
 
-export default mongoose.models.Campaign || mongoose.model<ICampaign>('Campaign', CampaignSchema);
+const Campaign = (mongoose.models.Campaign as mongoose.Model<ICampaign>) || mongoose.model<ICampaign>('Campaign', CampaignSchema);
+
+export default Campaign;

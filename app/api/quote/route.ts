@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
       success: true,
       data: {
         id: quote._id,
-        quoteId: quote.projectId,
+        quoteId: quote._id,
         estimatedCost,
         estimatedQuote: {
           basePrice: estimatedCost,

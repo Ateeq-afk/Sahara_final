@@ -1,0 +1,41 @@
+import { withAuth } from "next-auth/middleware"
+import { NextResponse } from "next/server"
+
+export default withAuth(
+  function middleware(req) {
+    const token = req.nextauth.token
+    const path = req.nextUrl.pathname
+
+    // Check if accessing CRM routes
+    if (path.startsWith("/crm")) {
+      // Only allow admin users to access CRM
+      if (token?.role !== "admin") {
+        return NextResponse.redirect(new URL("/unauthorized", req.url))
+      }
+    }
+
+    // Check if accessing customer portal
+    if (path.startsWith("/portal")) {
+      // Allow customers and admins
+      if (!token || (token.role !== "customer" && token.role !== "admin")) {
+        return NextResponse.redirect(new URL("/login", req.url))
+      }
+    }
+
+    return NextResponse.next()
+  },
+  {
+    callbacks: {
+      authorized: ({ token }) => !!token
+    },
+  }
+)
+
+export const config = {
+  matcher: [
+    "/crm/:path*",
+    "/portal/:path*",
+    "/api/crm/:path*",
+    "/api/portal/:path*"
+  ]
+}

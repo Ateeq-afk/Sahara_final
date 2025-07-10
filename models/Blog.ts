@@ -88,7 +88,7 @@ BlogSchema.pre('save', function(next) {
       .replace(/[^a-z0-9 -]/g, '')
       .replace(/\s+/g, '-')
       .replace(/-+/g, '-')
-      .trim('-')
+      .replace(/^-+|-+$/g, '')
   }
   
   // Set publishedAt when status changes to published
@@ -99,6 +99,6 @@ BlogSchema.pre('save', function(next) {
   next()
 })
 
-const Blog = mongoose.models.Blog || mongoose.model<IBlog>('Blog', BlogSchema)
+const Blog = (mongoose.models.Blog as mongoose.Model<IBlog>) || mongoose.model<IBlog>('Blog', BlogSchema);
 
-export default Blog
+export default Blog;

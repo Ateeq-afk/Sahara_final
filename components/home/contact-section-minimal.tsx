@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export default function ContactSectionMinimal() {
   return (
-    <section className="apple-section bg-gray-50">
+    <section className="bg-gray-50 py-16 md:py-20">
       <div className="apple-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

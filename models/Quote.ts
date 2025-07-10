@@ -32,6 +32,9 @@ export interface IQuote extends Document {
   // Timestamps
   createdAt: Date
   updatedAt: Date
+  
+  // Methods
+  getEstimatedCost(): number
 }
 
 const QuoteSchema = new Schema<IQuote>({
@@ -154,4 +157,6 @@ QuoteSchema.methods.getEstimatedCost = function() {
   return this.area * rate
 }
 
-export default mongoose.models.Quote || mongoose.model<IQuote>('Quote', QuoteSchema)
+const Quote = (mongoose.models.Quote as mongoose.Model<IQuote>) || mongoose.model<IQuote>('Quote', QuoteSchema);
+
+export default Quote;

@@ -16,11 +16,13 @@ import {
   UserCheck,
   Gift,
   DollarSign,
+  FolderKanban,
 } from 'lucide-react';
 import Logo from '@/components/logo';
 
 const navigation = [
   { name: 'Dashboard', href: '/crm', icon: LayoutDashboard },
+  { name: 'Projects', href: '/crm/projects', icon: FolderKanban },
   { name: 'Leads', href: '/crm/leads', icon: Users },
   { name: 'Quotes', href: '/crm/quotes', icon: DollarSign },
   { name: 'Messages', href: '/crm/messages', icon: MessageSquare },

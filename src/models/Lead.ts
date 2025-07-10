@@ -173,6 +173,6 @@ leadSchema.pre('save', function (next) {
   next();
 });
 
-const Lead = mongoose.models.Lead || mongoose.model<ILead>('Lead', leadSchema);
+const Lead = (mongoose.models.Lead as mongoose.Model<ILead>) || mongoose.model<ILead>('Lead', leadSchema);
 
 export default Lead;

@@ -67,4 +67,6 @@ NewsletterSchema.methods.unsubscribe = function() {
   return this.save()
 }
 
-export default mongoose.models.Newsletter || mongoose.model<INewsletter>('Newsletter', NewsletterSchema)
+const Newsletter = (mongoose.models.Newsletter as mongoose.Model<INewsletter>) || mongoose.model<INewsletter>('Newsletter', NewsletterSchema);
+
+export default Newsletter;

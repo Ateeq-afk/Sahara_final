@@ -230,15 +230,26 @@
   }
 }
 
-/* Premium Dividers */
+/* Apple Dividers */
 .apple-divider {
-  @apply border-t border-gray-200;
-  @apply my-8 md:my-12;
+  height: 0.5px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: none;
+  margin: 32px 0;
 }
 
 .apple-divider-thick {
-  @apply border-t-2 border-gray-200;
-  @apply my-12 md:my-16;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: none;
+  margin: 48px 0;
+}
+
+.apple-divider-light {
+  height: 0.5px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: none;
+  margin: 24px 0;
 }
 
 /* Enhanced Links */

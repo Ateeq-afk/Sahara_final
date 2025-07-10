@@ -7,6 +7,7 @@ import NavbarMinimal from '@/components/navbar-minimal';
 import FooterMinimal from '@/components/footer-minimal';
 import { Toaster } from '@/components/ui/toaster';
 import ErrorBoundary from '@/components/error-boundary';
+import NextAuthSessionProvider from '@/components/providers/session-provider';
 import dynamic from 'next/dynamic';
 
 // Dynamic imports for performance
@@ -252,25 +253,27 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <ErrorBoundary>
-            <div className="flex min-h-screen flex-col">
-              <NavbarMinimal />
-              <main className="flex-1">{children}</main>
-              <FooterMinimal />
-            </div>
-            <Toaster />
-            {/* Temporarily disabled to debug MessageSquare error */}
-            {/* <ExitIntentPopup />
-            <FloatingCTA />
-            <SocialProofNotifications /> */}
-          </ErrorBoundary>
-        </ThemeProvider>
+        <NextAuthSessionProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ErrorBoundary>
+              <div className="flex min-h-screen flex-col">
+                <NavbarMinimal />
+                <main className="flex-1 pt-12">{children}</main>
+                <FooterMinimal />
+              </div>
+              <Toaster />
+              {/* Temporarily disabled to debug MessageSquare error */}
+              {/* <ExitIntentPopup />
+              <FloatingCTA />
+              <SocialProofNotifications /> */}
+            </ErrorBoundary>
+          </ThemeProvider>
+        </NextAuthSessionProvider>
       </body>
     </html>
   );

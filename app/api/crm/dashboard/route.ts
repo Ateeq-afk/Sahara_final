@@ -4,6 +4,7 @@ import Lead from '@/models/Lead'
 import Quote from '@/models/Quote'
 import Blog from '@/models/Blog'
 import Contact from '@/models/Contact'
+import Project from '@/src/models/Project'
 
 export async function GET(request: NextRequest) {
   try {
@@ -22,11 +23,13 @@ export async function GET(request: NextRequest) {
       totalQuotes,
       totalBlogs,
       totalMessages,
+      totalProjects,
       
       // This month stats
       monthlyLeads,
       monthlyQuotes,
       monthlyBlogs,
+      monthlyProjects,
       
       // Weekly stats
       weeklyLeads,
@@ -41,6 +44,7 @@ export async function GET(request: NextRequest) {
       recentQuotes,
       recentBlogs,
       recentContacts,
+      recentProjects,
       
       // Priority breakdown
       urgentLeads,
@@ -51,18 +55,24 @@ export async function GET(request: NextRequest) {
       inProgressLeads,
       
       // Source breakdown
-      leadSources
+      leadSources,
+      
+      // Project stats
+      activeProjects,
+      completedProjects
     ] = await Promise.all([
       // Current totals
       Lead.countDocuments(),
       Quote.countDocuments(),
       Blog.countDocuments(),
       Contact.countDocuments(),
+      Project.countDocuments({ isActive: true }),
       
       // This month stats
       Lead.countDocuments({ createdAt: { $gte: startOfMonth } }),
       Quote.countDocuments({ createdAt: { $gte: startOfMonth } }),
       Blog.countDocuments({ createdAt: { $gte: startOfMonth } }),
+      Project.countDocuments({ createdAt: { $gte: startOfMonth }, isActive: true }),
       
       // Weekly stats
       Lead.countDocuments({ createdAt: { $gte: startOfWeek } }),
@@ -93,6 +103,11 @@ export async function GET(request: NextRequest) {
         .limit(3)
         .select('name email subject createdAt')
         .lean(),
+      Project.find({ isActive: true })
+        .sort({ createdAt: -1 })
+        .limit(3)
+        .select('name projectNumber status type customer createdAt')
+        .lean(),
       
       // Priority breakdown
       Lead.countDocuments({ priority: 'urgent' }),
@@ -107,7 +122,11 @@ export async function GET(request: NextRequest) {
         { $group: { _id: '$source', count: { $sum: 1 } } },
         { $sort: { count: -1 } },
         { $limit: 5 }
-      ])
+      ]),
+      
+      // Project stats
+      Project.countDocuments({ status: 'in_progress', isActive: true }),
+      Project.countDocuments({ status: 'completed', isActive: true })
     ])
     
     // Calculate conversion rates
@@ -161,11 +180,31 @@ export async function GET(request: NextRequest) {
         time: contact.createdAt,
         priority: 'medium',
         icon: 'MessageSquare'
+      })),
+      ...recentProjects.map(project => ({
+        id: project._id,
+        type: 'project',
+        message: `New project created`,
+        details: `${project.name} - ${project.type}`,
+        time: project.createdAt,
+        priority: 'high',
+        icon: 'FolderKanban'
       }))
     ].sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime()).slice(0, 8)
     
     // Main dashboard stats
     const stats = [
+      {
+        title: 'Active Projects',
+        value: activeProjects.toLocaleString(),
+        change: `+${monthlyProjects} this month`,
+        changeType: monthlyProjects > 0 ? 'positive' : 'neutral',
+        icon: 'FolderKanban',
+        href: '/crm/projects',
+        color: 'text-indigo-600',
+        bgColor: 'bg-indigo-50',
+        description: `${completedProjects} completed`
+      },
       {
         title: 'Total Leads',
         value: totalLeads.toLocaleString(),
@@ -178,15 +217,15 @@ export async function GET(request: NextRequest) {
         description: `${weeklyLeads} new this week`
       },
       {
-        title: 'Blog Posts',
-        value: totalBlogs.toLocaleString(),
-        change: `+${monthlyBlogs} this month`,
-        changeType: monthlyBlogs > 0 ? 'positive' : 'neutral',
-        icon: 'FileText',
-        href: '/crm/blog',
-        color: 'text-green-600',
-        bgColor: 'bg-green-50',
-        description: `${Blog.countDocuments({ status: 'draft' })} drafts pending`
+        title: 'Conversion Rate',
+        value: `${conversionRate.toFixed(1)}%`,
+        change: `+${(conversionRate - 20).toFixed(1)}%`,
+        changeType: conversionRate > 20 ? 'positive' : 'negative',
+        icon: 'TrendingUp',
+        href: '/crm/analytics',
+        color: 'text-orange-600',
+        bgColor: 'bg-orange-50',
+        description: `${convertedLeads} leads converted`
       },
       {
         title: 'Messages',
@@ -198,17 +237,6 @@ export async function GET(request: NextRequest) {
         color: 'text-purple-600',
         bgColor: 'bg-purple-50',
         description: 'From contact forms'
-      },
-      {
-        title: 'Conversion Rate',
-        value: `${conversionRate.toFixed(1)}%`,
-        change: `+${(conversionRate - 20).toFixed(1)}%`,
-        changeType: conversionRate > 20 ? 'positive' : 'negative',
-        icon: 'TrendingUp',
-        href: '/crm/analytics',
-        color: 'text-orange-600',
-        bgColor: 'bg-orange-50',
-        description: `${convertedLeads} leads converted`
       }
     ]
     
@@ -223,7 +251,11 @@ export async function GET(request: NextRequest) {
       quoteConversionRate: parseFloat(quoteConversionRate.toFixed(2)),
       urgentLeads,
       newLeads,
-      monthlyGrowth: parseFloat(leadsGrowth.toFixed(2))
+      monthlyGrowth: parseFloat(leadsGrowth.toFixed(2)),
+      totalProjects,
+      activeProjects,
+      completedProjects,
+      monthlyProjects
     }
     
     return NextResponse.json({
@@ -238,6 +270,8 @@ export async function GET(request: NextRequest) {
           totalQuotes,
           totalBlogs,
           totalMessages,
+          totalProjects,
+          activeProjects,
           conversionRate: parseFloat(conversionRate.toFixed(2)),
           monthlyGrowth: parseFloat(leadsGrowth.toFixed(2))
         }

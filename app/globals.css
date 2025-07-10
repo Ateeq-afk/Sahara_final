@@ -10,18 +10,18 @@
   --background-end-rgb: 255, 255, 255;
   
   /* Apple-inspired color palette */
-  --primary: 0, 113, 227;
-  --primary-hover: 0, 119, 237;
-  --gray-50: 245, 245, 247;
-  --gray-100: 232, 232, 237;
-  --gray-200: 210, 210, 215;
-  --gray-300: 176, 176, 182;
-  --gray-400: 134, 134, 139;
-  --gray-500: 110, 110, 115;
-  --gray-600: 81, 81, 84;
-  --gray-700: 58, 58, 60;
-  --gray-800: 44, 44, 46;
-  --gray-900: 29, 29, 31;
+  --apple-blue: 0, 122, 255;
+  --apple-blue-hover: 0, 113, 227;
+  --apple-gray-50: 251, 251, 253;
+  --apple-gray-100: 242, 242, 247;
+  --apple-gray-200: 229, 229, 234;
+  --apple-gray-300: 209, 209, 214;
+  --apple-gray-400: 174, 174, 178;
+  --apple-gray-500: 142, 142, 147;
+  --apple-gray-600: 99, 99, 102;
+  --apple-gray-700: 72, 72, 74;
+  --apple-gray-800: 48, 48, 51;
+  --apple-gray-900: 28, 28, 30;
   
   /* Design system spacing */
   --space-unit: 8px;
@@ -33,49 +33,55 @@
   --space-2xl: calc(var(--space-unit) * 8);
   --space-3xl: calc(var(--space-unit) * 12);
   
-  /* Premium typography scale - Desktop */
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-2xl: 1.5rem;
-  --font-size-3xl: 2rem;
-  --font-size-4xl: 2.5rem;
-  --font-size-5xl: 3rem;
-  --font-size-6xl: 3.75rem;
-  --font-size-7xl: 4.5rem;
-  --font-size-8xl: 6rem;
+  /* Apple Typography Scale - Desktop */
+  --font-size-xs: 0.6875rem;    /* 11px */
+  --font-size-sm: 0.8125rem;    /* 13px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg: 1.0625rem;    /* 17px */
+  --font-size-xl: 1.1875rem;    /* 19px */
+  --font-size-2xl: 1.375rem;    /* 22px */
+  --font-size-3xl: 1.75rem;     /* 28px */
+  --font-size-4xl: 2.125rem;    /* 34px */
+  --font-size-5xl: 2.5rem;      /* 40px */
+  --font-size-6xl: 3rem;        /* 48px */
+  --font-size-7xl: 3.5rem;      /* 56px */
+  --font-size-8xl: 4rem;        /* 64px */
+  --font-size-9xl: 5rem;        /* 80px */
+  --font-size-10xl: 6rem;       /* 96px */
   
-  /* Mobile typography scale */
-  --font-size-xs-mobile: 0.7rem;
-  --font-size-sm-mobile: 0.8rem;
-  --font-size-base-mobile: 0.9rem;
-  --font-size-lg-mobile: 1rem;
-  --font-size-xl-mobile: 1.125rem;
-  --font-size-2xl-mobile: 1.25rem;
-  --font-size-3xl-mobile: 1.5rem;
-  --font-size-4xl-mobile: 1.875rem;
-  --font-size-5xl-mobile: 2.25rem;
-  --font-size-6xl-mobile: 2.75rem;
-  --font-size-7xl-mobile: 3.25rem;
-  --font-size-8xl-mobile: 4rem;
+  /* Apple Typography Scale - Mobile */
+  --font-size-xs-mobile: 0.6875rem;   /* 11px */
+  --font-size-sm-mobile: 0.75rem;     /* 12px */
+  --font-size-base-mobile: 0.875rem;  /* 14px */
+  --font-size-lg-mobile: 0.9375rem;   /* 15px */
+  --font-size-xl-mobile: 1.0625rem;   /* 17px */
+  --font-size-2xl-mobile: 1.1875rem;  /* 19px */
+  --font-size-3xl-mobile: 1.375rem;   /* 22px */
+  --font-size-4xl-mobile: 1.75rem;    /* 28px */
+  --font-size-5xl-mobile: 2.125rem;   /* 34px */
+  --font-size-6xl-mobile: 2.5rem;     /* 40px */
+  --font-size-7xl-mobile: 3rem;       /* 48px */
+  --font-size-8xl-mobile: 3.5rem;     /* 56px */
   
-  /* Letter spacing */
+  /* Apple Letter Spacing */
+  --tracking-tighter: -0.04em;
   --tracking-tight: -0.025em;
   --tracking-normal: -0.015em;
-  --tracking-wide: 0.025em;
+  --tracking-wide: 0em;
+  --tracking-wider: 0.02em;
   
-  /* Line heights */
-  --leading-tight: 1.1;
+  /* Apple Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.07;
   --leading-snug: 1.2;
-  --leading-normal: 1.5;
-  --leading-relaxed: 1.625;
+  --leading-normal: 1.47;
+  --leading-relaxed: 1.62;
   
-  /* Transitions */
-  --transition-fast: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-medium: 400ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* Apple Transitions */
+  --transition-fast: 150ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-medium: 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-slow: 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-apple-spring: 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -145,34 +151,80 @@
   
   body {
     @apply bg-background text-foreground;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'Helvetica', sans-serif;
-    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
-    letter-spacing: -0.01em;
-    line-height: 1.5;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "ss01" 1, "ss02" 1;
+    letter-spacing: var(--tracking-normal);
+    line-height: var(--leading-normal);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   
-  /* Premium typography */
+  /* Apple Typography Hierarchy */
   h1, h2, h3, h4, h5, h6 {
-    font-weight: 600;
-    letter-spacing: var(--tracking-tight);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    letter-spacing: var(--tracking-tighter);
     line-height: var(--leading-tight);
   }
   
-  h1 { font-size: var(--font-size-6xl); }
-  h2 { font-size: var(--font-size-5xl); }
-  h3 { font-size: var(--font-size-4xl); }
-  h4 { font-size: var(--font-size-3xl); }
-  h5 { font-size: var(--font-size-2xl); }
-  h6 { font-size: var(--font-size-xl); }
+  h1 { 
+    font-size: var(--font-size-9xl);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+  }
+  h2 { 
+    font-size: var(--font-size-7xl);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+  h3 { 
+    font-size: var(--font-size-5xl);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+  h4 { 
+    font-size: var(--font-size-4xl);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  h5 { 
+    font-size: var(--font-size-3xl);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+  h6 { 
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
   
   /* Responsive typography */
   @media (max-width: 640px) {
-    h1 { font-size: var(--font-size-5xl-mobile); }
-    h2 { font-size: var(--font-size-4xl-mobile); }
-    h3 { font-size: var(--font-size-3xl-mobile); }
-    h4 { font-size: var(--font-size-2xl-mobile); }
-    h5 { font-size: var(--font-size-xl-mobile); }
-    h6 { font-size: var(--font-size-lg-mobile); }
+    h1 { 
+      font-size: var(--font-size-6xl-mobile);
+      letter-spacing: -0.03em;
+    }
+    h2 { 
+      font-size: var(--font-size-5xl-mobile);
+      letter-spacing: -0.025em;
+    }
+    h3 { 
+      font-size: var(--font-size-4xl-mobile);
+      letter-spacing: -0.02em;
+    }
+    h4 { 
+      font-size: var(--font-size-3xl-mobile);
+      letter-spacing: -0.015em;
+    }
+    h5 { 
+      font-size: var(--font-size-2xl-mobile);
+      letter-spacing: -0.01em;
+    }
+    h6 { 
+      font-size: var(--font-size-xl-mobile);
+      letter-spacing: -0.005em;
+    }
   }
   
   @media (min-width: 641px) and (max-width: 768px) {
@@ -195,9 +247,9 @@
   }
   
   *:focus-visible {
-    outline: 2px solid hsl(var(--accent));
+    outline: 3px solid rgba(var(--apple-blue), 0.5);
     outline-offset: 2px;
-    border-radius: 4px;
+    border-radius: 8px;
   }
   
   /* Gradient animation */

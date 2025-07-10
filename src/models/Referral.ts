@@ -192,4 +192,6 @@ ReferralSchema.pre('save', async function(next) {
   next();
 });
 
-export default mongoose.models.Referral || mongoose.model<IReferral>('Referral', ReferralSchema);
+const Referral = (mongoose.models.Referral as mongoose.Model<IReferral>) || mongoose.model<IReferral>('Referral', ReferralSchema);
+
+export default Referral;
