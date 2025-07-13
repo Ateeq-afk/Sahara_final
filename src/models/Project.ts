@@ -480,6 +480,18 @@ ProjectSchema.index({ 'timeline.startDate': 1 })
 ProjectSchema.index({ projectNumber: 1 })
 ProjectSchema.index({ 'team.projectManager': 1 })
 
+// Additional performance indexes
+ProjectSchema.index({ type: 1 }); // Project type filtering
+ProjectSchema.index({ priority: 1 }); // Priority-based queries
+ProjectSchema.index({ isActive: 1 }); // Active project filtering
+ProjectSchema.index({ 'timeline.estimatedEndDate': 1 }); // Project deadlines
+ProjectSchema.index({ 'budget.estimated': 1 }); // Budget-based queries
+ProjectSchema.index({ 'team.siteEngineer': 1 }); // Site engineer assignments
+ProjectSchema.index({ 'team.architect': 1 }); // Architect assignments
+ProjectSchema.index({ status: 1, 'timeline.startDate': 1 }); // Status with timeline compound
+ProjectSchema.index({ 'address.city': 1, 'address.state': 1 }); // Location-based queries
+ProjectSchema.index({ lead: 1 }); // Lead to project conversion tracking
+
 // Virtual for project progress
 ProjectSchema.virtual('overallProgress').get(function() {
   if (!this.phases || this.phases.length === 0) return 0

@@ -27,8 +27,8 @@ export default function FloatingCTA() {
     if (!isExpanded) {
       setIsExpanded(true)
       // Track engagement
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'engagement', {
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'engagement', {
           event_category: 'floating_cta',
           event_label: 'expanded'
         })
@@ -79,8 +79,8 @@ export default function FloatingCTA() {
                   variant="outline" 
                   className="w-full justify-start text-left"
                   onClick={() => {
-                    if (typeof gtag !== 'undefined') {
-                      gtag('event', 'click', {
+                    if (typeof window !== 'undefined' && (window as any).gtag) {
+                      (window as any).gtag('event', 'click', {
                         event_category: 'floating_cta',
                         event_label: 'get_quote'
                       })
@@ -97,8 +97,8 @@ export default function FloatingCTA() {
                   variant="outline" 
                   className="w-full justify-start text-left"
                   onClick={() => {
-                    if (typeof gtag !== 'undefined') {
-                      gtag('event', 'click', {
+                    if (typeof window !== 'undefined' && (window as any).gtag) {
+                      (window as any).gtag('event', 'click', {
                         event_category: 'floating_cta',
                         event_label: 'call_now'
                       })
@@ -114,8 +114,8 @@ export default function FloatingCTA() {
                 <Button 
                   className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
                   onClick={() => {
-                    if (typeof gtag !== 'undefined') {
-                      gtag('event', 'click', {
+                    if (typeof window !== 'undefined' && (window as any).gtag) {
+                      (window as any).gtag('event', 'click', {
                         event_category: 'floating_cta',
                         event_label: 'contact'
                       })

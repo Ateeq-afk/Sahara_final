@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
     const skip = (page - 1) * limit
 
     const [projects, total] = await Promise.all([
-      Project.find(query)
+      (Project as any).find(query)
         .populate('customer.id', 'name email phone')
         .populate('lead', 'name projectType')
         .populate('team.projectManager', 'name email')
@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
         .skip(skip)
         .limit(limit)
         .lean(),
-      Project.countDocuments(query)
+      (Project as any).countDocuments(query)
     ])
 
     return NextResponse.json({
@@ -76,18 +76,18 @@ export async function POST(req: NextRequest) {
     const data = await req.json()
 
     // Generate project number
-    const lastProject = await Project.findOne().sort({ createdAt: -1 })
+    const lastProject = await (Project as any).findOne().sort({ createdAt: -1 })
     const projectCount = lastProject ? parseInt(lastProject.projectNumber.slice(4)) + 1 : 1
     const projectNumber = `PRJ-${projectCount.toString().padStart(5, '0')}`
 
     // Validate customer
-    const customer = await User.findById(data.customerId)
+    const customer = await (User as any).findById(data.customerId)
     if (!customer) {
       return NextResponse.json({ error: 'Customer not found' }, { status: 404 })
     }
 
     // Create project
-    const project = new Project({
+    const project = new (Project as any)({
       ...data,
       projectNumber,
       customer: {
@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
 
     // Update lead if connected
     if (data.leadId) {
-      await Lead.findByIdAndUpdate(data.leadId, {
+      await (Lead as any).findByIdAndUpdate(data.leadId, {
         status: 'won',
         project: project._id,
         convertedAt: new Date()

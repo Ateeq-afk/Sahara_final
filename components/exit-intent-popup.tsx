@@ -197,10 +197,24 @@ export default function ExitIntentPopup() {
                         Leave your details and our expert will call you within 30 minutes!
                       </p>
 
-                      <form onSubmit={handleSubmit} className="space-y-4">
+                      <form 
+                        name="exit-intent"
+                        method="POST"
+                        data-netlify="true"
+                        data-netlify-honeypot="bot-field"
+                        onSubmit={handleSubmit} 
+                        className="space-y-4"
+                      >
+                        {/* Hidden fields for Netlify */}
+                        <input type="hidden" name="form-name" value="exit-intent" />
+                        <div hidden>
+                          <input name="bot-field" />
+                        </div>
+                        
                         <div>
                           <Input
                             type="email"
+                            name="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Email address (optional)"
@@ -211,6 +225,7 @@ export default function ExitIntentPopup() {
                         <div>
                           <Input
                             type="tel"
+                            name="phone"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             placeholder="Phone number *"

@@ -11,7 +11,8 @@ const packages = [
     id: "essential",
     title: "Essential",
     tagline: "Thoughtfully Crafted",
-    price: "1,599",
+    price: "1,699",
+    originalPrice: "1,850",
     unit: "per sq.ft",
     description: "Where quality meets value. Every detail considered, every corner perfected.",
     image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=90",
@@ -33,7 +34,8 @@ const packages = [
     id: "premium",
     title: "Premium",
     tagline: "Exceptionally Designed", 
-    price: "2,299",
+    price: "1,999",
+    originalPrice: "2,299",
     unit: "per sq.ft",
     description: "Elevated living redefined. Where luxury becomes your everyday experience.",
     image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=90",
@@ -57,7 +59,8 @@ const packages = [
     id: "luxury",
     title: "Luxury",
     tagline: "Exclusively Yours",
-    price: "3,499",
+    price: "2,399",
+    originalPrice: "2,599",
     unit: "per sq.ft",
     description: "The pinnacle of personalized luxury. Your vision, our masterpiece.",
     image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=90",
@@ -265,7 +268,10 @@ export default function PackagesPage() {
                     
                     {/* Price */}
                     <div className="mb-8">
-                      <div className="flex items-baseline gap-1">
+                      <div className="flex items-baseline gap-3">
+                        {pkg.originalPrice && (
+                          <span className="text-3xl text-gray-400 line-through">₹{pkg.originalPrice}</span>
+                        )}
                         <span className="text-5xl font-semibold">₹{pkg.price}</span>
                         <span className="text-gray-500 text-lg">/{pkg.unit}</span>
                       </div>

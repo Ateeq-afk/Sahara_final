@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <!-- Tata Steel Logo -->
+  <g transform="translate(10, 20)">
+    <!-- Tata T symbol -->
+    <g fill="#003C71">
+      <rect x="5" y="15" width="25" height="4"/>
+      <rect x="15" y="15" width="4" height="25"/>
+    </g>
+    
+    <!-- Text -->
+    <text x="40" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="normal" fill="#003C71">Tata Steel</text>
+  </g>
+</svg>

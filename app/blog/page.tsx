@@ -356,11 +356,31 @@ export default function BlogPage() {
               Get the latest construction insights and design trends delivered to your inbox
             </p>
             
-            <form className="flex gap-4 max-w-md mx-auto">
+            <form 
+              name="newsletter-blog"
+              method="POST"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+              className="flex gap-4 max-w-md mx-auto"
+              onSubmit={(e) => {
+                e.preventDefault();
+                // You can add custom submission logic here if needed
+                const form = e.target as HTMLFormElement;
+                form.submit();
+              }}
+            >
+              {/* Hidden fields for Netlify */}
+              <input type="hidden" name="form-name" value="newsletter-blog" />
+              <div hidden>
+                <input name="bot-field" />
+              </div>
+              
               <Input
                 type="email"
+                name="email"
                 placeholder="Enter your email"
                 className="flex-1"
+                required
               />
               <Button type="submit">
                 Subscribe

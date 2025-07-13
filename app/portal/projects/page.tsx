@@ -21,7 +21,7 @@ import { format, differenceInDays } from 'date-fns'
 async function getCustomerProjects(customerId: string) {
   await dbConnect()
   
-  const projects = await Project.find({ 
+  const projects = await (Project as any).find({ 
     'customer.id': customerId,
     isActive: true 
   })

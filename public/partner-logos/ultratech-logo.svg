@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <!-- UltraTech Cement Logo -->
+  <g transform="translate(10, 20)">
+    <!-- Building/Tower icon -->
+    <g fill="#FFD700">
+      <rect x="5" y="20" width="10" height="20" rx="1"/>
+      <rect x="10" y="15" width="10" height="25" rx="1"/>
+      <rect x="15" y="10" width="10" height="30" rx="1"/>
+    </g>
+    
+    <!-- Text -->
+    <text x="35" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#333333">UltraTech</text>
+    <text x="35" y="45" font-family="Arial, sans-serif" font-size="12" fill="#666666">Cement</text>
+  </g>
+</svg>

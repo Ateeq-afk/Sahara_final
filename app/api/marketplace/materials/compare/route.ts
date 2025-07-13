@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       )
     }
     
-    const materials = await Material.find({
+    const materials = await (Material as any).find({
       _id: { $in: materialIds },
       isActive: true
     }).lean()

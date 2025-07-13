@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth/next'
+import { authOptions } from '@/lib/auth'
 import dbConnect from '@/lib/mongodb'
 import Lead from '@/models/Lead'
 import Quote from '@/models/Quote'
@@ -8,6 +10,15 @@ import Project from '@/src/models/Project'
 
 export async function GET(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions)
+    
+    if (!session || session.user.role !== 'admin') {
+      return NextResponse.json(
+        { success: false, message: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
+    
     await dbConnect()
     
     // Get current date ranges
@@ -66,13 +77,13 @@ export async function GET(request: NextRequest) {
       Quote.countDocuments(),
       Blog.countDocuments(),
       Contact.countDocuments(),
-      Project.countDocuments({ isActive: true }),
+      (Project as any).countDocuments({ isActive: true }),
       
       // This month stats
       Lead.countDocuments({ createdAt: { $gte: startOfMonth } }),
       Quote.countDocuments({ createdAt: { $gte: startOfMonth } }),
       Blog.countDocuments({ createdAt: { $gte: startOfMonth } }),
-      Project.countDocuments({ createdAt: { $gte: startOfMonth }, isActive: true }),
+      (Project as any).countDocuments({ createdAt: { $gte: startOfMonth }, isActive: true }),
       
       // Weekly stats
       Lead.countDocuments({ createdAt: { $gte: startOfWeek } }),
@@ -103,7 +114,7 @@ export async function GET(request: NextRequest) {
         .limit(3)
         .select('name email subject createdAt')
         .lean(),
-      Project.find({ isActive: true })
+      (Project as any).find({ status: { $nin: ['cancelled', 'completed'] } })
         .sort({ createdAt: -1 })
         .limit(3)
         .select('name projectNumber status type customer createdAt')
@@ -125,8 +136,8 @@ export async function GET(request: NextRequest) {
       ]),
       
       // Project stats
-      Project.countDocuments({ status: 'in_progress', isActive: true }),
-      Project.countDocuments({ status: 'completed', isActive: true })
+      (Project as any).countDocuments({ status: 'in_progress', isActive: true }),
+      (Project as any).countDocuments({ status: 'completed', isActive: true })
     ])
     
     // Calculate conversion rates

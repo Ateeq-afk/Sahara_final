@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <!-- Somany Ceramics Logo -->
+  <g transform="translate(10, 20)">
+    <!-- Diamond/tile shape -->
+    <g fill="#1E90FF">
+      <path d="M20 15 L30 25 L20 35 L10 25 Z"/>
+    </g>
+    
+    <!-- Text -->
+    <text x="40" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1E90FF">SOMANY</text>
+    <text x="40" y="42" font-family="Arial, sans-serif" font-size="10" fill="#666">Ceramics</text>
+  </g>
+</svg>

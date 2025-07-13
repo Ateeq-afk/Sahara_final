@@ -29,7 +29,7 @@ import Project from '@/src/models/Project'
 async function getProject(projectId: string, customerId: string) {
   await dbConnect()
   
-  const project = await Project.findOne({
+  const project = await (Project as any).findOne({
     _id: projectId,
     'customer.id': customerId,
     isActive: true

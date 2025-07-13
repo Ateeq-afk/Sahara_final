@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <!-- Canara Bank Logo -->
+  <g transform="translate(10, 20)">
+    <!-- Triangle symbol -->
+    <g>
+      <polygon points="20,10 35,35 5,35" fill="#0033A0"/>
+      <polygon points="20,18 28,32 12,32" fill="white"/>
+    </g>
+    
+    <!-- Text -->
+    <text x="45" y="28" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#0033A0">Canara Bank</text>
+    <text x="45" y="40" font-family="Arial, sans-serif" font-size="10" fill="#666">Together We Can</text>
+  </g>
+</svg>

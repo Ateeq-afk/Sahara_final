@@ -13,8 +13,8 @@ export default function ThankYouPage() {
   
   useEffect(() => {
     // Track thank you page view
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'page_view', {
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'page_view', {
         page_title: 'Thank You',
         page_location: window.location.href,
         source: source || 'direct'

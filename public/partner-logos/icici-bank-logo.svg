@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <!-- ICICI Bank Logo -->
+  <g transform="translate(10, 25)">
+    <!-- Logo mark -->
+    <g>
+      <rect x="0" y="0" width="8" height="30" fill="#F37021" rx="1"/>
+      <rect x="12" y="0" width="8" height="30" fill="#F37021" rx="1"/>
+    </g>
+    
+    <!-- Text -->
+    <text x="30" y="20" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#002E5F">ICICI Bank</text>
+  </g>
+</svg>

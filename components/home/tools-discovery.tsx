@@ -5,12 +5,10 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { 
   Calculator, 
-  Box, 
   Clock, 
   Palette, 
   CheckCircle, 
   Video,
-  Smartphone,
   Sparkles,
   ArrowRight,
   ChevronRight
@@ -31,17 +29,6 @@ const toolsData = [
     features: ['Quality levels', 'Add-ons pricing', 'Download estimates']
   },
   {
-    id: '3d-visualizer',
-    title: '3D Room Designer',
-    subtitle: 'See your space come to life',
-    description: 'Design and visualize your rooms in real-time 3D with customizable dimensions.',
-    icon: Box,
-    color: 'from-purple-500 to-pink-500',
-    link: '/tools',
-    demo: 'Living, Bedroom, Kitchen',
-    features: ['4 design styles', 'Real-time rendering', 'Export designs']
-  },
-  {
     id: 'timeline',
     title: 'Smart Timeline Planner',
     subtitle: 'Know exactly when you\'ll move in',
@@ -51,17 +38,6 @@ const toolsData = [
     link: '/tools',
     demo: '4-18 months typical',
     features: ['Weather impact', 'Fast-track options', 'Gantt charts']
-  },
-  {
-    id: 'ar-showcase',
-    title: 'AR Project Viewer',
-    subtitle: 'Walk through your future home',
-    description: 'Experience properties in augmented reality right from your phone.',
-    icon: Smartphone,
-    color: 'from-orange-500 to-red-500',
-    link: '/showcase-3d',
-    demo: 'View in your space',
-    features: ['3D models', 'AR placement', 'Photo-realistic']
   }
 ]
 
@@ -88,7 +64,6 @@ const miniTools = [
 
 export default function ToolsDiscovery() {
   const [hoveredTool, setHoveredTool] = useState<string | null>(null)
-  const [activeDemo, setActiveDemo] = useState<string | null>(null)
 
   return (
     <section className="py-24 bg-gradient-to-b from-gray-50 to-white overflow-hidden">

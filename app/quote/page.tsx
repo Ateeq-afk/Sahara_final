@@ -2,16 +2,18 @@
 
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence, useAnimation } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { 
   ArrowRight, ArrowLeft, User, Building, Settings, Palette, Calendar,
   Check, Sparkles, TrendingUp, Mail, Phone, MapPin, Home, Briefcase,
-  PaintBucket, Hammer, Package, Clock, IndianRupee, Ruler, CheckCircle,
+  PaintBucket, Hammer, Package, Clock, IndianRupee, CheckCircle,
   Star, Zap, Shield, Award, Camera, Sofa, Trees, Dumbbell, Wine,
-  Heart, AlertCircle, Info, MessageCircle, Lightbulb, Target, TrendingDown,
-  Gift, Crown, Gem, Trophy, Rocket, Brain, Eye, Smile
+  AlertCircle, Info, MessageCircle, Lightbulb, TrendingDown,
+  Crown, Gem, ChevronRight,
+  Layers, Gauge, MessageSquare
 } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const steps = [
   { id: 1, title: "Contact", subtitle: "Tell us about yourself", icon: User },
@@ -37,7 +39,12 @@ const serviceOptions = [
     icon: Palette, 
     desc: 'Transform your space',
     color: 'from-purple-500 to-purple-600',
-    features: ['Custom designs', '3D visualization', 'Premium finishes']
+    features: ['Custom designs', '3D visualization', 'Premium finishes'],
+    packages: [
+      { id: 'interior-standard', name: 'Standard 2BHK', price: '₹2.24L', desc: 'Essential interiors' },
+      { id: 'interior-premium', name: 'Premium 2BHK', price: '₹5.49L', desc: 'Designer elements' },
+      { id: 'interior-luxury', name: 'Luxury 2BHK', price: '₹10.95L', desc: 'Ultra-luxury finishes' }
+    ]
   },
   { 
     id: 'renovation', 
@@ -81,15 +88,29 @@ const premiumFeatures = [
 
 // Budget ranges with descriptions
 const budgetRanges = [
-  { id: 'starter', range: 'Under ₹20L', desc: 'Essential quality', icon: '💡' },
-  { id: 'standard', range: '₹20L - ₹40L', desc: 'Premium materials', icon: '⭐' },
-  { id: 'premium', range: '₹40L - ₹60L', desc: 'Luxury finishes', icon: '💎' },
-  { id: 'luxury', range: '₹60L - ₹1Cr', desc: 'Exclusive designs', icon: '👑' },
-  { id: 'ultra', range: 'Above ₹1Cr', desc: 'No limits', icon: '🏆' }
+  { id: 'starter', range: 'Under ₹20L', desc: 'Essential quality', icon: IndianRupee },
+  { id: 'standard', range: '₹20L - ₹40L', desc: 'Premium materials', icon: Star },
+  { id: 'premium', range: '₹40L - ₹60L', desc: 'Luxury finishes', icon: Gem },
+  { id: 'luxury', range: '₹60L - ₹1Cr', desc: 'Exclusive designs', icon: Crown },
+  { id: 'ultra', range: 'Above ₹1Cr', desc: 'No limits', icon: Crown }
 ]
 
+// Apple-inspired design system
+const fadeInUp = {
+  initial: { opacity: 0, y: 60 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+}
+
+const fadeIn = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  transition: { duration: 0.6, ease: "easeOut" }
+}
+
+
 export default function QuotePage() {
-  const [currentStep, setCurrentStep] = useState(1)
+  const [currentStep, setCurrentStep] = useState(0) // Start with hero
   const [completionScore, setCompletionScore] = useState(0)
   const [showCostEstimate, setShowCostEstimate] = useState(false)
   const [validationErrors, setValidationErrors] = useState<{[key: string]: string}>({})
@@ -97,12 +118,10 @@ export default function QuotePage() {
   const [isCalculating, setIsCalculating] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [showTooltip, setShowTooltip] = useState('')
-  const [achievementUnlocked, setAchievementUnlocked] = useState('')
-  const [userStreak, setUserStreak] = useState(0)
-  const [showConfetti, setShowConfetti] = useState(false)
   const [priceComparison, setPriceComparison] = useState<{market: number, sahara: number} | null>(null)
   const [smartSuggestions, setSmartSuggestions] = useState<string[]>([])
-  const controls = useAnimation()
+  const [isFormStarted, setIsFormStarted] = useState(false)
+  const heroRef = useRef<HTMLDivElement>(null)
   
   const [formData, setFormData] = useState({
     // Personal info
@@ -113,6 +132,7 @@ export default function QuotePage() {
     
     // Project details
     serviceType: '',
+    interiorPackage: '',
     projectType: '',
     propertySize: '',
     location: '',
@@ -141,42 +161,15 @@ export default function QuotePage() {
     timeline: ''
   })
 
-  // Achievement system
-  const achievements = [
-    { id: 'first-step', name: 'First Step', desc: 'Started your journey', icon: Rocket },
-    { id: 'halfway', name: 'Halfway There', desc: 'Completed 50% of form', icon: Target },
-    { id: 'detail-oriented', name: 'Detail Oriented', desc: 'Filled all optional fields', icon: Eye },
-    { id: 'quick-responder', name: 'Quick Responder', desc: 'Completed in under 2 minutes', icon: Zap },
-    { id: 'budget-conscious', name: 'Budget Conscious', desc: 'Selected budget range', icon: IndianRupee }
-  ]
 
-  // Calculate completion score and unlock achievements
+  // Calculate completion score
   useEffect(() => {
     const requiredFields = ['name', 'email', 'phone', 'serviceType', 'projectType', 'propertySize', 'budget', 'timeline']
     const filledFields = requiredFields.filter(field => formData[field as keyof typeof formData])
     const score = Math.round((filledFields.length / requiredFields.length) * 100)
     setCompletionScore(score)
-    
-    // Check for achievements
-    if (score >= 50 && !achievementUnlocked.includes('halfway')) {
-      unlockAchievement('halfway')
-    }
-    if (currentStep === 1 && formData.name && !achievementUnlocked.includes('first-step')) {
-      unlockAchievement('first-step')
-    }
-    if (formData.budget && !achievementUnlocked.includes('budget-conscious')) {
-      unlockAchievement('budget-conscious')
-    }
   }, [formData, currentStep])
 
-  const unlockAchievement = (achievementId: string) => {
-    setAchievementUnlocked(achievementId)
-    setShowConfetti(true)
-    setTimeout(() => {
-      setAchievementUnlocked('')
-      setShowConfetti(false)
-    }, 3000)
-  }
 
   // Real-time cost estimation
   useEffect(() => {
@@ -251,8 +244,6 @@ export default function QuotePage() {
       })
     }
     
-    // Increment user streak for engagement
-    setUserStreak(prev => prev + 1)
     
     // Generate smart suggestions based on selections
     generateSmartSuggestions(field, value)
@@ -303,6 +294,9 @@ export default function QuotePage() {
         break
       case 2:
         if (!formData.serviceType) errors.serviceType = 'Please select a service'
+        if (formData.serviceType === 'interior-design' && !formData.interiorPackage) {
+          errors.interiorPackage = 'Please select an interior package'
+        }
         if (!formData.projectType) errors.projectType = 'Please select property type'
         break
       case 3:
@@ -342,6 +336,16 @@ export default function QuotePage() {
     console.log('Form submitted:', formData)
   }
 
+  // Start form handler
+  const startForm = () => {
+    setIsFormStarted(true)
+    setCurrentStep(1)
+    // Smooth scroll to form
+    setTimeout(() => {
+      window.scrollTo({ top: window.innerHeight * 0.8, behavior: 'smooth' })
+    }, 100)
+  }
+
   if (showSuccess) {
     return (
       <main className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50 flex items-center justify-center p-4">
@@ -378,56 +382,7 @@ export default function QuotePage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      {/* Achievement Notification */}
-      <AnimatePresence>
-        {achievementUnlocked && (
-          <motion.div
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -100 }}
-            className="fixed top-24 left-1/2 transform -translate-x-1/2 z-50"
-          >
-            <div className="bg-gradient-to-r from-yellow-400 to-amber-500 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-4">
-              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                <Trophy className="w-6 h-6" />
-              </div>
-              <div>
-                <p className="font-bold text-lg">Achievement Unlocked!</p>
-                <p className="text-sm opacity-90">
-                  {achievements.find(a => a.id === achievementUnlocked)?.name}
-                </p>
-              </div>
-              {showConfetti && (
-                <div className="absolute inset-0 pointer-events-none">
-                  {[...Array(20)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ 
-                        x: 0, 
-                        y: 0, 
-                        rotate: 0,
-                        opacity: 1 
-                      }}
-                      animate={{ 
-                        x: (Math.random() - 0.5) * 200,
-                        y: Math.random() * 100 + 50,
-                        rotate: Math.random() * 360,
-                        opacity: 0
-                      }}
-                      transition={{ duration: 1.5 }}
-                      className="absolute top-1/2 left-1/2 w-2 h-2 bg-yellow-300"
-                      style={{
-                        backgroundColor: ['#FFD700', '#FFA500', '#FF6347', '#32CD32', '#4169E1'][Math.floor(Math.random() * 5)]
-                      }}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <main className="min-h-screen bg-white overflow-x-hidden">
 
       {/* Smart Suggestions */}
       <AnimatePresence>
@@ -455,146 +410,245 @@ export default function QuotePage() {
         )}
       </AnimatePresence>
 
-      {/* Hero Section with Dynamic Title */}
-      <div className="bg-gradient-to-br from-amber-50 via-white to-orange-50 pt-20 pb-12">
-        <div className="container mx-auto px-4">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
-              {formData.name ? `Welcome ${formData.name.split(' ')[0]}!` : 'Get Your Dream Project Quote'}
-            </h1>
-            <p className="text-xl text-gray-600">
-              {completionScore > 0 ? `You're ${completionScore}% done!` : 'Answer a few questions to get a personalized estimate'}
-            </p>
-          </motion.div>
-        </div>
-      </div>
+      {/* Apple-style Hero Section */}
+      {currentStep === 0 && (
+        <section ref={heroRef} className="relative min-h-screen flex items-center justify-center">
+          {/* Gradient Background */}
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-50 via-white to-gray-50" />
+          
+          {/* Subtle Grid Pattern */}
+          <div className="absolute inset-0 opacity-[0.03]">
+            <div className="h-full w-full" style={{
+              backgroundImage: `linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)`,
+              backgroundSize: '50px 50px'
+            }} />
+          </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
-          {/* Enhanced Progress Bar */}
-          <div className="mb-12">
-            {/* Completion Score */}
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-4">
-                <div className="relative">
-                  <svg className="w-16 h-16 transform -rotate-90">
-                    <circle
-                      cx="32"
-                      cy="32"
-                      r="28"
-                      stroke="#e5e7eb"
-                      strokeWidth="8"
-                      fill="none"
+          <div className="relative z-10 container mx-auto px-6">
+            <motion.div 
+              className="text-center max-w-5xl mx-auto"
+              initial="initial"
+              animate="animate"
+            >
+              {/* Tag */}
+              <motion.div {...fadeInUp} className="mb-8">
+                <span className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full text-sm font-medium text-gray-600">
+                  <Sparkles className="w-4 h-4" />
+                  Transform Your Space
+                </span>
+              </motion.div>
+
+              {/* Main Headline */}
+              <motion.h1 
+                {...fadeInUp}
+                transition={{ delay: 0.1, duration: 0.8 }}
+                className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8"
+              >
+                <span className="block text-gray-900">Build</span>
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+                  Beyond Imagination
+                </span>
+              </motion.h1>
+
+              {/* Subtitle */}
+              <motion.p 
+                {...fadeInUp}
+                transition={{ delay: 0.2 }}
+                className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed"
+              >
+                Experience construction reimagined. Where precision meets perfection,
+                and your dream space comes to life.
+              </motion.p>
+
+              {/* CTA Buttons */}
+              <motion.div 
+                {...fadeInUp}
+                transition={{ delay: 0.3 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+              >
+                <button
+                  onClick={startForm}
+                  className="group px-8 py-4 bg-black text-white rounded-full font-medium text-lg hover:bg-gray-800 transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                  Get Your Quote
+                  <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+                <Link
+                  href="/showcase"
+                  className="px-8 py-4 bg-white text-black rounded-full font-medium text-lg border border-gray-300 hover:border-gray-400 transition-all duration-300"
+                >
+                  View Our Work
+                </Link>
+              </motion.div>
+
+              {/* Feature Pills */}
+              <motion.div 
+                {...fadeIn}
+                transition={{ delay: 0.4 }}
+                className="flex flex-wrap gap-4 justify-center"
+              >
+                {[
+                  { icon: Clock, text: "On-Time Delivery" },
+                  { icon: Shield, text: "5 Year Warranty" },
+                  { icon: Star, text: "500+ Projects" },
+                  { icon: Award, text: "Award Winning" }
+                ].map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5 + index * 0.1 }}
+                    className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-gray-100"
+                  >
+                    <item.icon className="w-4 h-4 text-gray-600" />
+                    <span className="text-sm font-medium text-gray-700">{item.text}</span>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </motion.div>
+
+            {/* Scroll Indicator */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+              className="absolute bottom-8 left-1/2 -translate-x-1/2"
+            >
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center"
+              >
+                <motion.div
+                  animate={{ y: [2, 8, 2] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="w-1 h-3 bg-gray-400 rounded-full mt-2"
+                />
+              </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Floating Elements */}
+          <motion.div
+            animate={{ 
+              y: [0, -20, 0],
+              rotate: [0, 5, 0]
+            }}
+            transition={{ duration: 6, repeat: Infinity }}
+            className="absolute top-20 right-10 md:right-20 lg:right-40"
+          >
+            <div className="w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-3xl opacity-20" />
+          </motion.div>
+          <motion.div
+            animate={{ 
+              y: [0, 20, 0],
+              rotate: [0, -5, 0]
+            }}
+            transition={{ duration: 8, repeat: Infinity }}
+            className="absolute bottom-40 left-10 md:left-20 lg:left-40"
+          >
+            <div className="w-32 h-32 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full opacity-10" />
+          </motion.div>
+        </section>
+      )}
+
+      {/* Form Section */}
+      {(isFormStarted || currentStep > 0) && (
+        <section className="relative bg-gray-50 py-20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              {/* Apple-style Progress Indicator */}
+              <div className="mb-16">
+                {/* Minimalist Progress Bar */}
+                <div className="mb-8">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900">Your Progress</h3>
+                    <span className="text-sm font-medium text-gray-600">{completionScore}% Complete</span>
+                  </div>
+                  <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
+                    <motion.div
+                      className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
+                      initial={{ width: 0 }}
+                      animate={{ width: `${completionScore}%` }}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
                     />
-                    <motion.circle
-                      cx="32"
-                      cy="32"
-                      r="28"
-                      stroke="url(#gradient)"
-                      strokeWidth="8"
-                      fill="none"
-                      strokeDasharray={`${2 * Math.PI * 28}`}
-                      strokeDashoffset={`${2 * Math.PI * 28 * (1 - completionScore / 100)}`}
-                      strokeLinecap="round"
-                      animate={{
-                        strokeDashoffset: `${2 * Math.PI * 28 * (1 - completionScore / 100)}`
-                      }}
-                      transition={{ duration: 0.5 }}
-                    />
-                    <defs>
-                      <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#f59e0b" />
-                        <stop offset="100%" stopColor="#ea580c" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-xl font-bold">{completionScore}%</span>
                   </div>
                 </div>
-                <div>
-                  <p className="font-medium">Progress</p>
-                  <p className="text-sm text-gray-500">
-                    {completionScore < 25 ? "Let's get started!" :
-                     completionScore < 50 ? "You're doing great!" :
-                     completionScore < 75 ? "Almost there!" :
-                     "Nearly complete!"}
-                  </p>
-                </div>
-              </div>
-              
-              {/* Live Cost Estimate Badge */}
-              {showCostEstimate && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="bg-gradient-to-r from-amber-100 to-orange-100 rounded-xl p-4"
-                >
-                  <p className="text-xs text-gray-600 mb-1">Estimated Cost</p>
-                  <p className="font-bold text-lg">
-                    ₹{(costEstimate.min / 100000).toFixed(1)}L - ₹{(costEstimate.max / 100000).toFixed(1)}L
-                  </p>
-                </motion.div>
-              )}
-            </div>
 
-            {/* Step Progress */}
-            <div className="flex justify-between relative">
-              {steps.map((step, index) => (
-                <div key={step.id} className="flex-1 relative">
-                  <motion.div className="flex items-center">
+                {/* Step Pills */}
+                <div className="flex justify-center gap-3 flex-wrap">
+                  {steps.map((step, index) => (
                     <motion.button
+                      key={step.id}
                       onClick={() => step.id < currentStep && setCurrentStep(step.id)}
-                      className={`relative w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${
+                      disabled={step.id > currentStep}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
                         step.id === currentStep 
-                          ? 'bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-lg scale-110' 
+                          ? 'bg-black text-white' 
                           : step.id < currentStep
                           ? 'bg-gray-900 text-white'
                           : 'bg-gray-200 text-gray-500'
                       }`}
-                      whileHover={step.id <= currentStep ? { scale: 1.1 } : {}}
+                      whileHover={step.id <= currentStep ? { scale: 1.05 } : {}}
                       whileTap={step.id <= currentStep ? { scale: 0.95 } : {}}
                     >
                       {step.id < currentStep ? (
-                        <Check className="w-5 h-5" />
+                        <Check className="w-4 h-4" />
                       ) : (
-                        <step.icon className="w-5 h-5" />
+                        <step.icon className="w-4 h-4" />
                       )}
-                      {step.id === currentStep && (
-                        <motion.div
-                          className="absolute inset-0 rounded-full border-4 border-amber-300"
-                          animate={{ scale: [1, 1.2, 1] }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                        />
-                      )}
+                      <span className="text-sm font-medium">{step.title}</span>
                     </motion.button>
-                    {index < steps.length - 1 && (
-                      <div className="flex-1 h-1 mx-2 bg-gray-200 relative">
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-600"
-                          initial={{ width: 0 }}
-                          animate={{ width: step.id < currentStep ? '100%' : '0%' }}
-                          transition={{ duration: 0.5 }}
-                        />
-                      </div>
-                    )}
-                  </motion.div>
-                  <p className="text-xs mt-2 text-center font-medium">{step.title}</p>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
 
-          {/* Form Content */}
-          <motion.div 
-            className="bg-white rounded-3xl shadow-xl overflow-hidden"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
+              {/* Form Card */}
+              <motion.div 
+                className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              >
+            <form
+              name="quote"
+              method="POST"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+              onSubmit={(e) => {
+                e.preventDefault();
+                // Only submit if we're on the final step
+                if (currentStep === steps.length) {
+                  handleSubmit();
+                } else {
+                  nextStep();
+                }
+              }}
+            >
+              {/* Hidden fields for Netlify */}
+              <input type="hidden" name="form-name" value="quote" />
+              <div hidden>
+                <input name="bot-field" />
+              </div>
+              
+              {/* Hidden inputs to capture all form data */}
+              <input type="hidden" name="name" value={formData.name} />
+              <input type="hidden" name="email" value={formData.email} />
+              <input type="hidden" name="phone" value={formData.phone} />
+              <input type="hidden" name="company" value={formData.company} />
+              <input type="hidden" name="serviceType" value={formData.serviceType} />
+              <input type="hidden" name="interiorPackage" value={formData.interiorPackage} />
+              <input type="hidden" name="projectType" value={formData.projectType} />
+              <input type="hidden" name="propertySize" value={formData.propertySize} />
+              <input type="hidden" name="location" value={formData.location} />
+              <input type="hidden" name="budget" value={formData.budget} />
+              <input type="hidden" name="timeline" value={formData.timeline} />
+              <input type="hidden" name="designStyles" value={formData.designStyles.join(', ')} />
+              <input type="hidden" name="features" value={formData.features.join(', ')} />
+              <input type="hidden" name="specialRequirements" value={formData.specialRequirements} />
+              <input type="hidden" name="howDidYouHear" value={formData.howDidYouHear} />
+              <input type="hidden" name="preferredContact" value={formData.preferredContact} />
+              
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentStep}
@@ -815,6 +869,59 @@ export default function QuotePage() {
                         )}
                       </div>
 
+                      {/* Interior Design Packages */}
+                      {formData.serviceType === 'interior-design' && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="mb-6"
+                        >
+                          <label className="block text-sm font-medium mb-4">Choose Your Interior Package <span className="text-red-500">*</span></label>
+                          <div className="grid md:grid-cols-3 gap-4">
+                            {serviceOptions.find(s => s.id === 'interior-design')?.packages?.map((pkg, index) => (
+                              <motion.button
+                                key={pkg.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                onClick={() => handleInputChange('interiorPackage', pkg.id)}
+                                className={`p-6 rounded-2xl border-2 transition-all text-center ${
+                                  formData.interiorPackage === pkg.id
+                                    ? 'border-purple-500 bg-gradient-to-br from-purple-50 to-pink-50'
+                                    : 'border-gray-200 hover:border-gray-300 hover:shadow-lg'
+                                }`}
+                              >
+                                {formData.interiorPackage === pkg.id && (
+                                  <motion.div
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center"
+                                  >
+                                    <Check className="w-5 h-5 text-white" />
+                                  </motion.div>
+                                )}
+                                <h4 className="font-semibold text-lg mb-2">{pkg.name}</h4>
+                                <div className="text-2xl font-bold text-purple-600 mb-2">{pkg.price}</div>
+                                <p className="text-sm text-gray-600">{pkg.desc}</p>
+                                <p className="text-xs text-amber-600 mt-2">*Starting from</p>
+                              </motion.button>
+                            ))}
+                          </div>
+                          {validationErrors.interiorPackage && (
+                            <motion.p
+                              initial={{ opacity: 0, y: -10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="text-red-500 text-sm mt-2 flex items-center gap-1"
+                            >
+                              <AlertCircle className="w-4 h-4" />
+                              {validationErrors.interiorPackage}
+                            </motion.p>
+                          )}
+                        </motion.div>
+                      )}
+
                       <div>
                         <label className="block text-sm font-medium mb-4">Property Type <span className="text-red-500">*</span></label>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -880,10 +987,10 @@ export default function QuotePage() {
                         <label className="block text-sm font-medium mb-4">Property Size <span className="text-red-500">*</span></label>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                           {[
-                            { id: 'compact', name: 'Compact', desc: '< 1,000 sq.ft', icon: '🏠' },
-                            { id: 'medium', name: 'Medium', desc: '1-2K sq.ft', icon: '🏡' },
-                            { id: 'large', name: 'Large', desc: '2-3K sq.ft', icon: '🏢' },
-                            { id: 'premium', name: 'Premium', desc: '> 3,000 sq.ft', icon: '🏰' }
+                            { id: 'compact', name: 'Compact', desc: '< 1,000 sq.ft', icon: Home },
+                            { id: 'medium', name: 'Medium', desc: '1-2K sq.ft', icon: Building },
+                            { id: 'large', name: 'Large', desc: '2-3K sq.ft', icon: Building },
+                            { id: 'premium', name: 'Premium', desc: '> 3,000 sq.ft', icon: Crown }
                           ].map((size) => (
                             <motion.button
                               key={size.id}
@@ -896,7 +1003,7 @@ export default function QuotePage() {
                                   : 'border-gray-200 hover:border-gray-300'
                               }`}
                             >
-                              <div className="text-2xl mb-2">{size.icon}</div>
+                              <size.icon className="w-8 h-8 mx-auto mb-2 text-gray-600" />
                               <p className="font-medium">{size.name}</p>
                               <p className="text-xs text-gray-500">{size.desc}</p>
                             </motion.button>
@@ -933,7 +1040,9 @@ export default function QuotePage() {
                               }`}
                             >
                               <div className="flex items-center gap-4">
-                                <span className="text-2xl">{budget.icon}</span>
+                                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                                  <budget.icon className="w-5 h-5 text-gray-600" />
+                                </div>
                                 <div className="text-left">
                                   <p className="font-semibold">{budget.range}</p>
                                   <p className="text-sm text-gray-600">{budget.desc}</p>
@@ -1252,6 +1361,7 @@ export default function QuotePage() {
               transition={{ delay: 0.3 }}
             >
               <motion.button
+                type="button"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={prevStep}
@@ -1282,6 +1392,7 @@ export default function QuotePage() {
 
               {currentStep < steps.length ? (
                 <motion.button
+                  type="button"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={nextStep}
@@ -1292,20 +1403,21 @@ export default function QuotePage() {
                 </motion.button>
               ) : (
                 <motion.button
+                  type="submit"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={handleSubmit}
                   className="flex items-center gap-2 px-8 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 transition-all shadow-lg"
                 >
                   Submit Quote Request
                   <Sparkles className="w-4 h-4" />
                 </motion.button>
               )}
-            </motion.div>
-          </motion.div>
+                </motion.div>
+              </form>
+              </motion.div>
 
-          {/* Live Cost Estimate Card */}
-          {showCostEstimate && costEstimate.min > 0 && (
+              {/* Live Cost Estimate Card */}
+              {showCostEstimate && costEstimate.min > 0 && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -1401,20 +1513,238 @@ export default function QuotePage() {
               </p>
             </motion.div>
           )}
+            </div>
+          </div>
+        </section>
+      )}
 
-          {/* Floating Action Buttons */}
+      {/* Apple-style Features Section */}
+      {currentStep === 0 && (
+        <section className="py-32 bg-white">
+          <div className="container mx-auto px-6">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true }}
+                className="text-center mb-20"
+              >
+                <motion.h2 
+                  {...fadeInUp}
+                  className="text-4xl md:text-5xl font-bold mb-6 text-gray-900"
+                >
+                  Why Choose Sahara
+                </motion.h2>
+                <motion.p 
+                  {...fadeInUp}
+                  transition={{ delay: 0.1 }}
+                  className="text-xl text-gray-600 max-w-3xl mx-auto"
+                >
+                  We combine cutting-edge technology with timeless craftsmanship
+                  to deliver exceptional results.
+                </motion.p>
+              </motion.div>
+
+              <div className="grid md:grid-cols-3 gap-8">
+                {[
+                  {
+                    icon: Gauge,
+                    title: "Lightning Fast",
+                    description: "Get your personalized quote in minutes, not days. Our AI-powered system ensures accuracy and speed.",
+                    stat: "2 min",
+                    statLabel: "Average quote time"
+                  },
+                  {
+                    icon: Shield,
+                    title: "Quality Assured",
+                    description: "Every project backed by our 5-year warranty. Premium materials and expert craftsmanship guaranteed.",
+                    stat: "100%",
+                    statLabel: "Satisfaction rate"
+                  },
+                  {
+                    icon: Layers,
+                    title: "Full Transparency",
+                    description: "No hidden costs, no surprises. Track your project in real-time with our customer portal.",
+                    stat: "24/7",
+                    statLabel: "Project tracking"
+                  }
+                ].map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="text-center"
+                  >
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-2xl mb-6">
+                      <feature.icon className="w-8 h-8 text-gray-700" />
+                    </div>
+                    <h3 className="text-2xl font-semibold mb-4 text-gray-900">{feature.title}</h3>
+                    <p className="text-gray-600 mb-6 leading-relaxed">{feature.description}</p>
+                    <div className="pt-6 border-t border-gray-200">
+                      <div className="text-3xl font-bold text-gray-900">{feature.stat}</div>
+                      <div className="text-sm text-gray-500">{feature.statLabel}</div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Testimonials Section */}
+      {currentStep === 0 && (
+        <section className="py-32 bg-gray-50">
+          <div className="container mx-auto px-6">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true }}
+                className="text-center mb-20"
+              >
+                <motion.h2 
+                  {...fadeInUp}
+                  className="text-4xl md:text-5xl font-bold mb-6 text-gray-900"
+                >
+                  Loved by homeowners
+                </motion.h2>
+                <motion.p 
+                  {...fadeInUp}
+                  transition={{ delay: 0.1 }}
+                  className="text-xl text-gray-600"
+                >
+                  Join 500+ satisfied customers who transformed their spaces with us.
+                </motion.p>
+              </motion.div>
+
+              <div className="grid md:grid-cols-3 gap-8">
+                {[
+                  {
+                    name: "Priya Sharma",
+                    role: "Homeowner, Koramangala",
+                    content: "The attention to detail was extraordinary. They turned our vision into reality, exceeding all expectations.",
+                    rating: 5,
+                    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&q=80&fit=crop"
+                  },
+                  {
+                    name: "Arjun Patel",
+                    role: "Business Owner, Whitefield",
+                    content: "Professional, punctual, and perfect execution. The team delivered our office renovation ahead of schedule.",
+                    rating: 5,
+                    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&q=80&fit=crop"
+                  },
+                  {
+                    name: "Meera Reddy",
+                    role: "Homeowner, HSR Layout",
+                    content: "From design to execution, everything was seamless. The quality of work speaks for itself.",
+                    rating: 5,
+                    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&q=80&fit=crop"
+                  }
+                ].map((testimonial, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-white rounded-xl p-8 shadow-sm border border-gray-200"
+                  >
+                    <div className="flex items-center gap-1 mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                      ))}
+                    </div>
+                    <p className="text-gray-700 mb-6 leading-relaxed italic">
+                      "{testimonial.content}"
+                    </p>
+                    <div className="flex items-center gap-3">
+                      <Image
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        width={48}
+                        height={48}
+                        className="rounded-full"
+                      />
+                      <div>
+                        <div className="font-semibold text-gray-900">{testimonial.name}</div>
+                        <div className="text-sm text-gray-500">{testimonial.role}</div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* CTA Section */}
+      {currentStep === 0 && (
+        <section className="py-32 bg-black text-white">
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              className="max-w-4xl mx-auto text-center"
+            >
+              <motion.h2 
+                {...fadeInUp}
+                className="text-4xl md:text-5xl font-bold mb-6"
+              >
+                Ready to start your journey?
+              </motion.h2>
+              <motion.p 
+                {...fadeInUp}
+                transition={{ delay: 0.1 }}
+                className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto"
+              >
+                Get a personalized quote in minutes. No obligations, no spam.
+                Just honest pricing and expert advice.
+              </motion.p>
+              <motion.div
+                {...fadeInUp}
+                transition={{ delay: 0.2 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center"
+              >
+                <button
+                  onClick={startForm}
+                  className="group px-8 py-4 bg-white text-black rounded-full font-medium text-lg hover:bg-gray-100 transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                  Start Your Quote
+                  <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+                <a
+                  href="tel:+919591837216"
+                  className="px-8 py-4 bg-transparent text-white rounded-full font-medium text-lg border border-white hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                  <Phone className="w-5 h-5" />
+                  Call Us Now
+                </a>
+              </motion.div>
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      {/* Floating Action Buttons */}
+      <AnimatePresence>
+        {currentStep > 0 && (
           <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-3">
             {/* Live chat help */}
             <motion.div
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1 }}
+              exit={{ opacity: 0, scale: 0 }}
               className="relative"
             >
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full shadow-lg flex items-center justify-center text-white relative"
+                className="w-14 h-14 bg-black rounded-full shadow-lg flex items-center justify-center text-white relative"
                 onMouseEnter={() => setShowTooltip('chat')}
                 onMouseLeave={() => setShowTooltip('')}
                 onClick={() => alert('Live chat coming soon! Call +91 95918 37216')}
@@ -1444,7 +1774,7 @@ export default function QuotePage() {
             <motion.button
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.1 }}
+              exit={{ opacity: 0, scale: 0 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               className="w-14 h-14 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center"
@@ -1466,36 +1796,9 @@ export default function QuotePage() {
                 </motion.div>
               )}
             </motion.button>
-
-            {/* Progress indicator with emoji */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.2 }}
-              className="w-14 h-14 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full shadow-lg flex flex-col items-center justify-center text-white"
-            >
-              <span className="text-xs">
-                {completionScore < 30 ? '🌱' : completionScore < 60 ? '🌿' : completionScore < 90 ? '🌳' : '🎯'}
-              </span>
-              <span className="font-bold text-sm">{completionScore}%</span>
-            </motion.div>
-
-            {/* Streak indicator */}
-            {userStreak > 3 && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full shadow-lg flex items-center justify-center text-white"
-              >
-                <div className="text-center">
-                  <span className="text-xs">🔥</span>
-                  <span className="text-xs font-bold block">{userStreak}</span>
-                </div>
-              </motion.div>
-            )}
           </div>
-        </div>
-      </div>
+        )}
+      </AnimatePresence>
     </main>
   )
 }

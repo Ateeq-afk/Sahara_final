@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <!-- Berger Paints Logo -->
+  <g transform="translate(10, 20)">
+    <!-- Paint brush symbol -->
+    <g>
+      <rect x="5" y="20" width="25" height="6" fill="#006CB7" rx="3"/>
+      <path d="M28 20 L35 15 L37 18 L30 26 Z" fill="#FFC20E"/>
+    </g>
+    
+    <!-- Text -->
+    <text x="45" y="28" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#006CB7">Berger</text>
+    <text x="110" y="28" font-family="Arial, sans-serif" font-size="18" fill="#666">Paints</text>
+  </g>
+</svg>

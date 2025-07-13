@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <!-- ACC Cement Logo -->
+  <g transform="translate(10, 20)">
+    <!-- Mountain/Triangle symbol -->
+    <g fill="#FF0000">
+      <polygon points="20,10 35,35 5,35"/>
+    </g>
+    
+    <!-- Text -->
+    <text x="45" y="30" font-family="Arial, sans-serif" font-size="26" font-weight="bold" fill="#FF0000">ACC</text>
+    <text x="45" y="42" font-family="Arial, sans-serif" font-size="10" fill="#666">Cement · Concrete · Future</text>
+  </g>
+</svg>

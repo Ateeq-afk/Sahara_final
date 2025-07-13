@@ -4,15 +4,13 @@ import React, { useState, useRef, Suspense } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, PresentationControls, Environment, ContactShadows, Html, useProgress, Stage } from '@react-three/drei'
-import { PhotoRealistic3D } from './photo-realistic-3d'
-import { ChevronLeft, ChevronRight, Maximize2, ZoomIn, ZoomOut, RotateCw, Layers, Eye, Smartphone } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Maximize2, ZoomIn, ZoomOut, RotateCw, Layers, Eye } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card } from '@/components/ui/card'
 import dynamic from 'next/dynamic'
 
-const ARViewer = dynamic(() => import('./ar-viewer'), { ssr: false })
 
 interface ProjectShowcaseProps {
   projects: Array<{
@@ -60,15 +58,11 @@ function Loader() {
 }
 
 function Model3D({ project }: { project: any }) {
-  const modelType = project.category === 'Commercial' ? 'commercial' : 
-                    project.bedrooms > 3 ? 'villa' : 'house'
-  
+  // 3D model functionality has been removed
   return (
-    <PhotoRealistic3D
-      images={project.images}
-      type={modelType}
-      title={project.title}
-    />
+    <div className="flex items-center justify-center h-full text-gray-500">
+      <p>3D model preview not available</p>
+    </div>
   )
 }
 
@@ -77,7 +71,6 @@ export default function ProjectShowcaseResponsive({ projects }: ProjectShowcaseP
   const [activeView, setActiveView] = useState<'3d' | 'gallery'>('3d')
   const [activeImageCategory, setActiveImageCategory] = useState<'exterior' | 'interior' | 'floorPlan'>('exterior')
   const [fullscreen, setFullscreen] = useState(false)
-  const [showAR, setShowAR] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
   const currentProject = projects[activeProject]
@@ -251,14 +244,6 @@ export default function ProjectShowcaseResponsive({ projects }: ProjectShowcaseP
                         <Button size="icon" variant="secondary" className="rounded-full bg-white/80 backdrop-blur h-8 w-8 lg:h-10 lg:w-10">
                           <RotateCw className="h-3 w-3 lg:h-4 lg:w-4" />
                         </Button>
-                        <Button 
-                          size="icon" 
-                          variant="secondary" 
-                          className="rounded-full bg-white/80 backdrop-blur h-8 w-8 lg:h-10 lg:w-10"
-                          onClick={() => setShowAR(true)}
-                        >
-                          <Smartphone className="h-3 w-3 lg:h-4 lg:w-4" />
-                        </Button>
                       </div>
                     </motion.div>
                   ) : (
@@ -384,29 +369,12 @@ export default function ProjectShowcaseResponsive({ projects }: ProjectShowcaseP
                 <Button size="default" variant="outline" className="flex-1 text-sm lg:text-base h-10 lg:h-12">
                   Download Brochure
                 </Button>
-                <Button 
-                  size="default" 
-                  variant="outline" 
-                  className="flex-1 gap-2 text-sm lg:text-base h-10 lg:h-12"
-                  onClick={() => setShowAR(true)}
-                >
-                  <Smartphone className="h-3 w-3 lg:h-4 lg:w-4" />
-                  View in AR
-                </Button>
               </div>
             </motion.div>
           </div>
         </div>
       </div>
 
-      {/* AR Viewer Modal */}
-      {showAR && (
-        <ARViewer
-          projectType={currentProject.category === 'Commercial' ? 'commercial' : currentProject.bedrooms > 3 ? 'villa' : 'house'}
-          projectName={currentProject.title}
-          onClose={() => setShowAR(false)}
-        />
-      )}
     </>
   )
 }

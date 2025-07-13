@@ -24,14 +24,14 @@ async function getCustomerData(customerId: string) {
   await dbConnect()
   
   const [projects, orders, activeProject] = await Promise.all([
-    Project.find({ 'customer.id': customerId, isActive: true })
+    (Project as any).find({ 'customer.id': customerId, isActive: true })
       .sort({ createdAt: -1 })
       .lean(),
-    MaterialOrder.find({ 'customer.id': customerId })
+    (MaterialOrder as any).find({ 'customer.id': customerId })
       .sort({ createdAt: -1 })
       .limit(5)
       .lean(),
-    Project.findOne({ 
+    (Project as any).findOne({ 
       'customer.id': customerId, 
       status: 'in_progress',
       isActive: true 

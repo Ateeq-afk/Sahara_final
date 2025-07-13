@@ -1,13 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth/next'
+import { authOptions } from '@/lib/auth'
 import dbConnect from '@/lib/mongodb'
 import Lead from '@/models/Lead'
 import mongoose from 'mongoose'
+import { leadUpdateSchema } from '@/lib/validations/lead'
 
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
+    const session = await getServerSession(authOptions)
+    
+    if (!session || session.user.role !== 'admin') {
+      return NextResponse.json(
+        { success: false, message: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
+    
     await dbConnect()
     
     const { id } = params
@@ -47,6 +59,15 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
+    const session = await getServerSession(authOptions)
+    
+    if (!session || session.user.role !== 'admin') {
+      return NextResponse.json(
+        { success: false, message: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
+    
     await dbConnect()
     
     const { id } = params
@@ -59,9 +80,25 @@ export async function PUT(
       )
     }
     
+    // Validate input with zod
+    const validationResult = leadUpdateSchema.safeParse(body)
+    
+    if (!validationResult.success) {
+      return NextResponse.json(
+        { 
+          success: false, 
+          message: 'Validation failed',
+          errors: validationResult.error.flatten().fieldErrors 
+        },
+        { status: 400 }
+      )
+    }
+    
+    const validatedData = validationResult.data
+    
     const lead = await Lead.findByIdAndUpdate(
       id,
-      { ...body, updatedAt: new Date() },
+      { ...validatedData, updatedAt: new Date() },
       { new: true, runValidators: true }
     ).lean()
     
@@ -92,6 +129,15 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    const session = await getServerSession(authOptions)
+    
+    if (!session || session.user.role !== 'admin') {
+      return NextResponse.json(
+        { success: false, message: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
+    
     await dbConnect()
     
     const { id } = params

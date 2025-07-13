@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <!-- Punjab National Bank Logo -->
+  <g transform="translate(10, 15)">
+    <!-- Shield shape -->
+    <path d="M30 5 L50 5 L50 35 Q40 45 30 35 Z" fill="#003D7A" stroke="#F7941E" stroke-width="2"/>
+    
+    <!-- PNB text inside shield -->
+    <text x="40" y="25" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">PNB</text>
+    
+    <!-- Bank name -->
+    <g fill="#003D7A">
+      <text x="60" y="20" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Punjab National Bank</text>
+      <text x="60" y="38" font-family="Arial, sans-serif" font-size="11" fill="#666">The Name You Can Bank Upon</text>
+    </g>
+  </g>
+</svg>

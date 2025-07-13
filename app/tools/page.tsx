@@ -2,9 +2,8 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Calculator, Palette, Clock, Box, ArrowRight, Shield, Video } from 'lucide-react'
+import { Calculator, Palette, Clock, ArrowRight, Shield, Video } from 'lucide-react'
 import CostCalculator from '@/components/tools/cost-calculator'
-import RoomVisualizer from '@/components/tools/room-visualizer'
 import MaterialSelector from '@/components/tools/material-selector'
 import TimelineEstimatorAI from '@/components/tools/timeline-estimator-ai'
 import { ComplianceChecker } from '@/components/tools/compliance-checker'
@@ -20,16 +19,6 @@ const tools = [
     gradient: 'from-blue-500 to-blue-600',
     lightGradient: 'from-blue-50 to-blue-100',
     component: CostCalculator
-  },
-  {
-    id: 'room-visualizer',
-    title: '3D Visualizer',
-    subtitle: 'See Your Vision',
-    description: 'Transform ideas into reality with our immersive 3D room visualization engine.',
-    icon: Box,
-    gradient: 'from-purple-500 to-purple-600',
-    lightGradient: 'from-purple-50 to-purple-100',
-    component: RoomVisualizer
   },
   {
     id: 'material-selector',

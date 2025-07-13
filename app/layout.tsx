@@ -124,7 +124,7 @@ export default function RootLayout({
               "description": "Leading contractors in Bangalore with 20+ years of excellence in residential construction, commercial projects, and luxury interior design. Trusted by 500+ clients.",
               "priceRange": "₹₹₹",
               "telephone": "+91-9591-837216",
-              "email": "info@saharadevelopers.com",
+              "email": "info@saharadevelopers.in",
               "foundingDate": "2003",
               "address": {
                 "@type": "PostalAddress",

@@ -64,14 +64,14 @@ export async function GET(request: NextRequest) {
     
     const skip = (page - 1) * limit
     
-    const materials = await Material
+    const materials = await (Material as any)
       .find(filter)
       .sort(sortOptions)
       .skip(skip)
       .limit(limit)
       .lean()
     
-    const total = await Material.countDocuments(filter)
+    const total = await (Material as any).countDocuments(filter)
     
     return NextResponse.json({
       materials,
@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
     
     const data = await request.json()
     
-    const material = await Material.create(data)
+    const material = await (Material as any).create(data)
     
     return NextResponse.json({ material }, { status: 201 })
   } catch (error) {

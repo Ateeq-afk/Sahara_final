@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <!-- Axis Bank Logo -->
+  <g transform="translate(10, 25)">
+    <!-- Logo symbol -->
+    <g>
+      <rect x="0" y="0" width="30" height="8" fill="#97144D"/>
+      <rect x="0" y="11" width="20" height="8" fill="#ED1164"/>
+      <rect x="0" y="22" width="10" height="8" fill="#F47920"/>
+    </g>
+    
+    <!-- Text -->
+    <text x="40" y="22" font-family="Arial, sans-serif" font-size="24" font-weight="normal" fill="#97144D">AXIS</text>
+    <text x="100" y="22" font-family="Arial, sans-serif" font-size="20" font-weight="normal" fill="#333333">BANK</text>
+  </g>
+</svg>

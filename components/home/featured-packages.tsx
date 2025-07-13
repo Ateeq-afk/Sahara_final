@@ -9,55 +9,132 @@ const packages = [
   {
     title: "Essential",
     subtitle: "Thoughtful Design",
-    price: "₹1,599",
+    price: "₹1,699",
+    originalPrice: "₹1,850",
     unit: "per sq.ft",
     description: "Quality construction meeting international standards",
     features: [
       "Premium RCC Structure",
       "Designer Bathroom Fittings",
       "Modern Electrical Systems",
-      "Quality Flooring Options",
+      "Quality Floor tiles upto 65/sqft",
+      "Standard Branded Steel & Cement",
       "Contemporary Kitchen",
       "3-Year Warranty"
     ],
     accent: "bg-gray-900",
-    popular: false
+    popular: false,
+    type: "construction"
   },
   {
     title: "Premium",
     subtitle: "Elevated Living",
-    price: "₹2,299",
+    price: "₹1,999",
+    originalPrice: "₹2,299",
     unit: "per sq.ft",
     description: "Superior craftsmanship with curated design elements",
     features: [
       "Reinforced RCC Structure",
       "Luxury Bathroom Suites",
       "Smart Electrical Systems",
-      "Premium Wood Flooring",
+      "Premium Floor tiles upto 110/sqft",
+      "Premium Steel & Cement",
       "Modular Kitchen Design",
       "Interior Consultation",
       "5-Year Warranty"
     ],
     accent: "bg-gradient-to-br from-amber-600 to-amber-800",
-    popular: true
+    popular: true,
+    type: "construction"
   },
   {
     title: "Luxury",
     subtitle: "Bespoke Excellence",
-    price: "₹3,499",
+    price: "₹2,399",
+    originalPrice: "₹2,599",
     unit: "per sq.ft",
     description: "Exclusive materials and personalized design solutions",
     features: [
       "Advanced Structural Design",
       "Ultra-Luxury Fixtures",
       "Home Automation Ready",
-      "Imported Italian Marble",
+      "Luxury Floor Tiles upto 170/sqft",
+      "Luxury Steel & Cement",
       "Custom Kitchen Solutions",
       "Full Interior Design",
       "10-Year Warranty"
     ],
     accent: "bg-gradient-to-br from-gray-700 to-gray-900",
-    popular: false
+    popular: false,
+    type: "construction"
+  }
+]
+
+export const interiorPackages = [
+  {
+    title: "Standard",
+    subtitle: "2 BHK Interior",
+    price: "₹2.24",
+    originalPrice: "₹2.50",
+    unit: "Lakhs",
+    description: "Complete interior solution for your 2 BHK home",
+    features: [
+      "Basic False Ceiling Design",
+      "Standard Kitchen Cabinets",
+      "Essential Wardrobes",
+      "Basic Electrical Work",
+      "Standard Paint & Finishes",
+      "Living Room TV Unit",
+      "1-Year Warranty"
+    ],
+    accent: "bg-gray-900",
+    popular: false,
+    type: "interior",
+    startingFrom: true
+  },
+  {
+    title: "Premium",
+    subtitle: "2 BHK Interior",
+    price: "₹5.49",
+    originalPrice: "₹5.99",
+    unit: "Lakhs",
+    description: "Premium interiors with designer elements",
+    features: [
+      "Designer False Ceiling",
+      "Modular Kitchen with Chimney",
+      "Premium Wardrobes",
+      "Decorative Lighting",
+      "Premium Paint & Wallpapers",
+      "Entertainment Unit & Crockery",
+      "Study Table & Shoe Rack",
+      "3-Year Warranty"
+    ],
+    accent: "bg-gradient-to-br from-amber-600 to-amber-800",
+    popular: true,
+    type: "interior",
+    startingFrom: true
+  },
+  {
+    title: "Luxury",
+    subtitle: "2 BHK Interior",
+    price: "₹10.95",
+    originalPrice: "₹11.99",
+    unit: "Lakhs",
+    description: "Ultra-luxury interiors with imported materials",
+    features: [
+      "Luxury False Ceiling with Cove Lighting",
+      "Imported Modular Kitchen",
+      "Walk-in Wardrobes",
+      "Smart Home Automation",
+      "Imported Tiles & Marble",
+      "Custom Furniture Design",
+      "Premium Bathroom Fittings",
+      "5-Year Warranty"
+    ],
+    accent: "bg-gradient-to-br from-gray-700 to-gray-900",
+    popular: false,
+    type: "interior",
+    startingFrom: true
   }
 ]
 
@@ -116,7 +193,10 @@ export default function FeaturedPackages() {
                 <div className="mb-8">
                   <p className="text-sm text-gray-500 font-medium mb-2">{pkg.subtitle}</p>
                   <h3 className="text-3xl font-semibold mb-4">{pkg.title}</h3>
-                  <div className="flex items-baseline gap-1">
+                  <div className="flex items-baseline gap-3">
+                    {pkg.originalPrice && (
+                      <span className="text-2xl text-gray-400 line-through">{pkg.originalPrice}</span>
+                    )}
                     <span className="text-4xl font-semibold">{pkg.price}</span>
                     <span className="text-gray-500">{pkg.unit}</span>
                   </div>

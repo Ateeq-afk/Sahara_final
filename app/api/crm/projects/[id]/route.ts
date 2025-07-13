@@ -17,7 +17,7 @@ export async function GET(
 
     await dbConnect()
 
-    const project = await Project.findById(params.id)
+    const project = await (Project as any).findById(params.id)
       .populate('customer.id', 'name email phone')
       .populate('lead', 'name projectType budget')
       .populate('team.projectManager', 'name email')
@@ -64,7 +64,7 @@ export async function PUT(
     await dbConnect()
     const updates = await req.json()
 
-    const project = await Project.findByIdAndUpdate(
+    const project = await (Project as any).findByIdAndUpdate(
       params.id,
       { ...updates, updatedAt: new Date() },
       { new: true, runValidators: true }
@@ -100,7 +100,7 @@ export async function DELETE(
 
     await dbConnect()
 
-    const project = await Project.findByIdAndUpdate(
+    const project = await (Project as any).findByIdAndUpdate(
       params.id,
       { isActive: false },
       { new: true }

@@ -34,8 +34,8 @@ export default function ContactSectionMinimal() {
             
             <div className="apple-card text-center">
               <div className="apple-headline-text mb-2">Email</div>
-              <a href="mailto:info@saharadevelopers.com" className="apple-link">
-                info@saharadevelopers.com
+              <a href="mailto:info@saharadevelopers.in" className="apple-link">
+                info@saharadevelopers.in
               </a>
             </div>
             

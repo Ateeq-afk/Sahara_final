@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html>
+<style>
+body, html {
+    font-family: monospace;
+}
+
+.page-not-found {
+    text-align: center;
+    margin-top: 80px;
+    margin: 30px auto;
+    width: 360px;
+}
+
+.page-not-found .bank-logo{
+    background: url(/pws/logo.png);
+    height: 32px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.page-not-found .error-img {
+    margin-top: 110px;
+    background: url(/pws/404-image.png);
+    height: 120px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.page-not-found .error-text {
+    margin-top: 50px;
+    font-size: 24px;
+    color: #444444;
+}
+
+.page-not-found .error-desc {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #444444;
+}
+
+.page-not-found .cta-btn {
+    margin-top: 36px;
+}
+
+.page-not-found .cta-btn .btn {
+    width: auto;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px -4px rgba(0,0,0,.4);
+    transition: .2s all linear;
+    border: 1px solid #1d86ff;
+    font-size: 16px;
+    background-color: #1d86ff;
+    color: #fff;
+    text-decoration: none;
+}
+
+</style>
+<body>
+<div class="page-not-found">    
+    <div class="bank-logo">
+    </div>
+    <div class="error-img">
+    </div>    
+    <div class="error-text"><p>Something is wrong</p>
+</div>
+    <div class="error-desc"><p>The page you were looking for was moved, removed, renamed or might have never existed.</p>
+</div>
+    <div class="cta-btn">
+       <a href="/personal" title="Go Home" class="btn btn-primary">Go Home</a>
+    </div>
+</div>
+</body>
+</html>

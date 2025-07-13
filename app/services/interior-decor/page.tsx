@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, X, MessageCircle, ArrowUpRight, Quote, Check, ChevronLeft, ChevronRight, Phone, Download, Palette, Home, Filter, Sparkles } from 'lucide-react'
+import { interiorPackages } from '@/components/home/featured-packages'
 
 export default function InteriorDecorPage() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -166,7 +167,7 @@ export default function InteriorDecorPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col lg:flex-row gap-4 justify-center"
           >
             <motion.button
               whileHover={{ scale: 1.02 }}
@@ -176,6 +177,18 @@ export default function InteriorDecorPage() {
             >
               Book Free Consultation
               <ArrowRight className="w-4 h-4" />
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => {
+                const packagesSection = document.querySelector('#interior-packages');
+                packagesSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="bg-amber-600 text-white px-8 py-4 rounded-full font-medium hover:bg-amber-700 transition-all inline-flex items-center gap-2 shadow-xl"
+            >
+              <Sparkles className="w-4 h-4" />
+              2 BHK Starting ₹2.24L
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.02 }}
@@ -250,6 +263,118 @@ export default function InteriorDecorPage() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Interior Packages Section */}
+      <section id="interior-packages" className="py-24 sm:py-32 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <span className="text-sm font-medium text-gray-500 tracking-[0.2em] uppercase">
+              Interior Packages
+            </span>
+            <h2 className="text-4xl sm:text-5xl font-light mt-4 mb-6">
+              Complete Home Interior Solutions
+            </h2>
+            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+              Transform your 2 BHK apartment with our carefully curated interior packages. 
+              All prices starting from the mentioned amount.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {interiorPackages.map((pkg, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="relative group"
+              >
+                <div className={`relative bg-white rounded-2xl p-8 h-full transition-all duration-500 ${
+                  pkg.popular 
+                    ? 'shadow-2xl scale-105' 
+                    : 'shadow-lg hover:shadow-2xl'
+                }`}>
+                  {/* Popular Badge */}
+                  {pkg.popular && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                      <div className="bg-amber-600 text-white px-6 py-2 rounded-full text-sm font-medium flex items-center gap-2">
+                        <Sparkles className="h-4 w-4" />
+                        Most Popular
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Package Header */}
+                  <div className="mb-8">
+                    <p className="text-sm text-gray-500 font-medium mb-2">{pkg.subtitle}</p>
+                    <h3 className="text-3xl font-semibold mb-4">{pkg.title}</h3>
+                    <div className="flex items-baseline gap-3">
+                      {pkg.originalPrice && (
+                        <span className="text-2xl text-gray-400 line-through">{pkg.originalPrice}</span>
+                      )}
+                      <span className="text-4xl font-semibold">{pkg.price}</span>
+                      <span className="text-gray-500">{pkg.unit}</span>
+                    </div>
+                    {pkg.startingFrom && (
+                      <p className="text-sm text-amber-600 mt-2 font-medium">*Starting from</p>
+                    )}
+                    <p className="text-gray-600 mt-4">{pkg.description}</p>
+                  </div>
+
+                  {/* Features */}
+                  <ul className="space-y-4 mb-8">
+                    {pkg.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                        <div className={`w-5 h-5 rounded-full ${pkg.accent} flex items-center justify-center shrink-0 mt-0.5`}>
+                          <Check className="h-3 w-3 text-white" />
+                        </div>
+                        <span className="text-gray-700">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA Button */}
+                  <Link
+                    href="/quote"
+                    className={`block text-center py-4 px-8 rounded-full font-medium transition-all duration-300 ${
+                      pkg.popular
+                        ? 'bg-amber-600 text-white hover:bg-amber-700'
+                        : 'bg-gray-900 text-white hover:bg-gray-800'
+                    }`}
+                  >
+                    Get Started
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="text-center mt-16"
+          >
+            <p className="text-gray-600 mb-4">
+              All packages include design consultation, project management, and quality assurance.
+            </p>
+            <Link
+              href="/packages"
+              className="text-lg font-medium text-gray-900 hover:text-gray-600 transition-colors"
+            >
+              View detailed specifications →
+            </Link>
+          </motion.div>
         </div>
       </section>
 

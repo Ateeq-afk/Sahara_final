@@ -1,9 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth/next'
+import { authOptions } from '@/lib/auth'
 import dbConnect from '@/lib/mongodb'
 import Lead from '@/models/Lead'
+import { leadSchema } from '@/lib/validations/lead'
+import { z } from 'zod'
 
 export async function GET(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions)
+    
+    if (!session || session.user.role !== 'admin') {
+      return NextResponse.json(
+        { success: false, message: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
+    
     await dbConnect()
     
     const searchParams = request.nextUrl.searchParams
@@ -70,22 +83,37 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions)
+    
+    if (!session || session.user.role !== 'admin') {
+      return NextResponse.json(
+        { success: false, message: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
+    
     await dbConnect()
     
     const body = await request.json()
     
-    // Validate required fields
-    const { name, email, phone, interestedService, budget, timeline } = body
+    // Validate input with zod
+    const validationResult = leadSchema.safeParse(body)
     
-    if (!name || !email || !phone || !interestedService || !budget || !timeline) {
+    if (!validationResult.success) {
       return NextResponse.json(
-        { success: false, message: 'Missing required fields' },
+        { 
+          success: false, 
+          message: 'Validation failed',
+          errors: validationResult.error.flatten().fieldErrors 
+        },
         { status: 400 }
       )
     }
     
+    const validatedData = validationResult.data
+    
     // Check for duplicate email
-    const existingLead = await Lead.findOne({ email })
+    const existingLead = await Lead.findOne({ email: validatedData.email })
     if (existingLead) {
       return NextResponse.json(
         { success: false, message: 'Lead with this email already exists' },
@@ -95,10 +123,10 @@ export async function POST(request: NextRequest) {
     
     // Create new lead
     const lead = await Lead.create({
-      ...body,
-      status: 'new',
-      priority: body.priority || 'medium',
-      source: body.source || 'website'
+      ...validatedData,
+      status: validatedData.status || 'new',
+      priority: validatedData.priority || 'medium',
+      source: validatedData.source || 'website'
     })
     
     return NextResponse.json({

@@ -534,7 +534,19 @@ export default function ContactPage() {
                       </h2>
                       
                       <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                        <form 
+                          name="contact"
+                          method="POST"
+                          data-netlify="true"
+                          data-netlify-honeypot="bot-field"
+                          onSubmit={form.handleSubmit(onSubmit)} 
+                          className="space-y-6"
+                        >
+                          {/* Hidden fields for Netlify */}
+                          <input type="hidden" name="form-name" value="contact" />
+                          <div hidden>
+                            <input name="bot-field" />
+                          </div>
                           <div className="grid md:grid-cols-2 gap-6">
                             <FormField
                               control={form.control}

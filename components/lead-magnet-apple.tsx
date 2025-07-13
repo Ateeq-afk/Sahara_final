@@ -302,12 +302,27 @@ export default function LeadMagnet() {
                     </div>
 
                     {/* Form */}
-                    <form onSubmit={(e) => { e.preventDefault(); handleDownload(); }} className="space-y-6">
+                    <form 
+                      name="lead-magnet"
+                      method="POST"
+                      data-netlify="true"
+                      data-netlify-honeypot="bot-field"
+                      onSubmit={(e) => { e.preventDefault(); handleDownload(); }} 
+                      className="space-y-6"
+                    >
+                      {/* Hidden fields for Netlify */}
+                      <input type="hidden" name="form-name" value="lead-magnet" />
+                      <input type="hidden" name="guide" value={selectedGuide?.title || ''} />
+                      <div hidden>
+                        <input name="bot-field" />
+                      </div>
+                      
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                           Full Name
                         </label>
                         <Input
+                          name="name"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           placeholder="John Doe"
@@ -322,6 +337,7 @@ export default function LeadMagnet() {
                         </label>
                         <Input
                           type="email"
+                          name="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="john@example.com"

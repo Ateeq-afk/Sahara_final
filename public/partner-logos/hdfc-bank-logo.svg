@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <!-- HDFC Bank Logo -->
+  <g transform="translate(10, 20)">
+    <!-- House symbol -->
+    <g fill="#004C8F">
+      <path d="M20 15 L5 30 L5 40 L15 40 L15 30 L25 30 L25 40 L35 40 L35 30 Z"/>
+      <path d="M20 5 L40 25 L35 25 L20 10 L5 25 L0 25 Z"/>
+    </g>
+    
+    <!-- Text -->
+    <text x="50" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#004C8F">HDFC</text>
+    <text x="130" y="30" font-family="Arial, sans-serif" font-size="20" fill="#ED232A">Bank</text>
+  </g>
+</svg>

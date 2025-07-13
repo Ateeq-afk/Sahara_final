@@ -10,7 +10,7 @@ export async function GET(
   try {
     await dbConnect()
     
-    const material = await Material.findById(params.id)
+    const material = await (Material as any).findById(params.id)
     
     if (!material || !material.isActive) {
       return NextResponse.json(
@@ -47,7 +47,7 @@ export async function PUT(
     
     const data = await request.json()
     
-    const material = await Material.findByIdAndUpdate(
+    const material = await (Material as any).findByIdAndUpdate(
       params.id,
       data,
       { new: true, runValidators: true }
@@ -86,7 +86,7 @@ export async function DELETE(
     
     await dbConnect()
     
-    const material = await Material.findByIdAndUpdate(
+    const material = await (Material as any).findByIdAndUpdate(
       params.id,
       { isActive: false },
       { new: true }

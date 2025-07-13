@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <!-- Kotak Mahindra Bank Logo -->
+  <g transform="translate(10, 25)">
+    <!-- Infinity symbol -->
+    <g fill="#ED1C24">
+      <path d="M15 20 Q5 20 5 15 T15 10 Q25 10 30 15 Q35 10 45 10 Q55 10 55 15 T45 20 Q35 20 30 15 Q25 20 15 20" stroke-width="3" fill="none" stroke="#ED1C24"/>
+    </g>
+    
+    <!-- Text -->
+    <text x="65" y="20" font-family="Arial, sans-serif" font-size="22" font-weight="normal" fill="#003C71">Kotak</text>
+    <text x="65" y="35" font-family="Arial, sans-serif" font-size="12" fill="#666">Mahindra Bank</text>
+  </g>
+</svg>
