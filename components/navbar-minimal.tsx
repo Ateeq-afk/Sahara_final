@@ -10,8 +10,8 @@ const navItems = [
   { href: '/services', label: 'Services' },
   { href: '/showcase', label: 'Projects' },
   { href: '/gallery', label: 'Gallery' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' }
+  { href: '/contact', label: 'Contact' },
+  { href: '/about', label: 'About' }
 ]
 
 export default function NavbarMinimal() {

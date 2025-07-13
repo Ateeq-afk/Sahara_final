@@ -16,10 +16,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const steps = [
-  { id: 1, title: "Contact", subtitle: "Tell us about yourself", icon: User },
-  { id: 2, title: "Project", subtitle: "What are you building?", icon: Building },
-  { id: 3, title: "Specifications", subtitle: "Project requirements", icon: Settings },
-  { id: 4, title: "Design", subtitle: "Style preferences", icon: Palette },
+  { id: 1, title: "Service", subtitle: "What are you building?", icon: Building },
+  { id: 2, title: "Specifications", subtitle: "Project requirements", icon: Settings },
+  { id: 3, title: "Design", subtitle: "Style preferences", icon: Palette },
+  { id: 4, title: "Contact", subtitle: "Tell us about yourself", icon: User },
   { id: 5, title: "Timeline", subtitle: "When to start?", icon: Calendar }
 ]
 
@@ -164,7 +164,7 @@ export default function QuotePage() {
 
   // Calculate completion score
   useEffect(() => {
-    const requiredFields = ['name', 'email', 'phone', 'serviceType', 'projectType', 'propertySize', 'budget', 'timeline']
+    const requiredFields = ['serviceType', 'projectType', 'propertySize', 'budget', 'timeline', 'name', 'email', 'phone']
     const filledFields = requiredFields.filter(field => formData[field as keyof typeof formData])
     const score = Math.round((filledFields.length / requiredFields.length) * 100)
     setCompletionScore(score)
@@ -286,26 +286,26 @@ export default function QuotePage() {
     
     switch (currentStep) {
       case 1:
-        if (!formData.name) errors.name = 'Name is required'
-        if (!formData.email) errors.email = 'Email is required'
-        else if (!/\S+@\S+\.\S+/.test(formData.email)) errors.email = 'Invalid email'
-        if (!formData.phone) errors.phone = 'Phone is required'
-        else if (!/^\d{10}$/.test(formData.phone.replace(/\D/g, ''))) errors.phone = 'Invalid phone number'
-        break
-      case 2:
         if (!formData.serviceType) errors.serviceType = 'Please select a service'
         if (formData.serviceType === 'interior-design' && !formData.interiorPackage) {
           errors.interiorPackage = 'Please select an interior package'
         }
         if (!formData.projectType) errors.projectType = 'Please select property type'
         break
-      case 3:
+      case 2:
         if (!formData.propertySize) errors.propertySize = 'Please select property size'
         if (!formData.budget) errors.budget = 'Please select budget range'
         if (!formData.location) errors.location = 'Location is required'
         break
-      case 4:
+      case 3:
         if (formData.designStyles.length === 0) errors.designStyles = 'Please select at least one style'
+        break
+      case 4:
+        if (!formData.name) errors.name = 'Name is required'
+        if (!formData.email) errors.email = 'Email is required'
+        else if (!/\S+@\S+\.\S+/.test(formData.email)) errors.email = 'Invalid email'
+        if (!formData.phone) errors.phone = 'Phone is required'
+        else if (!/^\d{10}$/.test(formData.phone.replace(/\D/g, ''))) errors.phone = 'Invalid phone number'
         break
       case 5:
         if (!formData.timeline) errors.timeline = 'Please select timeline'
@@ -658,141 +658,8 @@ export default function QuotePage() {
                 transition={{ duration: 0.3 }}
                 className="p-8 md:p-10"
               >
-                {/* Step 1: Personal Details */}
+                {/* Step 1: Service Selection */}
                 {currentStep === 1 && (
-                  <div>
-                    <div className="text-center mb-8">
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="w-16 h-16 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-4"
-                      >
-                        <User className="w-8 h-8 text-amber-600" />
-                      </motion.div>
-                      <h2 className="text-3xl font-bold mb-2">Let's get to know you</h2>
-                      <p className="text-gray-600">We'll use this to personalize your experience</p>
-                    </div>
-                    
-                    <div className="space-y-6 max-w-md mx-auto">
-                      <div>
-                        <label className="block text-sm font-medium mb-2 flex items-center gap-2">
-                          <User className="w-4 h-4 text-gray-400" />
-                          Full Name <span className="text-red-500">*</span>
-                        </label>
-                        <motion.input
-                          whileFocus={{ scale: 1.02 }}
-                          type="text"
-                          value={formData.name}
-                          onChange={(e) => handleInputChange('name', e.target.value)}
-                          className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
-                            validationErrors.name && touchedFields.has('name')
-                              ? 'border-red-300 focus:border-red-500'
-                              : 'border-gray-200 focus:border-amber-500'
-                          } focus:outline-none`}
-                          placeholder="John Doe"
-                        />
-                        {validationErrors.name && touchedFields.has('name') && (
-                          <motion.p
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="text-red-500 text-sm mt-1 flex items-center gap-1"
-                          >
-                            <AlertCircle className="w-4 h-4" />
-                            {validationErrors.name}
-                          </motion.p>
-                        )}
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium mb-2 flex items-center gap-2">
-                          <Mail className="w-4 h-4 text-gray-400" />
-                          Email Address <span className="text-red-500">*</span>
-                        </label>
-                        <motion.input
-                          whileFocus={{ scale: 1.02 }}
-                          type="email"
-                          value={formData.email}
-                          onChange={(e) => handleInputChange('email', e.target.value)}
-                          className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
-                            validationErrors.email && touchedFields.has('email')
-                              ? 'border-red-300 focus:border-red-500'
-                              : 'border-gray-200 focus:border-amber-500'
-                          } focus:outline-none`}
-                          placeholder="john@example.com"
-                        />
-                        {validationErrors.email && touchedFields.has('email') && (
-                          <motion.p
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="text-red-500 text-sm mt-1 flex items-center gap-1"
-                          >
-                            <AlertCircle className="w-4 h-4" />
-                            {validationErrors.email}
-                          </motion.p>
-                        )}
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium mb-2 flex items-center gap-2">
-                          <Phone className="w-4 h-4 text-gray-400" />
-                          Phone Number <span className="text-red-500">*</span>
-                        </label>
-                        <motion.input
-                          whileFocus={{ scale: 1.02 }}
-                          type="tel"
-                          value={formData.phone}
-                          onChange={(e) => handleInputChange('phone', e.target.value)}
-                          className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
-                            validationErrors.phone && touchedFields.has('phone')
-                              ? 'border-red-300 focus:border-red-500'
-                              : 'border-gray-200 focus:border-amber-500'
-                          } focus:outline-none`}
-                          placeholder="+91 98765 43210"
-                        />
-                        {validationErrors.phone && touchedFields.has('phone') && (
-                          <motion.p
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="text-red-500 text-sm mt-1 flex items-center gap-1"
-                          >
-                            <AlertCircle className="w-4 h-4" />
-                            {validationErrors.phone}
-                          </motion.p>
-                        )}
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium mb-2 flex items-center gap-2">
-                          <Briefcase className="w-4 h-4 text-gray-400" />
-                          Company (Optional)
-                        </label>
-                        <motion.input
-                          whileFocus={{ scale: 1.02 }}
-                          type="text"
-                          value={formData.company}
-                          onChange={(e) => handleInputChange('company', e.target.value)}
-                          className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-amber-500 focus:outline-none transition-all"
-                          placeholder="Acme Corp"
-                        />
-                      </div>
-
-                      {/* Trust badges */}
-                      <div className="flex items-center justify-center gap-6 pt-4">
-                        <div className="flex items-center gap-2 text-sm text-gray-500">
-                          <Shield className="w-4 h-4" />
-                          <span>100% Secure</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm text-gray-500">
-                          <Clock className="w-4 h-4" />
-                          <span>2hr Response</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Step 2: Service Selection */}
-                {currentStep === 2 && (
                   <div>
                     <div className="text-center mb-8">
                       <motion.div
@@ -967,8 +834,8 @@ export default function QuotePage() {
                   </div>
                 )}
 
-                {/* Step 3: Project Details */}
-                {currentStep === 3 && (
+                {/* Step 2: Project Specifications */}
+                {currentStep === 2 && (
                   <div>
                     <div className="text-center mb-8">
                       <motion.div
@@ -1122,8 +989,8 @@ export default function QuotePage() {
                   </div>
                 )}
 
-                {/* Step 4: Design Preferences */}
-                {currentStep === 4 && (
+                {/* Step 3: Design Preferences */}
+                {currentStep === 3 && (
                   <div>
                     <div className="text-center mb-8">
                       <motion.div
@@ -1223,6 +1090,139 @@ export default function QuotePage() {
                               </motion.button>
                             )
                           })}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Step 4: Contact Details */}
+                {currentStep === 4 && (
+                  <div>
+                    <div className="text-center mb-8">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        className="w-16 h-16 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                      >
+                        <User className="w-8 h-8 text-amber-600" />
+                      </motion.div>
+                      <h2 className="text-3xl font-bold mb-2">Let's get to know you</h2>
+                      <p className="text-gray-600">We'll use this to personalize your experience</p>
+                    </div>
+                    
+                    <div className="space-y-6 max-w-md mx-auto">
+                      <div>
+                        <label className="block text-sm font-medium mb-2 flex items-center gap-2">
+                          <User className="w-4 h-4 text-gray-400" />
+                          Full Name <span className="text-red-500">*</span>
+                        </label>
+                        <motion.input
+                          whileFocus={{ scale: 1.02 }}
+                          type="text"
+                          value={formData.name}
+                          onChange={(e) => handleInputChange('name', e.target.value)}
+                          className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+                            validationErrors.name && touchedFields.has('name')
+                              ? 'border-red-300 focus:border-red-500'
+                              : 'border-gray-200 focus:border-amber-500'
+                          } focus:outline-none`}
+                          placeholder="John Doe"
+                        />
+                        {validationErrors.name && touchedFields.has('name') && (
+                          <motion.p
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-red-500 text-sm mt-1 flex items-center gap-1"
+                          >
+                            <AlertCircle className="w-4 h-4" />
+                            {validationErrors.name}
+                          </motion.p>
+                        )}
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium mb-2 flex items-center gap-2">
+                          <Mail className="w-4 h-4 text-gray-400" />
+                          Email Address <span className="text-red-500">*</span>
+                        </label>
+                        <motion.input
+                          whileFocus={{ scale: 1.02 }}
+                          type="email"
+                          value={formData.email}
+                          onChange={(e) => handleInputChange('email', e.target.value)}
+                          className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+                            validationErrors.email && touchedFields.has('email')
+                              ? 'border-red-300 focus:border-red-500'
+                              : 'border-gray-200 focus:border-amber-500'
+                          } focus:outline-none`}
+                          placeholder="john@example.com"
+                        />
+                        {validationErrors.email && touchedFields.has('email') && (
+                          <motion.p
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-red-500 text-sm mt-1 flex items-center gap-1"
+                          >
+                            <AlertCircle className="w-4 h-4" />
+                            {validationErrors.email}
+                          </motion.p>
+                        )}
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium mb-2 flex items-center gap-2">
+                          <Phone className="w-4 h-4 text-gray-400" />
+                          Phone Number <span className="text-red-500">*</span>
+                        </label>
+                        <motion.input
+                          whileFocus={{ scale: 1.02 }}
+                          type="tel"
+                          value={formData.phone}
+                          onChange={(e) => handleInputChange('phone', e.target.value)}
+                          className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+                            validationErrors.phone && touchedFields.has('phone')
+                              ? 'border-red-300 focus:border-red-500'
+                              : 'border-gray-200 focus:border-amber-500'
+                          } focus:outline-none`}
+                          placeholder="+91 98765 43210"
+                        />
+                        {validationErrors.phone && touchedFields.has('phone') && (
+                          <motion.p
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-red-500 text-sm mt-1 flex items-center gap-1"
+                          >
+                            <AlertCircle className="w-4 h-4" />
+                            {validationErrors.phone}
+                          </motion.p>
+                        )}
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium mb-2 flex items-center gap-2">
+                          <Briefcase className="w-4 h-4 text-gray-400" />
+                          Company (Optional)
+                        </label>
+                        <motion.input
+                          whileFocus={{ scale: 1.02 }}
+                          type="text"
+                          value={formData.company}
+                          onChange={(e) => handleInputChange('company', e.target.value)}
+                          className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-amber-500 focus:outline-none transition-all"
+                          placeholder="Acme Corp"
+                        />
+                      </div>
+
+                      {/* Trust badges */}
+                      <div className="flex items-center justify-center gap-6 pt-4">
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <Shield className="w-4 h-4" />
+                          <span>100% Secure</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <Clock className="w-4 h-4" />
+                          <span>2hr Response</span>
                         </div>
                       </div>
                     </div>

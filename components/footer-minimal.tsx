@@ -4,13 +4,13 @@ import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'luc
 const footerLinks = {
   services: [
     { href: '/services/construction', label: 'Construction' },
-    { href: '/services/interior-design', label: 'Interior Design' },
-    { href: '/services/renovation', label: 'Renovation' },
-    { href: '/services/consultation', label: 'Consultation' }
+    { href: '/services/interior-decor', label: 'Interior Design' },
+    { href: '/services/renovations', label: 'Renovation' },
+    { href: '/consultation', label: 'Consultation' }
   ],
   company: [
     { href: '/about', label: 'About Us' },
-    { href: '/gallery', label: 'Portfolio' },
+    { href: '/projects', label: 'Portfolio' },
     { href: '/testimonials', label: 'Testimonials' },
     { href: '/blog', label: 'Blog' }
   ],
