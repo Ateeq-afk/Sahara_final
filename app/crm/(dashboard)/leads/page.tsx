@@ -66,17 +66,17 @@ export default async function LeadsPage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Leads</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Leads</h1>
           <p className="text-gray-600 mt-2">Manage and track your sales leads</p>
         </div>
-        <div className="flex items-center gap-4">
-          <Button variant="outline">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-4">
+          <Button variant="outline" className="w-full sm:w-auto">
             <Filter className="h-4 w-4 mr-2" />
             Filter
           </Button>
-          <Button>
+          <Button className="w-full sm:w-auto">
             <UserPlus className="h-4 w-4 mr-2" />
             Add Lead
           </Button>
@@ -84,7 +84,7 @@ export default async function LeadsPage() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Leads</CardTitle>
@@ -148,52 +148,56 @@ export default async function LeadsPage() {
         </CardHeader>
         <CardContent>
           {leads.length > 0 ? (
-            <div className="space-y-4">
+            <div className="space-y-4 overflow-x-auto">
               {leads.map((lead: any) => (
-                <div key={lead._id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                      <Users className="h-5 w-5 text-blue-600" />
-                    </div>
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-medium">{lead.name}</h3>
+                <div key={lead._id} className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors space-y-3 sm:space-y-0 min-w-0">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Users className="h-5 w-5 text-blue-600" />
+                      </div>
+                      <div className="flex items-center gap-2 min-w-0">
+                        <h3 className="font-medium truncate">{lead.name}</h3>
                         <Badge className={priorityColors[lead.priority as keyof typeof priorityColors]}>
                           {lead.priority}
                         </Badge>
                       </div>
-                      <div className="flex items-center gap-4 text-sm text-gray-500">
-                        <div className="flex items-center gap-1">
-                          <Mail className="h-3 w-3" />
-                          {lead.email}
+                    </div>
+                    <div className="space-y-1 min-w-0">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 gap-1 text-sm text-gray-500">
+                        <div className="flex items-center gap-1 truncate">
+                          <Mail className="h-3 w-3 flex-shrink-0" />
+                          <span className="truncate">{lead.email}</span>
                         </div>
-                        <div className="flex items-center gap-1">
-                          <Phone className="h-3 w-3" />
-                          {lead.phone}
+                        <div className="flex items-center gap-1 truncate">
+                          <Phone className="h-3 w-3 flex-shrink-0" />
+                          <span className="truncate">{lead.phone}</span>
                         </div>
                       </div>
                       <div className="text-sm text-gray-500">
-                        Interested in: <span className="font-medium">{lead.interestedService}</span>
+                        <div className="truncate">
+                          Interested in: <span className="font-medium">{lead.interestedService}</span>
+                        </div>
                         {lead.budget && (
-                          <span className="ml-4">
+                          <div className="truncate">
                             Budget: ₹{lead.budget.min?.toLocaleString()} - ₹{lead.budget.max?.toLocaleString()}
-                          </span>
+                          </div>
                         )}
                       </div>
                     </div>
                   </div>
                   
-                  <div className="flex items-center gap-4">
-                    <div className="text-right">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 gap-2">
+                    <div className="flex flex-col sm:text-right">
                       <Badge className={statusColors[lead.status as keyof typeof statusColors]}>
                         {lead.status.replace('_', ' ')}
                       </Badge>
                       <div className="text-xs text-gray-500 mt-1 flex items-center gap-1">
                         <Calendar className="h-3 w-3" />
-                        {formatDistanceToNow(new Date(lead.createdAt), { addSuffix: true })}
+                        <span className="truncate">{formatDistanceToNow(new Date(lead.createdAt), { addSuffix: true })}</span>
                       </div>
                     </div>
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" className="w-full sm:w-auto">
                       View Details
                     </Button>
                   </div>
@@ -215,7 +219,7 @@ export default async function LeadsPage() {
       </Card>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">Follow-ups Today</CardTitle>

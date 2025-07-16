@@ -137,22 +137,22 @@ export default function ProjectsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Projects</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold">Projects</h1>
           <p className="text-muted-foreground mt-1">
             Manage and track all construction projects
           </p>
         </div>
         <Link href="/crm/projects/new">
-          <Button>
+          <Button className="w-full sm:w-auto">
             <Plus className="mr-2 h-4 w-4" />
             New Project
           </Button>
         </Link>
       </div>
 
-      <div className="flex gap-4 items-center">
+      <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
           <Input
@@ -162,24 +162,27 @@ export default function ProjectsPage() {
             className="pl-10"
           />
         </div>
-        <Button variant="outline" size="icon">
+        <Button variant="outline" size="icon" className="w-full sm:w-auto">
           <Filter className="h-4 w-4" />
+          <span className="ml-2 sm:hidden">Filter</span>
         </Button>
       </div>
 
       <Tabs value={statusFilter} onValueChange={setStatusFilter}>
-        <TabsList className="grid w-full grid-cols-7">
-          <TabsTrigger value="all">All</TabsTrigger>
-          <TabsTrigger value="planning">Planning</TabsTrigger>
-          <TabsTrigger value="approved">Approved</TabsTrigger>
-          <TabsTrigger value="in_progress">In Progress</TabsTrigger>
-          <TabsTrigger value="on_hold">On Hold</TabsTrigger>
-          <TabsTrigger value="completed">Completed</TabsTrigger>
-          <TabsTrigger value="cancelled">Cancelled</TabsTrigger>
-        </TabsList>
+        <div className="overflow-x-auto">
+          <TabsList className="grid w-full grid-cols-7 min-w-fit">
+            <TabsTrigger value="all" className="text-xs sm:text-sm whitespace-nowrap">All</TabsTrigger>
+            <TabsTrigger value="planning" className="text-xs sm:text-sm whitespace-nowrap">Planning</TabsTrigger>
+            <TabsTrigger value="approved" className="text-xs sm:text-sm whitespace-nowrap">Approved</TabsTrigger>
+            <TabsTrigger value="in_progress" className="text-xs sm:text-sm whitespace-nowrap">In Progress</TabsTrigger>
+            <TabsTrigger value="on_hold" className="text-xs sm:text-sm whitespace-nowrap">On Hold</TabsTrigger>
+            <TabsTrigger value="completed" className="text-xs sm:text-sm whitespace-nowrap">Completed</TabsTrigger>
+            <TabsTrigger value="cancelled" className="text-xs sm:text-sm whitespace-nowrap">Cancelled</TabsTrigger>
+          </TabsList>
+        </div>
 
         <TabsContent value={statusFilter} className="mt-6">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {filteredProjects.map((project) => {
               const Icon = typeIcons[project.type as keyof typeof typeIcons] || Building2
               const progress = project.overallProgress || 0
@@ -225,14 +228,14 @@ export default function ProjectsPage() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-sm">
                         <div className="flex items-center gap-2">
                           <Calendar className="h-4 w-4 text-muted-foreground" />
-                          <span>{format(new Date(project.timeline.startDate), 'MMM dd')}</span>
+                          <span className="truncate">{format(new Date(project.timeline.startDate), 'MMM dd')}</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <Clock className="h-4 w-4 text-muted-foreground" />
-                          <span>{format(new Date(project.timeline.estimatedEndDate), 'MMM dd')}</span>
+                          <span className="truncate">{format(new Date(project.timeline.estimatedEndDate), 'MMM dd')}</span>
                         </div>
                       </div>
 
@@ -241,9 +244,9 @@ export default function ProjectsPage() {
                           <span className="text-muted-foreground">Budget Used</span>
                           <span>{budgetSpent.toFixed(0)}%</span>
                         </div>
-                        <div className="flex justify-between text-sm font-medium">
-                          <span>{formatCurrency(project.budget.spent)}</span>
-                          <span className="text-muted-foreground">
+                        <div className="flex flex-col sm:flex-row sm:justify-between text-sm font-medium gap-1">
+                          <span className="truncate">{formatCurrency(project.budget.spent)}</span>
+                          <span className="text-muted-foreground text-xs sm:text-sm">
                             of {formatCurrency(project.budget.estimated)}
                           </span>
                         </div>

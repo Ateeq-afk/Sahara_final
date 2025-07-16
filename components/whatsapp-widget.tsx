@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MessageCircle, X, Phone, Clock, User, Send, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -26,6 +26,7 @@ const WhatsAppWidget = () => {
   const [userPhone, setUserPhone] = useState('')
   const [step, setStep] = useState<'welcome' | 'details' | 'chat'>('welcome')
   const [isTyping, setIsTyping] = useState(false)
+  const messageInputRef = useRef<HTMLInputElement>(null)
 
   // WhatsApp business number (replace with actual number)
   const whatsappNumber = "+919591837216"
@@ -515,11 +516,13 @@ const WhatsAppWidget = () => {
                   <div className="p-4 border-t border-gray-200">
                     <div className="flex space-x-2">
                       <Input
+                        ref={messageInputRef}
                         value={currentMessage}
                         onChange={(e) => setCurrentMessage(e.target.value)}
                         placeholder="Type a message..."
                         className="flex-1 rounded-full"
                         onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                        aria-label="Type your message"
                       />
                       <Button
                         onClick={handleSendMessage}

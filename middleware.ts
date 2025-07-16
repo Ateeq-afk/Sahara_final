@@ -5,6 +5,12 @@ export default withAuth(
   function middleware(req) {
     const token = req.nextauth.token
     const path = req.nextUrl.pathname
+    const method = req.method
+
+    // Allow public POST to contact and quotes (form submissions)
+    if (method === "POST" && (path === "/api/contact" || path === "/api/quotes")) {
+      return NextResponse.next()
+    }
 
     // Check if accessing CRM routes
     if (path.startsWith("/crm")) {
@@ -26,7 +32,13 @@ export default withAuth(
   },
   {
     callbacks: {
-      authorized: ({ token }) => !!token
+      authorized: ({ token, req }) => {
+        // Allow public POST to contact and quotes (form submissions)
+        if (req.method === "POST" && (req.nextUrl.pathname === "/api/contact" || req.nextUrl.pathname === "/api/quotes")) {
+          return true
+        }
+        return !!token
+      }
     },
   }
 )
@@ -36,6 +48,9 @@ export const config = {
     "/crm/:path*",
     "/portal/:path*",
     "/api/crm/:path*",
-    "/api/portal/:path*"
+    "/api/portal/:path*",
+    "/api/blog/:path*",
+    "/api/contact",
+    "/api/quotes/:path*"
   ]
 }

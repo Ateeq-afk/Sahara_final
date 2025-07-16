@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth/next'
+import { authOptions } from '@/lib/auth'
 import dbConnect from '@/lib/mongodb'
 import Quote from '@/models/Quote'
 
@@ -8,6 +10,15 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
+    const session = await getServerSession(authOptions)
+    
+    if (!session) {
+      return NextResponse.json(
+        { success: false, error: 'Authentication required' },
+        { status: 401 }
+      )
+    }
+    
     await dbConnect()
     
     const quote = await Quote.findById(params.id).lean()
@@ -16,6 +27,14 @@ export async function GET(
       return NextResponse.json(
         { success: false, error: 'Quote not found' },
         { status: 404 }
+      )
+    }
+    
+    // Allow customers to only see their own quotes
+    if (session.user.role === 'customer' && quote.email !== session.user.email) {
+      return NextResponse.json(
+        { success: false, error: 'Forbidden: You can only view your own quotes' },
+        { status: 403 }
       )
     }
     
@@ -38,6 +57,15 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
+    const session = await getServerSession(authOptions)
+    
+    if (!session || session.user.role !== 'admin') {
+      return NextResponse.json(
+        { success: false, error: 'Forbidden: Admin access required' },
+        { status: 403 }
+      )
+    }
+    
     await dbConnect()
     
     const body = await request.json()
@@ -83,6 +111,15 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    const session = await getServerSession(authOptions)
+    
+    if (!session || session.user.role !== 'admin') {
+      return NextResponse.json(
+        { success: false, error: 'Forbidden: Admin access required' },
+        { status: 403 }
+      )
+    }
+    
     await dbConnect()
     
     const quote = await Quote.findByIdAndDelete(params.id)

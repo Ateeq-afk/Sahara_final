@@ -84,6 +84,10 @@ export default function FAQChatbot() {
   const [isTyping, setIsTyping] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const chatbotRef = useRef<HTMLDivElement>(null)
+  const triggerButtonRef = useRef<HTMLButtonElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -220,17 +224,82 @@ export default function FAQChatbot() {
     }
   }
 
+  const handleClose = () => {
+    setIsOpen(false)
+    // Return focus to trigger button
+    setTimeout(() => {
+      triggerButtonRef.current?.focus()
+    }, 100)
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape' && isOpen) {
+      handleClose()
+    }
+    
+    if (e.key === 'Tab' && isOpen) {
+      const focusableElements = chatbotRef.current?.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )
+      
+      if (focusableElements && focusableElements.length > 0) {
+        const firstElement = focusableElements[0] as HTMLElement
+        const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement
+        
+        if (e.shiftKey && document.activeElement === firstElement) {
+          e.preventDefault()
+          lastElement.focus()
+        } else if (!e.shiftKey && document.activeElement === lastElement) {
+          e.preventDefault()
+          firstElement.focus()
+        }
+      }
+    }
+  }
+
+  const handleOpen = () => {
+    setIsOpen(true)
+    // Focus the close button when chatbot opens
+    setTimeout(() => {
+      closeButtonRef.current?.focus()
+    }, 100)
+  }
+
+  // Focus management when chatbot opens/closes
+  useEffect(() => {
+    if (isOpen && chatbotRef.current) {
+      // Focus the first focusable element when chatbot opens
+      const firstFocusable = chatbotRef.current.querySelector(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      ) as HTMLElement
+      
+      if (firstFocusable) {
+        setTimeout(() => firstFocusable.focus(), 100)
+      }
+    }
+  }, [isOpen])
+
   return (
     <>
       {/* FAQ Button */}
       <motion.button
+        ref={triggerButtonRef}
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 3, type: "spring" }}
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 left-6 z-40 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 group"
+        onClick={handleOpen}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            handleOpen()
+          }
+        }}
+        className="fixed bottom-6 left-6 z-40 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full shadow-2xl hover:shadow-3xl focus:shadow-3xl focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all duration-300 group"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
+        aria-label="Open FAQ chatbot"
+        aria-expanded={isOpen}
+        aria-haspopup="dialog"
       >
         <div className="flex items-center gap-2 px-6 py-3">
           <HelpCircle className="w-5 h-5" />
@@ -246,11 +315,17 @@ export default function FAQChatbot() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            ref={chatbotRef}
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
             transition={{ type: "spring", duration: 0.5 }}
             className="fixed bottom-24 left-6 w-96 h-[600px] bg-white rounded-3xl shadow-2xl border border-gray-200 z-40 flex flex-col overflow-hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="chatbot-title"
+            aria-describedby="chatbot-description"
+            onKeyDown={handleKeyDown}
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 flex items-center justify-between">
@@ -259,13 +334,15 @@ export default function FAQChatbot() {
                   <MessageSquare className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="font-semibold">FAQ Assistant</h3>
-                  <p className="text-xs text-white/80">Instant answers 24/7</p>
+                  <h3 id="chatbot-title" className="font-semibold">FAQ Assistant</h3>
+                  <p id="chatbot-description" className="text-xs text-white/80">Instant answers 24/7</p>
                 </div>
               </div>
               <button
-                onClick={() => setIsOpen(false)}
-                className="text-white/80 hover:text-white transition-colors"
+                ref={closeButtonRef}
+                onClick={handleClose}
+                className="text-white/80 hover:text-white focus:text-white focus:outline-none focus:ring-2 focus:ring-white/50 rounded transition-colors"
+                aria-label="Close FAQ chatbot"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -301,7 +378,8 @@ export default function FAQChatbot() {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handleCategorySelect(category.category)}
-                      className="bg-gray-100 hover:bg-gray-200 rounded-xl px-4 py-2 text-sm font-medium text-gray-700 transition-colors"
+                      className="bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-xl px-4 py-2 text-sm font-medium text-gray-700 transition-colors"
+                      aria-label={`Select ${category.category} category`}
                     >
                       {category.category}
                     </motion.button>
@@ -319,7 +397,8 @@ export default function FAQChatbot() {
                         key={index}
                         whileHover={{ scale: 1.01 }}
                         onClick={() => handleQuestionClick(faq.q, faq.a)}
-                        className="w-full text-left bg-blue-50 hover:bg-blue-100 rounded-xl p-3 transition-colors"
+                        className="w-full text-left bg-blue-50 hover:bg-blue-100 focus:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-xl p-3 transition-colors"
+                        aria-label={`Ask question: ${faq.q}`}
                       >
                         <p className="text-sm font-medium text-blue-900">{index + 1}. {faq.q}</p>
                       </motion.button>
@@ -347,15 +426,18 @@ export default function FAQChatbot() {
             <form onSubmit={handleSubmit} className="p-4 border-t border-gray-200">
               <div className="flex gap-2">
                 <Input
+                  ref={inputRef}
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Type your question..."
                   className="flex-1 rounded-full"
+                  aria-label="Type your question"
                 />
                 <Button
                   type="submit"
                   disabled={!inputValue.trim()}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full w-10 h-10 p-0"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:from-blue-700 focus:to-purple-700 text-white rounded-full w-10 h-10 p-0"
+                  aria-label="Send question"
                 >
                   <Send className="w-4 h-4" />
                 </Button>

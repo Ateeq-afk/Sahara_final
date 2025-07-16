@@ -82,6 +82,16 @@
   --transition-medium: 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --transition-slow: 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --transition-apple-spring: 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-apple-easing: 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  
+  /* Apple Border Radius */
+  --border-radius-xs: 4px;
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 20px;
+  --border-radius-2xl: 24px;
+  --border-radius-full: 9999px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -329,13 +339,59 @@
     @apply max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl;
   }
   
-  /* Landing Page Specific Styles */
+  /* Apple Design System Components */
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors;
+    @apply inline-flex items-center justify-center px-6 py-3 bg-black text-white font-medium rounded-full hover:bg-gray-800;
+    transition: var(--transition-apple-easing);
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-white text-blue-600 font-medium rounded-xl border-2 border-blue-600 hover:bg-blue-50 transition-colors;
+    @apply inline-flex items-center justify-center px-6 py-3 bg-white text-black font-medium rounded-full border-2 border-gray-200 hover:border-gray-300;
+    transition: var(--transition-apple-easing);
+  }
+  
+  .btn-blue {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-full hover:bg-blue-700;
+    transition: var(--transition-apple-easing);
+  }
+  
+  .input-apple {
+    @apply w-full px-4 py-4 rounded-xl border-2 border-gray-200 focus:border-black text-lg;
+    transition: var(--transition-apple-easing);
+    background-color: rgb(var(--apple-gray-50));
+  }
+  
+  .input-apple:focus {
+    outline: none;
+    border-color: rgb(var(--apple-gray-900));
+    background-color: white;
+  }
+  
+  .card-apple {
+    @apply p-6 rounded-2xl border-2 border-gray-200 hover:border-gray-300;
+    transition: var(--transition-apple-easing);
+    background-color: rgb(var(--apple-gray-50));
+  }
+  
+  .card-apple-selected {
+    @apply border-black bg-gray-50;
+  }
+  
+  .progress-dot {
+    @apply w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium;
+    transition: var(--transition-apple-easing);
+  }
+  
+  .progress-dot-active {
+    @apply bg-black text-white;
+  }
+  
+  .progress-dot-completed {
+    @apply bg-gray-200 text-black hover:bg-gray-300;
+  }
+  
+  .progress-dot-pending {
+    @apply bg-gray-100 text-gray-700;
   }
 
   /* Apple-inspired subtle animations */

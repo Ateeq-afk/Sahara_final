@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Gift, Clock, PhoneCall, Calculator } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -14,6 +14,11 @@ export default function ExitIntentPopup() {
   const [phone, setPhone] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const modalRef = useRef<HTMLDivElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const emailInputRef = useRef<HTMLInputElement>(null)
+  const phoneInputRef = useRef<HTMLInputElement>(null)
+  const submitButtonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     // Only run on client side
@@ -114,6 +119,59 @@ export default function ExitIntentPopup() {
     }
   }
 
+  const handleClose = () => {
+    setIsOpen(false)
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      handleClose()
+    }
+    
+    if (e.key === 'Tab') {
+      const focusableElements = modalRef.current?.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )
+      
+      if (focusableElements && focusableElements.length > 0) {
+        const firstElement = focusableElements[0] as HTMLElement
+        const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement
+        
+        if (e.shiftKey && document.activeElement === firstElement) {
+          e.preventDefault()
+          lastElement.focus()
+        } else if (!e.shiftKey && document.activeElement === lastElement) {
+          e.preventDefault()
+          firstElement.focus()
+        }
+      }
+    }
+  }
+
+  // Focus management when modal opens/closes
+  useEffect(() => {
+    if (isOpen && modalRef.current) {
+      // Focus the first focusable element when modal opens
+      const firstFocusable = modalRef.current.querySelector(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      ) as HTMLElement
+      
+      if (firstFocusable) {
+        setTimeout(() => firstFocusable.focus(), 100)
+      }
+      
+      // Store the previously focused element
+      const previouslyFocused = document.activeElement as HTMLElement
+      
+      return () => {
+        // Return focus to previously focused element when modal closes
+        if (previouslyFocused && previouslyFocused.focus) {
+          previouslyFocused.focus()
+        }
+      }
+    }
+  }, [isOpen])
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -123,23 +181,32 @@ export default function ExitIntentPopup() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setIsOpen(false)}
+            onClick={handleClose}
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+            aria-hidden="true"
           />
 
           {/* Popup */}
           <motion.div
+            ref={modalRef}
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: "spring", duration: 0.5 }}
             className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl z-50 p-4"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="exit-intent-title"
+            aria-describedby="exit-intent-description"
+            onKeyDown={handleKeyDown}
           >
             <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden">
               {/* Close button */}
               <button
-                onClick={() => setIsOpen(false)}
-                className="absolute right-4 top-4 z-10 w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center hover:bg-white transition-colors"
+                ref={closeButtonRef}
+                onClick={handleClose}
+                className="absolute right-4 top-4 z-10 w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center hover:bg-white focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                aria-label="Close dialog"
               >
                 <X className="w-5 h-5 text-gray-700" />
               </button>
@@ -157,7 +224,7 @@ export default function ExitIntentPopup() {
                       <Gift className="w-10 h-10 text-white" />
                     </motion.div>
                     
-                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                    <h2 id="exit-intent-title" className="text-3xl md:text-4xl font-bold text-white mb-4">
                       Wait! Don't Go Empty-Handed
                     </h2>
                     
@@ -193,7 +260,7 @@ export default function ExitIntentPopup() {
                       <h3 className="text-2xl font-semibold text-gray-900 mb-2">
                         Get Your Free Consultation
                       </h3>
-                      <p className="text-gray-600 mb-6">
+                      <p id="exit-intent-description" className="text-gray-600 mb-6">
                         Leave your details and our expert will call you within 30 minutes!
                       </p>
 
@@ -213,17 +280,20 @@ export default function ExitIntentPopup() {
                         
                         <div>
                           <Input
+                            ref={emailInputRef}
                             type="email"
                             name="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Email address (optional)"
                             className="rounded-xl"
+                            aria-label="Email address (optional)"
                           />
                         </div>
 
                         <div>
                           <Input
+                            ref={phoneInputRef}
                             type="tel"
                             name="phone"
                             value={phone}
@@ -231,13 +301,16 @@ export default function ExitIntentPopup() {
                             placeholder="Phone number *"
                             required
                             className="rounded-xl"
+                            aria-label="Phone number (required)"
                           />
                         </div>
 
                         <Button
+                          ref={submitButtonRef}
                           type="submit"
                           disabled={isSubmitting || !phone}
-                          className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl"
+                          className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 focus:from-amber-600 focus:to-orange-600 focus:ring-2 focus:ring-amber-300 text-white rounded-xl"
+                          aria-label="Submit consultation request"
                         >
                           {isSubmitting ? (
                             <div className="flex items-center gap-2">

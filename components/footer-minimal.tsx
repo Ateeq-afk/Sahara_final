@@ -39,13 +39,13 @@ export default function FooterMinimal() {
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-16 mb-16">
           {/* Brand Column */}
-          <div className="md:col-span-1">
-            <h3 className="font-semibold text-xl mb-6">Sahara Developers</h3>
+          <section className="md:col-span-1" aria-labelledby="company-heading">
+            <h3 id="company-heading" className="font-semibold text-xl mb-6">Sahara Developers</h3>
             <p className="text-gray-400 mb-8 leading-relaxed">
               Crafting exceptional spaces in Bangalore for over 20 years.
             </p>
             {/* Contact Info - Integrated naturally */}
-            <div className="space-y-4">
+            <address className="space-y-4 not-italic">
               <a href="tel:+919591837216" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors">
                 <Phone className="w-4 h-4" />
                 +91 95918 37216
@@ -58,7 +58,7 @@ export default function FooterMinimal() {
                 <MapPin className="w-4 h-4" />
                 <span>100-feet Ring Road, 8th Main Road, BTM Layout 1st Stage, Bangalore - 560029</span>
               </div>
-            </div>
+            </address>
             
             {/* Social Media Links */}
             <div className="flex gap-4 mt-8">
@@ -75,12 +75,12 @@ export default function FooterMinimal() {
                 <Linkedin className="w-5 h-5" />
               </a>
             </div>
-          </div>
+          </section>
           
           {/* Links Columns */}
-          <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-8">
-            <div>
-              <h4 className="font-semibold text-white mb-6">Services</h4>
+          <nav className="md:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-8" aria-label="Footer navigation">
+            <section aria-labelledby="services-heading">
+              <h4 id="services-heading" className="font-semibold text-white mb-6">Services</h4>
               <ul className="space-y-4">
                 {footerLinks.services.map((link) => (
                   <li key={link.href}>
@@ -90,10 +90,10 @@ export default function FooterMinimal() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </section>
             
-            <div>
-              <h4 className="font-semibold text-white mb-6">Company</h4>
+            <section aria-labelledby="company-heading-nav">
+              <h4 id="company-heading-nav" className="font-semibold text-white mb-6">Company</h4>
               <ul className="space-y-4">
                 {footerLinks.company.map((link) => (
                   <li key={link.href}>
@@ -103,10 +103,10 @@ export default function FooterMinimal() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </section>
             
-            <div>
-              <h4 className="font-semibold text-white mb-6">Support</h4>
+            <section aria-labelledby="support-heading">
+              <h4 id="support-heading" className="font-semibold text-white mb-6">Support</h4>
               <ul className="space-y-4">
                 {footerLinks.support.map((link) => (
                   <li key={link.href}>
@@ -116,8 +116,8 @@ export default function FooterMinimal() {
                   </li>
                 ))}
               </ul>
-            </div>
-          </div>
+            </section>
+          </nav>
         </div>
         
         {/* Bottom Bar */}

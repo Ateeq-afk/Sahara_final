@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Calendar,
@@ -1137,7 +1137,7 @@ export default function TimelineEstimatorAI() {
               ].map((stat, i) => (
                 <div key={i} className="text-center">
                   <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl mb-2">
-                    <stat.icon className="h-6 w-6 text-gray-600" />
+                    {React.createElement(stat.icon, { className: "h-6 w-6 text-gray-600" })}
                   </div>
                   <p className="text-sm text-gray-600">{stat.label}</p>
                   <p className="font-semibold">{stat.value}</p>
