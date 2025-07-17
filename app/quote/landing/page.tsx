@@ -622,7 +622,7 @@ export default function QuoteLandingPage() {
             <div className="flex gap-3">
               <Button
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 rounded-xl h-12 font-medium"
+                className="flex-1 bg-orange-500 hover:bg-orange-600 rounded-xl h-12 font-medium"
               >
                 Get Quote
               </Button>

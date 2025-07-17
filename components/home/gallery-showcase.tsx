@@ -64,7 +64,7 @@ export default function GalleryShowcase() {
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null)
 
   return (
-    <section ref={ref} className="py-32 bg-white">
+    <section ref={ref} className="py-32 bg-white mt-20">
       <div className="container mx-auto px-8">
         {/* Header */}
         <motion.div
@@ -91,7 +91,7 @@ export default function GalleryShowcase() {
         </motion.div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 gap-x-6">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -106,16 +106,21 @@ export default function GalleryShowcase() {
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-500" />
                 
-                {/* Hover Icon */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
-                    <Plus className="h-8 w-8 text-gray-900" />
-                  </div>
+                {/* Interactive Hover Overlay */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-2 text-white text-lg font-medium bg-black/20 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20 shadow-lg transition-all duration-300"
+                  >
+                    <span>View Project</span>
+                    <ArrowRight className="h-5 w-5" />
+                  </motion.div>
                 </div>
               </div>
               

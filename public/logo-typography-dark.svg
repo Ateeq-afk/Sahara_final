@@ -1,0 +1,75 @@
+<svg viewBox="0 0 400 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Premium gradients for luxury feel on dark backgrounds -->
+    <linearGradient id="saharaGradientDark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5f5f5;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="developersGradientDark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#d4a574;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e6b885;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Subtle shadow for depth -->
+    <filter id="textShadowDark">
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="rgba(255,255,255,0.1)" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Main Typography Layout -->
+  <g>
+    <!-- SAHARA - Bold, Dominant Typography -->
+    <text 
+      x="20" 
+      y="45" 
+      font-family="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif" 
+      font-size="36" 
+      font-weight="700" 
+      letter-spacing="-0.02em"
+      fill="url(#saharaGradientDark)"
+      filter="url(#textShadowDark)"
+    >
+      SAHARA
+    </text>
+    
+    <!-- Elegant Separator -->
+    <line 
+      x1="185" 
+      y1="25" 
+      x2="185" 
+      y2="55" 
+      stroke="url(#developersGradientDark)" 
+      stroke-width="1.5" 
+      opacity="0.8"
+    />
+    
+    <!-- DEVELOPERS - Refined, Complementary Typography -->
+    <text 
+      x="200" 
+      y="45" 
+      font-family="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif" 
+      font-size="24" 
+      font-weight="400" 
+      letter-spacing="0.02em"
+      fill="url(#developersGradientDark)"
+      filter="url(#textShadowDark)"
+    >
+      DEVELOPERS
+    </text>
+    
+    <!-- Subtle architectural accent line -->
+    <line 
+      x1="20" 
+      y1="62" 
+      x2="380" 
+      y2="62" 
+      stroke="url(#developersGradientDark)" 
+      stroke-width="1" 
+      opacity="0.5"
+    />
+    
+    <!-- Premium micro-details -->
+    <circle cx="25" cy="20" r="1.5" fill="url(#developersGradientDark)" opacity="0.6"/>
+    <circle cx="375" cy="20" r="1.5" fill="url(#developersGradientDark)" opacity="0.6"/>
+  </g>
+</svg>

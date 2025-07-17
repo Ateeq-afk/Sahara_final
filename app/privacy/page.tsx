@@ -1,224 +1,297 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Shield, Eye, Lock, FileText } from 'lucide-react'
+'use client'
 
-export const metadata = {
-  title: 'Privacy Policy | Sahara Developers',
-  description: 'Learn how Sahara Developers collects, uses, and protects your personal information.',
-}
+import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { ChevronRight, Shield, Lock, Eye, Database, Globe, Mail, Phone } from 'lucide-react'
 
 export default function PrivacyPage() {
+  const sections = [
+    {
+      id: 'information-we-collect',
+      title: 'Information We Collect',
+      icon: Database,
+      content: [
+        {
+          subtitle: 'Personal Information',
+          points: [
+            'Name, email address, and phone number when you contact us or request a quote',
+            'Property address and project details for service delivery',
+            'Payment information for transaction processing',
+            'Communication preferences for marketing purposes'
+          ]
+        },
+        {
+          subtitle: 'Automatically Collected Information',
+          points: [
+            'Device information including IP address and browser type',
+            'Usage data such as pages visited and time spent on site',
+            'Location data to provide region-specific services',
+            'Cookies and similar tracking technologies'
+          ]
+        }
+      ]
+    },
+    {
+      id: 'how-we-use',
+      title: 'How We Use Your Information',
+      icon: Eye,
+      content: [
+        {
+          subtitle: 'Service Delivery',
+          points: [
+            'Process your inquiries and provide quotes',
+            'Manage your construction or renovation projects',
+            'Communicate project updates and timelines',
+            'Handle payments and invoicing'
+          ]
+        },
+        {
+          subtitle: 'Improvement & Marketing',
+          points: [
+            'Enhance our services based on user feedback',
+            'Send relevant updates about our services',
+            'Personalize your experience on our platform',
+            'Comply with legal obligations'
+          ]
+        }
+      ]
+    },
+    {
+      id: 'data-protection',
+      title: 'Data Protection & Security',
+      icon: Shield,
+      content: [
+        {
+          subtitle: 'Security Measures',
+          points: [
+            'Industry-standard SSL encryption for data transmission',
+            'Secure servers with regular security updates',
+            'Limited access to personal information on need-to-know basis',
+            'Regular security audits and assessments'
+          ]
+        },
+        {
+          subtitle: 'Data Retention',
+          points: [
+            'Personal data retained only as long as necessary',
+            'Project data kept for warranty and legal requirements',
+            'Marketing data removed upon unsubscribe request',
+            'Secure deletion of data when no longer needed'
+          ]
+        }
+      ]
+    },
+    {
+      id: 'your-rights',
+      title: 'Your Rights & Choices',
+      icon: Lock,
+      content: [
+        {
+          subtitle: 'Your Rights',
+          points: [
+            'Access your personal information we hold',
+            'Request correction of inaccurate data',
+            'Request deletion of your personal data',
+            'Opt-out of marketing communications',
+            'Data portability upon request'
+          ]
+        },
+        {
+          subtitle: 'Cookie Preferences',
+          points: [
+            'Manage cookie settings through your browser',
+            'Opt-out of analytics tracking',
+            'Control personalization preferences',
+            'Disable third-party cookies'
+          ]
+        }
+      ]
+    },
+    {
+      id: 'third-parties',
+      title: 'Third-Party Services',
+      icon: Globe,
+      content: [
+        {
+          subtitle: 'Service Providers',
+          points: [
+            'Payment processors for secure transactions',
+            'Analytics services to improve our platform',
+            'Email service providers for communications',
+            'Cloud storage providers for data backup'
+          ]
+        },
+        {
+          subtitle: 'Partner Guidelines',
+          points: [
+            'All partners comply with data protection standards',
+            'Limited data sharing on need-to-know basis',
+            'Contractual obligations for data security',
+            'Regular audits of third-party compliance'
+          ]
+        }
+      ]
+    }
+  ]
+
+  const lastUpdated = 'January 15, 2024'
+  const effectiveDate = 'February 1, 2024'
+
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <section className="border-b border-gray-200">
+        <div className="container mx-auto px-6 lg:px-8 py-8">
+          <nav className="flex items-center gap-2 text-sm text-gray-600 mb-6">
+            <Link href="/" className="hover:text-gray-900 transition-colors">
+              Home
+            </Link>
+            <ChevronRight className="w-4 h-4" />
+            <span className="text-gray-900">Privacy Policy</span>
+          </nav>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h1 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-4">
+              Privacy Policy
+            </h1>
+            <p className="text-lg text-gray-600 max-w-3xl">
+              Your privacy is fundamental to our business. This policy describes how Sahara Developers 
+              collects, uses, and protects your personal information.
+            </p>
+            <div className="flex flex-wrap gap-4 mt-6 text-sm text-gray-500">
+              <span>Last updated: {lastUpdated}</span>
+              <span>•</span>
+              <span>Effective: {effectiveDate}</span>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Table of Contents */}
+      <section className="sticky top-0 bg-white border-b border-gray-200 z-40">
+        <div className="container mx-auto px-6 lg:px-8">
+          <div className="flex gap-8 overflow-x-auto py-4 scrollbar-hide">
+            {sections.map((section) => (
+              <Link
+                key={section.id}
+                href={`#${section.id}`}
+                className="text-sm font-medium text-gray-600 hover:text-gray-900 whitespace-nowrap transition-colors"
+              >
+                {section.title}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Content Sections */}
+      <div className="container mx-auto px-6 lg:px-8 py-16">
         <div className="max-w-4xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <div className="flex justify-center mb-6">
-              <div className="p-3 bg-blue-100 rounded-full">
-                <Shield className="h-8 w-8 text-blue-600" />
+          {sections.map((section, index) => {
+            const Icon = section.icon
+            return (
+              <motion.section
+                key={section.id}
+                id={section.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="mb-16 scroll-mt-20"
+              >
+                <div className="flex items-start gap-4 mb-8">
+                  <div className="p-2 bg-gray-100 rounded-lg">
+                    <Icon className="w-5 h-5 text-gray-700" />
+                  </div>
+                  <h2 className="text-2xl font-semibold text-gray-900">
+                    {section.title}
+                  </h2>
+                </div>
+
+                <div className="space-y-8">
+                  {section.content.map((subsection, idx) => (
+                    <div key={idx} className="ml-12">
+                      <h3 className="text-lg font-medium text-gray-900 mb-4">
+                        {subsection.subtitle}
+                      </h3>
+                      <ul className="space-y-3">
+                        {subsection.points.map((point, pointIdx) => (
+                          <li key={pointIdx} className="flex items-start gap-3">
+                            <div className="w-1.5 h-1.5 bg-gray-400 rounded-full mt-2 flex-shrink-0" />
+                            <span className="text-gray-600 leading-relaxed">{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </motion.section>
+            )
+          })}
+
+          {/* Contact Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="border-t border-gray-200 pt-12"
+          >
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6">
+              Contact Us About Privacy
+            </h2>
+            <p className="text-gray-600 mb-8">
+              If you have questions about this Privacy Policy or how we handle your personal information, 
+              please contact our Data Protection Officer.
+            </p>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="p-6 bg-gray-50 rounded-xl">
+                <h3 className="font-medium text-gray-900 mb-4">Data Protection Officer</h3>
+                <div className="space-y-3">
+                  <a href="mailto:privacy@saharadevelopers.in" className="flex items-center gap-3 text-gray-600 hover:text-[#D26700] transition-colors">
+                    <Mail className="w-5 h-5" />
+                    <span>privacy@saharadevelopers.in</span>
+                  </a>
+                  <a href="tel:+919591837216" className="flex items-center gap-3 text-gray-600 hover:text-[#D26700] transition-colors">
+                    <Phone className="w-5 h-5" />
+                    <span>+91 95918 37216</span>
+                  </a>
+                </div>
+              </div>
+              
+              <div className="p-6 bg-gray-50 rounded-xl">
+                <h3 className="font-medium text-gray-900 mb-4">Mailing Address</h3>
+                <address className="text-gray-600 not-italic leading-relaxed">
+                  Sahara Developers<br />
+                  100-feet Ring Road, 8th Main Road<br />
+                  BTM Layout 1st Stage<br />
+                  Bangalore - 560029<br />
+                  Karnataka, India
+                </address>
               </div>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Privacy Policy</h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Your privacy is important to us. This policy explains how we collect, use, and protect your information.
+          </motion.section>
+
+          {/* Updates Notice */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="mt-12 p-6 bg-blue-50 rounded-xl"
+          >
+            <h3 className="font-medium text-gray-900 mb-2">Policy Updates</h3>
+            <p className="text-gray-600 text-sm">
+              We may update this Privacy Policy from time to time. We will notify you of any material 
+              changes by posting the new Privacy Policy on this page and updating the "Last updated" date. 
+              We encourage you to review this Privacy Policy periodically.
             </p>
-            <p className="text-sm text-gray-500 mt-4">Last updated: January 2024</p>
-          </div>
-
-          <div className="space-y-8">
-            {/* Information Collection */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Eye className="h-5 w-5 text-blue-600" />
-                  Information We Collect
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <h4 className="font-semibold mb-2">Personal Information</h4>
-                  <p className="text-gray-600">We collect information you provide directly to us, such as:</p>
-                  <ul className="list-disc list-inside text-gray-600 mt-2 space-y-1">
-                    <li>Name, email address, and phone number</li>
-                    <li>Project requirements and preferences</li>
-                    <li>Communication preferences</li>
-                    <li>Payment and billing information</li>
-                  </ul>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold mb-2">Automatically Collected Information</h4>
-                  <p className="text-gray-600">We automatically collect certain information when you use our services:</p>
-                  <ul className="list-disc list-inside text-gray-600 mt-2 space-y-1">
-                    <li>Device information and IP address</li>
-                    <li>Browser type and version</li>
-                    <li>Usage patterns and preferences</li>
-                    <li>Location data (with your consent)</li>
-                  </ul>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* How We Use Information */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <FileText className="h-5 w-5 text-green-600" />
-                  How We Use Your Information
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 mb-4">We use the information we collect to:</p>
-                <ul className="list-disc list-inside text-gray-600 space-y-1">
-                  <li>Provide and improve our construction services</li>
-                  <li>Communicate with you about your projects</li>
-                  <li>Process payments and manage billing</li>
-                  <li>Send project updates and notifications</li>
-                  <li>Comply with legal obligations</li>
-                  <li>Improve our website and services</li>
-                  <li>Provide customer support</li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Information Sharing */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Lock className="h-5 w-5 text-purple-600" />
-                  Information Sharing and Disclosure
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-gray-600">
-                  We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except in the following cases:
-                </p>
-                
-                <div>
-                  <h4 className="font-semibold mb-2">Service Providers</h4>
-                  <p className="text-gray-600">
-                    We may share information with trusted third-party service providers who assist us in operating our business, such as payment processors, material suppliers, and subcontractors.
-                  </p>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold mb-2">Legal Requirements</h4>
-                  <p className="text-gray-600">
-                    We may disclose information if required by law, regulation, legal process, or governmental request.
-                  </p>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold mb-2">Business Transfers</h4>
-                  <p className="text-gray-600">
-                    In the event of a merger, acquisition, or sale of assets, your information may be transferred as part of that transaction.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Data Security */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Data Security</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 mb-4">
-                  We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.
-                </p>
-                <ul className="list-disc list-inside text-gray-600 space-y-1">
-                  <li>SSL encryption for data transmission</li>
-                  <li>Secure servers and databases</li>
-                  <li>Regular security audits and updates</li>
-                  <li>Access controls and authentication</li>
-                  <li>Employee training on data protection</li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Your Rights */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Your Rights and Choices</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-gray-600">You have the following rights regarding your personal information:</p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="font-semibold mb-1">Access</h4>
-                    <p className="text-gray-600 text-sm">Request access to your personal information</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Correction</h4>
-                    <p className="text-gray-600 text-sm">Update or correct your information</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Deletion</h4>
-                    <p className="text-gray-600 text-sm">Request deletion of your data</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Portability</h4>
-                    <p className="text-gray-600 text-sm">Export your data in a readable format</p>
-                  </div>
-                </div>
-                
-                <p className="text-gray-600 mt-4">
-                  To exercise these rights, please contact us at privacy@saharadevelopers.in
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Cookies and Tracking */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Cookies and Tracking Technologies</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 mb-4">
-                  We use cookies and similar tracking technologies to enhance your experience on our website:
-                </p>
-                <ul className="list-disc list-inside text-gray-600 space-y-1">
-                  <li>Essential cookies for website functionality</li>
-                  <li>Analytics cookies to understand usage patterns</li>
-                  <li>Preference cookies to remember your settings</li>
-                  <li>Marketing cookies for personalized content</li>
-                </ul>
-                <p className="text-gray-600 mt-4">
-                  You can control cookie preferences through your browser settings.
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Contact Information */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Contact Us</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 mb-4">
-                  If you have any questions about this Privacy Policy or our data practices, please contact us:
-                </p>
-                <div className="space-y-2 text-gray-600">
-                  <p><strong>Email:</strong> privacy@saharadevelopers.in</p>
-                  <p><strong>Phone:</strong> +91 95918 37216</p>
-                  <p><strong>Address:</strong> 100-feet Ring Road, 8th Main Road, BTM Layout 1st Stage, Bangalore, Karnataka 560029</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Updates */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Policy Updates</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  We may update this Privacy Policy from time to time. We will notify you of any material changes by posting the new policy on our website and updating the "Last updated" date. Your continued use of our services after any changes constitutes acceptance of the updated policy.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+          </motion.section>
         </div>
       </div>
     </div>

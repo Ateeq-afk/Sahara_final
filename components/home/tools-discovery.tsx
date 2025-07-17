@@ -96,7 +96,7 @@ export default function ToolsDiscovery() {
         </motion.div>
 
         {/* Main Tools Grid - Bento Style */}
-        <div className="grid lg:grid-cols-2 gap-6 mb-12">
+        <div className="grid lg:grid-cols-2 gap-6 mb-12 mt-16">
           {toolsData.map((tool, index) => {
             const Icon = tool.icon
             return (
@@ -111,7 +111,7 @@ export default function ToolsDiscovery() {
                 className="group"
               >
                 <Link href={tool.link}>
-                  <Card className="relative h-full p-8 border-gray-200 hover:border-gray-300 transition-all duration-500 hover:shadow-2xl overflow-hidden">
+                  <Card className="relative h-full p-8 border-gray-200 hover:border-gray-300 transition-all duration-500 hover:shadow-lg overflow-hidden">
                     {/* Background Gradient */}
                     <div className={`absolute inset-0 bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
                     
@@ -127,7 +127,7 @@ export default function ToolsDiscovery() {
                               initial={{ opacity: 0, x: -10 }}
                               animate={{ opacity: 1, x: 0 }}
                               exit={{ opacity: 0, x: -10 }}
-                              className="flex items-center gap-1 text-sm text-sahara-primary"
+                              className="flex items-center gap-1 text-sm text-sahara-primary px-4 py-2"
                             >
                               <span>Try it</span>
                               <ArrowRight className="h-4 w-4" />
@@ -147,7 +147,7 @@ export default function ToolsDiscovery() {
                       </p>
                       
                       {/* Demo Preview */}
-                      <div className="bg-gray-50 rounded-xl p-4 mb-4">
+                      <div className="bg-gray-50 rounded-xl px-4 py-2 mb-4">
                         <p className="text-xs text-gray-500 mb-1">Quick preview</p>
                         <p className="font-semibold text-gray-900">{tool.demo}</p>
                       </div>

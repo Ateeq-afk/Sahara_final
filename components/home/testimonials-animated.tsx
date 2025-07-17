@@ -65,12 +65,12 @@ export default function TestimonialsAnimated() {
                 key={index}
                 initial={{ opacity: 0, y: 50 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="group"
               >
-                <div className="bg-white rounded-2xl p-8 h-full shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100">
+                <div className="bg-white rounded-2xl p-8 h-full shadow-sm hover:shadow-xl hover:bg-gradient-to-br hover:from-white hover:to-gray-50/50 transition-all duration-500 border border-gray-100 hover:border-gray-200 group-hover:scale-[1.02]">
                   {/* Rating */}
-                  <div className="flex mb-6">
+                  <div className="flex items-center mb-6">
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <Star key={i} className="h-4 w-4 fill-current text-amber-400" />
                     ))}
@@ -85,18 +85,18 @@ export default function TestimonialsAnimated() {
 
                   {/* Author */}
                   <div className="flex items-center gap-4">
-                    <div className="relative w-14 h-14 rounded-full overflow-hidden">
+                    <div className="relative w-12 h-12 rounded-full overflow-hidden">
                       <Image
                         src={testimonial.image}
                         alt={testimonial.name}
                         fill
                         className="object-cover"
-                        sizes="56px"
+                        sizes="48px"
                       />
                     </div>
                     <div>
                       <h4 className="font-medium text-gray-900">{testimonial.name}</h4>
-                      <p className="text-sm text-gray-500">{testimonial.role}</p>
+                      <p className="text-sm text-gray-500 mt-1">{testimonial.role}</p>
                       <p className="text-xs text-gray-400 mt-1">{testimonial.project}</p>
                     </div>
                   </div>

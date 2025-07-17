@@ -50,6 +50,7 @@ Text Dark: #2C1810 (Deep Brown)
 2. **Monogram**: Stylized "S" with desert elements
 3. **Stacked**: Vertical layout with icon above text
 4. **Dark**: Light version for dark backgrounds
+5. **Typography**: Premium typography-only logo (NEW)
 
 ## 📋 Required Logo Files (To Generate)
 
@@ -174,6 +175,9 @@ import Logo from '@/components/logo';
 
 // Stacked for vertical layouts
 <Logo variant="stacked" className="h-16 w-auto" />
+
+// Typography-only logo (NEW)
+<Logo variant="typography" className="h-12 w-auto" />
 ```
 
 ### In HTML

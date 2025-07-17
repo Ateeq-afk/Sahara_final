@@ -8,18 +8,7 @@ import FooterMinimal from '@/components/footer-minimal';
 import { Toaster } from '@/components/ui/toaster';
 import ErrorBoundary from '@/components/error-boundary';
 import NextAuthSessionProvider from '@/components/providers/session-provider';
-import dynamic from 'next/dynamic';
 
-// Dynamic imports for performance
-const ExitIntentPopup = dynamic(() => import('@/components/exit-intent-popup'), {
-  ssr: false
-});
-const FloatingCTA = dynamic(() => import('@/components/floating-cta'), {
-  ssr: false
-});
-const SocialProofNotifications = dynamic(() => import('@/components/social-proof-notifications'), {
-  ssr: false
-});
 
 export const metadata: Metadata = {
   title: 'Sahara Developers | Premier Contractors in Bangalore | Construction & Interior Design',
@@ -263,14 +252,10 @@ export default function RootLayout({
             <ErrorBoundary>
               <div className="flex min-h-screen flex-col">
                 <NavbarMinimal />
-                <main className="flex-1 pt-12">{children}</main>
+                <main className="flex-1 pt-20">{children}</main>
                 <FooterMinimal />
               </div>
               <Toaster />
-              {/* Temporarily disabled to debug MessageSquare error */}
-              {/* <ExitIntentPopup />
-              <FloatingCTA />
-              <SocialProofNotifications /> */}
             </ErrorBoundary>
           </ThemeProvider>
         </NextAuthSessionProvider>

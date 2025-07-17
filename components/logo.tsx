@@ -1,7 +1,7 @@
 "use client"
 
 interface LogoProps {
-  variant?: 'default' | 'monogram' | 'dark' | 'stacked'
+  variant?: 'default' | 'monogram' | 'dark' | 'stacked' | 'typography'
   className?: string
 }
 
@@ -104,8 +104,8 @@ export default function Logo({ variant = 'default', className = '' }: LogoProps)
         </g>
         
         {/* Typography */}
-        <text x="60" y="70" fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" fontSize="16" fontWeight="600" fill="#1a1a1a" textAnchor="middle" className="text-[14px] sm:text-[16px]">SAHARA</text>
-        <text x="60" y="85" fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif" fontSize="9" fontWeight="400" fill="#6a6a6a" textAnchor="middle" letterSpacing="2.5" className="text-[8px] sm:text-[9px]">DEVELOPERS</text>
+        <text x="60" y="70" fontFamily="-apple-system, BlinkMacSystemFont, sans-serif" fontSize="16" fontWeight="600" fill="#1a1a1a" textAnchor="middle" className="text-[14px] sm:text-[16px]">SAHARA</text>
+        <text x="60" y="85" fontFamily="-apple-system, BlinkMacSystemFont, sans-serif" fontSize="9" fontWeight="400" fill="#6a6a6a" textAnchor="middle" letterSpacing="2.5" className="text-[8px] sm:text-[9px]">DEVELOPERS</text>
       </svg>
     )
   }
@@ -150,7 +150,7 @@ export default function Logo({ variant = 'default', className = '' }: LogoProps)
         {/* Sophisticated typography */}
         <g transform="translate(90, 40)">
           <text x="0" y="5" 
-                fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" 
+                fontFamily="-apple-system, BlinkMacSystemFont, sans-serif" 
                 fontSize="32" 
                 fontWeight="500" 
                 fill="#f5f5f7"
@@ -158,12 +158,81 @@ export default function Logo({ variant = 'default', className = '' }: LogoProps)
                 className="text-[26px] sm:text-[32px]">Sahara</text>
           
           <text x="105" y="5" 
-                fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" 
+                fontFamily="-apple-system, BlinkMacSystemFont, sans-serif" 
                 fontSize="32" 
                 fontWeight="200" 
                 fill="#d1d1d6"
                 letterSpacing="-1"
                 className="text-[26px] sm:text-[32px]">Developers</text>
+        </g>
+      </svg>
+    )
+  }
+
+  if (variant === 'typography') {
+    return (
+      <svg viewBox="0 0 400 80" xmlns="http://www.w3.org/2000/svg" className={className}>
+        <defs>
+          {/* Premium gradients for luxury feel */}
+          <linearGradient id="saharaGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style={{stopColor:"#1a1a1a", stopOpacity:1}} />
+            <stop offset="100%" style={{stopColor:"#2d2d2d", stopOpacity:1}} />
+          </linearGradient>
+          <linearGradient id="developersGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style={{stopColor:"#d4a574", stopOpacity:1}} />
+            <stop offset="100%" style={{stopColor:"#b8956b", stopOpacity:1}} />
+          </linearGradient>
+          
+          {/* Subtle shadow for depth */}
+          <filter id="textShadow">
+            <feDropShadow dx="0" dy="1" stdDeviation="1" floodColor="rgba(0,0,0,0.1)" floodOpacity="0.3"/>
+          </filter>
+        </defs>
+        
+        {/* Main Typography Layout */}
+        <g>
+          {/* Sahara - Bold, Dominant Typography */}
+          <text 
+            x="20" 
+            y="45" 
+            fontFamily="-apple-system, BlinkMacSystemFont, sans-serif" 
+            fontSize="36" 
+            fontWeight="700" 
+            letterSpacing="-0.02em"
+            fill="url(#saharaGradient)"
+            filter="url(#textShadow)"
+          >
+            Sahara
+          </text>
+          
+          {/* Developers - Refined, Complementary Typography */}
+          <text 
+            x="130" 
+            y="45" 
+            fontFamily="-apple-system, BlinkMacSystemFont, sans-serif" 
+            fontSize="36" 
+            fontWeight="400" 
+            letterSpacing="-0.01em"
+            fill="url(#developersGradient)"
+            filter="url(#textShadow)"
+          >
+            Developers
+          </text>
+          
+          {/* Subtle architectural accent line */}
+          <line 
+            x1="20" 
+            y1="62" 
+            x2="380" 
+            y2="62" 
+            stroke="url(#developersGradient)" 
+            strokeWidth="1" 
+            opacity="0.3"
+          />
+          
+          {/* Premium micro-details */}
+          <circle cx="25" cy="20" r="1.5" fill="url(#developersGradient)" opacity="0.4"/>
+          <circle cx="375" cy="20" r="1.5" fill="url(#developersGradient)" opacity="0.4"/>
         </g>
       </svg>
     )
@@ -248,24 +317,24 @@ export default function Logo({ variant = 'default', className = '' }: LogoProps)
       {/* Elegant typography with weight contrast */}
       <g transform="translate(100, 40)">
         <text x="0" y="5" 
-              fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" 
-              fontSize="34" 
+              fontFamily="-apple-system, BlinkMacSystemFont, sans-serif" 
+              fontSize="30" 
               fontWeight="600" 
               fill="#1a1a1a"
-              letterSpacing="-1.5"
-              className="text-[28px] sm:text-[34px]">Sahara</text>
+              letterSpacing="-0.02em"
+              className="text-[24px] sm:text-[30px]">Sahara</text>
         
-        <text x="105" y="5" 
-              fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" 
-              fontSize="34" 
+        <text x="110" y="5" 
+              fontFamily="-apple-system, BlinkMacSystemFont, sans-serif" 
+              fontSize="30" 
               fontWeight="300" 
               fill="#4a4a4a"
-              letterSpacing="-1.5"
-              className="text-[28px] sm:text-[34px]">Developers</text>
+              letterSpacing="-0.01em"
+              className="text-[24px] sm:text-[30px]">Developers</text>
         
         {/* Subtle tagline emphasizing support */}
         <text x="0" y="18" 
-              fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif" 
+              fontFamily="-apple-system, BlinkMacSystemFont, sans-serif" 
               fontSize="9" 
               fontWeight="400" 
               fill="#8a8a8a"

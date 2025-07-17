@@ -163,9 +163,6 @@ export default function LeadMagnet() {
             <span className="text-xs font-medium tracking-wider text-gray-700" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>
               FREE GUIDES
             </span>
-            <div className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-semibold">
-              2025
-            </div>
           </div>
         </motion.button>
 

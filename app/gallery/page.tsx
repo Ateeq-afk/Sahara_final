@@ -436,7 +436,7 @@ export default function GalleryPage() {
                 href="/quote"
                 className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-full font-medium text-lg hover:from-amber-700 hover:to-amber-800 transition-all duration-300 shadow-lg hover:shadow-xl"
               >
-                Start Your Project
+                Start Your Project →
               </Link>
             </motion.div>
           </motion.div>

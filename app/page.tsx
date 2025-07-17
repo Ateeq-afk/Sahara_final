@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import HeroModern from '@/components/home/hero-modern'
 import ServicesSection from '@/components/home/services-section'
@@ -12,18 +13,12 @@ import ContactSectionMinimal from '@/components/home/contact-section-minimal'
 
 // Dynamic imports for tool sections with loading states
 const ToolsDiscovery = dynamic(() => import('@/components/home/tools-discovery'), {
+  ssr: false,
   loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
 })
 
-// const InteractiveToolsDemo = dynamic(() => import('@/components/home/interactive-tools-demo'), {
-//   loading: () => <div className="h-96 bg-black animate-pulse" />
-// })
-
-// const ARExperienceSection = dynamic(() => import('@/components/home/ar-experience-section'), {
-//   loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
-// })
-
 const SmartToolsBanner = dynamic(() => import('@/components/home/smart-tools-banner'), {
+  ssr: false,
   loading: () => <div className="h-64 bg-gray-900 animate-pulse" />
 })
 
@@ -32,12 +27,7 @@ const LeadMagnet = dynamic(() => import('@/components/lead-magnet-apple'), {
   ssr: false
 })
 
-// FAQ Chatbot removed for cleaner interface
-// const FAQChatbot = dynamic(() => import('@/components/faq-chatbot'), {
-//   ssr: false
-// })
-
-const WhatsAppWidget = dynamic(() => import('@/components/whatsapp-widget'), {
+const PremiumSupportWidget = dynamic(() => import('@/components/premium-support-widget'), {
   ssr: false
 })
 
@@ -52,21 +42,25 @@ export default function Home() {
       <HeroModern />
       
       {/* Tools Discovery - Early Introduction */}
-      <ToolsDiscovery />
+      <section className="bg-gray-50">
+        <ToolsDiscovery />
+      </section>
       
       {/* Services - What We Offer */}
       <ServicesSection />
       
-      
       {/* Process Timeline - How We Work */}
-      <ProcessTimeline />
-      
+      <section className="bg-gray-50">
+        <ProcessTimeline />
+      </section>
       
       {/* Gallery - Visual Proof */}
       <GalleryShowcase />
       
       {/* Featured Packages - Pricing Options */}
-      <FeaturedPackages />
+      <section className="bg-gray-50">
+        <FeaturedPackages />
+      </section>
       
       {/* Smart Tools Banner - Additional Tools */}
       <SmartToolsBanner />
@@ -85,7 +79,7 @@ export default function Home() {
       
       {/* Floating Interactive Elements */}
       <LeadMagnet />
-      <WhatsAppWidget />
+      <PremiumSupportWidget />
       <ExitIntentPopup />
     </main>
   )

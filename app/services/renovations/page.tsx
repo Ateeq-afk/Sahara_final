@@ -74,7 +74,7 @@ export default function RenovationsPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section with Parallax */}
-      <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden -mt-20">
+      <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden">
         <motion.div
           className="absolute inset-0 z-0"
           style={{ y }}
@@ -94,14 +94,23 @@ export default function RenovationsPage() {
           className="relative z-10 text-center text-white max-w-5xl mx-auto px-6"
           style={{ opacity }}
         >
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="text-sm sm:text-base mb-4 opacity-80 font-light tracking-wide"
+          >
+            Since 2003 – Over Two Decades of Design & Delivery
+          </motion.p>
+          
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-5xl sm:text-6xl lg:text-7xl font-extralight leading-[1.1] mb-6"
           >
-            Transform Your Space.<br />
-            <span className="font-light">Renew Your Life.</span>
+            Building Dreams,<br />
+            <span className="font-light">Creating Legacies.</span>
           </motion.h1>
           
           <motion.p
@@ -110,8 +119,8 @@ export default function RenovationsPage() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg sm:text-xl mb-10 opacity-90 max-w-3xl mx-auto font-light"
           >
-            Expert renovation services that breathe new life into your existing spaces. 
-            From minor updates to complete transformations.
+            Partner with Bangalore's trusted experts in construction and interior design. 
+            From concept to completion, we create timeless spaces that inspire and endure.
           </motion.p>
           
           <motion.div
@@ -126,18 +135,27 @@ export default function RenovationsPage() {
               onClick={() => router.push('/quote')}
               className="bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-gray-100 transition-all inline-flex items-center gap-2 shadow-xl"
             >
-              Get Renovation Quote
+              Get Started with a Free Consultation
               <ArrowRight className="w-4 h-4" />
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
-              className="border-2 border-white text-white px-8 py-4 rounded-full font-medium hover:bg-white hover:text-black transition-all"
+              className="border-2 border-white text-white px-8 py-4 rounded-full font-medium hover:bg-white hover:text-black transition-all inline-flex items-center gap-2"
             >
               View Before & After
             </motion.button>
           </motion.div>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="text-sm opacity-70 mt-4 font-light"
+          >
+            No upfront commitment. Let's build your vision.
+          </motion.p>
         </motion.div>
 
         <motion.div
@@ -425,8 +443,8 @@ export default function RenovationsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { value: "200+", label: "Renovations Completed" },
-              { value: "15", label: "Days Average Project" },
+              { value: "500+", label: "Projects Delivered" },
+              { value: "50+", label: "In-House Experts" },
               { value: "100%", label: "Client Satisfaction" },
               { value: "5 Year", label: "Warranty Period" }
             ].map((stat, index) => (
@@ -438,7 +456,7 @@ export default function RenovationsPage() {
                 viewport={{ once: true }}
               >
                 <div className="text-4xl font-light mb-2">{stat.value}</div>
-                <p className="text-sm opacity-80">{stat.label}</p>
+                <p className="text-sm font-medium opacity-80">{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -461,7 +479,7 @@ export default function RenovationsPage() {
               Get a free consultation and detailed quote for your renovation project. 
               Download our renovation guide to explore possibilities.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -488,7 +506,7 @@ export default function RenovationsPage() {
       {/* Floating CTA Button */}
       <motion.button
         onClick={() => router.push('/quote')}
-        className="fixed bottom-24 right-6 bg-[#0A5C36] text-white px-6 py-3 rounded-full shadow-lg hover:bg-[#084a2e] transition-colors z-40 font-medium flex items-center gap-2"
+        className="fixed bottom-24 right-6 bg-[#D26700] text-white px-6 py-3 rounded-full shadow-lg hover:bg-[#B85600] transition-colors z-40 font-medium flex items-center gap-2"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 1, type: "spring" }}

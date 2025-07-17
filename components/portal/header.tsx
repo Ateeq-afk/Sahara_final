@@ -48,7 +48,7 @@ export default function PortalHeader({ user }: PortalHeaderProps) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4 sm:gap-8">
             <Link href="/portal" className="flex-shrink-0">
-              <Logo className="h-7 sm:h-8 w-auto" />
+              <Logo variant="typography" className="h-7 sm:h-8 w-auto" />
             </Link>
             
             {/* Desktop Navigation */}

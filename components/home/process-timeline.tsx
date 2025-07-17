@@ -42,23 +42,23 @@ export default function ProcessTimeline() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-20 mt-16"
         >
           <span className="text-sm font-medium text-gray-500 tracking-[0.2em] uppercase">
-            Our Process
+            OUR PROCESS
           </span>
           <h2 className="text-5xl md:text-6xl font-semibold mt-4 mb-6 tracking-[-0.03em]">
             From Vision to Reality
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            A carefully orchestrated journey that transforms your dreams into extraordinary living spaces.
+            A thoughtfully guided journey from concept to completion.
           </p>
         </motion.div>
 
         {/* Timeline */}
         <div className="relative max-w-5xl mx-auto">
           {/* Vertical Line */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[1px] bg-gray-200 md:-translate-x-1/2" />
+          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[2px] bg-gray-300 md:-translate-x-1/2" />
 
           {/* Steps */}
           {steps.map((step, index) => (
@@ -72,18 +72,21 @@ export default function ProcessTimeline() {
               }`}
             >
               {/* Content */}
-              <div className={`flex-1 ${index % 2 === 0 ? 'md:pr-20 md:text-right' : 'md:pl-20'} ml-16 md:ml-0`}>
+              <div className={`flex-1 ${index % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16'} ml-16 md:ml-0`}>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                   className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300"
                 >
-                  <span className="text-sm font-medium text-gray-500 tracking-[0.2em] uppercase">
+                  <span className={`text-sm font-medium text-gray-500 tracking-[0.2em] uppercase ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
                     Phase {step.phase}
                   </span>
                   <h3 className="text-3xl font-semibold mt-2 mb-4">{step.title}</h3>
                   <p className="text-gray-600 mb-4 leading-relaxed">{step.description}</p>
-                  <p className="text-sm text-gray-500 font-medium">Duration: {step.duration}</p>
+                  <p className={`text-sm text-gray-700 font-medium flex items-center gap-1 ${index % 2 === 0 ? 'md:justify-end' : 'md:justify-start'}`}>
+                    <span>🕒</span>
+                    Duration: {step.duration}
+                  </p>
                 </motion.div>
               </div>
 
@@ -91,7 +94,7 @@ export default function ProcessTimeline() {
               <motion.div
                 whileHover={{ scale: 1.2 }}
                 transition={{ duration: 0.3 }}
-                className="absolute left-0 md:left-1/2 md:-translate-x-1/2 w-12 h-12 bg-white border-2 border-gray-900 rounded-full flex items-center justify-center z-10"
+                className="absolute left-0 md:left-1/2 md:-translate-x-1/2 w-12 h-12 bg-white border-2 border-gray-900 rounded-full flex items-center justify-center z-10 shadow-sm"
               >
                 <span className="text-sm font-semibold">{step.phase}</span>
               </motion.div>
@@ -109,6 +112,9 @@ export default function ProcessTimeline() {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="text-center mt-20"
         >
+          <p className="text-lg text-gray-600 mb-4">
+            Get a free consultation with our experts today.
+          </p>
           <p className="text-lg text-gray-600 mb-8">
             Ready to begin your journey with us?
           </p>
@@ -117,7 +123,7 @@ export default function ProcessTimeline() {
             whileTap={{ scale: 0.95 }}
             className="px-8 py-4 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-colors duration-300"
           >
-            Start Your Project
+            Start Your Project →
           </motion.button>
         </motion.div>
       </div>

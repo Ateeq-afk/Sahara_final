@@ -319,13 +319,7 @@ export default function ConstructionPage() {
                 asChild
               >
                 <Link href="/quote" className="flex items-center gap-3">
-                  <span>Start Your Project</span>
-                  <motion.div
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    <ArrowRight className="h-5 w-5" />
-                  </motion.div>
+                  <span>Start Your Project →</span>
                 </Link>
               </Button>
               

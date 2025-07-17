@@ -293,7 +293,7 @@ export default function AboutPage() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/quote" className="apple-button apple-button-primary">
-                Start Your Project
+                Start Your Project →
               </Link>
               <Link href="/contact" className="apple-button apple-button-secondary">
                 Get in Touch

@@ -29,7 +29,7 @@
 }
 
 .apple-button-primary {
-  @apply bg-gray-900 text-white hover:bg-black;
+  @apply bg-orange-500 text-white hover:bg-orange-600;
 }
 
 .apple-button-secondary {

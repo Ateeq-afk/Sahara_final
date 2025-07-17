@@ -27,7 +27,7 @@ export default function InteractiveToolsDemo() {
     essential: { price: 1650, label: 'Essential', color: 'from-gray-400 to-gray-500' },
     professional: { price: 2200, label: 'Professional', color: 'from-blue-400 to-blue-500' },
     premium: { price: 3500, label: 'Premium', color: 'from-purple-400 to-purple-500' },
-    luxury: { price: 5000, label: 'Luxury', color: 'from-yellow-400 to-orange-500' }
+    luxury: { price: 5000, label: 'Luxury', color: 'from-yellow-400 to-[#D26700]' }
   }
 
   const steps = [

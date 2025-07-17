@@ -10,7 +10,7 @@ const packages = [
   {
     id: "essential",
     title: "Essential",
-    tagline: "Thoughtfully Crafted",
+    tagline: "Foundational quality for modern living",
     price: "1,699",
     originalPrice: "1,850",
     unit: "per sq.ft",
@@ -58,7 +58,7 @@ const packages = [
   {
     id: "luxury",
     title: "Luxury",
-    tagline: "Exclusively Yours",
+    tagline: "Uncompromising design for extraordinary spaces",
     price: "2,399",
     originalPrice: "2,599",
     unit: "per sq.ft",
@@ -237,7 +237,7 @@ export default function PackagesPage() {
                 }`}
               >
                 <motion.div
-                  className={`relative bg-white rounded-3xl overflow-hidden transition-all duration-500 ${
+                  className={`relative bg-white rounded-3xl overflow-hidden transition-all duration-500 min-h-[700px] flex flex-col ${
                     selectedPackage === pkg.id 
                       ? 'shadow-2xl ring-2 ring-amber-600/50' 
                       : 'shadow-xl hover:shadow-2xl'
@@ -248,15 +248,16 @@ export default function PackagesPage() {
                   {/* Popular Badge */}
                   {pkg.popular && (
                     <div className="absolute top-6 right-6 z-10">
-                      <div className="bg-amber-600 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
+                      <div className="bg-amber-600 text-white px-4 py-2 md:px-4 md:py-2 text-xs md:text-sm px-2 py-1 rounded-full font-medium flex items-center gap-2">
                         <Star className="h-4 w-4 fill-current" />
-                        Most Popular
+                        <span className="hidden sm:inline">Most Popular</span>
+                        <span className="sm:hidden">Recommended</span>
                       </div>
                     </div>
                   )}
 
                   {/* Package Header */}
-                  <div className="p-8 pb-0">
+                  <div className="p-8 pb-0 flex-1">
                     <div className={`w-16 h-16 ${pkg.iconBg} rounded-2xl flex items-center justify-center mb-6`}>
                       {pkg.id === 'essential' && <Zap className={`h-8 w-8 ${pkg.iconColor}`} />}
                       {pkg.id === 'premium' && <Star className={`h-8 w-8 ${pkg.iconColor}`} />}
@@ -270,10 +271,10 @@ export default function PackagesPage() {
                     <div className="mb-8">
                       <div className="flex items-baseline gap-3">
                         {pkg.originalPrice && (
-                          <span className="text-3xl text-gray-400 line-through">₹{pkg.originalPrice}</span>
+                          <span className="text-2xl md:text-3xl text-gray-400 line-through">₹{pkg.originalPrice}</span>
                         )}
-                        <span className="text-5xl font-semibold">₹{pkg.price}</span>
-                        <span className="text-gray-500 text-lg">/{pkg.unit}</span>
+                        <span className="text-4xl md:text-5xl font-semibold">₹{pkg.price}</span>
+                        <span className="text-gray-500 text-base md:text-lg">/{pkg.unit}</span>
                       </div>
                     </div>
 
@@ -321,7 +322,7 @@ export default function PackagesPage() {
                           : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                       }`}
                     >
-                      Get Started
+                      Choose {pkg.title}
                     </Link>
                   </div>
                 </motion.div>

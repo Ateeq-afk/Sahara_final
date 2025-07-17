@@ -128,17 +128,16 @@ export default function ServicesPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={heroInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-4xl font-light"
+              className="text-xl md:text-2xl text-gray-700 leading-relaxed max-w-4xl font-light"
             >
-              From groundbreaking architecture to breathtaking interiors, we offer comprehensive 
-              solutions that transform visions into extraordinary realities.
+              A fully integrated architecture, construction & interiors ecosystem — from concept to completion.
             </motion.p>
           </motion.div>
         </div>
       </section>
       
       {/* Services Grid - Apple Style */}
-      <section ref={servicesRef} className="py-24 md:py-32 bg-gray-50">
+      <section ref={servicesRef} className="py-24 md:py-32 bg-gray-50 relative">
         <div className="container mx-auto px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -153,7 +152,7 @@ export default function ServicesPage() {
               Comprehensive solutions designed to bring your vision to life.
             </p>
           </motion.div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pb-16">
             {services.map((service, index) => (
               <motion.div
                 key={service.slug}
@@ -177,8 +176,8 @@ export default function ServicesPage() {
                       
                       {/* Service Number */}
                       <div className="absolute top-8 left-8">
-                        <span className="text-white/90 text-5xl font-light">
-                          0{index + 1}
+                        <span className="text-white text-xs bg-black/50 rounded px-2 py-1">
+                          {String(index + 1).padStart(2, '0')}
                         </span>
                       </div>
                       
@@ -221,6 +220,9 @@ export default function ServicesPage() {
             ))}
           </div>
         </div>
+        
+        {/* Gradient Fade-out */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
       </section>
       
       {/* CTA Section - Apple Style */}

@@ -731,7 +731,7 @@ export default function InteriorDecorPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl sm:text-5xl font-light mb-6">
-              Start Your Project Today
+              Start Your Project Today →
             </h2>
             <p className="text-lg mb-8 opacity-90 max-w-3xl mx-auto">
               Get a free consultation and download our exclusive interior design 

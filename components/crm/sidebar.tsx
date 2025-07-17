@@ -58,7 +58,7 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
     <div className="flex flex-col h-full bg-white">
       <header className="flex items-center justify-center h-16 border-b border-gray-200">
         <Link href="/crm" onClick={handleLinkClick}>
-          <Logo className="h-8 w-auto" />
+          <Logo variant="typography" className="h-8 w-auto" />
         </Link>
       </header>
       
@@ -128,7 +128,7 @@ export default function CRMSidebar({ isOpen, onClose }: CRMSidebarProps) {
       <SheetContent side="left" className="p-0 w-64">
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-          <Logo className="h-8 w-auto" />
+          <Logo variant="typography" className="h-8 w-auto" />
           <Button
             variant="ghost"
             size="icon"

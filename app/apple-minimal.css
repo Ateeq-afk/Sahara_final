@@ -20,6 +20,7 @@
   --apple-blue-hover: #0077ed;
   --apple-green: #30d158;
   --apple-orange: #ff9500;
+  --apple-orange-hover: #e6860b;
   --apple-red: #ff3b30;
   
   /* Brand colors */
@@ -144,12 +145,12 @@ body {
 }
 
 .apple-button-primary {
-  background-color: var(--apple-blue);
+  background-color: var(--apple-orange);
   color: var(--apple-white);
 }
 
 .apple-button-primary:hover {
-  background-color: var(--apple-blue-hover);
+  background-color: var(--apple-orange-hover);
 }
 
 .apple-button-secondary {

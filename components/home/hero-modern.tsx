@@ -10,180 +10,146 @@ export default function HeroModern() {
   const [mounted, setMounted] = useState(false)
   const { scrollY } = useScroll()
   
-  // Parallax effects
-  const yTransform = useTransform(scrollY, [0, 500], [0, 100])
-  const scaleTransform = useTransform(scrollY, [0, 500], [1, 1.1])
+  // Subtle parallax effects
+  const yTransform = useTransform(scrollY, [0, 300], [0, 50])
+  const opacityTransform = useTransform(scrollY, [0, 200], [1, 0.8])
   
   useEffect(() => {
     setMounted(true)
   }, [])
   
   return (
-    <section className="relative min-h-screen flex items-center bg-gray-50 overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" 
-          style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, black 1px, transparent 1px)`,
-            backgroundSize: '40px 40px'
-          }}
-        />
-      </div>
+    <section className="relative flex items-center bg-white pt-16 pb-12 md:pt-20 md:pb-16 lg:min-h-[85vh] overflow-hidden">
+      {/* Subtle gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-white" />
       
-      {/* Animated Gradient Orbs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{
-            x: [0, 100, 0],
-            y: [0, -100, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="absolute -top-40 -right-40 w-96 h-96 bg-amber-400/20 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            x: [0, -100, 0],
-            y: [0, 100, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="absolute -bottom-40 -left-40 w-96 h-96 bg-amber-600/20 rounded-full blur-3xl"
-        />
-      </div>
-      
-      <div className="container mx-auto px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Content */}
+      <div className="container mx-auto px-6 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Content - Left aligned, compact */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : -50 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
+            transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="max-w-xl"
           >
-            {/* Badge */}
+            {/* Badge - Smaller, refined */}
             <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 10 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-full mb-6"
+            >
+              <span className="w-1.5 h-1.5 bg-[#D26700] rounded-full"></span>
+              <span className="text-xs font-medium text-gray-700">20+ Years of Excellence</span>
+            </motion.div>
+            
+            {/* Headline - Tighter, more elegant */}
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-amber-50 border border-amber-200 rounded-full mb-8"
-            >
-              <span className="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></span>
-              <span className="text-sm font-medium text-amber-800">20+ Years of Excellence</span>
-            </motion.div>
-            
-            {/* Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 30 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-6"
+              className="text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 leading-tight tracking-tight"
             >
               Building Dreams,
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-700">
+              <span className="block font-normal text-[#D26700]">
                 Creating Legacies
               </span>
             </motion.h1>
             
-            {/* Description */}
+            {/* Description - Concise */}
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 30 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl text-gray-600 leading-relaxed mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-lg text-gray-600 leading-relaxed mt-4 mb-6"
             >
               Transform your vision into reality with Bangalore's premier construction 
-              and interior design company. We craft spaces that inspire and endure.
+              and interior design company.
             </motion.p>
             
-            {/* CTA Buttons */}
+            {/* CTA Buttons - Tighter spacing */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 30 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="flex flex-wrap gap-4 mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="flex flex-wrap gap-3"
             >
               <Link 
                 href="/quote" 
-                className="group inline-flex items-center gap-2 px-8 py-4 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[#D26700] text-white rounded-full hover:bg-[#B85600] transition-all duration-300 font-medium text-sm"
               >
                 Start Your Project
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4" />
               </Link>
               <Link 
                 href="/gallery" 
-                className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-900 rounded-full hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl border border-gray-200"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-700 rounded-full hover:bg-gray-50 transition-all duration-300 border border-gray-300 font-medium text-sm"
               >
                 <Play className="w-4 h-4" />
                 View Portfolio
               </Link>
             </motion.div>
             
-            {/* Stats */}
+            {/* Stats - Compact, refined */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: mounted ? 1 : 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="grid grid-cols-3 gap-8"
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="grid grid-cols-3 gap-6 mt-10 pt-10 border-t border-gray-200"
             >
-              <div className="text-center lg:text-left">
-                <div className="text-3xl font-bold text-gray-900">500+</div>
-                <div className="text-sm text-gray-600">Projects Completed</div>
+              <div>
+                <div className="text-2xl font-semibold text-gray-900">500+</div>
+                <div className="text-sm text-gray-500 mt-1">Projects</div>
               </div>
-              <div className="text-center lg:text-left">
-                <div className="text-3xl font-bold text-gray-900">50+</div>
-                <div className="text-sm text-gray-600">Expert Team</div>
+              <div>
+                <div className="text-2xl font-semibold text-gray-900">50+</div>
+                <div className="text-sm text-gray-500 mt-1">Experts</div>
               </div>
-              <div className="text-center lg:text-left">
-                <div className="text-3xl font-bold text-gray-900">100%</div>
-                <div className="text-sm text-gray-600">Client Satisfaction</div>
+              <div>
+                <div className="text-2xl font-semibold text-gray-900">100%</div>
+                <div className="text-sm text-gray-500 mt-1">Satisfaction</div>
               </div>
             </motion.div>
           </motion.div>
           
-          {/* Image Grid */}
+          {/* Image - Clean, aligned */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : 50 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: mounted ? 1 : 0, scale: mounted ? 1 : 0.95 }}
+            transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="relative max-w-2xl mx-auto lg:mx-0"
+            style={{ opacity: opacityTransform }}
           >
             <motion.div 
-              className="relative z-10"
+              className="relative"
               style={{ y: mounted ? yTransform : 0 }}
             >
-              {/* Main Image */}
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-                className="relative rounded-3xl overflow-hidden shadow-2xl mb-4"
-              >
+              {/* Main Image - Clean presentation */}
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl mb-4">
                 <Image
                   src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=90"
                   alt="Modern Architecture"
-                  width={600}
-                  height={400}
+                  width={700}
+                  height={500}
                   className="w-full h-auto"
                   priority
                 />
-                {/* Overlay with text */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 to-transparent">
-                  <p className="text-white font-medium">Minimalist Villa, Whitefield</p>
-                  <p className="text-white/80 text-sm">Completed 2024</p>
+                {/* Subtle overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-50" />
+                
+                {/* Caption */}
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <p className="text-white font-medium text-lg">Minimalist Villa, Whitefield</p>
+                  <p className="text-white/90 text-sm">Award-winning Design 2024</p>
                 </div>
-              </motion.div>
+              </div>
               
               {/* Small Images Grid */}
               <div className="grid grid-cols-2 gap-4">
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
-                  className="relative rounded-2xl overflow-hidden shadow-xl"
+                  className="relative rounded-xl overflow-hidden shadow-xl"
                 >
                   <Image
                     src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=90"
@@ -196,7 +162,7 @@ export default function HeroModern() {
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
-                  className="relative rounded-2xl overflow-hidden shadow-xl"
+                  className="relative rounded-xl overflow-hidden shadow-xl"
                 >
                   <Image
                     src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=400&q=90"
@@ -207,35 +173,46 @@ export default function HeroModern() {
                   />
                 </motion.div>
               </div>
+              
+              {/* Floating accent card */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : -20 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-xl p-4 max-w-[200px]"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-[#D26700]/10 rounded-lg flex items-center justify-center">
+                    <span className="text-[#D26700] text-lg font-semibold">A+</span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">Energy Rating</p>
+                    <p className="text-xs text-gray-500">Sustainable Design</p>
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
-            
-            {/* Background decoration */}
-            <div className="absolute -z-10 top-8 -right-8 w-72 h-72 bg-amber-100 rounded-full blur-2xl opacity-60" />
-            <div className="absolute -z-10 -bottom-8 -left-8 w-96 h-96 bg-gray-200 rounded-full blur-2xl opacity-40" />
           </motion.div>
         </div>
       </div>
       
-      {/* Scroll Indicator */}
+      {/* Minimal scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: mounted ? 1 : 0 }}
+        animate={{ opacity: mounted ? 0.6 : 0 }}
         transition={{ duration: 1, delay: 1 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-6 left-1/2 transform -translate-x-1/2 lg:block hidden"
       >
         <motion.div
-          animate={{ y: [0, 10, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center gap-2 text-gray-400"
+          className="w-5 h-8 border border-gray-300 rounded-full flex justify-center"
         >
-          <span className="text-sm">Scroll to explore</span>
-          <div className="w-6 h-10 border-2 border-gray-300 rounded-full flex justify-center">
-            <motion.div
-              animate={{ y: [2, 14, 2] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-1.5 h-1.5 bg-gray-400 rounded-full mt-2"
-            />
-          </div>
+          <motion.div
+            animate={{ y: [2, 10, 2] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="w-1 h-1 bg-gray-400 rounded-full mt-2"
+          />
         </motion.div>
       </motion.div>
     </section>

@@ -2,10 +2,10 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Gift, Clock, PhoneCall, Calculator } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import Image from 'next/image'
+import { X, Phone, CheckCircle } from 'lucide-react'
+
+const MODAL_STORAGE_KEY = 'exitIntentModalSeen'
+const MODAL_EXPIRY_DAYS = 3
 
 export default function ExitIntentPopup() {
   const [isOpen, setIsOpen] = useState(false)
@@ -14,80 +14,95 @@ export default function ExitIntentPopup() {
   const [phone, setPhone] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
   const modalRef = useRef<HTMLDivElement>(null)
-  const closeButtonRef = useRef<HTMLButtonElement>(null)
-  const emailInputRef = useRef<HTMLInputElement>(null)
-  const phoneInputRef = useRef<HTMLInputElement>(null)
-  const submitButtonRef = useRef<HTMLButtonElement>(null)
 
+  // Check if modal should be shown based on localStorage
+  const shouldShowModal = () => {
+    if (typeof window === 'undefined') return false
+    
+    const stored = localStorage.getItem(MODAL_STORAGE_KEY)
+    if (!stored) return true
+    
+    const { timestamp } = JSON.parse(stored)
+    const now = Date.now()
+    const threeDaysInMs = MODAL_EXPIRY_DAYS * 24 * 60 * 60 * 1000
+    
+    return now - timestamp > threeDaysInMs
+  }
+
+  // Store modal seen flag with timestamp
+  const setModalSeen = () => {
+    if (typeof window === 'undefined') return
+    
+    localStorage.setItem(MODAL_STORAGE_KEY, JSON.stringify({
+      timestamp: Date.now(),
+      seen: true
+    }))
+  }
+
+  // Track scroll progress
   useEffect(() => {
-    // Only run on client side
-    if (typeof window === 'undefined') {
-      return
-    }
-    
-    // Check if popup has been shown in this session
-    const shown = sessionStorage.getItem('exitIntentShown')
-    if (shown) {
-      setHasShown(true)
-      return
-    }
+    if (typeof window === 'undefined') return
 
-    let timeoutId: NodeJS.Timeout
-
-    const handleMouseLeave = (e: MouseEvent) => {
-      // Only trigger when mouse leaves from the top
-      if (e.clientY <= 0 && !hasShown) {
-        timeoutId = setTimeout(() => {
-          setIsOpen(true)
-          setHasShown(true)
-          sessionStorage.setItem('exitIntentShown', 'true')
-        }, 100)
-      }
-    }
-
-    const handleMouseEnter = () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId)
-      }
-    }
-
-    // Add event listeners
-    document.addEventListener('mouseleave', handleMouseLeave)
-    document.addEventListener('mouseenter', handleMouseEnter)
-
-    // Mobile exit intent - when user scrolls up quickly
-    let lastScrollY = window.scrollY
-    let scrollVelocity = 0
-    
     const handleScroll = () => {
-      const currentScrollY = window.scrollY
-      scrollVelocity = lastScrollY - currentScrollY
-      
-      // If scrolling up quickly near top of page
-      if (scrollVelocity > 50 && currentScrollY < 200 && !hasShown) {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
+      const progress = (scrollTop / scrollHeight) * 100
+      setScrollProgress(progress)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Main effect for modal triggers
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (hasShown || !shouldShowModal()) return
+
+    let triggered = false
+
+    // Delayed trigger (12-15 seconds)
+    const delayTimeout = setTimeout(() => {
+      if (!triggered && !hasShown) {
+        triggered = true
         setIsOpen(true)
         setHasShown(true)
-        sessionStorage.setItem('exitIntentShown', 'true')
+        setModalSeen()
       }
-      
-      lastScrollY = currentScrollY
+    }, 13000) // 13 seconds
+
+    // Scroll depth trigger (40%)
+    const checkScrollDepth = () => {
+      if (scrollProgress >= 40 && !triggered && !hasShown) {
+        triggered = true
+        setIsOpen(true)
+        setHasShown(true)
+        setModalSeen()
+      }
     }
 
-    // Only add scroll listener on mobile
-    if (typeof window !== 'undefined' && window.innerWidth < 768) {
-      window.addEventListener('scroll', handleScroll)
+    // Check scroll depth on each scroll update
+    checkScrollDepth()
+
+    // Exit intent trigger (mouse leave from top)
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY <= 0 && !triggered && !hasShown) {
+        triggered = true
+        setIsOpen(true)
+        setHasShown(true)
+        setModalSeen()
+      }
     }
+
+    document.addEventListener('mouseleave', handleMouseLeave)
 
     return () => {
+      clearTimeout(delayTimeout)
       document.removeEventListener('mouseleave', handleMouseLeave)
-      document.removeEventListener('mouseenter', handleMouseEnter)
-      window.removeEventListener('scroll', handleScroll)
-      if (timeoutId) {
-        clearTimeout(timeoutId)
-      }
     }
-  }, [hasShown])
+  }, [hasShown, scrollProgress])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -121,241 +136,155 @@ export default function ExitIntentPopup() {
 
   const handleClose = () => {
     setIsOpen(false)
+    setModalSeen()
   }
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      handleClose()
-    }
-    
-    if (e.key === 'Tab') {
-      const focusableElements = modalRef.current?.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      )
-      
-      if (focusableElements && focusableElements.length > 0) {
-        const firstElement = focusableElements[0] as HTMLElement
-        const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement
-        
-        if (e.shiftKey && document.activeElement === firstElement) {
-          e.preventDefault()
-          lastElement.focus()
-        } else if (!e.shiftKey && document.activeElement === lastElement) {
-          e.preventDefault()
-          firstElement.focus()
-        }
-      }
-    }
+  const handleMaybeLater = () => {
+    setIsOpen(false)
+    // Don't set the permanent flag, allow it to show again later
   }
-
-  // Focus management when modal opens/closes
-  useEffect(() => {
-    if (isOpen && modalRef.current) {
-      // Focus the first focusable element when modal opens
-      const firstFocusable = modalRef.current.querySelector(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      ) as HTMLElement
-      
-      if (firstFocusable) {
-        setTimeout(() => firstFocusable.focus(), 100)
-      }
-      
-      // Store the previously focused element
-      const previouslyFocused = document.activeElement as HTMLElement
-      
-      return () => {
-        // Return focus to previously focused element when modal closes
-        if (previouslyFocused && previouslyFocused.focus) {
-          previouslyFocused.focus()
-        }
-      }
-    }
-  }, [isOpen])
 
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* Apple-style backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             onClick={handleClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50"
+            style={{ backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
             aria-hidden="true"
           />
 
-          {/* Popup */}
+          {/* Apple-style modal */}
           <motion.div
             ref={modalRef}
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ type: "spring", duration: 0.5 }}
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl z-50 p-4"
+            initial={{ opacity: 0, scale: 0.95, x: 20, y: 20 }}
+            animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, x: 20, y: 20 }}
+            transition={{ 
+              duration: 0.4, 
+              ease: [0.16, 1, 0.3, 1],
+              type: "spring",
+              damping: 25,
+              stiffness: 300
+            }}
+            className="fixed bottom-6 right-6 w-full max-w-sm z-50"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="exit-intent-title"
-            aria-describedby="exit-intent-description"
-            onKeyDown={handleKeyDown}
+            aria-labelledby="modal-title"
+            aria-describedby="modal-description"
           >
-            <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden">
-              {/* Close button */}
-              <button
-                ref={closeButtonRef}
-                onClick={handleClose}
-                className="absolute right-4 top-4 z-10 w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center hover:bg-white focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-                aria-label="Close dialog"
-              >
-                <X className="w-5 h-5 text-gray-700" />
-              </button>
+            <div className="apple-glass rounded-3xl overflow-hidden border border-gray-200/20 shadow-2xl">
+              {/* Header */}
+              <div className="relative px-6 pt-6 pb-4">
+                {/* Controls */}
+                <div className="absolute right-4 top-4 flex items-center gap-2">
+                  <button
+                    onClick={handleMaybeLater}
+                    className="text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200 px-2 py-1"
+                  >
+                    Maybe later
+                  </button>
+                  <button
+                    onClick={handleClose}
+                    className="w-7 h-7 bg-gray-100/50 hover:bg-gray-200/50 rounded-full flex items-center justify-center transition-all duration-200"
+                    aria-label="Close"
+                  >
+                    <X className="w-4 h-4 text-gray-600" />
+                  </button>
+                </div>
 
-              <div className="grid md:grid-cols-2">
-                {/* Left side - Image/Graphic */}
-                <div className="relative bg-gradient-to-br from-amber-400 to-orange-500 p-8 md:p-12 flex flex-col justify-center">
-                  <div className="relative z-10">
+                {!isSuccess ? (
+                  <>
+                    <h3 id="modal-title" className="apple-title-text text-gray-900 mb-2 pr-16">
+                      Get expert advice
+                    </h3>
+                    <p id="modal-description" className="apple-body text-gray-500 leading-relaxed">
+                      Free consultation with our construction specialists
+                    </p>
+                  </>
+                ) : (
+                  <div className="text-center py-2">
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      transition={{ delay: 0.2, type: "spring" }}
-                      className="w-20 h-20 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mb-6"
+                      transition={{ type: "spring", duration: 0.5 }}
+                      className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
                     >
-                      <Gift className="w-10 h-10 text-white" />
+                      <CheckCircle className="w-6 h-6 text-green-600" />
                     </motion.div>
-                    
-                    <h2 id="exit-intent-title" className="text-3xl md:text-4xl font-bold text-white mb-4">
-                      Wait! Don't Go Empty-Handed
-                    </h2>
-                    
-                    <div className="space-y-3 text-white/90">
-                      <div className="flex items-center gap-3">
-                        <Calculator className="w-5 h-5" />
-                        <span>Free Cost Estimation</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <Clock className="w-5 h-5" />
-                        <span>15-Minute Consultation</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <PhoneCall className="w-5 h-5" />
-                        <span>Priority Support</span>
-                      </div>
-                    </div>
+                    <h3 className="apple-headline-text text-gray-900 mb-1">Thank you</h3>
+                    <p className="apple-caption text-gray-500">
+                      We'll call you within 30 minutes
+                    </p>
                   </div>
-
-                  {/* Background pattern */}
-                  <div className="absolute inset-0 opacity-10">
-                    <div className="absolute inset-0" style={{
-                      backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 1px)`,
-                      backgroundSize: '30px 30px'
-                    }} />
-                  </div>
-                </div>
-
-                {/* Right side - Form */}
-                <div className="p-8 md:p-12">
-                  {!isSuccess ? (
-                    <>
-                      <h3 className="text-2xl font-semibold text-gray-900 mb-2">
-                        Get Your Free Consultation
-                      </h3>
-                      <p id="exit-intent-description" className="text-gray-600 mb-6">
-                        Leave your details and our expert will call you within 30 minutes!
-                      </p>
-
-                      <form 
-                        name="exit-intent"
-                        method="POST"
-                        data-netlify="true"
-                        data-netlify-honeypot="bot-field"
-                        onSubmit={handleSubmit} 
-                        className="space-y-4"
-                      >
-                        {/* Hidden fields for Netlify */}
-                        <input type="hidden" name="form-name" value="exit-intent" />
-                        <div hidden>
-                          <input name="bot-field" />
-                        </div>
-                        
-                        <div>
-                          <Input
-                            ref={emailInputRef}
-                            type="email"
-                            name="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Email address (optional)"
-                            className="rounded-xl"
-                            aria-label="Email address (optional)"
-                          />
-                        </div>
-
-                        <div>
-                          <Input
-                            ref={phoneInputRef}
-                            type="tel"
-                            name="phone"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            placeholder="Phone number *"
-                            required
-                            className="rounded-xl"
-                            aria-label="Phone number (required)"
-                          />
-                        </div>
-
-                        <Button
-                          ref={submitButtonRef}
-                          type="submit"
-                          disabled={isSubmitting || !phone}
-                          className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 focus:from-amber-600 focus:to-orange-600 focus:ring-2 focus:ring-amber-300 text-white rounded-xl"
-                          aria-label="Submit consultation request"
-                        >
-                          {isSubmitting ? (
-                            <div className="flex items-center gap-2">
-                              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                              Submitting...
-                            </div>
-                          ) : (
-                            'Get Free Consultation'
-                          )}
-                        </Button>
-
-                        <p className="text-xs text-gray-500 text-center">
-                          No spam, just helpful construction advice
-                        </p>
-                      </form>
-
-                      <div className="mt-6 pt-6 border-t border-gray-200">
-                        <p className="text-sm text-gray-600 text-center">
-                          🎁 <strong>Limited Offer:</strong> First 50 callers get 10% off on their project
-                        </p>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="text-center py-8">
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: "spring" }}
-                        className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
-                      >
-                        <svg className="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </motion.div>
-                      
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                        Thank You!
-                      </h3>
-                      <p className="text-gray-600">
-                        Our expert will call you within 30 minutes.
-                      </p>
-                    </div>
-                  )}
-                </div>
+                )}
               </div>
+
+              {/* Form */}
+              {!isSuccess && (
+                <div className="px-6 pb-6">
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Email Field */}
+                    <div>
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Email address (optional)"
+                        className="apple-input w-full h-11 text-[16px] bg-gray-50/80 border-gray-200/50 focus:bg-white focus:border-gray-300 transition-all duration-200"
+                        style={{ fontSize: '16px' }} // Prevent iOS zoom
+                      />
+                    </div>
+
+                    {/* Phone Field */}
+                    <div>
+                      <input
+                        type="tel"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        placeholder="Phone number"
+                        required
+                        className="apple-input w-full h-11 text-[16px] bg-gray-50/80 border-gray-200/50 focus:bg-white focus:border-gray-300 transition-all duration-200"
+                        style={{ fontSize: '16px' }} // Prevent iOS zoom
+                      />
+                    </div>
+
+                    {/* Submit Button */}
+                    <div className="pt-2">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting || !phone}
+                        className="apple-button apple-button-primary w-full h-11 bg-gray-900 hover:bg-gray-800 text-white font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {isSubmitting ? (
+                          <div className="flex items-center justify-center gap-2">
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                            <span>Connecting...</span>
+                          </div>
+                        ) : (
+                          <div className="flex items-center justify-center gap-2">
+                            <Phone className="w-4 h-4" />
+                            <span>Request callback</span>
+                          </div>
+                        )}
+                      </button>
+                    </div>
+                  </form>
+
+                  {/* Reassurance */}
+                  <div className="mt-4 pt-4 border-t border-gray-200/30">
+                    <p className="apple-caption text-center text-gray-500">
+                      We'll only call if you request. No spam.
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </motion.div>
         </>

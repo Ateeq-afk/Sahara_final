@@ -64,7 +64,7 @@ const WhatsAppWidget = () => {
       icon: "🏠",
       label: "View Portfolio",
       action: "portfolio",
-      color: "bg-orange-500"
+      color: "bg-[#D26700]"
     }
   ]
 
