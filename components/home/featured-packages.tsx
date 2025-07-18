@@ -1,9 +1,9 @@
 "use client"
 
 import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Link from 'next/link'
-import { Check, Sparkles } from 'lucide-react'
+import { Check, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const packages = [
   {
@@ -141,31 +141,158 @@ export const interiorPackages = [
 export default function FeaturedPackages() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const [currentPackage, setCurrentPackage] = useState(1) // Start with Premium (index 1)
+  const [showAllFeatures, setShowAllFeatures] = useState(false)
+
+  const nextPackage = () => {
+    setCurrentPackage((prev) => (prev + 1) % packages.length)
+    setShowAllFeatures(false)
+  }
+
+  const prevPackage = () => {
+    setCurrentPackage((prev) => (prev - 1 + packages.length) % packages.length)
+    setShowAllFeatures(false)
+  }
 
   return (
-    <section ref={ref} className="py-32 bg-gradient-to-b from-gray-50 to-white">
-      <div className="container mx-auto px-8">
+    <section ref={ref} className="py-16 sm:py-24 md:py-32 bg-gradient-to-b from-gray-50 to-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-16 md:mb-20"
         >
-          <span className="text-sm font-medium text-gray-500 tracking-[0.2em] uppercase">
+          <span className="text-xs sm:text-sm font-medium text-gray-500 tracking-[0.2em] uppercase">
             Packages
           </span>
-          <h2 className="text-5xl md:text-6xl font-semibold mt-4 mb-6 tracking-[-0.03em]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold mt-3 sm:mt-4 mb-3 sm:mb-6 tracking-[-0.03em]">
             Transparent Excellence
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
             Choose your path to exceptional living. Each package is crafted to deliver 
             uncompromising quality at every level.
           </p>
         </motion.div>
 
-        {/* Packages Grid */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        {/* Mobile Package Carousel */}
+        <div className="md:hidden">
+          <div className="relative">
+            {/* Package Tabs */}
+            <div className="flex justify-center mb-6 gap-2">
+              {packages.map((pkg, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentPackage(index)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                    currentPackage === index
+                      ? pkg.popular 
+                        ? 'bg-amber-600 text-white'
+                        : 'bg-gray-900 text-white'
+                      : 'bg-gray-100 text-gray-600'
+                  }`}
+                >
+                  {pkg.title}
+                </button>
+              ))}
+            </div>
+
+            {/* Package Card */}
+            <motion.div
+              key={currentPackage}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white rounded-2xl shadow-xl mx-auto max-w-sm"
+            >
+              <div className="p-6">
+                {/* Popular Badge */}
+                {packages[currentPackage].popular && (
+                  <div className="flex justify-center mb-4">
+                    <div className="bg-amber-600 text-white px-4 py-1.5 rounded-full text-xs font-medium flex items-center gap-1.5">
+                      <Sparkles className="h-3 w-3" />
+                      Recommended
+                    </div>
+                  </div>
+                )}
+
+                {/* Package Header */}
+                <div className="text-center mb-6">
+                  <p className="text-sm text-gray-500 font-medium mb-1">{packages[currentPackage].subtitle}</p>
+                  <h3 className="text-2xl font-semibold mb-3">{packages[currentPackage].title}</h3>
+                  
+                  {/* Price */}
+                  <div className="flex items-baseline justify-center gap-2">
+                    {packages[currentPackage].originalPrice && (
+                      <span className="text-lg text-gray-400 line-through">{packages[currentPackage].originalPrice}</span>
+                    )}
+                    <span className="text-3xl font-bold">{packages[currentPackage].price}</span>
+                    <span className="text-gray-500 text-sm">{packages[currentPackage].unit}</span>
+                  </div>
+                  
+                  <p className="text-gray-600 text-sm mt-3">{packages[currentPackage].description}</p>
+                </div>
+
+                {/* Features - Show first 4, then expand */}
+                <ul className="space-y-3 mb-6">
+                  {packages[currentPackage].features.slice(0, showAllFeatures ? undefined : 4).map((feature, idx) => (
+                    <li key={idx} className="flex items-start gap-2.5">
+                      <div className={`w-4 h-4 rounded-full ${packages[currentPackage].accent} flex items-center justify-center shrink-0 mt-0.5`}>
+                        <Check className="h-2.5 w-2.5 text-white" />
+                      </div>
+                      <span className="text-sm text-gray-700">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Show More/Less Button */}
+                {packages[currentPackage].features.length > 4 && (
+                  <button
+                    onClick={() => setShowAllFeatures(!showAllFeatures)}
+                    className="w-full text-center text-sm text-gray-600 hover:text-gray-900 mb-4"
+                  >
+                    {showAllFeatures ? 'Show less' : `+${packages[currentPackage].features.length - 4} more features`}
+                  </button>
+                )}
+
+                {/* CTA Button */}
+                <Link
+                  href="/quote"
+                  className={`block text-center py-3 px-6 rounded-full font-medium transition-all duration-300 ${
+                    packages[currentPackage].popular
+                      ? 'bg-amber-600 text-white hover:bg-amber-700'
+                      : 'bg-gray-900 text-white hover:bg-gray-800'
+                  }`}
+                >
+                  Get Started
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Navigation Arrows */}
+            <div className="flex justify-center gap-4 mt-6">
+              <button
+                onClick={prevPackage}
+                className="p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
+                aria-label="Previous package"
+              >
+                <ChevronLeft className="w-5 h-5 text-gray-700" />
+              </button>
+              <button
+                onClick={nextPackage}
+                className="p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
+                aria-label="Next package"
+              >
+                <ChevronRight className="w-5 h-5 text-gray-700" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Packages Grid */}
+        <div className="hidden md:grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {packages.map((pkg, index) => (
             <motion.div
               key={index}
@@ -236,14 +363,14 @@ export default function FeaturedPackages() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-center mt-16"
+          className="text-center mt-12 sm:mt-16"
         >
-          <p className="text-gray-600 mb-4">
+          <p className="text-sm sm:text-base text-gray-600 mb-4">
             All packages include project management, quality assurance, and post-completion support.
           </p>
           <Link
             href="/packages"
-            className="text-lg font-medium text-gray-900 hover:text-gray-600 transition-colors"
+            className="text-base sm:text-lg font-medium text-gray-900 hover:text-gray-600 transition-colors"
           >
             View detailed specifications →
           </Link>

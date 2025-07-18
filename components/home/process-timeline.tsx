@@ -1,8 +1,7 @@
 "use client"
 
-import { motion, useInView, useScroll, useTransform } from 'framer-motion'
-import { useRef, useState } from 'react'
-import { ChevronLeft, ChevronRight, Clock } from 'lucide-react'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
 
 const steps = [
   {
@@ -35,134 +34,29 @@ export default function ProcessTimeline() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
-  const [currentStep, setCurrentStep] = useState(0)
-  
-  const nextStep = () => {
-    setCurrentStep((prev) => (prev + 1) % steps.length)
-  }
-  
-  const prevStep = () => {
-    setCurrentStep((prev) => (prev - 1 + steps.length) % steps.length)
-  }
-
   return (
-    <section ref={ref} className="py-16 md:py-32 bg-gradient-to-b from-gray-50 to-white">
-      <div className="container mx-auto px-4 md:px-8">
+    <section ref={ref} className="py-32 bg-gradient-to-b from-gray-50 to-white">
+      <div className="container mx-auto px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-10 md:mb-20 mt-8 md:mt-16"
+          className="text-center mb-20 mt-16"
         >
-          <span className="text-xs md:text-sm font-medium text-gray-500 tracking-[0.2em] uppercase">
+          <span className="text-sm font-medium text-gray-500 tracking-[0.2em] uppercase">
             OUR PROCESS
           </span>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold mt-4 mb-4 md:mb-6 tracking-[-0.03em]">
+          <h2 className="text-5xl md:text-6xl font-semibold mt-4 mb-6 tracking-[-0.03em]">
             From Vision to Reality
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             A thoughtfully guided journey from concept to completion.
           </p>
         </motion.div>
 
-        {/* Mobile Carousel View */}
-        <div className="md:hidden relative">
-          <div className="relative bg-white rounded-2xl shadow-lg mx-4 overflow-hidden">
-            {/* Progress Bar */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gray-100">
-              <motion.div 
-                className="h-full bg-gradient-to-r from-blue-500 to-cyan-500"
-                initial={{ width: "0%" }}
-                animate={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
-                transition={{ duration: 0.3 }}
-              />
-            </div>
-            
-            {/* Card Content */}
-            <div className="p-6">
-              <motion.div
-                key={currentStep}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="text-center mb-6">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
-                    className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mb-4"
-                  >
-                    <span className="text-3xl font-bold text-gray-900">
-                      {steps[currentStep].phase}
-                    </span>
-                  </motion.div>
-                  
-                  <span className="text-xs font-medium text-gray-500 tracking-[0.2em] uppercase block mb-2">
-                    PHASE {steps[currentStep].phase}
-                  </span>
-                  
-                  <h3 className="text-2xl font-semibold mb-4">
-                    {steps[currentStep].title}
-                  </h3>
-                  
-                  <p className="text-gray-600 mb-4 leading-relaxed">
-                    {steps[currentStep].description}
-                  </p>
-                  
-                  <div className="flex items-center justify-center gap-2 text-sm text-gray-700">
-                    <Clock className="w-4 h-4" />
-                    <span>Duration: {steps[currentStep].duration}</span>
-                  </div>
-                </div>
-              </motion.div>
-              
-              {/* Navigation Dots */}
-              <div className="flex justify-center gap-2 mt-6">
-                {steps.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentStep(index)}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      index === currentStep 
-                        ? 'w-8 bg-gray-900' 
-                        : 'w-2 bg-gray-300 hover:bg-gray-400'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-            
-            {/* Navigation Arrows */}
-            <button
-              onClick={prevStep}
-              className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-white/80 backdrop-blur-sm rounded-full shadow-md hover:bg-white transition-colors"
-              aria-label="Previous step"
-            >
-              <ChevronLeft className="w-5 h-5 text-gray-700" />
-            </button>
-            
-            <button
-              onClick={nextStep}
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-white/80 backdrop-blur-sm rounded-full shadow-md hover:bg-white transition-colors"
-              aria-label="Next step"
-            >
-              <ChevronRight className="w-5 h-5 text-gray-700" />
-            </button>
-          </div>
-          
-          {/* CTA Button */}
-          <div className="mt-6 px-4">
-            <button className="w-full bg-gray-900 text-white py-3 px-6 rounded-full font-medium hover:bg-gray-800 transition-colors">
-              Chat with Neha - Project Manager!
-            </button>
-          </div>
-        </div>
-
-        {/* Desktop Timeline */}
-        <div className="hidden md:block relative max-w-5xl mx-auto">
+        {/* Timeline */}
+        <div className="relative max-w-5xl mx-auto">
           {/* Vertical Line */}
           <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[2px] bg-gray-300 md:-translate-x-1/2" />
 

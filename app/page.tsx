@@ -28,9 +28,6 @@ const LeadMagnet = dynamic(() => import('@/components/lead-magnet-apple'), {
   ssr: false
 })
 
-const PremiumSupportWidget = dynamic(() => import('@/components/premium-support-widget'), {
-  ssr: false
-})
 
 
 export default function Home() {
@@ -77,7 +74,6 @@ export default function Home() {
       
       {/* Floating Interactive Elements */}
       <LeadMagnet />
-      <PremiumSupportWidget />
     </main>
   )
 }
