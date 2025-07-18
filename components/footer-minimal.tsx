@@ -97,7 +97,7 @@ export default function FooterMinimal() {
       )}
 
       <footer className="bg-[#1c1c1c] text-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-12 pb-8">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-12 pb-24 sm:pb-8">
           {/* Main Footer Content */}
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-x-12">
             {/* Brand Column */}

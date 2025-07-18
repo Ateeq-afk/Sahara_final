@@ -24,7 +24,7 @@ const allTools = [
     description: 'Our AI-powered calculator provides detailed cost breakdowns for your project.',
     icon: Calculator,
     color: 'from-blue-500 to-cyan-500',
-    link: '/tools',
+    link: '/tools#cost-calculator',
     demo: '₹1,650 - ₹6,000 per sq ft',
     features: ['Quality levels', 'Add-ons pricing', 'Download estimates']
   },
@@ -35,7 +35,7 @@ const allTools = [
     description: 'AI predicts project completion dates considering Bangalore weather patterns.',
     icon: Clock,
     color: 'from-green-500 to-emerald-500',
-    link: '/tools',
+    link: '/tools#timeline-estimator',
     demo: '4-18 months typical',
     features: ['Weather impact', 'Fast-track options', 'Gantt charts']
   },
@@ -57,7 +57,7 @@ const allTools = [
     description: 'Ensure your project meets all Bangalore building regulations.',
     icon: CheckCircle,
     color: 'from-orange-500 to-red-500',
-    link: '/tools',
+    link: '/tools#compliance-checker',
     demo: 'Instant compliance report',
     features: ['BBMP rules', 'Document checklist', 'Approval timeline']
   },
@@ -68,7 +68,7 @@ const allTools = [
     description: 'Get real-time updates with video walkthroughs of your project.',
     icon: Video,
     color: 'from-indigo-500 to-purple-500',
-    link: '/tools',
+    link: '/tools#virtual-site-visit',
     demo: 'Live video tours',
     features: ['360° views', 'Progress tracking', 'Expert commentary']
   }

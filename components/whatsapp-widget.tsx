@@ -178,14 +178,14 @@ const WhatsAppWidget = () => {
     <>
       {/* Floating WhatsApp Button */}
       <motion.div
-        className="fixed bottom-6 right-6 z-50"
+        className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-50"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 2, type: "spring", stiffness: 200 }}
       >
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
-          className="relative w-16 h-16 bg-green-500 hover:bg-green-600 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300"
+          className="relative w-14 h-14 sm:w-16 sm:h-16 bg-green-500 hover:bg-green-600 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -208,7 +208,7 @@ const WhatsAppWidget = () => {
                 exit={{ rotate: -90, opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <MessageCircle className="h-7 w-7 text-white" />
+                <MessageCircle className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
               </motion.div>
             )}
           </AnimatePresence>
@@ -247,7 +247,7 @@ const WhatsAppWidget = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed bottom-24 right-6 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-40"
+            className="fixed bottom-36 sm:bottom-24 right-4 sm:right-6 w-[90vw] sm:w-80 md:w-96 max-w-[400px] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-40"
           >
             {/* Header */}
             <div className="bg-green-500 text-white p-4">

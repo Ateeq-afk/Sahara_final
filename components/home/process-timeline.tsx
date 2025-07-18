@@ -1,7 +1,12 @@
 "use client"
 
 import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
+import dynamic from 'next/dynamic'
+
+const ProcessTimelineMobile = dynamic(() => import('./process-timeline-mobile'), {
+  ssr: false
+})
 
 const steps = [
   {
@@ -33,6 +38,21 @@ const steps = [
 export default function ProcessTimeline() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  // Show mobile version on small screens
+  if (isMobile) {
+    return <ProcessTimelineMobile />
+  }
 
   return (
     <section ref={ref} className="py-32 bg-gradient-to-b from-gray-50 to-white">

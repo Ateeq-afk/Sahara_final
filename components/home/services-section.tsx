@@ -4,7 +4,7 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Plus, ChevronRight } from 'lucide-react'
+import { ArrowRight, Plus } from 'lucide-react'
 
 const services = [
   {
@@ -49,17 +49,12 @@ export default function ServicesSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [hoveredService, setHoveredService] = useState<string | null>(null)
-  const [showScrollHint, setShowScrollHint] = useState(true)
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
   })
   
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.6, 1, 1, 0.6])
-  
-  const handleScroll = () => {
-    setShowScrollHint(false)
-  }
 
   return (
     <section ref={ref} className="py-24 sm:py-32 lg:py-40 bg-[#fbfbfd]">
@@ -95,24 +90,8 @@ export default function ServicesSection() {
           </motion.p>
         </motion.div>
 
-        {/* Services - Mobile Horizontal Scroll */}
-        <div className="sm:hidden -mx-6 px-6 overflow-x-auto pb-4 relative" onScroll={handleScroll}>
-          {/* Scroll Hint */}
-          {showScrollHint && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute right-6 top-1/2 -translate-y-1/2 z-10 pointer-events-none"
-            >
-              <div className="bg-black/70 text-white px-3 py-1.5 rounded-full text-xs flex items-center gap-1">
-                <span>Swipe for more</span>
-                <ChevronRight className="w-3 h-3" />
-              </div>
-            </motion.div>
-          )}
-          
-          <div className="flex gap-4" style={{ width: 'max-content' }}>
+        {/* Services - Mobile Grid */}
+        <div className="sm:hidden grid grid-cols-1 gap-4">
             {services.map((service, index) => (
               <motion.div
                 key={service.id}
@@ -126,10 +105,9 @@ export default function ServicesSection() {
                 onMouseEnter={() => setHoveredService(service.id)}
                 onMouseLeave={() => setHoveredService(null)}
                 className="group relative"
-                style={{ width: '85vw', maxWidth: '400px' }}
               >
                 <Link href={service.href}>
-                  <div className="relative h-[450px] rounded-2xl overflow-hidden bg-gray-100 cursor-pointer">
+                  <div className="relative h-[300px] rounded-2xl overflow-hidden bg-gray-100 cursor-pointer">
                     {/* Image with Parallax */}
                     <motion.div
                       className="absolute inset-0"
@@ -218,7 +196,6 @@ export default function ServicesSection() {
                 </Link>
               </motion.div>
             ))}
-          </div>
         </div>
 
         {/* Services Grid - Tablet and Desktop */}
