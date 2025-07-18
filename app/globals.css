@@ -260,6 +260,19 @@
   /* Smooth scrolling */
   html {
     scroll-behavior: smooth;
+    /* Enable smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Ensure body can scroll on all devices */
+  body {
+    /* Prevent iOS bounce effect while allowing scroll */
+    overscroll-behavior: none;
+    /* Ensure body is scrollable */
+    overflow-y: auto;
+    /* Fix for some mobile browsers */
+    position: relative;
+    min-height: 100vh;
   }
   
   /* Premium focus states */

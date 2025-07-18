@@ -130,10 +130,11 @@
     font-size: 16px !important;
   }
 
-  /* Fix iOS scroll bounce */
+  /* Fix iOS scroll bounce - removed position:fixed to allow scrolling */
   body {
-    position: fixed;
-    width: 100%;
+    /* position: fixed; - REMOVED: This was preventing all scrolling */
+    /* width: 100%; - REMOVED: This was part of the scroll prevention */
+    -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
   }
 
   /* Better iOS tap highlight */

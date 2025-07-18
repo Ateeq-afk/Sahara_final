@@ -1,6 +1,7 @@
 import './globals.css';
 import './apple-minimal.css';
 import './mobile-optimizations.css';
+import './mobile-scroll-fix.css';
 import type { Metadata } from 'next';
 import { ThemeProvider } from '@/components/theme-provider';
 import NavbarMinimal from '@/components/navbar-minimal';
@@ -8,6 +9,7 @@ import FooterMinimal from '@/components/footer-minimal';
 import { Toaster } from '@/components/ui/toaster';
 import ErrorBoundary from '@/components/error-boundary';
 import NextAuthSessionProvider from '@/components/providers/session-provider';
+import WhatsAppWidget from '@/components/whatsapp-widget';
 
 
 export const metadata: Metadata = {
@@ -250,12 +252,13 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <ErrorBoundary>
-              <div className="flex min-h-screen flex-col">
+              <div className="flex min-h-screen flex-col relative">
                 <NavbarMinimal />
-                <main className="flex-1 pt-20">{children}</main>
+                <main className="flex-1 pt-20 overflow-x-hidden">{children}</main>
                 <FooterMinimal />
               </div>
               <Toaster />
+              <WhatsAppWidget />
             </ErrorBoundary>
           </ThemeProvider>
         </NextAuthSessionProvider>
