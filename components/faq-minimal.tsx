@@ -8,31 +8,26 @@ const faqs = [
   {
     question: "What is your typical project timeline?",
     answer: "Our project timelines vary based on scope and complexity. A typical residential construction project takes 12-18 months, while interior design projects usually complete within 3-6 months. We provide detailed timelines during the consultation phase.",
-    icon: "🕒",
     isMostAsked: true
   },
   {
     question: "Do you offer design consultations?",
     answer: "Yes, we offer comprehensive design consultations. Our team of experienced architects and interior designers will work with you to understand your vision and create a personalized design plan that meets your needs and budget.",
-    icon: "🎨",
     isMostAsked: true
   },
   {
     question: "What areas do you serve?",
     answer: "We primarily serve Bangalore and surrounding areas. Our main service areas include BTM Layout, JP Nagar, Jayanagar, Koramangala, HSR Layout, and Electronic City, though we do take select projects in other parts of Bangalore.",
-    icon: "📍",
     isMostAsked: false
   },
   {
     question: "How do you ensure quality construction?",
     answer: "We maintain strict quality standards through regular inspections, use of premium materials, and employment of skilled craftsmen. Each project has a dedicated project manager who ensures all work meets our high standards.",
-    icon: "🔧",
     isMostAsked: false
   },
   {
     question: "What is your payment structure?",
     answer: "We offer flexible payment structures tailored to each project. Typically, we work with milestone-based payments that align with project progress. Detailed payment schedules are provided in our contracts.",
-    icon: "💳",
     isMostAsked: false
   }
 ]
@@ -79,9 +74,6 @@ export default function FAQMinimal() {
                   className="w-full px-6 py-6 flex items-center justify-between text-left transition-all duration-300 group"
                 >
                   <div className="flex items-center gap-4 pr-4">
-                    {/* Context-specific emoji */}
-                    <span className="text-2xl flex-shrink-0">{faq.icon}</span>
-                    
                     {/* Question with Most Asked badge */}
                     <div className="flex items-start flex-col gap-1 flex-1">
                       <span className="text-lg font-medium text-gray-900 group-hover:text-gray-700 transition-colors">
