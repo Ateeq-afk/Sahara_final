@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Download, FileText, CheckCircle, X, ArrowRight, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -66,6 +66,18 @@ export default function LeadMagnet() {
   const [phone, setPhone] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const handleDownload = async () => {
     if (!email || !name || !phone || !selectedGuide) return
@@ -148,7 +160,7 @@ export default function LeadMagnet() {
         initial={{ opacity: 0, x: -100 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 3, duration: 0.5 }}
-        className="fixed left-0 top-1/2 -translate-y-1/2 z-40"
+        className={`fixed left-0 ${isMobile ? 'bottom-20' : 'top-1/2 -translate-y-1/2'} z-30 ${isMobile ? 'scale-90' : ''}`}
       >
         <motion.button
           onClick={() => setIsOpen(true)}
@@ -174,7 +186,7 @@ export default function LeadMagnet() {
       <AnimatePresence>
         {isOpen && (
           <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogContent className="max-w-4xl w-[95vw] md:w-full max-h-[90vh] overflow-y-auto bg-gray-50 border-0 p-4 sm:p-6">
+            <DialogContent className="max-w-4xl w-[95vw] md:w-full max-h-[90vh] overflow-y-auto bg-gray-50 border-0 p-4 sm:p-6 !z-40 [&>div:first-child]:!z-40">
               {!selectedGuide ? (
                 <>
                   <DialogHeader className="text-center pb-0">

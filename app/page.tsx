@@ -22,6 +22,7 @@ const SmartToolsBanner = dynamic(() => import('@/components/home/smart-tools-ban
   loading: () => <div className="h-64 bg-gray-900 animate-pulse" />
 })
 
+
 // Import floating components
 const LeadMagnet = dynamic(() => import('@/components/lead-magnet-apple'), {
   ssr: false

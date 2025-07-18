@@ -254,7 +254,7 @@ export default function RootLayout({
             <ErrorBoundary>
               <div className="flex min-h-screen flex-col relative">
                 <NavbarMinimal />
-                <main className="flex-1 pt-20 overflow-x-hidden">{children}</main>
+                <main className="flex-1 pt-16 overflow-x-hidden">{children}</main>
                 <FooterMinimal />
               </div>
               <Toaster />

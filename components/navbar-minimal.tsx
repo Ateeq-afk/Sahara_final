@@ -66,7 +66,7 @@ export default function NavbarMinimal() {
   }, [isMobileMenuOpen])
   
   return (
-    <nav className={`sticky top-0 w-full z-50 transition-all duration-300 ${
+    <nav className={`fixed top-0 w-full z-[90] transition-all duration-300 ${
       isScrolled 
         ? 'bg-white/80 backdrop-blur-xl shadow-sm' 
         : 'bg-white/60 backdrop-blur-md'
@@ -122,7 +122,7 @@ export default function NavbarMinimal() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="md:hidden fixed top-16 left-0 right-0 bottom-0 z-50 bg-white border-b border-gray-200/50 shadow-lg overflow-y-auto -webkit-overflow-scrolling-touch"
+            className="md:hidden fixed top-16 left-0 right-0 z-[100] bg-white border-b border-gray-200/50 shadow-lg max-h-[calc(100vh-4rem)] overflow-y-auto -webkit-overflow-scrolling-touch"
           >
             <div className="max-w-[980px] mx-auto px-5 py-2">
               {navItems.map((item) => (

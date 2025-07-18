@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, MessageSquare, Youtube, ArrowUp, ArrowRight } from 'lucide-react'
+import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, MessageSquare, Youtube, ArrowUp, ArrowRight, ChevronDown } from 'lucide-react'
 
 const footerLinks = {
   services: [
@@ -36,6 +36,8 @@ const footerLinks = {
 
 export default function FooterMinimal() {
   const [showBackToTop, setShowBackToTop] = useState(false)
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({})
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,14 +47,31 @@ export default function FooterMinimal() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  const toggleSection = (section: string) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }))
+  }
+
   return (
     <>
-      {/* CTA Section above footer */}
-      <section className="bg-gray-50 py-12">
+      {/* CTA Section above footer - Hidden on mobile */}
+      {!isMobile && (
+        <section className="bg-gray-50 py-12">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div 
             className="flex flex-col md:flex-row items-center justify-between gap-6"
@@ -75,6 +94,7 @@ export default function FooterMinimal() {
           </motion.div>
         </div>
       </section>
+      )}
 
       <footer className="bg-[#1c1c1c] text-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-12 pb-8">
@@ -83,9 +103,11 @@ export default function FooterMinimal() {
             {/* Brand Column */}
             <section className="lg:col-span-1 space-y-4" aria-labelledby="company-heading">
               <h3 id="company-heading" className="font-semibold text-lg mb-4">Sahara Developers</h3>
-              <p className="text-gray-400 text-sm mb-6 leading-relaxed">
-                Crafting exceptional spaces in Bangalore for over 20 years.
-              </p>
+              {!isMobile && (
+                <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                  Crafting exceptional spaces in Bangalore for over 20 years.
+                </p>
+              )}
               
               {/* Contact Info */}
               <address className="space-y-3 not-italic text-sm">
@@ -109,32 +131,36 @@ export default function FooterMinimal() {
                   <span>Chat on WhatsApp</span>
                 </motion.a>
                 
-                <motion.a 
-                  href="mailto:info@saharadevelopers.in" 
-                  className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
-                  whileHover={{ x: 2 }}
-                >
-                  <Mail className="w-4 h-4" />
-                  <span>info@saharadevelopers.in</span>
-                </motion.a>
-                
-                <motion.div className="space-y-1">
-                  <motion.a 
-                    href="https://maps.google.com/?q=100-feet+Ring+Road+8th+Main+Road+BTM+Layout+1st+Stage+Bangalore+560029" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-start gap-3 text-gray-400 hover:text-white transition-colors"
-                    whileHover={{ x: 2 }}
-                  >
-                    <MapPin className="w-4 h-4 mt-0.5" />
-                    <div>
-                      <p>100-feet Ring Road, 8th Main Road</p>
-                      <p>BTM Layout 1st Stage</p>
-                      <p>Bangalore - 560029</p>
-                    </div>
-                  </motion.a>
-                  <p className="text-gray-500 text-xs ml-7">Mon-Sat: 9:00 AM - 6:00 PM</p>
-                </motion.div>
+                {!isMobile && (
+                  <>
+                    <motion.a 
+                      href="mailto:info@saharadevelopers.in" 
+                      className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
+                      whileHover={{ x: 2 }}
+                    >
+                      <Mail className="w-4 h-4" />
+                      <span>info@saharadevelopers.in</span>
+                    </motion.a>
+                    
+                    <motion.div className="space-y-1">
+                      <motion.a 
+                        href="https://maps.google.com/?q=100-feet+Ring+Road+8th+Main+Road+BTM+Layout+1st+Stage+Bangalore+560029" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-start gap-3 text-gray-400 hover:text-white transition-colors"
+                        whileHover={{ x: 2 }}
+                      >
+                        <MapPin className="w-4 h-4 mt-0.5" />
+                        <div>
+                          <p>100-feet Ring Road, 8th Main Road</p>
+                          <p>BTM Layout 1st Stage</p>
+                          <p>Bangalore - 560029</p>
+                        </div>
+                      </motion.a>
+                      <p className="text-gray-500 text-xs ml-7">Mon-Sat: 9:00 AM - 6:00 PM</p>
+                    </motion.div>
+                  </>
+                )}
               </address>
               
               {/* Social Media Links */}
@@ -194,25 +220,52 @@ export default function FooterMinimal() {
             
             {/* Services Column */}
             <nav className="lg:col-span-1" aria-label="Services navigation">
-              <h4 className="font-semibold text-base mb-4">Services</h4>
-              <ul className="space-y-2">
-                {footerLinks.services.map((link) => (
-                  <li key={link.href}>
-                    <Link 
-                      href={link.href} 
-                      className="text-[15px] text-gray-400 hover:text-white transition-colors inline-block"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <div className={isMobile ? 'border-b border-gray-800/50 pb-4' : ''}>
+                <button
+                  onClick={() => isMobile && toggleSection('services')}
+                  className={`font-semibold text-base mb-4 w-full flex items-center justify-between ${isMobile ? 'cursor-pointer' : 'cursor-default'}`}
+                >
+                  Services
+                  {isMobile && (
+                    <ChevronDown 
+                      className={`w-4 h-4 transition-transform duration-200 ${expandedSections.services ? 'rotate-180' : ''}`}
+                    />
+                  )}
+                </button>
+                <motion.ul 
+                  className={`space-y-2 ${isMobile && !expandedSections.services ? 'hidden' : ''}`}
+                  initial={false}
+                  animate={{ height: isMobile && !expandedSections.services ? 0 : 'auto' }}
+                >
+                  {footerLinks.services.map((link) => (
+                    <li key={link.href}>
+                      <Link 
+                        href={link.href} 
+                        className="text-[15px] text-gray-400 hover:text-white transition-colors inline-block"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </motion.ul>
+              </div>
             </nav>
             
             {/* Explore Column - Merged */}
             <nav className="lg:col-span-2" aria-label="Explore navigation">
-              <h4 className="font-semibold text-base mb-4">Explore</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <div className={isMobile ? 'border-b border-gray-800/50 pb-4' : ''}>
+                <button
+                  onClick={() => isMobile && toggleSection('explore')}
+                  className={`font-semibold text-base mb-4 w-full flex items-center justify-between ${isMobile ? 'cursor-pointer' : 'cursor-default'}`}
+                >
+                  Explore
+                  {isMobile && (
+                    <ChevronDown 
+                      className={`w-4 h-4 transition-transform duration-200 ${expandedSections.explore ? 'rotate-180' : ''}`}
+                    />
+                  )}
+                </button>
+                <div className={`grid grid-cols-1 sm:grid-cols-3 gap-6 ${isMobile && !expandedSections.explore ? 'hidden' : ''}`}>
                 {/* Company Subgroup */}
                 <div>
                   <h5 className="text-sm font-medium text-gray-300 mb-2">Company</h5>
@@ -264,6 +317,7 @@ export default function FooterMinimal() {
                   </ul>
                 </div>
               </div>
+              </div>
             </nav>
           </div>
           
@@ -274,29 +328,43 @@ export default function FooterMinimal() {
                 <p className="text-gray-400 text-sm">
                   © 2024 Sahara Developers. All rights reserved.
                 </p>
-                <p className="text-gray-500 text-xs mt-1">
-                  RERA Registration: PRM/KA/RERA/1251/309/PR/180905/002345
-                </p>
+                {!isMobile && (
+                  <p className="text-gray-500 text-xs mt-1">
+                    RERA Registration: PRM/KA/RERA/1251/309/PR/180905/002345
+                  </p>
+                )}
               </div>
               
               {/* Legal Links */}
-              <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 text-xs text-gray-500">
-                <Link href="/privacy" className="hover:text-gray-300 transition-colors">
-                  Privacy Policy
-                </Link>
-                <span className="text-gray-700">•</span>
-                <Link href="/terms" className="hover:text-gray-300 transition-colors">
-                  Terms & Conditions
-                </Link>
-                <span className="text-gray-700">•</span>
-                <Link href="/disclaimer" className="hover:text-gray-300 transition-colors">
-                  Disclaimer
-                </Link>
-                <span className="text-gray-700">•</span>
-                <Link href="/sitemap" className="hover:text-gray-300 transition-colors">
-                  Sitemap
-                </Link>
-              </div>
+              {isMobile ? (
+                <div className="flex items-center gap-3 text-xs text-gray-500">
+                  <Link href="/privacy" className="hover:text-gray-300 transition-colors">
+                    Privacy
+                  </Link>
+                  <span className="text-gray-700">•</span>
+                  <Link href="/terms" className="hover:text-gray-300 transition-colors">
+                    Terms
+                  </Link>
+                </div>
+              ) : (
+                <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 text-xs text-gray-500">
+                  <Link href="/privacy" className="hover:text-gray-300 transition-colors">
+                    Privacy Policy
+                  </Link>
+                  <span className="text-gray-700">•</span>
+                  <Link href="/terms" className="hover:text-gray-300 transition-colors">
+                    Terms & Conditions
+                  </Link>
+                  <span className="text-gray-700">•</span>
+                  <Link href="/disclaimer" className="hover:text-gray-300 transition-colors">
+                    Disclaimer
+                  </Link>
+                  <span className="text-gray-700">•</span>
+                  <Link href="/sitemap" className="hover:text-gray-300 transition-colors">
+                    Sitemap
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>
