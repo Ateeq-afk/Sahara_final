@@ -141,7 +141,7 @@ const materialPartners = [
 ]
 
 const TrustedPartners = () => {
-  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})}
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
   const [isMobile, setIsMobile] = useState(false)
   const bankingScrollRef = useRef<HTMLDivElement>(null)
   const materialScrollRef = useRef<HTMLDivElement>(null)
