@@ -358,22 +358,13 @@ export default function BlogPage() {
             
             <form 
               name="newsletter-blog"
-              method="POST"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
               className="flex gap-4 max-w-md mx-auto"
               onSubmit={(e) => {
                 e.preventDefault();
-                // You can add custom submission logic here if needed
-                const form = e.target as HTMLFormElement;
-                form.submit();
+                // TODO: Implement newsletter subscription
+                console.log('Newsletter subscription submitted');
               }}
             >
-              {/* Hidden fields for Netlify */}
-              <input type="hidden" name="form-name" value="newsletter-blog" />
-              <div hidden>
-                <input name="bot-field" />
-              </div>
               
               <Input
                 type="email"

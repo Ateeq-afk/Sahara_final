@@ -301,18 +301,10 @@ export default function LeadMagnet() {
                     {/* Form */}
                     <form 
                       name="lead-magnet"
-                      method="POST"
-                      data-netlify="true"
-                      data-netlify-honeypot="bot-field"
                       onSubmit={(e) => { e.preventDefault(); handleDownload(); }} 
                       className="space-y-6"
                     >
-                      {/* Hidden fields for Netlify */}
-                      <input type="hidden" name="form-name" value="lead-magnet" />
                       <input type="hidden" name="guide" value={selectedGuide?.title || ''} />
-                      <div hidden>
-                        <input name="bot-field" />
-                      </div>
                       
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
