@@ -163,7 +163,7 @@ export default function ContactSectionMinimal() {
     </section>
 
     {/* Floating Mobile Action Buttons */}
-    <div className="fixed bottom-6 right-6 flex flex-col gap-3 md:hidden z-50">
+    <div className="fixed bottom-20 right-6 flex flex-col gap-3 md:hidden z-50">
       <motion.a
         href="tel:+919591837216"
         whileHover={{ scale: 1.1 }}

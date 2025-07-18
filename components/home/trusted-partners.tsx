@@ -2,8 +2,9 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Building2, Banknote, Package2, HomeIcon } from 'lucide-react'
-import { useState } from 'react'
+import { Building2, Banknote, Package2, HomeIcon, ChevronLeft, ChevronRight } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+import './trusted-partners.css'
 
 const bankingPartners = [
   { 
@@ -140,7 +141,46 @@ const materialPartners = [
 ]
 
 const TrustedPartners = () => {
-  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})}
+  const [isMobile, setIsMobile] = useState(false)
+  const bankingScrollRef = useRef<HTMLDivElement>(null)
+  const materialScrollRef = useRef<HTMLDivElement>(null)
+  const [canScrollBankingLeft, setCanScrollBankingLeft] = useState(false)
+  const [canScrollBankingRight, setCanScrollBankingRight] = useState(true)
+  const [canScrollMaterialLeft, setCanScrollMaterialLeft] = useState(false)
+  const [canScrollMaterialRight, setCanScrollMaterialRight] = useState(true)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  const checkScrollButtons = (ref: React.RefObject<HTMLDivElement>, setCanScrollLeft: Function, setCanScrollRight: Function) => {
+    if (ref.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = ref.current
+      setCanScrollLeft(scrollLeft > 0)
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
+    }
+  }
+
+  useEffect(() => {
+    checkScrollButtons(bankingScrollRef, setCanScrollBankingLeft, setCanScrollBankingRight)
+    checkScrollButtons(materialScrollRef, setCanScrollMaterialLeft, setCanScrollMaterialRight)
+  }, [isMobile])
+
+  const scroll = (ref: React.RefObject<HTMLDivElement>, direction: 'left' | 'right') => {
+    if (ref.current) {
+      const scrollAmount = 200
+      ref.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      })
+    }
+  }
 
   const handleImageError = (partnerName: string, fallbackUrl: string) => {
     setImageErrors(prev => ({ ...prev, [partnerName]: true }))
@@ -211,33 +251,89 @@ const TrustedPartners = () => {
             <h3 className="text-xl font-medium text-gray-900">Banking Partners</h3>
           </div>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-            {bankingPartners.map((partner, index) => (
-              <motion.div 
-                key={index}
-                variants={itemVariants}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-                className="group cursor-pointer"
-                onClick={() => handlePartnerClick(partner)}
+          {isMobile ? (
+            <div className="relative">
+              {/* Scroll Buttons */}
+              {canScrollBankingLeft && (
+                <button
+                  onClick={() => scroll(bankingScrollRef, 'left')}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+              )}
+              {canScrollBankingRight && (
+                <button
+                  onClick={() => scroll(bankingScrollRef, 'right')}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              )}
+              
+              {/* Scrollable Container */}
+              <div
+                ref={bankingScrollRef}
+                onScroll={() => checkScrollButtons(bankingScrollRef, setCanScrollBankingLeft, setCanScrollBankingRight)}
+                className="flex overflow-x-auto scrollbar-hide gap-3 pb-2 -mx-6 px-6 scroll-smooth"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
-                <div className="bg-gray-50 rounded-xl p-8 h-32 flex items-center justify-center transition-all duration-300 hover:bg-gray-100 hover:shadow-sm">
-                  <div className="relative w-full max-w-[100px] h-8 flex items-center justify-center">
-                    <Image
-                      src={getImageSrc(partner)}
-                      alt={partner.name}
-                      fill
-                      loading="lazy"
-                      sizes="100px"
-                      className="object-contain max-h-8 transition-all duration-500 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100"
-                      onError={() => handleImageError(partner.name, partner.fallback)}
-                      style={{ maxHeight: '32px' }}
-                    />
+                {bankingPartners.map((partner, index) => (
+                  <motion.div 
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className="group cursor-pointer flex-shrink-0 w-[160px]"
+                    onClick={() => handlePartnerClick(partner)}
+                  >
+                    <div className="bg-gray-50 rounded-xl p-6 h-28 flex items-center justify-center transition-all duration-300 hover:bg-gray-100 hover:shadow-sm">
+                      <div className="relative w-full max-w-[80px] h-6 flex items-center justify-center">
+                        <Image
+                          src={getImageSrc(partner)}
+                          alt={partner.name}
+                          fill
+                          loading="lazy"
+                          sizes="80px"
+                          className="object-contain max-h-6 transition-all duration-500 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100"
+                          onError={() => handleImageError(partner.name, partner.fallback)}
+                          style={{ maxHeight: '24px' }}
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              {bankingPartners.map((partner, index) => (
+                <motion.div 
+                  key={index}
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group cursor-pointer"
+                  onClick={() => handlePartnerClick(partner)}
+                >
+                  <div className="bg-gray-50 rounded-xl p-8 h-32 flex items-center justify-center transition-all duration-300 hover:bg-gray-100 hover:shadow-sm">
+                    <div className="relative w-full max-w-[100px] h-8 flex items-center justify-center">
+                      <Image
+                        src={getImageSrc(partner)}
+                        alt={partner.name}
+                        fill
+                        loading="lazy"
+                        sizes="100px"
+                        className="object-contain max-h-8 transition-all duration-500 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100"
+                        onError={() => handleImageError(partner.name, partner.fallback)}
+                        style={{ maxHeight: '32px' }}
+                      />
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </motion.div>
 
         {/* Material Partners */}
@@ -254,33 +350,89 @@ const TrustedPartners = () => {
             <h3 className="text-xl font-medium text-gray-900">Material Partners</h3>
           </div>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-            {materialPartners.map((partner, index) => (
-              <motion.div 
-                key={index}
-                variants={itemVariants}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-                className="group cursor-pointer"
-                onClick={() => handlePartnerClick(partner)}
+          {isMobile ? (
+            <div className="relative">
+              {/* Scroll Buttons */}
+              {canScrollMaterialLeft && (
+                <button
+                  onClick={() => scroll(materialScrollRef, 'left')}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+              )}
+              {canScrollMaterialRight && (
+                <button
+                  onClick={() => scroll(materialScrollRef, 'right')}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              )}
+              
+              {/* Scrollable Container */}
+              <div
+                ref={materialScrollRef}
+                onScroll={() => checkScrollButtons(materialScrollRef, setCanScrollMaterialLeft, setCanScrollMaterialRight)}
+                className="flex overflow-x-auto scrollbar-hide gap-3 pb-2 -mx-6 px-6 scroll-smooth"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
-                <div className="bg-gray-50 rounded-xl p-8 h-32 flex items-center justify-center transition-all duration-300 hover:bg-gray-100 hover:shadow-sm">
-                  <div className="relative w-full max-w-[100px] h-8 flex items-center justify-center">
-                    <Image
-                      src={getImageSrc(partner)}
-                      alt={partner.name}
-                      fill
-                      loading="lazy"
-                      sizes="100px"
-                      className="object-contain max-h-8 transition-all duration-500 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100"
-                      onError={() => handleImageError(partner.name, partner.fallback)}
-                      style={{ maxHeight: '32px' }}
-                    />
+                {materialPartners.map((partner, index) => (
+                  <motion.div 
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className="group cursor-pointer flex-shrink-0 w-[160px]"
+                    onClick={() => handlePartnerClick(partner)}
+                  >
+                    <div className="bg-gray-50 rounded-xl p-6 h-28 flex items-center justify-center transition-all duration-300 hover:bg-gray-100 hover:shadow-sm">
+                      <div className="relative w-full max-w-[80px] h-6 flex items-center justify-center">
+                        <Image
+                          src={getImageSrc(partner)}
+                          alt={partner.name}
+                          fill
+                          loading="lazy"
+                          sizes="80px"
+                          className="object-contain max-h-6 transition-all duration-500 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100"
+                          onError={() => handleImageError(partner.name, partner.fallback)}
+                          style={{ maxHeight: '24px' }}
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              {materialPartners.map((partner, index) => (
+                <motion.div 
+                  key={index}
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group cursor-pointer"
+                  onClick={() => handlePartnerClick(partner)}
+                >
+                  <div className="bg-gray-50 rounded-xl p-8 h-32 flex items-center justify-center transition-all duration-300 hover:bg-gray-100 hover:shadow-sm">
+                    <div className="relative w-full max-w-[100px] h-8 flex items-center justify-center">
+                      <Image
+                        src={getImageSrc(partner)}
+                        alt={partner.name}
+                        fill
+                        loading="lazy"
+                        sizes="100px"
+                        className="object-contain max-h-8 transition-all duration-500 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100"
+                        onError={() => handleImageError(partner.name, partner.fallback)}
+                        style={{ maxHeight: '32px' }}
+                      />
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </motion.div>
 
         {/* Trust Indicators */}

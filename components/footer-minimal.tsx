@@ -346,7 +346,7 @@ export default function FooterMinimal() {
       {/* Back to Top Button - Mobile */}
       <motion.button
         onClick={scrollToTop}
-        className={`fixed bottom-24 right-4 md:hidden w-12 h-12 bg-gray-800 text-white rounded-full flex items-center justify-center shadow-lg z-40 transition-all duration-300 ${
+        className={`fixed bottom-20 right-4 md:hidden w-12 h-12 bg-gray-800 text-white rounded-full flex items-center justify-center shadow-lg z-40 transition-all duration-300 ${
           showBackToTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
         }`}
         whileHover={{ scale: 1.1 }}

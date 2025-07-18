@@ -4,7 +4,6 @@ import { useState } from 'react'
 import NavbarMinimal from '@/components/navbar-minimal'
 import FooterMinimal from '@/components/footer-minimal'
 import MobileBottomNav from '@/components/mobile-bottom-nav'
-import WhatsAppWidget from '@/components/whatsapp-widget'
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -20,7 +19,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         <FooterMinimal />
         <MobileBottomNav onMenuClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />
       </div>
-      <WhatsAppWidget />
     </>
   )
 }
