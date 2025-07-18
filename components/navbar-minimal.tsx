@@ -15,10 +15,17 @@ const navItems = [
   { href: '/about', label: 'About' }
 ]
 
-export default function NavbarMinimal() {
+export default function NavbarMinimal({ isMobileMenuOpen, setIsMobileMenuOpen }: { 
+  isMobileMenuOpen?: boolean; 
+  setIsMobileMenuOpen?: (open: boolean) => void 
+}) {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [localMobileMenuOpen, setLocalMobileMenuOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
+  
+  // Use props if provided, otherwise use local state
+  const menuOpen = isMobileMenuOpen ?? localMobileMenuOpen
+  const setMenuOpen = setIsMobileMenuOpen ?? setLocalMobileMenuOpen
   
   useEffect(() => {
     setMounted(true)
@@ -41,7 +48,7 @@ export default function NavbarMinimal() {
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
-    if (isMobileMenuOpen) {
+    if (menuOpen) {
       // Store current scroll position
       const scrollY = window.scrollY;
       document.body.style.position = 'fixed';
@@ -63,7 +70,7 @@ export default function NavbarMinimal() {
       document.body.style.top = '';
       document.body.style.width = '';
     }
-  }, [isMobileMenuOpen])
+  }, [menuOpen])
   
   return (
     <nav className={`fixed top-0 w-full z-[90] transition-all duration-300 ${
@@ -99,24 +106,14 @@ export default function NavbarMinimal() {
             Get Quote
           </Link>
           
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 -mr-2 text-gray-700 hover:text-gray-900 transition-colors duration-300"
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? (
-              <X className="w-5 h-5" />
-            ) : (
-              <Menu className="w-5 h-5" />
-            )}
-          </button>
+          {/* Mobile Menu Button - Hidden when using bottom nav */}
+          <div className="md:hidden w-10"></div>
         </div>
       </div>
       
       {/* Mobile Menu */}
       <AnimatePresence>
-        {isMobileMenuOpen && (
+        {menuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -130,7 +127,7 @@ export default function NavbarMinimal() {
                   key={item.href}
                   href={item.href}
                   className="block py-2.5 text-[17px] text-gray-700 hover:text-gray-900 transition-colors duration-[250ms]"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => setMenuOpen(false)}
                 >
                   {item.label}
                 </Link>
@@ -139,7 +136,7 @@ export default function NavbarMinimal() {
                 <Link
                   href="/quote"
                   className="apple-button apple-button-primary w-full justify-center"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => setMenuOpen(false)}
                 >
                   Get Quote
                 </Link>

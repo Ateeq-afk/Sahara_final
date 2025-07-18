@@ -155,13 +155,14 @@ export default function LeadMagnet() {
 
   return (
     <>
-      {/* Professional Floating Button - Apple Style */}
-      <motion.div
-        initial={{ opacity: 0, x: -100 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 3, duration: 0.5 }}
-        className={`fixed left-0 ${isMobile ? 'bottom-20' : 'top-1/2 -translate-y-1/2'} z-30 ${isMobile ? 'scale-90' : ''}`}
-      >
+      {/* Professional Floating Button - Apple Style - Hidden on Mobile */}
+      {!isMobile && (
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 3, duration: 0.5 }}
+          className="fixed left-0 top-1/2 -translate-y-1/2 z-30"
+        >
         <motion.button
           onClick={() => setIsOpen(true)}
           className="bg-white border border-gray-200 text-gray-900 px-3 py-4 rounded-r-2xl shadow-lg hover:shadow-xl transition-all duration-300 group"
@@ -178,9 +179,10 @@ export default function LeadMagnet() {
           </div>
         </motion.button>
 
-        {/* Subtle indicator */}
-        <div className="absolute -right-1 top-4 w-2 h-2 bg-green-500 rounded-full" />
-      </motion.div>
+          {/* Subtle indicator */}
+          <div className="absolute -right-1 top-4 w-2 h-2 bg-green-500 rounded-full" />
+        </motion.div>
+      )}
 
       {/* Apple-Style Modal */}
       <AnimatePresence>

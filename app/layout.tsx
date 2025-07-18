@@ -10,6 +10,11 @@ import { Toaster } from '@/components/ui/toaster';
 import ErrorBoundary from '@/components/error-boundary';
 import NextAuthSessionProvider from '@/components/providers/session-provider';
 import WhatsAppWidget from '@/components/whatsapp-widget';
+import dynamic from 'next/dynamic';
+
+const ClientLayout = dynamic(() => import('@/components/client-layout'), {
+  ssr: false
+});
 
 
 export const metadata: Metadata = {
@@ -252,13 +257,8 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <ErrorBoundary>
-              <div className="flex min-h-screen flex-col relative">
-                <NavbarMinimal />
-                <main className="flex-1 pt-16 overflow-x-hidden">{children}</main>
-                <FooterMinimal />
-              </div>
+              <ClientLayout>{children}</ClientLayout>
               <Toaster />
-              <WhatsAppWidget />
             </ErrorBoundary>
           </ThemeProvider>
         </NextAuthSessionProvider>
