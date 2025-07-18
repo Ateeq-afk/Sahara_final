@@ -31,9 +31,6 @@ const PremiumSupportWidget = dynamic(() => import('@/components/premium-support-
   ssr: false
 })
 
-const ExitIntentPopup = dynamic(() => import('@/components/exit-intent-popup'), {
-  ssr: false
-})
 
 export default function Home() {
   return (
@@ -80,7 +77,6 @@ export default function Home() {
       {/* Floating Interactive Elements */}
       <LeadMagnet />
       <PremiumSupportWidget />
-      <ExitIntentPopup />
     </main>
   )
 }

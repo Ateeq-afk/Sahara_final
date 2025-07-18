@@ -189,7 +189,7 @@ export default function Logo({ variant = 'default', className = '' }: LogoProps)
           </filter>
         </defs>
         
-        {/* Main Typography Layout */}
+        {/* Main Typography Layout - Mobile Responsive */}
         <g>
           {/* Sahara - Bold, Dominant Typography */}
           <text 
@@ -201,13 +201,14 @@ export default function Logo({ variant = 'default', className = '' }: LogoProps)
             letterSpacing="-0.02em"
             fill="url(#saharaGradient)"
             filter="url(#textShadow)"
+            className="text-[28px] sm:text-[36px]"
           >
             Sahara
           </text>
           
           {/* Developers - Refined, Complementary Typography */}
           <text 
-            x="130" 
+            x="140" 
             y="45" 
             fontFamily="-apple-system, BlinkMacSystemFont, sans-serif" 
             fontSize="36" 
@@ -215,6 +216,7 @@ export default function Logo({ variant = 'default', className = '' }: LogoProps)
             letterSpacing="-0.01em"
             fill="url(#developersGradient)"
             filter="url(#textShadow)"
+            className="text-[28px] sm:text-[36px]"
           >
             Developers
           </text>

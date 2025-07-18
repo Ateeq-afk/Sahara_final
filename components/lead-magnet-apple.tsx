@@ -174,7 +174,7 @@ export default function LeadMagnet() {
       <AnimatePresence>
         {isOpen && (
           <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-gray-50 border-0">
+            <DialogContent className="max-w-4xl w-[95vw] md:w-full max-h-[90vh] overflow-y-auto bg-gray-50 border-0 p-4 sm:p-6">
               {!selectedGuide ? (
                 <>
                   <DialogHeader className="text-center pb-0">
@@ -302,12 +302,12 @@ export default function LeadMagnet() {
                     <form 
                       name="lead-magnet"
                       onSubmit={(e) => { e.preventDefault(); handleDownload(); }} 
-                      className="space-y-6"
+                      className="space-y-4 sm:space-y-6"
                     >
                       <input type="hidden" name="guide" value={selectedGuide?.title || ''} />
                       
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                           Full Name
                         </label>
                         <Input
@@ -316,12 +316,12 @@ export default function LeadMagnet() {
                           onChange={(e) => setName(e.target.value)}
                           placeholder="John Doe"
                           required
-                          className="h-12 rounded-xl border-gray-200 focus:border-gray-400 focus:ring-0"
+                          className="h-10 sm:h-12 rounded-lg sm:rounded-xl border-gray-200 focus:border-gray-400 focus:ring-0 text-sm sm:text-base"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                           Email Address
                         </label>
                         <Input
@@ -331,12 +331,12 @@ export default function LeadMagnet() {
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="john@example.com"
                           required
-                          className="h-12 rounded-xl border-gray-200 focus:border-gray-400 focus:ring-0"
+                          className="h-10 sm:h-12 rounded-lg sm:rounded-xl border-gray-200 focus:border-gray-400 focus:ring-0 text-sm sm:text-base"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                           Mobile Number
                         </label>
                         <Input
@@ -345,15 +345,15 @@ export default function LeadMagnet() {
                           onChange={(e) => setPhone(e.target.value)}
                           placeholder="+91 98765 43210"
                           required
-                          className="h-12 rounded-xl border-gray-200 focus:border-gray-400 focus:ring-0"
+                          className="h-10 sm:h-12 rounded-lg sm:rounded-xl border-gray-200 focus:border-gray-400 focus:ring-0 text-sm sm:text-base"
                         />
                       </div>
 
-                      <div className="pt-4">
+                      <div className="pt-3 sm:pt-4">
                         <Button
                           type="submit"
                           disabled={isSubmitting || !email || !name || !phone}
-                          className="w-full bg-gray-900 hover:bg-gray-800 text-white h-12 rounded-xl font-medium transition-colors"
+                          className="w-full bg-gray-900 hover:bg-gray-800 text-white h-10 sm:h-12 rounded-lg sm:rounded-xl font-medium transition-colors text-sm sm:text-base"
                         >
                           {isSubmitting ? (
                             <div className="flex items-center gap-2">
@@ -368,7 +368,7 @@ export default function LeadMagnet() {
                           )}
                         </Button>
                         
-                        <p className="text-xs text-gray-500 text-center mt-4">
+                        <p className="text-[10px] sm:text-xs text-gray-500 text-center mt-3 sm:mt-4">
                           By downloading, you agree to receive occasional updates. Unsubscribe anytime.
                         </p>
                       </div>
