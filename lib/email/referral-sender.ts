@@ -1,4 +1,4 @@
-import { resend } from '@/src/lib/resend';
+import { getResend } from '@/src/lib/resend';
 import { IReferral } from '@/src/models/Referral';
 
 export async function sendReferralInvitation(
@@ -72,6 +72,11 @@ export async function sendReferralInvitation(
       </html>
     `;
 
+    const resend = getResend();
+    if (!resend) {
+      console.warn('Email service not configured');
+      return;
+    }
     const { error } = await resend.emails.send({
       from: 'Sahara Developers <referrals@saharadevelopers.com>',
       to: referral.referredEmail,
@@ -157,6 +162,11 @@ export async function sendReferralRewardNotification(
       </html>
     `;
 
+    const resend = getResend();
+    if (!resend) {
+      console.warn('Email service not configured');
+      return;
+    }
     const { error } = await resend.emails.send({
       from: 'Sahara Developers <referrals@saharadevelopers.com>',
       to: referrer.email,

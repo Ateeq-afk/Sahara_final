@@ -1,4 +1,4 @@
-import { resend } from '@/src/lib/resend';
+import { getResend } from '@/src/lib/resend';
 import { ICampaign } from '@/src/models/Campaign';
 import { ICampaignExecution } from '@/src/models/CampaignExecution';
 import CampaignExecution from '@/src/models/CampaignExecution';
@@ -25,6 +25,11 @@ export async function sendCampaignEmail(
     body += trackingPixel;
 
     // Send email
+    const resend = getResend();
+    if (!resend) {
+      console.warn('Email service not configured');
+      return;
+    }
     const { data, error } = await resend.emails.send({
       from: 'Sahara Developers <noreply@saharadevelopers.com>',
       to: recipient.email,
