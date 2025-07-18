@@ -114,7 +114,7 @@ export default function FAQMinimal() {
                       className="overflow-hidden"
                     >
                       <div className="px-6 pb-6 pt-2">
-                        <div className="pl-14">
+                        <div>
                           <p className="text-base text-gray-600 leading-relaxed">
                             {faq.answer}
                           </p>
