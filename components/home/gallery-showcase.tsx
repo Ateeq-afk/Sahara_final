@@ -1,11 +1,12 @@
 "use client"
 
-import { useState } from 'react'
+import './gallery-showcase.css'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Plus } from 'lucide-react'
+import { ArrowRight, Plus, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const projects = [
   {
@@ -60,8 +61,43 @@ const projects = [
 
 export default function GalleryShowcase() {
   const ref = useRef(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  const checkScrollButtons = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
+      setCanScrollLeft(scrollLeft > 0)
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
+    }
+  }
+
+  useEffect(() => {
+    checkScrollButtons()
+  }, [isMobile])
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = 320 // Width of one card plus gap
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      })
+    }
+  }
 
   return (
     <section ref={ref} className="py-32 bg-white mt-20">
@@ -90,48 +126,128 @@ export default function GalleryShowcase() {
           </div>
         </motion.div>
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 gap-x-6">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group cursor-pointer"
-              onClick={() => setSelectedProject(project)}
+        {/* Gallery - Horizontal scroll on mobile, Grid on desktop */}
+        {isMobile ? (
+          <div className="relative">
+            {/* Scroll Buttons */}
+            {canScrollLeft && (
+              <button
+                onClick={() => scroll('left')}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+            )}
+            {canScrollRight && (
+              <button
+                onClick={() => scroll('right')}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            )}
+            
+            {/* Scrollable Container */}
+            <div
+              ref={scrollRef}
+              onScroll={checkScrollButtons}
+              className="flex overflow-x-auto scrollbar-hide gap-4 pb-4 -mx-8 px-8 scroll-smooth"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
-              <div className="relative aspect-[4/5] rounded-xl overflow-hidden mb-6">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              {projects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="group cursor-pointer flex-shrink-0 w-[280px]"
+                  onClick={() => setSelectedProject(project)}
+                >
+                  <div className="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      sizes="280px"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-500" />
+                    
+                    {/* Interactive Hover Overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center gap-2 text-white text-sm font-medium bg-black/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 shadow-lg transition-all duration-300"
+                      >
+                        <span>View Project</span>
+                        <ArrowRight className="h-4 w-4" />
+                      </motion.div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <p className="text-xs text-gray-500 mb-1">{project.category} · {project.year}</p>
+                    <h3 className="text-lg font-medium mb-1">{project.title}</h3>
+                    <p className="text-sm text-gray-600">{project.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* Scroll Indicators */}
+            <div className="flex justify-center gap-1 mt-4">
+              {projects.map((_, index) => (
+                <div
+                  key={index}
+                  className="h-1 w-8 bg-gray-200 rounded-full transition-colors duration-300"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-500" />
-                
-                {/* Interactive Hover Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 text-white text-lg font-medium bg-black/20 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20 shadow-lg transition-all duration-300"
-                  >
-                    <span>View Project</span>
-                    <ArrowRight className="h-5 w-5" />
-                  </motion.div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 gap-x-6">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 50 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group cursor-pointer"
+                onClick={() => setSelectedProject(project)}
+              >
+                <div className="relative aspect-[4/5] rounded-xl overflow-hidden mb-6">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-500" />
+                  
+                  {/* Interactive Hover Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex items-center gap-2 text-white text-lg font-medium bg-black/20 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20 shadow-lg transition-all duration-300"
+                    >
+                      <span>View Project</span>
+                      <ArrowRight className="h-5 w-5" />
+                    </motion.div>
+                  </div>
                 </div>
-              </div>
-              
-              <div>
-                <p className="text-sm text-gray-500 mb-2">{project.category} · {project.year}</p>
-                <h3 className="text-2xl font-medium mb-2">{project.title}</h3>
-                <p className="text-gray-600">{project.description}</p>
-              </div>
-            </motion.div>
+                
+                <div>
+                  <p className="text-sm text-gray-500 mb-2">{project.category} · {project.year}</p>
+                  <h3 className="text-2xl font-medium mb-2">{project.title}</h3>
+                  <p className="text-gray-600">{project.description}</p>
+                </div>
+              </motion.div>
           ))}
-        </div>
+          </div>
+        )}
       </div>
 
       {/* Project Modal */}
