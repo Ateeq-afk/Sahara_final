@@ -17,7 +17,7 @@ interface LeadCaptureEmailProps {
   name: string;
   email: string;
   phone?: string;
-  leadType: "lead-magnet" | "exit-intent";
+  leadType: "lead-magnet";
   downloadItem?: string;
   interestedIn?: string;
   submittedAt: string;
@@ -32,11 +32,8 @@ export const LeadCaptureEmail = ({
   interestedIn,
   submittedAt,
 }: LeadCaptureEmailProps) => {
-  const leadTypeTitle = leadType === "lead-magnet" 
-    ? "New Lead Magnet Download" 
-    : "Exit Intent Lead Captured";
-    
-  const leadIcon = leadType === "lead-magnet" ? "📥" : "🎯";
+  const leadTypeTitle = "New Lead Magnet Download";
+  const leadIcon = "📥";
 
   return (
     <Html>

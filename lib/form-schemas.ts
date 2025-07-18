@@ -72,12 +72,6 @@ export const leadMagnetSchema = z.object({
   source: optionalString,
 })
 
-// Exit Intent Popup Schema
-export const exitIntentSchema = z.object({
-  email: emailDomain.optional(),
-  phone: phoneNumber,
-  source: z.string().default('exit-intent'),
-})
 
 // WhatsApp Widget Schema
 export const whatsappWidgetSchema = z.object({
@@ -252,7 +246,6 @@ export type QuoteFormData = z.infer<typeof quoteFormSchema>
 export type ContactFormData = z.infer<typeof contactFormSchema>
 export type SupportTicketData = z.infer<typeof supportTicketSchema>
 export type LeadMagnetData = z.infer<typeof leadMagnetSchema>
-export type ExitIntentData = z.infer<typeof exitIntentSchema>
 export type WhatsappWidgetData = z.infer<typeof whatsappWidgetSchema>
 export type ProjectCreationData = z.infer<typeof projectCreationSchema>
 export type CampaignCreationData = z.infer<typeof campaignCreationSchema>

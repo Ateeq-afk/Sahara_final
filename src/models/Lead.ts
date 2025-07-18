@@ -4,7 +4,7 @@ export interface ILead extends Document {
   name: string;
   email: string;
   phone?: string;
-  source: 'contact' | 'quote' | 'lead-magnet' | 'exit-intent' | 'manual';
+  source: 'contact' | 'quote' | 'lead-magnet' | 'manual';
   status: 'new' | 'contacted' | 'qualified' | 'proposal' | 'negotiation' | 'won' | 'lost';
   score: number;
   projectType?: string;
@@ -54,7 +54,7 @@ const leadSchema = new Schema<ILead>(
     source: {
       type: String,
       required: true,
-      enum: ['contact', 'quote', 'lead-magnet', 'exit-intent', 'manual'],
+      enum: ['contact', 'quote', 'lead-magnet', 'manual'],
     },
     status: {
       type: String,
@@ -137,7 +137,6 @@ leadSchema.methods.calculateScore = function() {
   if (this.source === 'quote') score += 30;
   else if (this.source === 'lead-magnet') score += 20;
   else if (this.source === 'contact') score += 15;
-  else if (this.source === 'exit-intent') score += 10;
   
   if (this.phone) score += 10;
   
