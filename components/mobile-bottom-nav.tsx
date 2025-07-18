@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { Home, Briefcase, Images, MessageSquare, Menu } from 'lucide-react'
+import { Home, Briefcase, Image, MessageSquare, Menu } from 'lucide-react'
 
 const navItems = [
   { href: '/', label: 'Home', icon: Home },
   { href: '/services', label: 'Services', icon: Briefcase },
-  { href: '/gallery', label: 'Gallery', icon: Images },
+  { href: '/gallery', label: 'Gallery', icon: Image },
   { href: '/quote', label: 'Quote', icon: MessageSquare },
   { href: '#menu', label: 'Menu', icon: Menu }
 ]
