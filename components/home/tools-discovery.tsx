@@ -184,12 +184,12 @@ export default function ToolsDiscovery() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gray-50 rounded-3xl p-8"
+          className="bg-gray-50 rounded-3xl p-8 md:p-10"
         >
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-gray-900">More helpful tools</h3>
+          <div className="flex items-center justify-between mb-8">
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900">More helpful tools</h3>
             <Link href="/tools">
-              <Button variant="ghost" size="sm" className="gap-2">
+              <Button variant="ghost" size="default" className="gap-2">
                 View all tools
                 <ChevronRight className="h-4 w-4" />
               </Button>
@@ -204,14 +204,14 @@ export default function ToolsDiscovery() {
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-gray-200 hover:border-gray-300 transition-all cursor-pointer"
+                    className="flex items-center gap-4 p-5 bg-white rounded-2xl border border-gray-200 hover:border-gray-300 transition-all cursor-pointer"
                   >
-                    <div className="p-2 bg-gray-100 rounded-xl">
-                      <Icon className="h-5 w-5 text-gray-700" />
+                    <div className="p-3 bg-gray-100 rounded-xl">
+                      <Icon className="h-6 w-6 text-gray-700" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">{tool.title}</h4>
-                      <p className="text-sm text-gray-600">{tool.description}</p>
+                      <h4 className="text-lg font-semibold text-gray-900">{tool.title}</h4>
+                      <p className="text-base text-gray-600">{tool.description}</p>
                     </div>
                   </motion.div>
                 </Link>
@@ -238,7 +238,7 @@ export default function ToolsDiscovery() {
                 </div>
               ))}
             </div>
-            <p className="text-sm text-gray-700">
+            <p className="text-base text-gray-700">
               <span className="font-semibold">2,847 professionals</span> used our tools this week
             </p>
           </div>

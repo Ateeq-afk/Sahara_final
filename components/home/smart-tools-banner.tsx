@@ -44,11 +44,11 @@ export default function SmartToolsBanner() {
   ]
 
   return (
-    <section className="py-16 md:py-20 bg-white">
+    <section className="py-24 sm:py-32 bg-white">
       <div className="container mx-auto px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
-          <h2 className="text-2xl font-semibold text-neutral-900 mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-gray-900 mb-8 md:mb-12">
             More Helpful Tools
           </h2>
 
@@ -84,22 +84,22 @@ export default function SmartToolsBanner() {
                     aria-label={tool.ariaLabel}
                     className="block h-full"
                   >
-                    <div className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm hover:shadow-md transition-all duration-200 h-full flex flex-col">
+                    <div className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm hover:shadow-md transition-all duration-200 h-full flex flex-col">
                       <div className="flex items-start gap-4">
                         {/* Icon */}
-                        <div className="rounded-full bg-neutral-100 p-2 flex-shrink-0">
-                          <Icon className="w-5 h-5 text-neutral-700" />
+                        <div className="rounded-full bg-neutral-100 p-3 flex-shrink-0">
+                          <Icon className="w-6 h-6 text-neutral-700" />
                         </div>
                         
                         {/* Content */}
                         <div className="flex-1">
-                          <h3 className="text-lg font-medium text-neutral-900 mb-1">
+                          <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-2">
                             {tool.title}
                           </h3>
-                          <p className="text-sm text-neutral-600 mb-3">
+                          <p className="text-base text-gray-600 mb-3">
                             {tool.description}
                           </p>
-                          <p className="text-sm text-[#D26700] font-medium">
+                          <p className="text-base text-[#D26700] font-medium">
                             {tool.stat}
                           </p>
                         </div>

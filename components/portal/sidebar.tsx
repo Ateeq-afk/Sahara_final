@@ -27,7 +27,7 @@ export default function PortalSidebar() {
   const pathname = usePathname()
 
   return (
-    <aside className="w-64 bg-white border-r min-h-screen" aria-label="Portal Navigation">
+    <aside className="hidden lg:block w-64 bg-white border-r min-h-screen" aria-label="Portal Navigation">
       <nav className="p-4 space-y-1" aria-label="Main navigation">
         {navigation.map((item) => {
           const isActive = pathname === item.href || 

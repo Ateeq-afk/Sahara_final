@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import { connectToDatabase } from '@/lib/mongodb'
-import SupportTicket, { ISupportTicket } from '@/src/models/SupportTicket'
+import dbConnect from '@/lib/mongodb'
+import SupportTicket from '@/src/models/SupportTicket'
 import { supportTicketSchema } from '@/lib/form-schemas'
 
 // POST - Create a new support ticket
@@ -41,10 +41,10 @@ export async function POST(request: NextRequest) {
     const validatedData = validationResult.data
 
     // Connect to database
-    await connectToDatabase()
+    await dbConnect()
 
     // Create new support ticket
-    const newTicket = new SupportTicket({
+    const newTicket = new (SupportTicket as any)({
       userId: session.user.id,
       userEmail: session.user.email,
       userName: session.user.name,
@@ -126,7 +126,14 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category')
 
     // Build query
-    const query: any = {
+    interface QueryFilter {
+      userId: string
+      status?: string
+      priority?: string
+      category?: string
+    }
+    
+    const query: QueryFilter = {
       userId: session.user.id
     }
 
@@ -135,21 +142,22 @@ export async function GET(request: NextRequest) {
     if (category) query.category = category
 
     // Connect to database
-    await connectToDatabase()
+    await dbConnect()
 
     // Calculate pagination
     const skip = (page - 1) * limit
 
     // Fetch tickets with pagination
-    const [tickets, totalCount] = await Promise.all([
-      SupportTicket.find(query)
-        .sort({ createdAt: -1 })
-        .skip(skip)
-        .limit(limit)
-        .select('-responses -__v')
-        .lean(),
-      SupportTicket.countDocuments(query)
-    ])
+    const tickets = await (SupportTicket as any)
+      .find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .select('-responses -__v')
+      .lean()
+      .exec()
+    
+    const totalCount = await (SupportTicket as any).countDocuments(query).exec()
 
     // Calculate pagination info
     const totalPages = Math.ceil(totalCount / limit)
@@ -181,10 +189,10 @@ export async function GET(request: NextRequest) {
       },
       summary: {
         total: totalCount,
-        open: await SupportTicket.countDocuments({ ...query, status: 'open' }),
-        inProgress: await SupportTicket.countDocuments({ ...query, status: 'in_progress' }),
-        resolved: await SupportTicket.countDocuments({ ...query, status: 'resolved' }),
-        closed: await SupportTicket.countDocuments({ ...query, status: 'closed' })
+        open: await (SupportTicket as any).countDocuments({ ...query, status: 'open' }),
+        inProgress: await (SupportTicket as any).countDocuments({ ...query, status: 'in_progress' }),
+        resolved: await (SupportTicket as any).countDocuments({ ...query, status: 'resolved' }),
+        closed: await (SupportTicket as any).countDocuments({ ...query, status: 'closed' })
       }
     }, { status: 200 })
 
@@ -226,10 +234,10 @@ export async function PUT(request: NextRequest) {
     }
 
     // Connect to database
-    await connectToDatabase()
+    await dbConnect()
 
     // Find and update the ticket
-    const ticket = await SupportTicket.findOneAndUpdate(
+    const ticket = await (SupportTicket as any).findOneAndUpdate(
       { 
         ticketId: ticketId, 
         userId: session.user.id 

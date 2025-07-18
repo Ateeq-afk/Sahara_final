@@ -245,30 +245,30 @@ export default function CampaignsPage() {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4 mb-4">
                   <div>
-                    <p className="text-sm text-muted-foreground">Sent</p>
-                    <p className="text-lg font-semibold">{campaign.metrics.sent.toLocaleString()}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Sent</p>
+                    <p className="text-base sm:text-lg font-semibold">{campaign.metrics.sent.toLocaleString()}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Open Rate</p>
-                    <p className="text-lg font-semibold">
+                    <p className="text-xs sm:text-sm text-muted-foreground">Open Rate</p>
+                    <p className="text-base sm:text-lg font-semibold">
                       {getMetricRate(campaign.metrics.sent, campaign.metrics.opened)}%
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Click Rate</p>
-                    <p className="text-lg font-semibold">
+                    <p className="text-xs sm:text-sm text-muted-foreground">Click Rate</p>
+                    <p className="text-base sm:text-lg font-semibold">
                       {getMetricRate(campaign.metrics.sent, campaign.metrics.clicked)}%
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Conversions</p>
-                    <p className="text-lg font-semibold">{campaign.metrics.converted}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Conversions</p>
+                    <p className="text-base sm:text-lg font-semibold">{campaign.metrics.converted}</p>
                   </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Revenue</p>
-                    <p className="text-lg font-semibold">${campaign.metrics.revenue.toLocaleString()}</p>
+                  <div className="col-span-2 sm:col-span-1">
+                    <p className="text-xs sm:text-sm text-muted-foreground">Revenue</p>
+                    <p className="text-base sm:text-lg font-semibold">${campaign.metrics.revenue.toLocaleString()}</p>
                   </div>
                 </div>
 

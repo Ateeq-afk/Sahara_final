@@ -24,9 +24,10 @@ interface PortalHeaderProps {
     image?: string | null
     role: string
   }
+  onMenuClick?: () => void
 }
 
-export default function PortalHeader({ user }: PortalHeaderProps) {
+export default function PortalHeader({ user, onMenuClick }: PortalHeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const initials = user.name
     ?.split(' ')
