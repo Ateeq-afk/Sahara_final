@@ -16,7 +16,7 @@ import {
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 
-const toolsData = [
+const allTools = [
   {
     id: 'cost-calculator',
     title: 'Instant Cost Estimator',
@@ -38,27 +38,39 @@ const toolsData = [
     link: '/tools',
     demo: '4-18 months typical',
     features: ['Weather impact', 'Fast-track options', 'Gantt charts']
-  }
-]
-
-const miniTools = [
+  },
   {
+    id: 'material-selector',
     title: 'Material Selector',
-    description: 'Browse premium materials',
+    subtitle: 'Browse premium materials',
+    description: 'Explore our curated collection of high-quality construction materials.',
     icon: Palette,
-    link: '/marketplace'
+    color: 'from-purple-500 to-pink-500',
+    link: '/marketplace',
+    demo: 'Compare 500+ materials',
+    features: ['Price comparison', 'Quality ratings', 'Supplier info']
   },
   {
+    id: 'compliance-check',
     title: 'Compliance Check',
-    description: 'BBMP regulations guide',
+    subtitle: 'BBMP regulations guide',
+    description: 'Ensure your project meets all Bangalore building regulations.',
     icon: CheckCircle,
-    link: '/tools'
+    color: 'from-orange-500 to-red-500',
+    link: '/tools',
+    demo: 'Instant compliance report',
+    features: ['BBMP rules', 'Document checklist', 'Approval timeline']
   },
   {
+    id: 'virtual-site-visit',
     title: 'Virtual Site Visit',
-    description: 'Remote inspections',
+    subtitle: 'Remote inspections',
+    description: 'Get real-time updates with video walkthroughs of your project.',
     icon: Video,
-    link: '/tools'
+    color: 'from-indigo-500 to-purple-500',
+    link: '/tools',
+    demo: 'Live video tours',
+    features: ['360° views', 'Progress tracking', 'Expert commentary']
   }
 ]
 
@@ -101,8 +113,8 @@ export default function ToolsDiscovery() {
           </p>
         </motion.div>
 
-        {/* Main Tools - Mobile Horizontal Scroll */}
-        <div className="lg:hidden -mx-4 px-4 overflow-x-auto pb-4 mb-12 mt-16 relative" onScroll={handleScroll}>
+        {/* All Tools - Horizontal Scroll for Both Mobile and Desktop */}
+        <div className="-mx-4 px-4 lg:-mx-8 lg:px-8 overflow-x-auto pb-4 mb-12 mt-16 relative" onScroll={handleScroll}>
           {/* Scroll Hint */}
           <AnimatePresence>
             {showScrollHint && (
@@ -110,18 +122,19 @@ export default function ToolsDiscovery() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 pointer-events-none"
+                className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-10 pointer-events-none"
               >
-                <div className="bg-black/70 text-white px-3 py-1.5 rounded-full text-xs flex items-center gap-1">
-                  <span>Swipe for more</span>
-                  <ChevronRight className="w-3 h-3" />
+                <div className="bg-black/70 text-white px-3 py-1.5 rounded-full text-xs lg:text-sm flex items-center gap-1">
+                  <span className="hidden lg:inline">Scroll for more</span>
+                  <span className="lg:hidden">Swipe for more</span>
+                  <ChevronRight className="w-3 h-3 lg:w-4 lg:h-4" />
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
           
-          <div className="flex gap-4" style={{ width: 'max-content' }}>
-            {toolsData.map((tool, index) => {
+          <div className="flex gap-4 lg:gap-6" style={{ width: 'max-content' }}>
+            {allTools.map((tool, index) => {
               const Icon = tool.icon
               return (
                 <motion.div
@@ -135,7 +148,7 @@ export default function ToolsDiscovery() {
                   className="group"
                 >
                   <Link href={tool.link}>
-                    <Card className="relative h-full p-6 border-gray-200 hover:border-gray-300 transition-all duration-500 hover:shadow-lg overflow-hidden" style={{ width: '85vw', maxWidth: '400px' }}>
+                    <Card className="relative h-full p-6 lg:p-8 border-gray-200 hover:border-gray-300 transition-all duration-500 hover:shadow-lg overflow-hidden" style={{ width: '85vw', maxWidth: '400px' }}>
                       {/* Background Gradient */}
                       <div className={`absolute inset-0 bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
                       
@@ -204,158 +217,15 @@ export default function ToolsDiscovery() {
           </div>
         </div>
 
-        {/* Main Tools Grid - Desktop Only */}
-        <div className="hidden lg:grid lg:grid-cols-2 gap-6 mb-12 mt-16">
-          {toolsData.map((tool, index) => {
-            const Icon = tool.icon
-            return (
-              <motion.div
-                key={tool.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                onMouseEnter={() => setHoveredTool(tool.id)}
-                onMouseLeave={() => setHoveredTool(null)}
-                className="group"
-              >
-                <Link href={tool.link}>
-                  <Card className="relative h-full p-8 border-gray-200 hover:border-gray-300 transition-all duration-500 hover:shadow-lg overflow-hidden">
-                    {/* Background Gradient */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
-                    
-                    {/* Content */}
-                    <div className="relative z-10">
-                      <div className="flex items-start justify-between mb-6">
-                        <div className={`p-3 rounded-2xl bg-gradient-to-br ${tool.color} text-white`}>
-                          <Icon className="h-6 w-6" />
-                        </div>
-                        <AnimatePresence>
-                          {hoveredTool === tool.id && (
-                            <motion.div
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              exit={{ opacity: 0, x: -10 }}
-                              className="flex items-center gap-1 text-sm text-sahara-primary px-4 py-2"
-                            >
-                              <span>Try it</span>
-                              <ArrowRight className="h-4 w-4" />
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                      
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                        {tool.title}
-                      </h3>
-                      <p className="text-gray-600 mb-1">
-                        {tool.subtitle}
-                      </p>
-                      <p className="text-gray-500 text-sm mb-4">
-                        {tool.description}
-                      </p>
-                      
-                      {/* Demo Preview */}
-                      <div className="bg-gray-50 rounded-xl px-4 py-2 mb-4">
-                        <p className="text-xs text-gray-500 mb-1">Quick preview</p>
-                        <p className="font-semibold text-gray-900">{tool.demo}</p>
-                      </div>
-                      
-                      {/* Features */}
-                      <div className="flex flex-wrap gap-2">
-                        {tool.features.map((feature, idx) => (
-                          <span 
-                            key={idx}
-                            className="text-xs px-3 py-1 bg-gray-100 text-gray-600 rounded-full"
-                          >
-                            {feature}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    {/* Hover Effect Line */}
-                    <motion.div
-                      className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r ${tool.color}`}
-                      initial={{ width: 0 }}
-                      animate={{ width: hoveredTool === tool.id ? '100%' : 0 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </Card>
-                </Link>
-              </motion.div>
-            )
-          })}
+        {/* View All Tools CTA */}
+        <div className="flex justify-center mt-8">
+          <Link href="/tools">
+            <Button variant="outline" size="lg" className="gap-2">
+              Explore All Tools
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+          </Link>
         </div>
-
-        {/* Mini Tools Row */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-gray-50 rounded-3xl p-6 md:p-8 lg:p-10"
-        >
-          <div className="flex items-center justify-between mb-8">
-            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">More helpful tools</h3>
-            <Link href="/tools">
-              <Button variant="ghost" size="default" className="gap-2 text-sm md:text-base">
-                View all tools
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-          
-          {/* Mobile Horizontal Scroll for Mini Tools */}
-          <div className="md:hidden -mx-6 px-6 overflow-x-auto pb-2">
-            <div className="flex gap-3" style={{ width: 'max-content' }}>
-              {miniTools.map((tool, index) => {
-                const Icon = tool.icon
-                return (
-                  <Link key={index} href={tool.link}>
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="flex items-center gap-3 p-4 bg-white rounded-xl border border-gray-200 hover:border-gray-300 transition-all cursor-pointer"
-                      style={{ width: '280px' }}
-                    >
-                      <div className="p-2.5 bg-gray-100 rounded-lg">
-                        <Icon className="h-5 w-5 text-gray-700" />
-                      </div>
-                      <div>
-                        <h4 className="text-base font-semibold text-gray-900">{tool.title}</h4>
-                        <p className="text-sm text-gray-600">{tool.description}</p>
-                      </div>
-                    </motion.div>
-                  </Link>
-                )
-              })}
-            </div>
-          </div>
-          
-          {/* Desktop Grid */}
-          <div className="hidden md:grid md:grid-cols-3 gap-4">
-            {miniTools.map((tool, index) => {
-              const Icon = tool.icon
-              return (
-                <Link key={index} href={tool.link}>
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="flex items-center gap-4 p-5 bg-white rounded-2xl border border-gray-200 hover:border-gray-300 transition-all cursor-pointer"
-                  >
-                    <div className="p-3 bg-gray-100 rounded-xl">
-                      <Icon className="h-6 w-6 text-gray-700" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-semibold text-gray-900">{tool.title}</h4>
-                      <p className="text-base text-gray-600">{tool.description}</p>
-                    </div>
-                  </motion.div>
-                </Link>
-              )
-            })}
-          </div>
-        </motion.div>
 
         {/* Interactive Demo CTA */}
         <motion.div

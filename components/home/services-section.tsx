@@ -4,7 +4,7 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Plus } from 'lucide-react'
+import { ArrowRight, Plus, ChevronRight } from 'lucide-react'
 
 const services = [
   {
@@ -49,12 +49,17 @@ export default function ServicesSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [hoveredService, setHoveredService] = useState<string | null>(null)
+  const [showScrollHint, setShowScrollHint] = useState(true)
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
   })
   
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.6, 1, 1, 0.6])
+  
+  const handleScroll = () => {
+    setShowScrollHint(false)
+  }
 
   return (
     <section ref={ref} className="py-24 sm:py-32 lg:py-40 bg-[#fbfbfd]">
@@ -90,8 +95,134 @@ export default function ServicesSection() {
           </motion.p>
         </motion.div>
 
-        {/* Services Grid - Apple Style */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+        {/* Services - Mobile Horizontal Scroll */}
+        <div className="sm:hidden -mx-6 px-6 overflow-x-auto pb-4 relative" onScroll={handleScroll}>
+          {/* Scroll Hint */}
+          {showScrollHint && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute right-6 top-1/2 -translate-y-1/2 z-10 pointer-events-none"
+            >
+              <div className="bg-black/70 text-white px-3 py-1.5 rounded-full text-xs flex items-center gap-1">
+                <span>Swipe for more</span>
+                <ChevronRight className="w-3 h-3" />
+              </div>
+            </motion.div>
+          )}
+          
+          <div className="flex gap-4" style={{ width: 'max-content' }}>
+            {services.map((service, index) => (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 40 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ 
+                  duration: 0.7, 
+                  delay: index * 0.1,
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
+                onMouseEnter={() => setHoveredService(service.id)}
+                onMouseLeave={() => setHoveredService(null)}
+                className="group relative"
+                style={{ width: '85vw', maxWidth: '400px' }}
+              >
+                <Link href={service.href}>
+                  <div className="relative h-[450px] rounded-2xl overflow-hidden bg-gray-100 cursor-pointer">
+                    {/* Image with Parallax */}
+                    <motion.div
+                      className="absolute inset-0"
+                      animate={{
+                        scale: hoveredService === service.id ? 1.05 : 1
+                      }}
+                      transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    >
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className="object-cover"
+                        sizes="85vw"
+                        priority={index < 2}
+                      />
+                    </motion.div>
+                    
+                    {/* Gradient Overlay - Subtle */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                    
+                    {/* Content */}
+                    <div className="absolute inset-0 p-6 flex flex-col justify-between">
+                      {/* Service Number */}
+                      <div className="flex justify-between items-start">
+                        <span 
+                          className="text-white/60 text-sm font-medium"
+                          style={{ fontVariantNumeric: 'tabular-nums' }}
+                        >
+                          {service.id}
+                        </span>
+                        
+                        {/* Plus Icon */}
+                        <motion.div
+                          animate={{
+                            rotate: hoveredService === service.id ? 45 : 0,
+                            scale: hoveredService === service.id ? 1.1 : 1
+                          }}
+                          transition={{ duration: 0.3 }}
+                          className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center"
+                        >
+                          <Plus className="w-4 h-4 text-white" />
+                        </motion.div>
+                      </div>
+                      
+                      {/* Bottom Content */}
+                      <div>
+                        {/* Title */}
+                        <h3 className="text-2xl font-semibold text-white mb-2">
+                          {service.title}
+                        </h3>
+                        
+                        {/* Description */}
+                        <p className="text-white/80 text-sm mb-4 leading-relaxed">
+                          {service.description}
+                        </p>
+                        
+                        {/* CTA */}
+                        <motion.div
+                          className="inline-flex items-center gap-2 text-white font-medium"
+                          animate={{
+                            gap: hoveredService === service.id ? '12px' : '8px'
+                          }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <span className="text-xs">Learn more</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </motion.div>
+                      </div>
+                    </div>
+                    
+                    {/* Hover Accent Border */}
+                    <motion.div
+                      className="absolute inset-0 rounded-2xl pointer-events-none"
+                      initial={{ opacity: 0 }}
+                      animate={{ 
+                        opacity: hoveredService === service.id ? 1 : 0
+                      }}
+                      transition={{ duration: 0.3 }}
+                      style={{
+                        border: `1px solid ${service.accent}20`,
+                        boxShadow: `inset 0 0 0 1px ${service.accent}10`
+                      }}
+                    />
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Services Grid - Tablet and Desktop */}
+        <div className="hidden sm:grid sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
@@ -214,6 +345,19 @@ export default function ServicesSection() {
           </Link>
         </motion.div>
       </div>
+
+      <style jsx>{`
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .overflow-x-auto::-webkit-scrollbar {
+          display: none;
+        }
+        
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .overflow-x-auto {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+        }
+      `}</style>
     </section>
   )
 }
