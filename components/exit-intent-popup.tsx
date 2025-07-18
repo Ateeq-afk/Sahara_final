@@ -63,32 +63,23 @@ export default function ExitIntentPopup() {
 
     let triggered = false
 
-    // Delayed trigger (12-15 seconds)
-    const delayTimeout = setTimeout(() => {
-      if (!triggered && !hasShown) {
-        triggered = true
-        setIsOpen(true)
-        setHasShown(true)
-        setModalSeen()
-      }
-    }, 13000) // 13 seconds
-
-    // Scroll depth trigger (40%)
+    // Remove the delayed trigger - we only want exit intent
+    
+    // Scroll depth trigger (60% - only if user scrolls deep and then tries to leave)
     const checkScrollDepth = () => {
-      if (scrollProgress >= 40 && !triggered && !hasShown) {
-        triggered = true
-        setIsOpen(true)
-        setHasShown(true)
-        setModalSeen()
+      if (scrollProgress >= 60 && !triggered && !hasShown) {
+        // Don't trigger immediately, just mark as eligible
+        triggered = false // Keep it false to allow exit intent to work
       }
     }
 
     // Check scroll depth on each scroll update
     checkScrollDepth()
 
-    // Exit intent trigger (mouse leave from top)
+    // Exit intent trigger (mouse leave from top or rapid upward movement)
     const handleMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 0 && !triggered && !hasShown) {
+      // Only trigger if mouse leaves from the top portion of the screen
+      if (e.clientY <= 20 && !triggered && !hasShown) {
         triggered = true
         setIsOpen(true)
         setHasShown(true)
@@ -96,11 +87,29 @@ export default function ExitIntentPopup() {
       }
     }
 
+    // Also detect rapid upward mouse movement (exit intent)
+    let lastY = 0
+    const handleMouseMove = (e: MouseEvent) => {
+      const currentY = e.clientY
+      const velocity = lastY - currentY
+      
+      // If mouse is moving up quickly near the top of the page
+      if (velocity > 20 && currentY < 100 && !triggered && !hasShown) {
+        triggered = true
+        setIsOpen(true)
+        setHasShown(true)
+        setModalSeen()
+      }
+      
+      lastY = currentY
+    }
+
     document.addEventListener('mouseleave', handleMouseLeave)
+    document.addEventListener('mousemove', handleMouseMove)
 
     return () => {
-      clearTimeout(delayTimeout)
       document.removeEventListener('mouseleave', handleMouseLeave)
+      document.removeEventListener('mousemove', handleMouseMove)
     }
   }, [hasShown, scrollProgress])
 

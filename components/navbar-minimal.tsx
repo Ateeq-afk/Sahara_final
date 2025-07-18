@@ -38,6 +38,19 @@ export default function NavbarMinimal() {
       }
     }
   }, [])
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isMobileMenuOpen])
   
   return (
     <nav className={`sticky top-0 w-full z-50 transition-all duration-300 ${
@@ -96,7 +109,7 @@ export default function NavbarMinimal() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="md:hidden absolute top-full left-0 right-0 z-50 bg-white border-b border-gray-200/50 shadow-lg"
+            className="md:hidden fixed top-16 left-0 right-0 bottom-0 z-50 bg-white border-b border-gray-200/50 shadow-lg overflow-y-auto"
           >
             <div className="max-w-[980px] mx-auto px-5 py-4">
               {navItems.map((item) => (
