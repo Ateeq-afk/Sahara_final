@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
-import { Phone, MessageSquare, Mail, X, MapPin } from 'lucide-react'
+import { Phone, MessageSquare, Mail, X, MapPin, Check } from 'lucide-react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -18,9 +18,35 @@ export default function ContactSectionMinimal() {
     phoneNumber: '',
     message: ''
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (isSubmitting) return
+    
+    // Basic validation
+    if (!formData.fullName.trim()) {
+      alert('Please enter your name')
+      return
+    }
+    
+    if (!formData.phoneNumber.trim()) {
+      alert('Please enter your phone number')
+      return
+    }
+    
+    // Phone number validation
+    const phoneRegex = /^[6-9]\d{9}$|^\+91[6-9]\d{9}$/
+    const cleanPhone = formData.phoneNumber.replace(/[^\d]/g, '')
+    if (!phoneRegex.test(cleanPhone) && !phoneRegex.test(`+91${cleanPhone}`)) {
+      alert('Please enter a valid Indian phone number')
+      return
+    }
+    
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
     
     try {
       const response = await fetch('/api/contact', {
@@ -30,8 +56,10 @@ export default function ContactSectionMinimal() {
         },
         body: JSON.stringify({
           name: formData.fullName,
+          email: formData.fullName.toLowerCase().replace(/\s+/g, '') + '@callback.request', // Placeholder email
           phone: formData.phoneNumber,
-          message: formData.message || 'Requested callback',
+          subject: 'Callback Request',
+          message: formData.message || 'Requested callback from website',
           source: 'callback-request',
         }),
       })
@@ -39,15 +67,21 @@ export default function ContactSectionMinimal() {
       const data = await response.json()
       
       if (data.success) {
-        alert('Thank you! We will call you back within 30 minutes.')
-        setIsModalOpen(false)
-        setFormData({ fullName: '', phoneNumber: '', message: '' })
+        setSubmitStatus('success')
+        setTimeout(() => {
+          setIsModalOpen(false)
+          setFormData({ fullName: '', phoneNumber: '', message: '' })
+          setSubmitStatus('idle')
+        }, 2000)
       } else {
-        alert('Something went wrong. Please try again or call us directly.')
+        setSubmitStatus('error')
+        console.error('Server error:', data.errors || data.error)
       }
     } catch (error) {
       console.error('Error submitting form:', error)
-      alert('Something went wrong. Please try again or call us directly.')
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -253,14 +287,35 @@ export default function ContactSectionMinimal() {
           </div>
           
           <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+            whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
           >
             <Button
               type="submit"
-              className="w-full bg-gray-900 hover:bg-gray-800 text-white"
+              disabled={isSubmitting}
+              className={`w-full text-white transition-all duration-300 ${
+                submitStatus === 'success' 
+                  ? 'bg-green-600 hover:bg-green-700' 
+                  : submitStatus === 'error'
+                    ? 'bg-red-600 hover:bg-red-700'
+                    : 'bg-gray-900 hover:bg-gray-800'
+              } ${isSubmitting ? 'cursor-not-allowed opacity-70' : ''}`}
             >
-              Submit Request
+              {isSubmitting ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  Submitting...
+                </div>
+              ) : submitStatus === 'success' ? (
+                <div className="flex items-center gap-2">
+                  <Check className="w-4 h-4" />
+                  Request Sent!
+                </div>
+              ) : submitStatus === 'error' ? (
+                'Try Again'
+              ) : (
+                'Submit Request'
+              )}
             </Button>
           </motion.div>
         </motion.form>

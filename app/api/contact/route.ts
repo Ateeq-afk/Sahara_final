@@ -4,6 +4,8 @@ import { authOptions } from '@/lib/auth'
 import dbConnect from '@/lib/mongodb'
 import Contact from '@/models/Contact'
 import { LeadService } from '@/lib/services/lead-service'
+import { EmailService } from '@/lib/email-service'
+import { FormValidator } from '@/lib/form-validation'
 
 // GET all contacts
 export async function GET(request: NextRequest) {
@@ -66,14 +68,55 @@ export async function POST(request: NextRequest) {
     
     const body = await request.json()
     
+    // Get client IP for rate limiting
+    const clientIP = request.headers.get('x-forwarded-for') || 
+                    request.headers.get('x-real-ip') || 
+                    'unknown'
+    
+    // Check rate limit
+    if (!FormValidator.checkRateLimit(clientIP)) {
+      return NextResponse.json(
+        { success: false, error: 'Too many submissions. Please try again later.' },
+        { status: 429 }
+      )
+    }
+    
+    // Sanitize and validate input
+    const sanitizedData = FormValidator.sanitizeContactForm(body)
+    const validation = FormValidator.validateContactForm(sanitizedData)
+    
+    if (!validation.isValid) {
+      return NextResponse.json(
+        { success: false, errors: validation.errors },
+        { status: 400 }
+      )
+    }
+    
     // Create new contact
-    const contact = await Contact.create(body)
+    const contact = await Contact.create(sanitizedData)
     
     // Create lead from contact
-    await LeadService.createLeadFromContact(body)
+    await LeadService.createLeadFromContact(sanitizedData)
     
-    // TODO: Send email notification to admin
-    // TODO: Send auto-reply to customer
+    // Send email notifications
+    const emailData = {
+      name: sanitizedData.name,
+      email: sanitizedData.email || `${sanitizedData.name.toLowerCase().replace(/\s+/g, '')}@noemail.provided`,
+      phone: sanitizedData.phone,
+      subject: sanitizedData.subject || 'General Inquiry',
+      message: sanitizedData.message,
+      source: body.source || 'contact-form'
+    }
+    
+    const { notificationSent, confirmationSent } = await EmailService.sendContactEmails(emailData)
+    
+    if (!notificationSent) {
+      console.warn('Failed to send contact form notification email')
+    }
+    
+    if (!confirmationSent) {
+      console.warn('Failed to send contact confirmation email')
+    }
     
     return NextResponse.json({
       success: true,

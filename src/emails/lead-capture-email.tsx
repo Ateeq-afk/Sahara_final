@@ -43,7 +43,7 @@ export const LeadCaptureEmail = ({
         <Container style={container}>
           <Section style={logoContainer}>
             <Img
-              src="https://sahara-developers.com/logo.png"
+              src="https://saharadevelopers.in/logo.png"
               width="150"
               height="50"
               alt="Sahara Developers"

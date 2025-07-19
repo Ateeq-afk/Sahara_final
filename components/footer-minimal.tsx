@@ -117,7 +117,7 @@ export default function FooterMinimal() {
                   { href: "https://facebook.com/saharadevelopers", icon: Facebook },
                   { href: "https://twitter.com/saharadevs", icon: Twitter },
                   { href: "https://instagram.com/saharadevelopers", icon: Instagram },
-                  { href: "https://linkedin.com/company/sahara-developers", icon: Linkedin },
+                  { href: "https://linkedin.com/company/saharadevelopers", icon: Linkedin },
                   { href: "https://youtube.com/@saharadevelopers", icon: Youtube }
                 ].map((social, index) => {
                   const Icon = social.icon
@@ -240,7 +240,7 @@ export default function FooterMinimal() {
                   { href: "https://facebook.com/saharadevelopers", icon: Facebook },
                   { href: "https://twitter.com/saharadevs", icon: Twitter },
                   { href: "https://instagram.com/saharadevelopers", icon: Instagram },
-                  { href: "https://linkedin.com/company/sahara-developers", icon: Linkedin },
+                  { href: "https://linkedin.com/company/saharadevelopers", icon: Linkedin },
                   { href: "https://youtube.com/@saharadevelopers", icon: Youtube }
                 ].map((social, index) => {
                   const Icon = social.icon

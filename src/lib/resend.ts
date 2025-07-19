@@ -16,8 +16,8 @@ export function getResend() {
 export const resend = getResend();
 
 export const EMAIL_CONFIG = {
-  from: 'Sahara Developers <noreply@sahara-developers.com>',
-  replyTo: 'info@sahara-developers.com',
-  adminEmail: process.env.ADMIN_EMAIL || 'admin@sahara-developers.com',
-  notificationEmails: (process.env.NOTIFICATION_EMAILS || 'admin@sahara-developers.com').split(','),
+  from: 'Sahara Developers <noreply@saharadevelopers.in>',
+  replyTo: 'info@saharadevelopers.in',
+  adminEmail: process.env.ADMIN_EMAIL || 'info@saharadevelopers.in',
+  notificationEmails: (process.env.NOTIFICATION_EMAILS || 'info@saharadevelopers.in').split(','),
 };

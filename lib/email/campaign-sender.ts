@@ -31,7 +31,7 @@ export async function sendCampaignEmail(
       return;
     }
     const { data, error } = await resend.emails.send({
-      from: 'Sahara Developers <noreply@saharadevelopers.com>',
+      from: 'Sahara Developers <noreply@saharadevelopers.in>',
       to: recipient.email,
       subject,
       html: body,

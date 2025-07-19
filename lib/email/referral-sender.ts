@@ -78,7 +78,7 @@ export async function sendReferralInvitation(
       return;
     }
     const { error } = await resend.emails.send({
-      from: 'Sahara Developers <referrals@saharadevelopers.com>',
+      from: 'Sahara Developers <referrals@saharadevelopers.in>',
       to: referral.referredEmail,
       subject,
       html,
@@ -168,7 +168,7 @@ export async function sendReferralRewardNotification(
       return;
     }
     const { error } = await resend.emails.send({
-      from: 'Sahara Developers <referrals@saharadevelopers.com>',
+      from: 'Sahara Developers <referrals@saharadevelopers.in>',
       to: referrer.email,
       subject,
       html

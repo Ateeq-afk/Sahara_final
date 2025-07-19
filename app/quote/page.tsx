@@ -19,20 +19,32 @@ export default function QuotePage() {
       // Store the submitted data
       setSubmittedData(formData)
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      setShowSuccess(true)
-      toast({
-        title: 'Quote Request Submitted!',
-        description: 'We\'ll contact you within 30 minutes.',
-        duration: 5000,
+      // Submit to API
+      const response = await fetch('/api/quote', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
       })
+      
+      const result = await response.json()
+      
+      if (result.success) {
+        setShowSuccess(true)
+        toast({
+          title: 'Quote Request Submitted!',
+          description: result.message || 'We\'ll contact you within 2-4 hours.',
+          duration: 5000,
+        })
+      } else {
+        throw new Error(result.error || 'Failed to submit quote request')
+      }
     } catch (error) {
       console.error('Form submission error:', error)
       toast({
         title: 'Submission Failed',
-        description: 'Please try again or contact us directly.',
+        description: 'Please try again or contact us directly at +91 95918 37216.',
         variant: 'destructive',
         duration: 7000,
       })
@@ -58,7 +70,7 @@ export default function QuotePage() {
           <h1 className="text-3xl sm:text-4xl font-semibold mb-4 text-gray-900">Thank You!</h1>
           <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 leading-relaxed">
             We've received your project details and will prepare a personalized quote. 
-            Our expert will contact you within 30 minutes.
+            Our expert will contact you within 2-4 hours.
           </p>
           <div className="space-y-3">
             <Link

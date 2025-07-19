@@ -242,26 +242,29 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="apple-card overflow-hidden group hover:shadow-2xl transition-all duration-300"
+                className="apple-card group hover:shadow-2xl transition-all duration-300"
               >
-                <div className="relative h-64 bg-gradient-to-br from-blue-100 to-indigo-100 overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                  <div className="absolute bottom-4 left-6 text-white">
-                    <h3 className="text-2xl font-bold">Shahul</h3>
-                    <p className="text-sm opacity-90">Director & Co-Founder</p>
+                <div className="p-8">
+                  <div className="text-center mb-6">
+                    <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl mb-4">
+                      <span className="text-2xl font-bold text-white">S</span>
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-1">Shahul</h3>
+                    <p className="text-blue-600 font-medium">Director & Co-Founder</p>
                   </div>
-                </div>
-                <div className="p-6">
-                  <div className="flex gap-2 mb-4">
+                  
+                  <div className="flex flex-wrap gap-2 mb-4 justify-center">
                     <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">20+ Years Experience</span>
                     <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">Sustainability Expert</span>
                   </div>
-                  <p className="apple-body apple-text-muted mb-4">
+                  
+                  <p className="apple-body apple-text-muted mb-6 text-center">
                     With over two decades of experience in construction management, Shahul brings unparalleled 
                     expertise in project execution and quality control. His vision for sustainable construction 
                     has positioned Sahara at the forefront of eco-friendly building practices.
                   </p>
-                  <div className="space-y-2">
+                  
+                  <div className="space-y-3 text-center">
                     <p className="text-sm text-gray-600"><strong>Specialization:</strong> Project Management, Quality Control</p>
                     <p className="text-sm text-gray-600"><strong>Education:</strong> M.Tech in Civil Engineering, IIT Madras</p>
                   </div>
@@ -274,26 +277,29 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="apple-card overflow-hidden group hover:shadow-2xl transition-all duration-300"
+                className="apple-card group hover:shadow-2xl transition-all duration-300"
               >
-                <div className="relative h-64 bg-gradient-to-br from-indigo-100 to-purple-100 overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                  <div className="absolute bottom-4 left-6 text-white">
-                    <h3 className="text-2xl font-bold">Farhan Shoaib</h3>
-                    <p className="text-sm opacity-90">Director & Co-Founder</p>
+                <div className="p-8">
+                  <div className="text-center mb-6">
+                    <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl mb-4">
+                      <span className="text-2xl font-bold text-white">FS</span>
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-1">Farhan Shoaib</h3>
+                    <p className="text-indigo-600 font-medium">Director & Co-Founder</p>
                   </div>
-                </div>
-                <div className="p-6">
-                  <div className="flex gap-2 mb-4">
+                  
+                  <div className="flex flex-wrap gap-2 mb-4 justify-center">
                     <span className="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-medium rounded-full">Design Innovation</span>
                     <span className="px-3 py-1 bg-orange-100 text-orange-700 text-xs font-medium rounded-full">Client Relations</span>
                   </div>
-                  <p className="apple-body apple-text-muted mb-4">
+                  
+                  <p className="apple-body apple-text-muted mb-6 text-center">
                     A pioneer in innovative design solutions, Farhan has revolutionized how we approach 
                     interior spaces. His commitment to client satisfaction and attention to detail has 
                     earned Sahara its reputation as Bangalore's most trusted construction partner.
                   </p>
-                  <div className="space-y-2">
+                  
+                  <div className="space-y-3 text-center">
                     <p className="text-sm text-gray-600"><strong>Specialization:</strong> Interior Design, Client Management</p>
                     <p className="text-sm text-gray-600"><strong>Education:</strong> B.Arch, CEPT University</p>
                   </div>
@@ -307,12 +313,12 @@ export default function AboutPage() {
               className="mt-16"
             >
               <h3 className="apple-title-text text-center mb-8">Our Core Team</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                  { name: "Priya Sharma", role: "Head of Design", experience: "15+ Years" },
-                  { name: "Rakesh Kumar", role: "Project Director", experience: "18+ Years" },
-                  { name: "Anjali Nair", role: "Quality Head", experience: "12+ Years" },
-                  { name: "Mohammed Ali", role: "Operations Head", experience: "16+ Years" }
+                  { name: "Priya Sharma", role: "Head of Design", experience: "15+ Years", initial: "PS", color: "from-pink-500 to-rose-600" },
+                  { name: "Rakesh Kumar", role: "Project Director", experience: "18+ Years", initial: "RK", color: "from-emerald-500 to-teal-600" },
+                  { name: "Anjali Nair", role: "Quality Head", experience: "12+ Years", initial: "AN", color: "from-amber-500 to-orange-600" },
+                  { name: "Mohammed Ali", role: "Operations Head", experience: "16+ Years", initial: "MA", color: "from-violet-500 to-purple-600" }
                 ].map((member, index) => (
                   <motion.div
                     key={index}
@@ -320,12 +326,14 @@ export default function AboutPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="text-center"
+                    className="apple-card text-center p-6 hover:shadow-lg transition-all duration-300"
                   >
-                    <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full"></div>
-                    <h4 className="font-semibold text-gray-900">{member.name}</h4>
-                    <p className="text-sm text-gray-600">{member.role}</p>
-                    <p className="text-xs text-blue-600 mt-1">{member.experience}</p>
+                    <div className={`w-16 h-16 mx-auto mb-4 bg-gradient-to-br ${member.color} rounded-2xl flex items-center justify-center`}>
+                      <span className="text-lg font-bold text-white">{member.initial}</span>
+                    </div>
+                    <h4 className="font-semibold text-gray-900 mb-1">{member.name}</h4>
+                    <p className="text-sm text-gray-600 mb-1">{member.role}</p>
+                    <p className="text-xs text-blue-600 font-medium">{member.experience}</p>
                   </motion.div>
                 ))}
               </div>

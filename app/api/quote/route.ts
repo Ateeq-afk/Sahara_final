@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import dbConnect from '@/lib/mongodb'
 import Quote from '@/models/Quote'
 import { LeadService } from '@/lib/services/lead-service'
+import { EmailService } from '@/lib/email-service'
+import { FormValidator } from '@/lib/form-validation'
 
 // POST create new quote from the quote form
 export async function POST(request: NextRequest) {
@@ -10,11 +12,36 @@ export async function POST(request: NextRequest) {
     
     const body = await request.json()
     
+    // Get client IP for rate limiting
+    const clientIP = request.headers.get('x-forwarded-for') || 
+                    request.headers.get('x-real-ip') || 
+                    'unknown'
+    
+    // Check rate limit
+    if (!FormValidator.checkRateLimit(clientIP)) {
+      return NextResponse.json(
+        { success: false, error: 'Too many submissions. Please try again later.' },
+        { status: 429 }
+      )
+    }
+    
+    // Basic validation for quote form
+    const quoteValidation = FormValidator.validateQuoteForm(body)
+    if (!quoteValidation.isValid) {
+      return NextResponse.json(
+        { success: false, errors: quoteValidation.errors },
+        { status: 400 }
+      )
+    }
+    
+    // Sanitize the form data
+    const sanitizedBody = FormValidator.sanitizeQuoteForm(body)
+    
     // Transform the form data to match our Quote model
     const quoteData = {
-      name: body.name || body.fullName,
-      email: body.email, 
-      phone: body.phone,
+      name: sanitizedBody.name || sanitizedBody.fullName,
+      email: sanitizedBody.email, 
+      phone: sanitizedBody.phone,
       projectType: body.serviceType || body.projectType || 'construction',
       propertyType: body.projectType || body.propertyType || 'other',
       area: body.propertySize ? 
@@ -69,8 +96,30 @@ export async function POST(request: NextRequest) {
       additionalInfo: quoteData.requirements,
     })
     
-    // TODO: Send email notification to admin
-    // TODO: Send confirmation email to customer
+    // Send email notifications
+    const emailQuoteData = {
+      name: quoteData.name,
+      email: quoteData.email,
+      phone: quoteData.phone,
+      projectType: quoteData.projectType,
+      propertyType: quoteData.propertyType,
+      area: quoteData.area,
+      location: quoteData.location,
+      budget: quoteData.budget,
+      timeline: body.timeline || quoteData.urgency,
+      requirements: quoteData.requirements,
+      estimatedCost
+    }
+    
+    const { notificationSent, confirmationSent } = await EmailService.sendQuoteEmails(emailQuoteData)
+    
+    if (!notificationSent) {
+      console.warn('Failed to send quote request notification email')
+    }
+    
+    if (!confirmationSent) {
+      console.warn('Failed to send quote confirmation email')
+    }
     
     return NextResponse.json({
       success: true,
