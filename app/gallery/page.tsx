@@ -26,43 +26,43 @@ const categories = [
 const projects = [
   {
     id: 1,
-    title: "Minimalist Villa",
+    title: "Contemporary Residence",
     category: "architecture",
     location: "Whitefield, Bangalore",
     year: "2024",
-    coverImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=90",
+    coverImage: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1600&q=90",
     images: [
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=90",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=90",
-      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1600&q=90"
+      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1600&q=90",
+      "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1600&q=90",
+      "https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=1600&q=90"
     ],
-    description: "A study in restraint and elegance, featuring clean lines and natural materials."
+    description: "Modern architecture meets sustainable design in this stunning residential project."
   },
   {
     id: 2,
-    title: "Executive Suite",
+    title: "Luxury Penthouse",
     category: "interior",
     location: "MG Road, Bangalore",
     year: "2024",
-    coverImage: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1600&q=90",
+    coverImage: "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=1600&q=90",
     images: [
-      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1600&q=90",
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1600&q=90"
+      "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=1600&q=90",
+      "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=1600&q=90"
     ],
-    description: "Corporate excellence meets sophisticated design in this premium office space."
+    description: "Sophisticated interiors with panoramic city views and premium finishes throughout."
   },
   {
     id: 3,
-    title: "Urban Sanctuary",
+    title: "Garden Villa",
     category: "residential",
     location: "Koramangala, Bangalore",
     year: "2024",
-    coverImage: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=90",
+    coverImage: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&q=90",
     images: [
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=90",
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&q=90"
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&q=90",
+      "https://images.unsplash.com/photo-1613977257365-612d3cb70a38?w=1600&q=90"
     ],
-    description: "A peaceful retreat in the heart of the city, blending nature with modern living."
+    description: "A harmonious blend of indoor and outdoor living spaces with lush landscaping."
   },
   {
     id: 4,
@@ -70,38 +70,38 @@ const projects = [
     category: "commercial",
     location: "Indiranagar, Bangalore",
     year: "2023",
-    coverImage: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1600&q=90",
+    coverImage: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&q=90",
     images: [
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1600&q=90",
-      "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1600&q=90"
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&q=90",
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1600&q=90"
     ],
-    description: "Luxury hospitality redefined through thoughtful design and premium materials."
+    description: "Boutique hospitality experience with artisanal interiors and personalized comfort."
   },
   {
     id: 5,
-    title: "Modern Workspace",
+    title: "Tech Hub Office",
     category: "commercial",
     location: "Electronic City, Bangalore",
     year: "2024",
-    coverImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=90",
+    coverImage: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1600&q=90",
     images: [
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=90",
-      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1600&q=90"
+      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1600&q=90",
+      "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=90"
     ],
-    description: "Innovation-driven workspace designed for collaboration and productivity."
+    description: "Future-ready workspace fostering innovation with collaborative zones and tech integration."
   },
   {
     id: 6,
-    title: "Heritage Revival",
+    title: "Modern Farmhouse",
     category: "residential",
     location: "Jayanagar, Bangalore",
     year: "2023",
-    coverImage: "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=1600&q=90",
+    coverImage: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1600&q=90",
     images: [
-      "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=1600&q=90",
-      "https://images.unsplash.com/photo-1600607687644-c89e96c946b6?w=1600&q=90"
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1600&q=90",
+      "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=1600&q=90"
     ],
-    description: "Preserving heritage while embracing contemporary comfort and style."
+    description: "Contemporary take on traditional farmhouse design with modern amenities and charm."
   }
 ]
 

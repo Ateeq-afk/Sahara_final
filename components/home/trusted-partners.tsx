@@ -441,19 +441,23 @@ const TrustedPartners = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 text-center"
+          className="mt-20"
         >
-          <div>
-            <div className="text-4xl font-semibold text-gray-900 mb-2">15+</div>
-            <p className="text-gray-600">Years of Partnership</p>
-          </div>
-          <div>
-            <div className="text-4xl font-semibold text-gray-900 mb-2">95%</div>
-            <p className="text-gray-600">Home Loan Approval Rate</p>
-          </div>
-          <div>
-            <div className="text-4xl font-semibold text-gray-900 mb-2">A+</div>
-            <p className="text-gray-600">Quality Materials Only</p>
+          <div className="overflow-x-auto -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            <div className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 text-center min-w-max md:min-w-0">
+              <div className="flex-shrink-0 min-w-[150px] md:min-w-0">
+                <div className="text-4xl font-semibold text-gray-900 mb-2">15+</div>
+                <p className="text-gray-600 text-sm md:text-base">Years of Partnership</p>
+              </div>
+              <div className="flex-shrink-0 min-w-[150px] md:min-w-0">
+                <div className="text-4xl font-semibold text-gray-900 mb-2">95%</div>
+                <p className="text-gray-600 text-sm md:text-base">Home Loan Approval Rate</p>
+              </div>
+              <div className="flex-shrink-0 min-w-[150px] md:min-w-0">
+                <div className="text-4xl font-semibold text-gray-900 mb-2">A+</div>
+                <p className="text-gray-600 text-sm md:text-base">Quality Materials Only</p>
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>

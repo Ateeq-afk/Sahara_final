@@ -9,6 +9,7 @@ import {
   Palette, 
   CheckCircle, 
   Video,
+  MessageSquare,
   Sparkles,
   ArrowRight,
   ChevronRight
@@ -71,6 +72,24 @@ const allTools = [
     link: '/tools#virtual-site-visit',
     demo: 'Live video tours',
     features: ['360° views', 'Progress tracking', 'Expert commentary']
+  },
+  {
+    id: 'ai-assistant',
+    title: 'AI Assistant',
+    subtitle: 'Get instant answers 24/7',
+    description: 'Our intelligent chatbot helps with questions about your project anytime.',
+    icon: MessageSquare,
+    color: 'from-teal-500 to-cyan-500',
+    link: '#',
+    demo: '2 min response time',
+    features: ['24/7 availability', 'Project insights', 'Expert knowledge'],
+    action: () => {
+      // Trigger FAQ chatbot
+      if (typeof window !== 'undefined') {
+        const event = new CustomEvent('openChatbot')
+        window.dispatchEvent(event)
+      }
+    }
   }
 ]
 
@@ -84,14 +103,19 @@ export default function ToolsDiscovery() {
   }
 
   return (
-    <section className="py-24 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+    <section className="relative py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50 overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-sahara-primary/10 to-sahara-secondary/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-blue-500/10 to-cyan-500/10 rounded-full blur-3xl animate-pulse" />
+      </div>
       <div className="container mx-auto px-4">
         {/* Section Header - Apple Style */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="relative z-10 text-center mb-16"
         >
           <motion.div
             initial={{ scale: 0 }}
@@ -106,15 +130,15 @@ export default function ToolsDiscovery() {
           
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Plan smarter.
-            <span className="text-sahara-primary block sm:inline"> Build better.</span>
+            <span className="bg-gradient-to-r from-sahara-primary to-sahara-secondary bg-clip-text text-transparent block sm:inline"> Build better.</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Industry-leading tools that make your construction journey effortless and transparent.
+            Industry-leading AI-powered tools that revolutionize your construction experience.
           </p>
         </motion.div>
 
         {/* All Tools - Horizontal Scroll for Both Mobile and Desktop */}
-        <div className="-mx-4 px-4 lg:-mx-8 lg:px-8 overflow-x-auto pb-4 mb-12 mt-16 relative" onScroll={handleScroll}>
+        <div className="-mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto pb-4 mb-12 mt-16 relative" onScroll={handleScroll}>
           {/* Scroll Hint */}
           <AnimatePresence>
             {showScrollHint && (
@@ -122,7 +146,7 @@ export default function ToolsDiscovery() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-10 pointer-events-none"
+                className="absolute right-4 sm:right-0 top-1/2 -translate-y-1/2 z-10 pointer-events-none"
               >
                 <div className="bg-black/70 text-white px-3 py-1.5 rounded-full text-xs lg:text-sm flex items-center gap-1">
                   <span className="hidden lg:inline">Scroll for more</span>
@@ -133,7 +157,7 @@ export default function ToolsDiscovery() {
             )}
           </AnimatePresence>
           
-          <div className="flex gap-4 lg:gap-6" style={{ width: 'max-content' }}>
+          <div className="flex gap-4" style={{ width: 'max-content' }}>
             {allTools.map((tool, index) => {
               const Icon = tool.icon
               return (
@@ -147,10 +171,18 @@ export default function ToolsDiscovery() {
                   onMouseLeave={() => setHoveredTool(null)}
                   className="group"
                 >
-                  <Link href={tool.link}>
-                    <Card className="relative h-full p-6 lg:p-8 border-gray-200 hover:border-gray-300 transition-all duration-500 hover:shadow-lg overflow-hidden" style={{ width: '85vw', maxWidth: '400px' }}>
-                      {/* Background Gradient */}
-                      <div className={`absolute inset-0 bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                  <Link 
+                    href={tool.link}
+                    onClick={(e) => {
+                      if (tool.action) {
+                        e.preventDefault()
+                        tool.action()
+                      }
+                    }}>
+                    <Card className="relative h-full p-6 lg:p-8 border-gray-200 hover:border-gray-300 transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 overflow-hidden backdrop-blur-sm bg-white/95" style={{ width: '280px', minWidth: '280px' }}>
+                      {/* Enhanced Background Gradient */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-10 transition-all duration-700`} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       
                       {/* Content */}
                       <div className="relative z-10">
@@ -183,11 +215,15 @@ export default function ToolsDiscovery() {
                           {tool.description}
                         </p>
                         
-                        {/* Demo Preview */}
-                        <div className="bg-gray-50 rounded-xl px-4 py-2 mb-4">
+                        {/* Enhanced Demo Preview */}
+                        <motion.div 
+                          className="bg-gradient-to-r from-gray-50 to-gray-100/50 rounded-xl px-4 py-3 mb-4 border border-gray-200/50"
+                          whileHover={{ scale: 1.02 }}
+                          transition={{ duration: 0.2 }}
+                        >
                           <p className="text-xs text-gray-500 mb-1">Quick preview</p>
                           <p className="font-semibold text-gray-900">{tool.demo}</p>
-                        </div>
+                        </motion.div>
                         
                         {/* Features */}
                         <div className="flex flex-wrap gap-2">

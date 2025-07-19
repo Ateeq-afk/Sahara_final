@@ -20,8 +20,11 @@ export default function HeroModern() {
   
   return (
     <section className="relative flex items-center bg-white pt-16 pb-12 md:pt-20 md:pb-16 lg:min-h-[85vh] overflow-hidden">
-      {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-white" />
+      {/* Dynamic gradient background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-white to-amber-50/20" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-sahara-primary/5 via-transparent to-transparent" />
+      </div>
       
       <div className="container mx-auto px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -50,9 +53,9 @@ export default function HeroModern() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 leading-tight tracking-tight"
             >
-              Building Dreams,
-              <span className="block font-normal text-[#D26700]">
-                Creating Legacies
+              Build Your Dream
+              <span className="block font-normal bg-gradient-to-r from-[#D26700] to-[#F59E0B] bg-clip-text text-transparent">
+                With Excellence
               </span>
             </motion.h1>
             
@@ -63,8 +66,8 @@ export default function HeroModern() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-lg text-gray-600 leading-relaxed mt-4 mb-6"
             >
-              Transform your vision into reality with Bangalore's premier construction 
-              and interior design company.
+              Premium construction & interior solutions powered by innovation, 
+              delivered with 20+ years of expertise in Bangalore.
             </motion.p>
             
             {/* CTA Buttons - Tighter spacing */}
@@ -127,20 +130,23 @@ export default function HeroModern() {
               {/* Main Image - Clean presentation */}
               <div className="relative rounded-2xl overflow-hidden shadow-2xl mb-4">
                 <Image
-                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=90"
+                  src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=90"
                   alt="Modern Architecture"
                   width={700}
                   height={500}
-                  className="w-full h-auto"
+                  className="w-full h-auto object-cover"
                   priority
                 />
-                {/* Subtle overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-50" />
+                {/* Enhanced overlay with gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
                 
                 {/* Caption */}
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <p className="text-white font-medium text-lg">Minimalist Villa, Whitefield</p>
-                  <p className="text-white/90 text-sm">Award-winning Design 2024</p>
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent">
+                  <p className="text-white font-semibold text-xl">Luxury Villa, Koramangala</p>
+                  <p className="text-white/90 text-sm flex items-center gap-2">
+                    <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    Currently Under Construction
+                  </p>
                 </div>
               </div>
               
@@ -152,7 +158,7 @@ export default function HeroModern() {
                   className="relative rounded-xl overflow-hidden shadow-xl"
                 >
                   <Image
-                    src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=90"
+                    src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=400&q=90"
                     alt="Interior Design"
                     width={300}
                     height={200}
@@ -165,7 +171,7 @@ export default function HeroModern() {
                   className="relative rounded-xl overflow-hidden shadow-xl"
                 >
                   <Image
-                    src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=400&q=90"
+                    src="https://images.unsplash.com/photo-1565623006066-82f23c79210b?w=400&q=90"
                     alt="Luxury Interior"
                     width={300}
                     height={200}

@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useSearchParams } from 'next/navigation'
 import { Calculator, Palette, Clock, ArrowRight, Shield, Video } from 'lucide-react'
 import CostCalculator from '@/components/tools/cost-calculator'
 import MaterialSelector from '@/components/tools/material-selector'
-import TimelineEstimatorAI from '@/components/tools/timeline-estimator-ai'
+import TimelineEstimatorWrapper from '@/components/tools/timeline-estimator-wrapper'
 import { ComplianceChecker } from '@/components/tools/compliance-checker'
 import { VirtualSiteVisit } from '@/components/tools/virtual-site-visit'
 
@@ -38,7 +39,7 @@ const tools = [
     icon: Clock,
     gradient: 'from-orange-500 to-orange-600',
     lightGradient: 'from-orange-50 to-orange-100',
-    component: TimelineEstimatorAI
+    component: TimelineEstimatorWrapper
   },
   {
     id: 'compliance-checker',
@@ -63,8 +64,29 @@ const tools = [
 ]
 
 export default function ToolsPage() {
+  const searchParams = useSearchParams()
   const [selectedTool, setSelectedTool] = useState<string | null>(null)
   const SelectedComponent = tools.find(t => t.id === selectedTool)?.component
+
+  useEffect(() => {
+    // Check for tool in URL hash
+    const checkHash = () => {
+      const hash = window.location.hash.replace('#', '')
+      if (hash && tools.find(t => t.id === hash)) {
+        setSelectedTool(hash)
+      }
+    }
+    
+    // Check on mount
+    checkHash()
+    
+    // Listen for hash changes
+    window.addEventListener('hashchange', checkHash)
+    
+    return () => {
+      window.removeEventListener('hashchange', checkHash)
+    }
+  }, [])
 
   return (
     <div className="min-h-screen bg-gray-50">

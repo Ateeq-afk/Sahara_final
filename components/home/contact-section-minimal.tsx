@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
+import UnifiedFAB from '@/components/unified-fab'
 
 export default function ContactSectionMinimal() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -162,35 +163,8 @@ export default function ContactSectionMinimal() {
       </div>
     </section>
 
-    {/* Floating Mobile Action Buttons */}
-    <div className="fixed bottom-20 right-6 flex flex-col gap-3 md:hidden z-50">
-      <motion.a
-        href="tel:+919591837216"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="flex items-center justify-center w-14 h-14 bg-green-500 text-white rounded-full shadow-lg hover:shadow-xl transition-all"
-      >
-        <Phone className="h-6 w-6" />
-      </motion.a>
-      <motion.a
-        href="https://wa.me/919591837216"
-        target="_blank"
-        rel="noopener noreferrer"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="flex items-center justify-center w-14 h-14 bg-green-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all"
-      >
-        <MessageSquare className="h-6 w-6" />
-      </motion.a>
-      <motion.a
-        href="mailto:info@saharadevelopers.in"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="flex items-center justify-center w-14 h-14 bg-blue-500 text-white rounded-full shadow-lg hover:shadow-xl transition-all"
-      >
-        <Mail className="h-6 w-6" />
-      </motion.a>
-    </div>
+    {/* Unified Floating Action Button */}
+    <UnifiedFAB />
 
     {/* Request Callback Modal */}
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>

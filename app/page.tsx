@@ -17,10 +17,10 @@ const ToolsDiscovery = dynamic(() => import('@/components/home/tools-discovery')
   loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
 })
 
-const SmartToolsBanner = dynamic(() => import('@/components/home/smart-tools-banner'), {
-  ssr: false,
-  loading: () => <div className="h-64 bg-gray-900 animate-pulse" />
-})
+// const SmartToolsBanner = dynamic(() => import('@/components/home/smart-tools-banner'), {
+//   ssr: false,
+//   loading: () => <div className="h-64 bg-gray-900 animate-pulse" />
+// })
 
 
 // Import floating components
@@ -58,7 +58,7 @@ export default function Home() {
       </section>
       
       {/* Smart Tools Banner - Additional Tools */}
-      <SmartToolsBanner />
+      {/* <SmartToolsBanner /> */}
       
       {/* Testimonials - Social Proof */}
       <TestimonialsAnimated />

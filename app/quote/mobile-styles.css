@@ -1,0 +1,66 @@
+/* Mobile-specific styles for Quote page */
+
+/* Prevent horizontal scroll on mobile */
+@media (max-width: 640px) {
+  body {
+    overflow-x: hidden;
+  }
+  
+  /* Improve tap targets */
+  button, a, input, textarea, select {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better spacing for mobile keyboards */
+  input:focus, textarea:focus, select:focus {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+  }
+  
+  /* Smooth scrolling */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Fix for sticky hover states on mobile */
+  @media (hover: none) {
+    button:hover {
+      transform: none !important;
+    }
+  }
+  
+  /* Optimize form container for mobile viewport */
+  .quote-form-container {
+    min-height: calc(100vh - 120px);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Better touch feedback */
+  button:active {
+    opacity: 0.9;
+  }
+  
+  /* Prevent text selection on buttons */
+  button {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
+
+/* Landscape mode adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+  .quote-form-container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  h1 {
+    font-size: 1.5rem !important;
+  }
+  
+  h2 {
+    font-size: 1.25rem !important;
+  }
+}

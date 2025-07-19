@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   ArrowRight, ArrowLeft, Check, Calendar,
@@ -64,8 +64,17 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
   const [formData, setFormData] = useState<Partial<FormData>>({})
   const [locationSuggestions, setLocationSuggestions] = useState<string[]>([])
   const [showLocationDropdown, setShowLocationDropdown] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   
   const { errors, validateField, clearError } = useFormValidation()
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const updateFormData = (field: keyof FormData, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -165,10 +174,10 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
       case 'project-type':
         return (
           <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
               What type of project are you planning?
             </h2>
-            <p className="text-gray-600 mb-6">Choose the service that best fits your needs</p>
+            <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">Choose the service that best fits your needs</p>
             <div className="grid gap-4">
               {projectTypes.map((type) => {
                 const Icon = type.icon
@@ -178,24 +187,24 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => updateFormData('projectType', type.id)}
-                    className={`p-6 rounded-2xl border-2 transition-all text-left ${
+                    className={`p-4 sm:p-6 rounded-xl sm:rounded-2xl border-2 transition-all text-left ${
                       formData.projectType === type.id
                         ? 'border-amber-500 bg-amber-50'
                         : 'border-gray-200 hover:border-gray-300 bg-white'
                     }`}
                   >
                     <div className="flex items-start gap-4">
-                      <div className={`p-3 rounded-xl ${
+                      <div className={`p-2 sm:p-3 rounded-lg sm:rounded-xl ${
                         formData.projectType === type.id ? 'bg-gradient-to-br from-amber-500 to-orange-600 text-white' : 'bg-gray-100'
                       }`}>
-                        <Icon className="w-6 h-6" />
+                        <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-semibold text-lg mb-1">{type.label}</h3>
-                        <p className="text-gray-600 text-sm">{type.description}</p>
+                        <h3 className="font-semibold text-base sm:text-lg mb-1">{type.label}</h3>
+                        <p className="text-gray-600 text-xs sm:text-sm">{type.description}</p>
                       </div>
                       {formData.projectType === type.id && (
-                        <Check className="w-6 h-6 text-amber-600 mt-1" />
+                        <Check className="w-5 h-5 sm:w-6 sm:h-6 text-amber-600 mt-1" />
                       )}
                     </div>
                   </motion.button>
@@ -209,10 +218,10 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
         const budgetOptions = budgetRanges[formData.projectType as keyof typeof budgetRanges] || []
         return (
           <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
               What&apos;s your budget range?
             </h2>
-            <p className="text-gray-600 mb-6">This helps us provide accurate recommendations</p>
+            <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">This helps us provide accurate recommendations</p>
             <div className="grid gap-4">
               {budgetOptions.map((budget) => (
                 <motion.button
@@ -220,7 +229,7 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => updateFormData('budget', budget.id)}
-                  className={`p-6 rounded-2xl border-2 transition-all text-left ${
+                  className={`p-4 sm:p-6 rounded-xl sm:rounded-2xl border-2 transition-all text-left ${
                     formData.budget === budget.id
                       ? 'border-amber-500 bg-amber-50'
                       : 'border-gray-200 hover:border-gray-300 bg-white'
@@ -228,8 +237,8 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="font-semibold text-lg mb-1">{budget.label}</h3>
-                      <p className="text-gray-600 text-sm">{budget.description}</p>
+                      <h3 className="font-semibold text-base sm:text-lg mb-1">{budget.label}</h3>
+                      <p className="text-gray-600 text-xs sm:text-sm">{budget.description}</p>
                     </div>
                     {formData.budget === budget.id && (
                       <Check className="w-6 h-6 text-amber-600" />
@@ -244,10 +253,10 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
       case 'rooms':
         return (
           <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
               How many rooms need interior work?
             </h2>
-            <p className="text-gray-600 mb-6">Include bedrooms, living room, kitchen, etc.</p>
+            <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">Include bedrooms, living room, kitchen, etc.</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {[2, 3, 4, 5].map((num) => (
                 <motion.button
@@ -255,13 +264,13 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => updateFormData('rooms', num)}
-                  className={`p-6 rounded-2xl border-2 transition-all ${
+                  className={`p-4 sm:p-6 rounded-xl sm:rounded-2xl border-2 transition-all ${
                     formData.rooms === num
                       ? 'border-amber-500 bg-amber-50'
                       : 'border-gray-200 hover:border-gray-300 bg-white'
                   }`}
                 >
-                  <span className="text-2xl font-semibold">{num}{num === 5 && '+'}</span>
+                  <span className="text-xl sm:text-2xl font-semibold">{num}{num === 5 && '+'}</span>
                 </motion.button>
               ))}
             </div>
@@ -271,10 +280,10 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
       case 'style':
         return (
           <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
               What&apos;s your preferred style?
             </h2>
-            <p className="text-gray-600 mb-6">Choose the aesthetic that resonates with you</p>
+            <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">Choose the aesthetic that resonates with you</p>
             <div className="grid gap-4">
               {styles.map((style) => (
                 <motion.button
@@ -282,7 +291,7 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => updateFormData('style', style.id)}
-                  className={`p-6 rounded-2xl border-2 transition-all text-left ${
+                  className={`p-4 sm:p-6 rounded-xl sm:rounded-2xl border-2 transition-all text-left ${
                     formData.style === style.id
                       ? 'border-amber-500 bg-amber-50'
                       : 'border-gray-200 hover:border-gray-300 bg-white'
@@ -290,8 +299,8 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="font-semibold text-lg mb-1">{style.label}</h3>
-                      <p className="text-gray-600 text-sm">{style.description}</p>
+                      <h3 className="font-semibold text-base sm:text-lg mb-1">{style.label}</h3>
+                      <p className="text-gray-600 text-xs sm:text-sm">{style.description}</p>
                     </div>
                     {formData.style === style.id && (
                       <Check className="w-6 h-6 text-amber-600" />
@@ -306,16 +315,16 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
       case 'area':
         return (
           <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
               What&apos;s your plot area?
             </h2>
-            <p className="text-gray-600 mb-6">Enter the area in square feet</p>
+            <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">Enter the area in square feet</p>
             <input
               type="text"
               placeholder="e.g., 1200 sq ft"
               value={formData.area || ''}
               onChange={(e) => updateFormData('area', e.target.value)}
-              className="w-full px-6 py-4 text-lg rounded-2xl border-2 border-gray-200 focus:border-amber-500 focus:outline-none transition-colors"
+              className="w-full px-4 sm:px-6 py-3 sm:py-4 text-base sm:text-lg rounded-xl sm:rounded-2xl border-2 border-gray-200 focus:border-amber-500 focus:outline-none transition-colors"
             />
           </div>
         )
@@ -323,12 +332,12 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
       case 'location':
         return (
           <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
               Where is your project located?
             </h2>
-            <p className="text-gray-600 mb-6">Enter your area or locality</p>
+            <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">Enter your area or locality</p>
             <div className="relative">
-              <div className="flex items-center gap-2 px-6 py-4 rounded-2xl border-2 border-gray-200 focus-within:border-amber-500 transition-colors bg-white">
+              <div className="flex items-center gap-2 px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl border-2 border-gray-200 focus-within:border-amber-500 transition-colors bg-white">
                 <MapPin className="w-5 h-5 text-gray-400" />
                 <input
                   type="text"
@@ -336,7 +345,7 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
                   value={formData.location || ''}
                   onChange={(e) => handleLocationInput(e.target.value)}
                   onFocus={() => formData.location && setShowLocationDropdown(true)}
-                  className="flex-1 outline-none text-lg"
+                  className="flex-1 outline-none text-base sm:text-lg"
                 />
               </div>
               
@@ -346,7 +355,7 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden z-10"
+                    className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 overflow-hidden z-10 max-h-48 overflow-y-auto"
                   >
                     {locationSuggestions.map((suggestion, index) => (
                       <button
@@ -368,10 +377,10 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
       case 'timeline':
         return (
           <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
               When do you want to start?
             </h2>
-            <p className="text-gray-600 mb-6">Select your preferred timeline</p>
+            <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">Select your preferred timeline</p>
             <div className="grid gap-4">
               {timelines.map((timeline) => (
                 <motion.button
@@ -387,7 +396,7 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
                 >
                   <div className="flex items-center gap-3">
                     <Calendar className="w-5 h-5 text-gray-400" />
-                    <span className="font-medium">{timeline.label}</span>
+                    <span className="font-medium text-sm sm:text-base">{timeline.label}</span>
                   </div>
                   {formData.timeline === timeline.id && (
                     <Check className="w-6 h-6 text-amber-600" />
@@ -401,10 +410,10 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
       case 'contact':
         return (
           <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
               Almost done! Let&apos;s get your details
             </h2>
-            <p className="text-gray-600 mb-6">We&apos;ll contact you within 30 minutes</p>
+            <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">We&apos;ll contact you within 30 minutes</p>
             <div className="space-y-4">
               <div>
                 <input
@@ -412,7 +421,7 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
                   placeholder="Your Name"
                   value={formData.name || ''}
                   onChange={(e) => updateFormData('name', e.target.value)}
-                  className={`w-full px-6 py-4 text-lg rounded-2xl border-2 ${
+                  className={`w-full px-4 sm:px-6 py-3 sm:py-4 text-base sm:text-lg rounded-xl sm:rounded-2xl border-2 ${
                     errors.name ? 'border-red-500' : 'border-gray-200 focus:border-amber-500'
                   } focus:outline-none transition-colors`}
                 />
@@ -427,7 +436,7 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
                   placeholder="Email Address"
                   value={formData.email || ''}
                   onChange={(e) => updateFormData('email', e.target.value)}
-                  className={`w-full px-6 py-4 text-lg rounded-2xl border-2 ${
+                  className={`w-full px-4 sm:px-6 py-3 sm:py-4 text-base sm:text-lg rounded-xl sm:rounded-2xl border-2 ${
                     errors.email ? 'border-red-500' : 'border-gray-200 focus:border-amber-500'
                   } focus:outline-none transition-colors`}
                 />
@@ -442,7 +451,7 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
                   placeholder="Phone Number"
                   value={formData.phone || ''}
                   onChange={(e) => updateFormData('phone', e.target.value)}
-                  className={`w-full px-6 py-4 text-lg rounded-2xl border-2 ${
+                  className={`w-full px-4 sm:px-6 py-3 sm:py-4 text-base sm:text-lg rounded-xl sm:rounded-2xl border-2 ${
                     errors.phone ? 'border-red-500' : 'border-gray-200 focus:border-amber-500'
                   } focus:outline-none transition-colors`}
                 />
@@ -518,22 +527,22 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.3 }}
-          className="min-h-[400px]"
+          className="min-h-[350px] sm:min-h-[400px]"
         >
           {renderStepContent()}
         </motion.div>
       </AnimatePresence>
 
       {/* Navigation */}
-      <div className="flex gap-4 mt-8">
+      <div className="flex gap-3 sm:gap-4 mt-6 sm:mt-8">
         {currentStep > 0 && (
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={handleBack}
-            className="px-8 py-4 rounded-full border-2 border-gray-300 font-medium hover:bg-gray-50 transition-colors flex items-center gap-2"
+            className="px-6 sm:px-8 py-3 sm:py-4 rounded-full border-2 border-gray-300 font-medium text-sm sm:text-base hover:bg-gray-50 transition-colors flex items-center gap-2"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
             Back
           </motion.button>
         )}
@@ -543,7 +552,7 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
           whileTap={{ scale: 0.98 }}
           onClick={handleNext}
           disabled={isNextDisabled()}
-          className={`flex-1 px-8 py-4 rounded-full font-medium transition-all flex items-center justify-center gap-2 ${
+          className={`flex-1 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium text-sm sm:text-base transition-all flex items-center justify-center gap-2 ${
             isNextDisabled()
               ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
               : 'bg-gradient-to-r from-amber-500 to-orange-600 text-white hover:from-amber-600 hover:to-orange-700 hover:shadow-lg'
@@ -552,12 +561,12 @@ export default function SmartQuoteForm({ onComplete }: { onComplete: (data: Form
           {currentStep === totalSteps - 1 ? (
             <>
               Submit
-              <Check className="w-5 h-5" />
+              <Check className="w-4 h-4 sm:w-5 sm:h-5" />
             </>
           ) : (
             <>
               Continue
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </>
           )}
         </motion.button>
