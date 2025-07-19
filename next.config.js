@@ -55,6 +55,9 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   
+  // Ensure environment variables don't leak into client bundles
+  productionBrowserSourceMaps: false,
+  
   // Webpack configuration to fix module resolution issues
   webpack: (config) => {
     // Fix for potential module resolution issues

@@ -129,20 +129,20 @@ export default function GalleryShowcase() {
         {/* Gallery - Horizontal scroll on mobile, Grid on desktop */}
         {isMobile ? (
           <div className="relative">
-            {/* Scroll Buttons - Hidden on mobile for better UX */}
-            {!isMobile && canScrollLeft && (
+            {/* Scroll Buttons - Optional for mobile */}
+            {canScrollLeft && (
               <button
                 onClick={() => scroll('left')}
-                className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg min-w-[44px] min-h-[44px] hidden sm:block"
+                className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg min-w-[44px] min-h-[44px]"
                 aria-label="Scroll gallery left"
               >
                 <ChevronLeft className="h-5 w-5" aria-hidden="true" />
               </button>
             )}
-            {!isMobile && canScrollRight && (
+            {canScrollRight && (
               <button
                 onClick={() => scroll('right')}
-                className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg min-w-[44px] min-h-[44px] hidden sm:block"
+                className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg min-w-[44px] min-h-[44px]"
                 aria-label="Scroll gallery right"
               >
                 <ChevronRight className="h-5 w-5" aria-hidden="true" />

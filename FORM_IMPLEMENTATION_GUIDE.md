@@ -167,7 +167,7 @@ const MAX_MESSAGE_LENGTH = 2000
 // Customize in /src/lib/resend.ts
 const EMAIL_CONFIG = {
   from: 'Sahara Developers <noreply@saharadevelopers.in>',
-  replyTo: 'info@saharadevelopers.in',
+  replyTo: process.env.ADMIN_EMAIL || 'admin@example.com',
   adminEmail: process.env.ADMIN_EMAIL,
   notificationEmails: process.env.NOTIFICATION_EMAILS?.split(',')
 }
