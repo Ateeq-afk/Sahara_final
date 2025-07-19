@@ -1,5 +1,6 @@
-import Lead, { ILead } from '@/models/Lead';
-import { connectDB } from '@/lib/db';
+import Lead from '@/models/Lead';
+import dbConnect from '@/lib/mongodb';
+import mongoose from 'mongoose';
 
 export interface CreateLeadData {
   name: string;
@@ -19,9 +20,9 @@ export interface CreateLeadData {
 }
 
 export class LeadService {
-  static async createLead(data: CreateLeadData): Promise<ILead> {
+  static async createLead(data: CreateLeadData): Promise<any> {
     try {
-      await connectDB();
+      await dbConnect();
       
       // Check if lead already exists
       const existingLead = await Lead.findOne({ email: data.email });
@@ -32,7 +33,7 @@ export class LeadService {
           type: 'form_submission',
           description: `New ${data.source} form submission`,
           createdAt: new Date(),
-        });
+        } as any);
         
         // Update fields if provided
         if (data.phone && !existingLead.phone) existingLead.phone = data.phone;
@@ -52,11 +53,11 @@ export class LeadService {
         
         // Add new tags
         if (data.tags) {
-          existingLead.tags = [...new Set([...existingLead.tags, ...data.tags])];
+          existingLead.tags = Array.from(new Set([...existingLead.tags, ...data.tags]));
         }
         
         // Recalculate score
-        existingLead.calculateScore();
+        (existingLead as any).calculateScore();
         
         await existingLead.save();
         return existingLead;
@@ -80,7 +81,7 @@ export class LeadService {
     }
   }
   
-  static async createLeadFromQuote(quoteData: any): Promise<ILead> {
+  static async createLeadFromQuote(quoteData: any): Promise<any> {
     const leadData: CreateLeadData = {
       name: quoteData.name,
       email: quoteData.email,
@@ -98,7 +99,7 @@ export class LeadService {
     return this.createLead(leadData);
   }
   
-  static async createLeadFromContact(contactData: any): Promise<ILead> {
+  static async createLeadFromContact(contactData: any): Promise<any> {
     const leadData: CreateLeadData = {
       name: contactData.name || contactData.fullName,
       email: contactData.email || '',
@@ -116,7 +117,7 @@ export class LeadService {
     return this.createLead(leadData);
   }
   
-  static async createLeadFromLeadMagnet(data: any): Promise<ILead> {
+  static async createLeadFromLeadMagnet(data: any): Promise<any> {
     const leadData: CreateLeadData = {
       name: data.name,
       email: data.email,
