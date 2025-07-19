@@ -133,17 +133,19 @@ export default function GalleryShowcase() {
             {canScrollLeft && (
               <button
                 onClick={() => scroll('left')}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg min-w-[44px] min-h-[44px]"
+                aria-label="Scroll gallery left"
               >
-                <ChevronLeft className="h-5 w-5" />
+                <ChevronLeft className="h-5 w-5" aria-hidden="true" />
               </button>
             )}
             {canScrollRight && (
               <button
                 onClick={() => scroll('right')}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg min-w-[44px] min-h-[44px]"
+                aria-label="Scroll gallery right"
               >
-                <ChevronRight className="h-5 w-5" />
+                <ChevronRight className="h-5 w-5" aria-hidden="true" />
               </button>
             )}
             

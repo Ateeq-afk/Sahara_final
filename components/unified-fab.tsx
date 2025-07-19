@@ -100,11 +100,13 @@ export default function UnifiedFAB() {
           ${isOpen ? 'bg-gray-600' : 'bg-sahara-primary'} 
           text-white transition-all duration-300 hover:shadow-xl
         `}
+        aria-label={isOpen ? 'Close contact options' : 'Open contact options'}
+        aria-expanded={isOpen}
       >
         {isOpen ? (
-          <X className="h-6 w-6" />
+          <X className="h-6 w-6" aria-hidden="true" />
         ) : (
-          <Plus className="h-6 w-6" />
+          <Plus className="h-6 w-6" aria-hidden="true" />
         )}
       </motion.button>
     </div>
