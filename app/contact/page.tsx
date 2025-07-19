@@ -539,7 +539,7 @@ export default function ContactPage() {
                           onSubmit={form.handleSubmit(onSubmit)} 
                           className="space-y-6"
                         >
-                          <div className="grid md:grid-cols-2 gap-6">
+                          <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                             <FormField
                               control={form.control}
                               name="name"
@@ -549,7 +549,7 @@ export default function ContactPage() {
                                   <FormControl>
                                     <Input 
                                       placeholder="John Doe" 
-                                      className="h-12 px-4 rounded-2xl border-gray-200 bg-white/50 backdrop-blur-sm focus:bg-white focus:border-gray-400 transition-all duration-200 shadow-sm"
+                                      className="h-11 sm:h-12 px-3 sm:px-4 rounded-xl sm:rounded-2xl border-gray-200 bg-white/50 backdrop-blur-sm focus:bg-white focus:border-gray-400 transition-all duration-200 shadow-sm text-base"
                                       {...field} 
                                     />
                                   </FormControl>
@@ -566,7 +566,7 @@ export default function ContactPage() {
                                   <FormControl>
                                     <Input 
                                       placeholder="Acme Corp" 
-                                      className="h-12 px-4 rounded-2xl border-gray-200 bg-white/50 backdrop-blur-sm focus:bg-white focus:border-gray-400 transition-all duration-200 shadow-sm"
+                                      className="h-11 sm:h-12 px-3 sm:px-4 rounded-xl sm:rounded-2xl border-gray-200 bg-white/50 backdrop-blur-sm focus:bg-white focus:border-gray-400 transition-all duration-200 shadow-sm text-base"
                                       {...field} 
                                     />
                                   </FormControl>
@@ -575,7 +575,7 @@ export default function ContactPage() {
                             />
                           </div>
                           
-                          <div className="grid md:grid-cols-2 gap-6">
+                          <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                             <FormField
                               control={form.control}
                               name="email"
@@ -586,7 +586,7 @@ export default function ContactPage() {
                                     <Input 
                                       type="email"
                                       placeholder="john@example.com" 
-                                      className="h-12 px-4 rounded-2xl border-gray-200 bg-white/50 backdrop-blur-sm focus:bg-white focus:border-gray-400 transition-all duration-200 shadow-sm"
+                                      className="h-11 sm:h-12 px-3 sm:px-4 rounded-xl sm:rounded-2xl border-gray-200 bg-white/50 backdrop-blur-sm focus:bg-white focus:border-gray-400 transition-all duration-200 shadow-sm text-base"
                                       {...field} 
                                     />
                                   </FormControl>
@@ -604,7 +604,7 @@ export default function ContactPage() {
                                     <Input 
                                       type="tel"
                                       placeholder="+91 98765 43210" 
-                                      className="h-12 px-4 rounded-2xl border-gray-200 bg-white/50 backdrop-blur-sm focus:bg-white focus:border-gray-400 transition-all duration-200 shadow-sm"
+                                      className="h-11 sm:h-12 px-3 sm:px-4 rounded-xl sm:rounded-2xl border-gray-200 bg-white/50 backdrop-blur-sm focus:bg-white focus:border-gray-400 transition-all duration-200 shadow-sm text-base"
                                       {...field} 
                                     />
                                   </FormControl>

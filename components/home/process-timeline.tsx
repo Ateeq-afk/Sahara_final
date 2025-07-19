@@ -35,27 +35,27 @@ export default function ProcessTimeline() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section ref={ref} className="relative py-32 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+    <section ref={ref} className="relative py-12 sm:py-16 md:py-24 lg:py-32 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-72 h-72 bg-sahara-primary rounded-full filter blur-3xl" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-sahara-secondary rounded-full filter blur-3xl" />
       </div>
-      <div className="container mx-auto px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20 mt-16"
+          className="text-center mb-12 sm:mb-16 lg:mb-20 mt-8 sm:mt-12 lg:mt-16"
         >
           <span className="text-sm font-medium text-gray-500 tracking-[0.2em] uppercase">
             OUR PROCESS
           </span>
-          <h2 className="text-5xl md:text-6xl font-semibold mt-4 mb-6 tracking-[-0.03em]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold mt-4 mb-4 sm:mb-6 tracking-[-0.03em]">
             From Vision to Reality
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
             A thoughtfully guided journey from concept to completion.
           </p>
         </motion.div>
@@ -72,7 +72,7 @@ export default function ProcessTimeline() {
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className={`relative flex flex-col md:flex-row items-start md:items-center mb-20 last:mb-0 ${
+              className={`relative flex flex-col md:flex-row items-start md:items-center mb-12 sm:mb-16 lg:mb-20 last:mb-0 ${
                 index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
               }`}
             >
@@ -81,12 +81,12 @@ export default function ProcessTimeline() {
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100/50"
+                  className="bg-white/90 backdrop-blur-sm p-4 sm:p-6 lg:p-8 rounded-xl lg:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100/50"
                 >
                   <span className={`text-sm font-medium text-gray-500 tracking-[0.2em] uppercase ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
                     Phase {step.phase}
                   </span>
-                  <h3 className="text-3xl font-semibold mt-2 mb-4">{step.title}</h3>
+                  <h3 className="text-2xl sm:text-3xl font-semibold mt-2 mb-3 sm:mb-4">{step.title}</h3>
                   <p className="text-gray-600 mb-4 leading-relaxed">{step.description}</p>
                   <p className={`text-sm text-sahara-primary font-medium flex items-center gap-2 ${index % 2 === 0 ? 'md:justify-end' : 'md:justify-start'}`}>
                     <span className="w-5 h-5 rounded-full bg-sahara-primary/10 flex items-center justify-center text-xs">⏱</span>

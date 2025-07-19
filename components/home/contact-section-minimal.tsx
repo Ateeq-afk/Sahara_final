@@ -60,7 +60,7 @@ export default function ContactSectionMinimal() {
 
   return (
     <>
-    <section className="bg-gray-50 py-16 md:py-20">
+    <section className="bg-gray-50 py-12 sm:py-16 md:py-20">
       <div className="apple-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -69,22 +69,22 @@ export default function ContactSectionMinimal() {
           viewport={{ once: true }}
           className="max-w-3xl mx-auto text-center"
         >
-          <h2 className="text-5xl lg:text-6xl font-semibold text-gray-900 mb-4 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-4 tracking-tight">
             Let's Talk.
           </h2>
           
-          <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-8 sm:mb-12 max-w-2xl mx-auto">
             Ready to transform your space? Connect with us through your preferred channel.
           </p>
           
           {/* Contact Options - Apple Style Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 sm:mb-12">
             {/* Call Card */}
             <motion.div
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2 }}
-              className="block rounded-2xl bg-gray-50 p-6 hover:bg-gray-100 transition-all duration-300 group cursor-pointer"
+              className="block rounded-xl lg:rounded-2xl bg-white sm:bg-gray-50 p-4 sm:p-6 hover:bg-gray-100 transition-all duration-300 group cursor-pointer"
               onClick={() => window.location.href = 'tel:+919591837216'}
             >
               <div className="flex items-start justify-between mb-4">
@@ -94,7 +94,7 @@ export default function ContactSectionMinimal() {
                 <span className="text-xs text-gray-500 font-medium">PHONE</span>
               </div>
               <h3 className="text-base font-medium text-gray-900 mb-1">Call us directly</h3>
-              <p className="text-2xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+              <p className="text-xl sm:text-2xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
                 +91 95918 37216
               </p>
               <div className="mt-4 flex items-center gap-3">
@@ -117,7 +117,7 @@ export default function ContactSectionMinimal() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2 }}
-              className="block rounded-2xl bg-gray-50 p-6 hover:bg-gray-100 transition-all duration-300 group cursor-pointer"
+              className="block rounded-xl lg:rounded-2xl bg-white sm:bg-gray-50 p-4 sm:p-6 hover:bg-gray-100 transition-all duration-300 group cursor-pointer"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="p-3 bg-white rounded-xl shadow-sm">
@@ -140,7 +140,7 @@ export default function ContactSectionMinimal() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2 }}
-              className="block rounded-2xl bg-gray-50 p-6 hover:bg-gray-100 transition-all duration-300 group cursor-pointer"
+              className="block rounded-xl lg:rounded-2xl bg-white sm:bg-gray-50 p-4 sm:p-6 hover:bg-gray-100 transition-all duration-300 group cursor-pointer"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="p-3 bg-white rounded-xl shadow-sm">

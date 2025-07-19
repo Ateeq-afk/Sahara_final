@@ -505,4 +505,181 @@
       transition: none !important;
     }
   }
+  
+  /* CRITICAL MOBILE UI FIXES */
+  
+  /* Fix bottom navigation overlap */
+  @media (max-width: 767px) {
+    main {
+      padding-bottom: 5rem !important; /* Account for bottom nav */
+    }
+    
+    /* Fix floating elements that might overlap bottom nav */
+    .fixed.bottom-20 {
+      bottom: 5.5rem !important;
+    }
+    
+    /* Fix section padding on mobile */
+    section {
+      padding-top: 3rem !important;
+      padding-bottom: 3rem !important;
+    }
+    
+    /* First section after header needs more top padding */
+    main > section:first-child {
+      padding-top: 5rem !important;
+    }
+  }
+  
+  /* Fix horizontal scrolling issues */
+  * {
+    max-width: 100vw;
+  }
+  
+  /* Prevent horizontal overflow */
+  html, body {
+    overflow-x: hidden !important;
+  }
+  
+  /* Fix text sizes on mobile for better readability */
+  @media (max-width: 640px) {
+    /* Headings */
+    h1, .text-5xl, .text-6xl {
+      font-size: 2rem !important;
+      line-height: 2.5rem !important;
+    }
+    
+    h2, .text-4xl {
+      font-size: 1.75rem !important;
+      line-height: 2.25rem !important;
+    }
+    
+    h3, .text-3xl {
+      font-size: 1.5rem !important;
+      line-height: 2rem !important;
+    }
+    
+    /* Body text */
+    p, .text-lg {
+      font-size: 1rem !important;
+      line-height: 1.625rem !important;
+    }
+    
+    /* Small text */
+    .text-sm {
+      font-size: 0.875rem !important;
+    }
+    
+    .text-xs {
+      font-size: 0.75rem !important;
+    }
+  }
+  
+  /* Fix container padding on mobile */
+  @media (max-width: 640px) {
+    .container {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+    
+    /* Remove negative margins that cause overflow */
+    [class*="-mx-"] {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+  }
+  
+  /* Fix form inputs on mobile */
+  @media (max-width: 640px) {
+    input, textarea, select {
+      font-size: 16px !important; /* Prevents zoom on iOS */
+      min-height: 44px !important;
+      padding: 0.75rem !important;
+    }
+    
+    /* Fix button sizes */
+    button, a[role="button"], .btn {
+      min-height: 44px !important;
+      padding: 0.75rem 1.5rem !important;
+    }
+    
+    /* Small icon buttons */
+    button.p-2, button.p-3 {
+      min-width: 44px !important;
+      min-height: 44px !important;
+    }
+  }
+  
+  /* Fix modal and dialog positioning on mobile */
+  @media (max-width: 640px) {
+    [role="dialog"], .modal {
+      max-width: calc(100vw - 2rem) !important;
+      margin: 1rem !important;
+      max-height: calc(100vh - 2rem) !important;
+      overflow-y: auto !important;
+    }
+  }
+  
+  /* Fix floating action button position */
+  @media (max-width: 640px) {
+    .fixed.bottom-20.right-6 {
+      bottom: 5.5rem !important;
+      right: 1rem !important;
+    }
+  }
+  
+  /* Fix image aspect ratios on mobile */
+  @media (max-width: 640px) {
+    img {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+    
+    /* Fix hero images */
+    .aspect-\\[4\\/5\\], .aspect-\\[4\\/3\\] {
+      aspect-ratio: 16/9 !important;
+    }
+  }
+  
+  /* Fix card spacing on mobile */
+  @media (max-width: 640px) {
+    .gap-6 {
+      gap: 1rem !important;
+    }
+    
+    .gap-8 {
+      gap: 1.5rem !important;
+    }
+    
+    .p-6 {
+      padding: 1rem !important;
+    }
+    
+    .p-8 {
+      padding: 1.5rem !important;
+    }
+  }
+  
+  /* Fix mobile menu positioning */
+  @media (max-width: 768px) {
+    .fixed.top-16 {
+      top: 4rem !important;
+    }
+  }
+  
+  /* Ensure touch targets are accessible */
+  @media (max-width: 640px) {
+    a, button, [role="button"] {
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  
+  /* Fix z-index stacking issues */
+  .z-\\[80\\] { z-index: 80 !important; }
+  .z-\\[90\\] { z-index: 90 !important; }
+  .z-\\[100\\] { z-index: 100 !important; }
 }

@@ -135,8 +135,8 @@ export default function AppleQuoteForm() {
           >
             <Check className="w-10 h-10 text-white" />
           </motion.div>
-          <h1 className="text-4xl font-semibold mb-4">Thank you.</h1>
-          <p className="text-xl text-gray-600 mb-8">
+          <h1 className="text-3xl sm:text-4xl font-semibold mb-4">Thank you.</h1>
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-8 px-4 sm:px-0">
             We'll prepare your personalized quote and contact you within 2 hours.
           </p>
           <Link
@@ -153,13 +153,13 @@ export default function AppleQuoteForm() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center px-8">
+      <section className="relative min-h-screen sm:h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16 sm:py-0">
         <div className="text-center max-w-3xl mx-auto">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl font-semibold tracking-tight mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-semibold tracking-tight mb-4 sm:mb-6"
           >
             Let's build<br />something great.
           </motion.h1>
@@ -167,7 +167,7 @@ export default function AppleQuoteForm() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-xl md:text-2xl text-gray-600 mb-12"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-8 sm:mb-12"
           >
             Get your personalized quote in minutes.
           </motion.p>
@@ -187,7 +187,7 @@ export default function AppleQuoteForm() {
       </section>
 
       {/* Form Section */}
-      <section ref={formRef} className="py-20 px-8">
+      <section ref={formRef} className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
           {/* Progress */}
           <div className="mb-12">
@@ -245,7 +245,7 @@ export default function AppleQuoteForm() {
                     <label className="block text-lg font-medium mb-6">
                       What would you like to build?
                     </label>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       {services.map((service) => {
                         const Icon = service.icon
                         return (
@@ -253,7 +253,7 @@ export default function AppleQuoteForm() {
                             key={service.id}
                             onClick={() => updateField('service', service.id)}
                             className={`
-                              p-6 rounded-2xl border-2 text-left transition-all
+                              p-4 sm:p-6 rounded-xl sm:rounded-2xl border-2 text-left transition-all
                               ${formData.service === service.id
                                 ? 'border-black bg-gray-50'
                                 : 'border-gray-200 hover:border-gray-300'
@@ -273,7 +273,7 @@ export default function AppleQuoteForm() {
                     <label className="block text-lg font-medium mb-6">
                       Property type
                     </label>
-                    <div className="flex gap-4">
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                       {propertyTypes.map((type) => {
                         const Icon = type.icon
                         return (
@@ -281,7 +281,7 @@ export default function AppleQuoteForm() {
                             key={type.id}
                             onClick={() => updateField('propertyType', type.id)}
                             className={`
-                              flex-1 p-6 rounded-2xl border-2 transition-all
+                              flex-1 p-4 sm:p-6 rounded-xl sm:rounded-2xl border-2 transition-all
                               ${formData.propertyType === type.id
                                 ? 'border-black bg-gray-50'
                                 : 'border-gray-200 hover:border-gray-300'
@@ -356,7 +356,7 @@ export default function AppleQuoteForm() {
                   <label className="block text-lg font-medium mb-6">
                     Choose your style
                   </label>
-                  <div className="grid grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     {styles.map((style) => (
                       <button
                         key={style.id}
@@ -481,7 +481,7 @@ export default function AppleQuoteForm() {
                 onClick={handleNext}
                 disabled={!canProceed()}
                 className={`
-                  px-8 py-4 rounded-full font-medium flex items-center gap-2 transition-all
+                  px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium flex items-center gap-2 transition-all text-sm sm:text-base
                   ${canProceed()
                     ? 'bg-black text-white hover:bg-gray-800'
                     : 'bg-gray-100 text-gray-400 cursor-not-allowed'
@@ -496,7 +496,7 @@ export default function AppleQuoteForm() {
                 onClick={handleSubmit}
                 disabled={!canProceed() || isSubmitting}
                 className={`
-                  px-8 py-4 rounded-full font-medium transition-all
+                  px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium transition-all text-sm sm:text-base
                   ${canProceed() && !isSubmitting
                     ? 'bg-blue-600 text-white hover:bg-blue-700'
                     : 'bg-gray-100 text-gray-400 cursor-not-allowed'

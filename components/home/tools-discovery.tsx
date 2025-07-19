@@ -103,7 +103,7 @@ export default function ToolsDiscovery() {
   }
 
   return (
-    <section className="relative py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50 overflow-hidden">
+    <section className="relative py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50 overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-sahara-primary/10 to-sahara-secondary/10 rounded-full blur-3xl animate-pulse" />
@@ -115,7 +115,7 @@ export default function ToolsDiscovery() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative z-10 text-center mb-16"
+          className="relative z-10 text-center mb-8 sm:mb-12 lg:mb-16"
         >
           <motion.div
             initial={{ scale: 0 }}
@@ -132,13 +132,13 @@ export default function ToolsDiscovery() {
             Plan smarter.
             <span className="bg-gradient-to-r from-sahara-primary to-sahara-secondary bg-clip-text text-transparent block sm:inline"> Build better.</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
             Industry-leading AI-powered tools that revolutionize your construction experience.
           </p>
         </motion.div>
 
         {/* All Tools - Horizontal Scroll for Both Mobile and Desktop */}
-        <div className="-mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto pb-4 mb-12 mt-16 relative" onScroll={handleScroll}>
+        <div className="-mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto pb-4 mb-8 sm:mb-12 mt-8 sm:mt-12 lg:mt-16 relative" onScroll={handleScroll}>
           {/* Scroll Hint */}
           <AnimatePresence>
             {showScrollHint && (
@@ -179,14 +179,14 @@ export default function ToolsDiscovery() {
                         tool.action()
                       }
                     }}>
-                    <Card className="relative h-full p-6 lg:p-8 border-gray-200 hover:border-gray-300 transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 overflow-hidden backdrop-blur-sm bg-white/95" style={{ width: '280px', minWidth: '280px' }}>
+                    <Card className="relative h-full p-4 sm:p-6 lg:p-8 border-gray-200 hover:border-gray-300 transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 overflow-hidden backdrop-blur-sm bg-white/95" style={{ width: '260px', minWidth: '260px' }}>
                       {/* Enhanced Background Gradient */}
                       <div className={`absolute inset-0 bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-10 transition-all duration-700`} />
                       <div className="absolute inset-0 bg-gradient-to-t from-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       
                       {/* Content */}
                       <div className="relative z-10">
-                        <div className="flex items-start justify-between mb-6">
+                        <div className="flex items-start justify-between mb-4 sm:mb-6">
                           <div className={`p-3 rounded-2xl bg-gradient-to-br ${tool.color} text-white`}>
                             <Icon className="h-6 w-6" />
                           </div>
@@ -205,7 +205,7 @@ export default function ToolsDiscovery() {
                           </AnimatePresence>
                         </div>
                         
-                        <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
                           {tool.title}
                         </h3>
                         <p className="text-gray-600 mb-1">

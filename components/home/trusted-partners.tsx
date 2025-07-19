@@ -219,19 +219,19 @@ const TrustedPartners = () => {
   }
 
   return (
-    <section className="py-20 sm:py-28 bg-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="py-12 sm:py-16 md:py-20 lg:py-28 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 lg:mb-16"
         >
-          <h2 className="text-4xl lg:text-5xl font-semibold text-gray-900 mb-4 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-4 tracking-tight">
             Our Partners
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
             Working with trusted industry leaders to deliver quality and financing solutions
           </p>
         </motion.div>
@@ -242,7 +242,7 @@ const TrustedPartners = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-8 sm:mb-12 lg:mb-16">
         >
           <div className="flex items-center gap-3 mb-8">
             <div className="p-2 bg-gray-100 rounded-lg">
@@ -277,7 +277,7 @@ const TrustedPartners = () => {
               <div
                 ref={bankingScrollRef}
                 onScroll={() => checkScrollButtons(bankingScrollRef, setCanScrollBankingLeft, setCanScrollBankingRight)}
-                className="flex overflow-x-auto scrollbar-hide gap-3 pb-2 -mx-6 px-6 scroll-smooth"
+                className="flex overflow-x-auto scrollbar-hide gap-3 pb-2 -mx-4 px-4 scroll-smooth"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
                 {bankingPartners.map((partner, index) => (
@@ -289,7 +289,7 @@ const TrustedPartners = () => {
                     className="group cursor-pointer flex-shrink-0 w-[160px]"
                     onClick={() => handlePartnerClick(partner)}
                   >
-                    <div className="bg-gray-50 rounded-xl p-6 h-28 flex items-center justify-center transition-all duration-300 hover:bg-gray-100 hover:shadow-sm">
+                    <div className="bg-gray-50 rounded-lg sm:rounded-xl p-4 sm:p-6 h-24 sm:h-28 flex items-center justify-center transition-all duration-300 hover:bg-gray-100 hover:shadow-sm">
                       <div className="relative w-full max-w-[80px] h-6 flex items-center justify-center">
                         <Image
                           src={getImageSrc(partner)}
@@ -378,7 +378,7 @@ const TrustedPartners = () => {
               <div
                 ref={materialScrollRef}
                 onScroll={() => checkScrollButtons(materialScrollRef, setCanScrollMaterialLeft, setCanScrollMaterialRight)}
-                className="flex overflow-x-auto scrollbar-hide gap-3 pb-2 -mx-6 px-6 scroll-smooth"
+                className="flex overflow-x-auto scrollbar-hide gap-3 pb-2 -mx-4 px-4 scroll-smooth"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
                 {materialPartners.map((partner, index) => (
@@ -390,7 +390,7 @@ const TrustedPartners = () => {
                     className="group cursor-pointer flex-shrink-0 w-[160px]"
                     onClick={() => handlePartnerClick(partner)}
                   >
-                    <div className="bg-gray-50 rounded-xl p-6 h-28 flex items-center justify-center transition-all duration-300 hover:bg-gray-100 hover:shadow-sm">
+                    <div className="bg-gray-50 rounded-lg sm:rounded-xl p-4 sm:p-6 h-24 sm:h-28 flex items-center justify-center transition-all duration-300 hover:bg-gray-100 hover:shadow-sm">
                       <div className="relative w-full max-w-[80px] h-6 flex items-center justify-center">
                         <Image
                           src={getImageSrc(partner)}

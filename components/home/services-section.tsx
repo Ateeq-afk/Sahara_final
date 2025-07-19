@@ -57,14 +57,14 @@ export default function ServicesSection() {
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.6, 1, 1, 0.6])
 
   return (
-    <section ref={ref} className="py-24 sm:py-32 lg:py-40 bg-[#fbfbfd]">
-      <div className="max-w-[1480px] mx-auto px-6 lg:px-8">
+    <section ref={ref} className="py-12 sm:py-16 md:py-24 lg:py-32 bg-[#fbfbfd]">
+      <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16 lg:mb-24"
+          className="text-center mb-8 sm:mb-12 lg:mb-24"
           style={{ opacity }}
         >
           <motion.h2 
@@ -311,7 +311,7 @@ export default function ServicesSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-center mt-16 lg:mt-24"
+          className="text-center mt-8 sm:mt-12 lg:mt-24"
         >
           <Link
             href="/services"

@@ -54,7 +54,7 @@ export default function HeroModern() {
               className="text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 leading-tight tracking-tight"
             >
               Build Your Dream
-              <span className="block font-normal bg-gradient-to-r from-[#D26700] to-[#F59E0B] bg-clip-text text-transparent">
+              <span className="block font-normal bg-gradient-to-r from-[#B85600] to-[#DC7F00] bg-clip-text text-transparent">
                 With Excellence
               </span>
             </motion.h1>

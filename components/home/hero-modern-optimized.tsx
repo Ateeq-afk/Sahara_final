@@ -13,15 +13,15 @@ export default function HeroModernOptimized() {
   }, [])
   
   return (
-    <section className="relative flex items-center bg-white pt-16 pb-12 md:pt-20 md:pb-16 lg:min-h-[85vh] overflow-hidden">
+    <section className="relative flex items-center bg-white pt-20 pb-8 md:pt-20 md:pb-16 lg:min-h-[85vh] overflow-hidden">
       {/* Static gradient background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-white to-amber-50/20" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-sahara-primary/5 via-transparent to-transparent" />
       </div>
       
-      <div className="container mx-auto px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
           {/* Content - Left aligned, compact */}
           <div 
             className={`max-w-xl transition-all duration-700 ${
@@ -29,37 +29,37 @@ export default function HeroModernOptimized() {
             }`}
           >
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-full mb-6">
-              <span className="w-1.5 h-1.5 bg-[#D26700] rounded-full"></span>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-full mb-4">
+              <span className="w-1.5 h-1.5 bg-[#B85600] rounded-full"></span>
               <span className="text-xs font-medium text-gray-700">20+ Years of Excellence</span>
             </div>
             
             {/* Headline */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 leading-tight tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 leading-tight tracking-tight">
               Build Your Dream
-              <span className="block font-normal bg-gradient-to-r from-[#D26700] to-[#F59E0B] bg-clip-text text-transparent">
+              <span className="block font-normal bg-gradient-to-r from-[#B85600] to-[#DC7F00] bg-clip-text text-transparent">
                 With Excellence
               </span>
             </h1>
             
             {/* Description */}
-            <p className="text-lg text-gray-600 leading-relaxed mt-4 mb-6">
+            <p className="text-base sm:text-lg text-gray-600 leading-relaxed mt-4 mb-6">
               Premium construction & interior solutions powered by innovation, 
               delivered with 20+ years of expertise in Bangalore.
             </p>
             
             {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <Link 
                 href="/quote" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#D26700] text-white rounded-full hover:bg-[#B85600] transition-all duration-300 font-medium text-sm"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#B85600] text-white rounded-full hover:bg-[#A04A00] transition-all duration-300 font-medium text-sm w-full sm:w-auto"
               >
                 Start Your Project
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link 
                 href="/gallery" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-700 rounded-full hover:bg-gray-50 transition-all duration-300 border border-gray-300 font-medium text-sm"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-700 rounded-full hover:bg-gray-50 transition-all duration-300 border border-gray-300 font-medium text-sm w-full sm:w-auto"
               >
                 <Play className="w-4 h-4" />
                 View Portfolio
@@ -67,7 +67,7 @@ export default function HeroModernOptimized() {
             </div>
             
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 mt-10 pt-10 border-t border-gray-200">
+            <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-gray-200">
               <div>
                 <div className="text-2xl font-semibold text-gray-900">500+</div>
                 <div className="text-sm text-gray-500 mt-1">Projects</div>
@@ -85,7 +85,7 @@ export default function HeroModernOptimized() {
           
           {/* Image - Clean, aligned */}
           <div 
-            className={`relative max-w-xl mx-auto lg:ml-auto lg:mr-0 transition-all duration-700 delay-300 ${
+            className={`relative max-w-xl mx-auto lg:ml-auto lg:mr-0 mt-8 lg:mt-0 transition-all duration-700 delay-300 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
             }`}
           >
@@ -115,8 +115,8 @@ export default function HeroModernOptimized() {
               </div>
               
               {/* Small Images Grid */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="relative rounded-xl overflow-hidden shadow-lg h-[140px] lg:h-[160px]">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                <div className="relative rounded-xl overflow-hidden shadow-lg h-[120px] sm:h-[140px] lg:h-[160px]">
                   <Image
                     src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=400&q=90"
                     alt="Interior Design"
@@ -126,7 +126,7 @@ export default function HeroModernOptimized() {
                     loading="lazy"
                   />
                 </div>
-                <div className="relative rounded-xl overflow-hidden shadow-lg h-[140px] lg:h-[160px]">
+                <div className="relative rounded-xl overflow-hidden shadow-lg h-[120px] sm:h-[140px] lg:h-[160px]">
                   <Image
                     src="https://images.unsplash.com/photo-1565623006066-82f23c79210b?w=400&q=90"
                     alt="Luxury Interior"
@@ -139,7 +139,7 @@ export default function HeroModernOptimized() {
               </div>
               
               {/* Floating accent card */}
-              <div className="absolute bottom-4 left-4 bg-white rounded-xl shadow-xl p-3 max-w-[180px] z-10">
+              <div className="hidden sm:block absolute bottom-4 left-4 bg-white rounded-xl shadow-xl p-3 max-w-[180px] z-10">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-[#D26700]/10 rounded-lg flex items-center justify-center">
                     <span className="text-[#D26700] text-lg font-semibold">A+</span>

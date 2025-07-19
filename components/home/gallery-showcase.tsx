@@ -100,25 +100,25 @@ export default function GalleryShowcase() {
   }
 
   return (
-    <section ref={ref} className="py-32 bg-white mt-20">
-      <div className="container mx-auto px-8">
+    <section ref={ref} className="py-12 sm:py-16 md:py-24 lg:py-32 bg-white mt-8 sm:mt-12 md:mt-16 lg:mt-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="mb-20"
+          className="mb-8 sm:mb-12 lg:mb-20"
         >
           <span className="text-sm font-medium text-gray-500 tracking-[0.2em] uppercase">
             Portfolio
           </span>
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mt-4">
-            <h2 className="text-5xl md:text-6xl font-semibold tracking-[-0.03em] mb-6 lg:mb-0">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] mb-4 lg:mb-0">
               Selected Works
             </h2>
             <Link
               href="/gallery"
-              className="inline-flex items-center gap-2 text-lg font-medium text-gray-900 hover:text-gray-600 transition-colors duration-300"
+              className="inline-flex items-center gap-2 text-base sm:text-lg font-medium text-gray-900 hover:text-gray-600 transition-colors duration-300"
             >
               View All Projects
               <ArrowRight className="h-5 w-5" />
@@ -153,7 +153,7 @@ export default function GalleryShowcase() {
             <div
               ref={scrollRef}
               onScroll={checkScrollButtons}
-              className="flex overflow-x-auto scrollbar-hide gap-4 pb-4 -mx-8 px-8 scroll-smooth"
+              className="flex overflow-x-auto scrollbar-hide gap-3 pb-4 -mx-4 px-4 scroll-smooth"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               {projects.map((project, index) => (
@@ -162,10 +162,10 @@ export default function GalleryShowcase() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="group cursor-pointer flex-shrink-0 w-[280px]"
+                  className="group cursor-pointer flex-shrink-0 w-[260px] sm:w-[280px]"
                   onClick={() => setSelectedProject(project)}
                 >
-                  <div className="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
+                  <div className="relative aspect-[4/5] rounded-lg sm:rounded-xl overflow-hidden mb-3">
                     <Image
                       src={project.image}
                       alt={project.title}
@@ -190,7 +190,7 @@ export default function GalleryShowcase() {
                   
                   <div>
                     <p className="text-xs text-gray-500 mb-1">{project.category} · {project.year}</p>
-                    <h3 className="text-lg font-medium mb-1">{project.title}</h3>
+                    <h3 className="text-base sm:text-lg font-medium mb-1">{project.title}</h3>
                     <p className="text-sm text-gray-600">{project.description}</p>
                   </div>
                 </motion.div>
@@ -259,7 +259,7 @@ export default function GalleryShowcase() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-8"
+            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8"
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
@@ -277,8 +277,8 @@ export default function GalleryShowcase() {
                 Close
               </button>
               
-              <div className="bg-white rounded-2xl overflow-hidden">
-                <div className="relative aspect-[16/10]">
+              <div className="bg-white rounded-lg sm:rounded-xl lg:rounded-2xl overflow-hidden">
+                <div className="relative aspect-[16/10] sm:aspect-[16/9]">
                   <Image
                     src={selectedProject.image}
                     alt={selectedProject.title}
@@ -287,7 +287,7 @@ export default function GalleryShowcase() {
                     sizes="100vw"
                   />
                 </div>
-                <div className="p-12">
+                <div className="p-6 sm:p-8 md:p-12">
                   <p className="text-sm text-gray-500 mb-4">
                     {selectedProject.category} · {selectedProject.year}
                   </p>
@@ -295,7 +295,7 @@ export default function GalleryShowcase() {
                   <p className="text-xl text-gray-600 mb-8">{selectedProject.description}</p>
                   <Link
                     href={`/gallery/${selectedProject.id}`}
-                    className="inline-flex items-center gap-2 text-lg font-medium text-gray-900 hover:text-gray-600 transition-colors duration-300"
+                    className="inline-flex items-center gap-2 text-base sm:text-lg font-medium text-gray-900 hover:text-gray-600 transition-colors duration-300"
                   >
                     View Project Details
                     <ArrowRight className="h-5 w-5" />

@@ -59,7 +59,7 @@ export default function MobileBottomNav({ onMenuClick }: { onMenuClick: () => vo
             >
               <Icon 
                 className={`w-5 h-5 transition-colors ${
-                  isActive ? 'text-[#D26700]' : 'text-gray-600'
+                  isActive ? 'text-[#B85600]' : 'text-gray-600'
                 }`} 
               />
               <span 
@@ -72,7 +72,7 @@ export default function MobileBottomNav({ onMenuClick }: { onMenuClick: () => vo
               {isActive && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-[#D26700] rounded-full"
+                  className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-[#B85600] rounded-full"
                 />
               )}
             </Link>

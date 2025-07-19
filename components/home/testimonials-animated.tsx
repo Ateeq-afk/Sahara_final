@@ -37,29 +37,29 @@ export default function TestimonialsAnimated() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section ref={ref} className="py-32 bg-gradient-to-b from-white via-gray-50 to-white">
-      <div className="container mx-auto px-8">
+    <section ref={ref} className="py-12 sm:py-16 md:py-24 lg:py-32 bg-gradient-to-b from-white via-gray-50 to-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-8 sm:mb-12 lg:mb-20"
         >
           <span className="text-sm font-medium text-gray-500 tracking-[0.2em] uppercase">
             Testimonials
           </span>
-          <h2 className="text-5xl md:text-6xl font-semibold mt-4 mb-6 tracking-[-0.03em]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold mt-4 mb-4 sm:mb-6 tracking-[-0.03em]">
             Voices of Excellence
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
             Our clients' success stories speak to our commitment to exceptional design and flawless execution.
           </p>
         </motion.div>
 
         {/* Testimonials Grid */}
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={index}
@@ -68,7 +68,7 @@ export default function TestimonialsAnimated() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="group"
               >
-                <div className="bg-white rounded-2xl p-8 h-full shadow-sm hover:shadow-xl hover:bg-gradient-to-br hover:from-white hover:to-gray-50/50 transition-all duration-500 border border-gray-100 hover:border-gray-200 group-hover:scale-[1.02]">
+                <div className="bg-white rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 h-full shadow-sm hover:shadow-xl hover:bg-gradient-to-br hover:from-white hover:to-gray-50/50 transition-all duration-500 border border-gray-100 hover:border-gray-200 group-hover:scale-[1.02]">
                   {/* Rating */}
                   <div className="flex items-center mb-6">
                     {[...Array(testimonial.rating)].map((_, i) => (
@@ -78,7 +78,7 @@ export default function TestimonialsAnimated() {
 
                   {/* Quote */}
                   <blockquote className="mb-8">
-                    <p className="text-gray-700 text-lg leading-relaxed">
+                    <p className="text-gray-700 text-base sm:text-lg leading-relaxed">
                       "{testimonial.text}"
                     </p>
                   </blockquote>

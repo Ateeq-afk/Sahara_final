@@ -37,14 +37,14 @@ const stats = [
 
 export default function StatsSection() {
   return (
-    <section className="py-24 md:py-32 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+    <section className="py-12 sm:py-16 md:py-24 lg:py-32 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
       {/* Gradient Orbs - Made more subtle */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-4">
             Building Trust Through
             <span className="block text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900">
@@ -57,14 +57,14 @@ export default function StatsSection() {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 bg-white rounded-2xl lg:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12 shadow-sm border border-gray-100">
           {stats.map((stat) => {
             const Icon = stat.icon
             return (
               <div key={stat.id} className="text-center">
                 {/* Icon Container */}
                 <div className="inline-flex mb-6">
-                  <div className={`w-24 h-24 rounded-3xl bg-gradient-to-br ${stat.color} p-6 shadow-xl`}>
+                  <div className={`w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-gradient-to-br ${stat.color} p-5 sm:p-6 shadow-xl`}>
                     <Icon className="w-full h-full text-white" />
                   </div>
                 </div>
@@ -91,8 +91,8 @@ export default function StatsSection() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <p className="text-lg text-gray-700 mb-6 font-medium">
+        <div className="text-center mt-8 sm:mt-12 lg:mt-16">
+          <p className="text-base sm:text-lg text-gray-700 mb-4 sm:mb-6 font-medium px-4">
             Join hundreds of satisfied homeowners who trusted us with their dreams
           </p>
           <a
