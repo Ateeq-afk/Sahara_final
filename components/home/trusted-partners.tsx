@@ -243,7 +243,6 @@ const TrustedPartners = () => {
           whileInView="visible"
           viewport={{ once: true }}
           className="mb-8 sm:mb-12 lg:mb-16">
-        >
           <div className="flex items-center gap-3 mb-8">
             <div className="p-2 bg-gray-100 rounded-lg">
               <Banknote className="w-5 h-5 text-gray-700" />
