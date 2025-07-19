@@ -220,12 +220,15 @@ export default function FAQPage() {
                   </Button>
                 </a>
                 
-                <a href="mailto:info@saharadevelopers.in" className="block">
+                <a href="#" onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href = 'mailto:' + 'contact' + '@' + window.location.hostname.replace('www.', '');
+                }} className="block">
                   <Button variant="outline" className="w-full h-auto p-4 justify-start">
                     <Mail className="h-5 w-5 mr-3" />
                     <div className="text-left">
                       <div className="font-medium">Email Us</div>
-                      <div className="text-sm text-gray-600">info@saharadevelopers.in</div>
+                      <div className="text-sm text-gray-600">Contact Email</div>
                     </div>
                   </Button>
                 </a>

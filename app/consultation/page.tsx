@@ -321,7 +321,7 @@ export default function ConsultationPage() {
                   <Mail className="h-5 w-5 text-green-600" />
                   <div>
                     <p className="font-medium">Email Us</p>
-                    <p className="text-sm text-gray-600">info@saharadevelopers.in</p>
+                    <p className="text-sm text-gray-600">Contact Email</p>
                   </div>
                 </div>
                 

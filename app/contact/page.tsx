@@ -152,9 +152,12 @@ export default function ContactPage() {
   })
 
   async function onSubmit(values: z.infer<typeof contactSchema>) {
+    console.log('=== Contact Page Form Submission ===')
+    console.log('Form values:', values)
     setIsLoading(true)
     
     try {
+      console.log('Sending request to /api/contact...')
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -163,9 +166,12 @@ export default function ContactPage() {
         body: JSON.stringify(values),
       })
       
+      console.log('Response status:', response.status)
       const data = await response.json()
+      console.log('Response data:', data)
       
       if (response.ok && data.success) {
+        console.log('✅ Form submitted successfully')
         toast({
           title: "Message Sent Successfully!",
           description: "We'll get back to you within 24 hours.",
@@ -173,9 +179,11 @@ export default function ContactPage() {
         setIsSubmitted(true)
         form.reset()
       } else {
+        console.error('❌ Server returned error:', data.message || 'Failed to submit form')
         throw new Error(data.message || 'Failed to submit form')
       }
     } catch (error) {
+      console.error('❌ Error submitting form:', error)
       toast({
         title: "Error",
         description: "Failed to send message. Please try again.",
@@ -198,10 +206,14 @@ export default function ContactPage() {
     {
       icon: Mail,
       title: "Email",
-      details: ["info@saharadevelopers.in"],
-      action: "mailto:info@saharadevelopers.in",
+      details: ["Contact Us"],
+      action: "#",
       color: "from-purple-500 to-pink-600",
-      description: "24/7 Support"
+      description: "24/7 Support",
+      onClick: (e: React.MouseEvent) => {
+        e.preventDefault();
+        window.location.href = 'mailto:' + 'contact' + '@' + window.location.hostname.replace('www.', '');
+      }
     },
     {
       icon: MessageCircle,
@@ -424,6 +436,7 @@ export default function ContactPage() {
                               {item.action ? (
                                 <a 
                                   href={item.action}
+                                  onClick={item.onClick}
                                   className="inline-flex items-center gap-2 text-gray-700 hover:text-gray-900 font-medium transition-colors"
                                 >
                                   {item.details.map((detail, idx) => (

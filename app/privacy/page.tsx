@@ -253,9 +253,12 @@ export default function PrivacyPage() {
               <div className="p-6 bg-gray-50 rounded-xl">
                 <h3 className="font-medium text-gray-900 mb-4">Data Protection Officer</h3>
                 <div className="space-y-3">
-                  <a href="mailto:privacy@saharadevelopers.in" className="flex items-center gap-3 text-gray-600 hover:text-[#D26700] transition-colors">
+                  <a href="#" onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = 'mailto:' + 'privacy' + '@' + window.location.hostname.replace('www.', '');
+                  }} className="flex items-center gap-3 text-gray-600 hover:text-[#D26700] transition-colors">
                     <Mail className="w-5 h-5" />
-                    <span>privacy@saharadevelopers.in</span>
+                    <span>Privacy Contact</span>
                   </a>
                   <a href="tel:+919591837216" className="flex items-center gap-3 text-gray-600 hover:text-[#D26700] transition-colors">
                     <Phone className="w-5 h-5" />

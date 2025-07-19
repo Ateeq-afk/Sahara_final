@@ -211,11 +211,15 @@ export default function FooterMinimal() {
                 </a>
                 
                 <a 
-                  href="mailto:info@saharadevelopers.in" 
+                  href="#" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = 'mailto:' + 'contact' + '@' + window.location.hostname.replace('www.', '');
+                  }}
                   className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
                 >
                   <Mail className="w-4 h-4" />
-                  <span>info@saharadevelopers.in</span>
+                  <span>Contact Email</span>
                 </a>
                 
                 <div className="space-y-1">

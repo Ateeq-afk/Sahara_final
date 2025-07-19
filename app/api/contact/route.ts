@@ -63,40 +63,56 @@ export async function GET(request: NextRequest) {
 
 // POST create new contact
 export async function POST(request: NextRequest) {
+  console.log('=== Contact Form Submission Started ===')
+  console.log('Timestamp:', new Date().toISOString())
+  
   try {
     await dbConnect()
     
     const body = await request.json()
+    console.log('Request body:', JSON.stringify(body, null, 2))
     
     // Get client IP for rate limiting
     const clientIP = request.headers.get('x-forwarded-for') || 
                     request.headers.get('x-real-ip') || 
                     'unknown'
+    console.log('Client IP:', clientIP)
     
     // Check rate limit
     if (!FormValidator.checkRateLimit(clientIP)) {
+      console.log('Rate limit exceeded for IP:', clientIP)
       return NextResponse.json(
         { success: false, error: 'Too many submissions. Please try again later.' },
         { status: 429 }
       )
     }
+    console.log('Rate limit check passed')
     
     // Sanitize and validate input
     const sanitizedData = FormValidator.sanitizeContactForm(body)
+    console.log('Sanitized data:', JSON.stringify(sanitizedData, null, 2))
+    
     const validation = FormValidator.validateContactForm(sanitizedData)
+    console.log('Validation result:', validation)
     
     if (!validation.isValid) {
+      console.log('Validation failed:', validation.errors)
       return NextResponse.json(
         { success: false, errors: validation.errors },
         { status: 400 }
       )
     }
+    console.log('Validation passed')
     
     // Create new contact
+    console.log('Creating contact in database...')
     const contact = await Contact.create(sanitizedData)
+    console.log('Contact created with ID:', contact._id)
     
     // Create lead from contact
+    console.log('Creating lead from contact...')
     await LeadService.createLeadFromContact(sanitizedData)
+    console.log('Lead created successfully')
     
     // Send email notifications
     const emailData = {
@@ -108,15 +124,36 @@ export async function POST(request: NextRequest) {
       source: body.source || 'contact-form'
     }
     
+    console.log('=== Email Configuration ===')
+    console.log('RESEND_API_KEY present:', !!process.env.RESEND_API_KEY)
+    console.log('RESEND_API_KEY length:', process.env.RESEND_API_KEY?.length || 0)
+    console.log('RESEND_API_KEY starts with:', process.env.RESEND_API_KEY?.substring(0, 3) || 'N/A')
+    console.log('Notification emails:', process.env.NOTIFICATION_EMAILS || 'Not configured')
+    console.log('Email data:', JSON.stringify(emailData, null, 2))
+    
+    console.log('\n=== Required .env.local Configuration ===')
+    console.log('Please ensure your .env.local file contains:')
+    console.log('RESEND_API_KEY=re_xxxxxxxxxx  # Get from https://resend.com/api-keys')
+    console.log('NOTIFICATION_EMAILS=your-email@example.com  # Where to receive notifications')
+    console.log('ADMIN_EMAIL=admin@example.com  # Optional admin email')
+    
+    console.log('Sending email notifications...')
     const { notificationSent, confirmationSent } = await EmailService.sendContactEmails(emailData)
     
+    console.log('Email results:')
+    console.log('- Notification sent:', notificationSent)
+    console.log('- Confirmation sent:', confirmationSent)
+    
     if (!notificationSent) {
-      console.warn('Failed to send contact form notification email')
+      console.warn('⚠️ Failed to send contact form notification email')
     }
     
     if (!confirmationSent) {
-      console.warn('Failed to send contact confirmation email')
+      console.warn('⚠️ Failed to send contact confirmation email')
     }
+    
+    console.log('=== Contact Form Submission Completed ===')
+    console.log('Success: Contact created and emails sent')
     
     return NextResponse.json({
       success: true,
@@ -124,7 +161,10 @@ export async function POST(request: NextRequest) {
       message: 'Contact form submitted successfully. We will get back to you soon!'
     }, { status: 201 })
   } catch (error: any) {
-    console.error('Error creating contact:', error)
+    console.error('=== Contact Form Submission Failed ===')
+    console.error('Error type:', error.name)
+    console.error('Error message:', error.message)
+    console.error('Error stack:', error.stack)
     
     // Handle validation errors
     if (error.name === 'ValidationError') {

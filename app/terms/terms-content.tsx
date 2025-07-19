@@ -283,7 +283,11 @@ export default function TermsContent() {
               </p>
               <div className="flex flex-wrap gap-4">
                 <a
-                  href="mailto:legal@saharadevelopers.in"
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = 'mailto:' + 'legal' + '@' + window.location.hostname.replace('www.', '');
+                  }}
                   className="inline-flex items-center gap-2 px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
                 >
                   Email Legal Team

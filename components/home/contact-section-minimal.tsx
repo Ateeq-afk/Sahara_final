@@ -23,16 +23,20 @@ export default function ContactSectionMinimal() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    console.log('=== Contact Form Submission (Client) ===')
+    console.log('Form data:', formData)
     
     if (isSubmitting) return
     
     // Basic validation
     if (!formData.fullName.trim()) {
+      console.log('Validation failed: Name is empty')
       alert('Please enter your name')
       return
     }
     
     if (!formData.phoneNumber.trim()) {
+      console.log('Validation failed: Phone number is empty')
       alert('Please enter your phone number')
       return
     }
@@ -41,32 +45,44 @@ export default function ContactSectionMinimal() {
     const phoneRegex = /^[6-9]\d{9}$|^\+91[6-9]\d{9}$/
     const cleanPhone = formData.phoneNumber.replace(/[^\d]/g, '')
     if (!phoneRegex.test(cleanPhone) && !phoneRegex.test(`+91${cleanPhone}`)) {
+      console.log('Validation failed: Invalid phone number format')
       alert('Please enter a valid Indian phone number')
       return
     }
     
+    console.log('Validation passed, submitting form...')
     setIsSubmitting(true)
     setSubmitStatus('idle')
     
     try {
+      const requestBody = {
+        name: formData.fullName,
+        email: formData.fullName.toLowerCase().replace(/\s+/g, '') + '@callback.request', // Placeholder email
+        phone: formData.phoneNumber,
+        subject: 'Callback Request',
+        message: formData.message || 'Requested callback from website',
+        source: 'callback-request',
+      }
+      
+      console.log('Request body:', requestBody)
+      console.log('Sending request to /api/contact...')
+      
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          name: formData.fullName,
-          email: formData.fullName.toLowerCase().replace(/\s+/g, '') + '@callback.request', // Placeholder email
-          phone: formData.phoneNumber,
-          subject: 'Callback Request',
-          message: formData.message || 'Requested callback from website',
-          source: 'callback-request',
-        }),
+        body: JSON.stringify(requestBody),
       })
       
+      console.log('Response status:', response.status)
+      console.log('Response headers:', response.headers)
+      
       const data = await response.json()
+      console.log('Response data:', data)
       
       if (data.success) {
+        console.log('✅ Form submitted successfully')
         setSubmitStatus('success')
         setTimeout(() => {
           setIsModalOpen(false)
@@ -74,12 +90,14 @@ export default function ContactSectionMinimal() {
           setSubmitStatus('idle')
         }, 2000)
       } else {
+        console.error('❌ Server returned error:', data.errors || data.error)
         setSubmitStatus('error')
-        console.error('Server error:', data.errors || data.error)
+        alert(data.error || 'Failed to submit form. Please try again.')
       }
     } catch (error) {
-      console.error('Error submitting form:', error)
+      console.error('❌ Network error submitting form:', error)
       setSubmitStatus('error')
+      alert('Network error. Please check your connection and try again.')
     } finally {
       setIsSubmitting(false)
     }
@@ -147,7 +165,11 @@ export default function ContactSectionMinimal() {
             
             {/* Email Card */}
             <motion.a 
-              href="mailto:info@saharadevelopers.in"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href = 'mailto:' + 'contact' + '@' + window.location.hostname.replace('www.', '');
+              }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2 }}
@@ -161,7 +183,7 @@ export default function ContactSectionMinimal() {
               </div>
               <h3 className="text-base font-medium text-gray-900 mb-1">Send us an email</h3>
               <p className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors break-all">
-                info@saharadevelopers.in
+                Contact Us
               </p>
               <p className="mt-3 text-sm text-gray-500">We usually reply within 30 mins</p>
             </motion.a>

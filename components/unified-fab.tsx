@@ -42,9 +42,13 @@ export default function UnifiedFAB() {
       id: 'email',
       icon: Mail,
       label: 'Email',
-      href: 'mailto:info@saharadevelopers.in',
+      href: '#',
       color: 'bg-blue-500',
-      hoverColor: 'hover:bg-blue-600'
+      hoverColor: 'hover:bg-blue-600',
+      onClick: (e: React.MouseEvent) => {
+        e.preventDefault();
+        window.location.href = 'mailto:' + 'contact' + '@' + window.location.hostname.replace('www.', '');
+      }
     }
   ]
 
@@ -67,6 +71,7 @@ export default function UnifiedFAB() {
                   href={button.href}
                   target={button.target}
                   rel={button.target ? 'noopener noreferrer' : undefined}
+                  onClick={button.onClick}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}

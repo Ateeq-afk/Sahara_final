@@ -49,12 +49,17 @@ export class EmailService {
   }
 
   static async sendContactFormNotification(formData: ContactFormData): Promise<boolean> {
+    console.log('--- sendContactFormNotification started ---')
+    console.log('Resend instance available:', !!resend)
+    
     if (!resend) {
       console.warn('Email service not configured. Contact form notification not sent.')
+      console.warn('Make sure RESEND_API_KEY is set in .env.local')
       return false
     }
 
     try {
+      console.log('Rendering email template...')
       const emailHtml = await render(ContactFormEmail({
         name: formData.name,
         email: formData.email,
@@ -62,31 +67,52 @@ export class EmailService {
         message: formData.message,
         submittedAt: new Date().toISOString()
       }))
+      console.log('Email template rendered successfully')
 
-      await resend.emails.send({
+      const emailConfig = {
         from: EMAIL_CONFIG.from,
         to: EMAIL_CONFIG.notificationEmails,
         replyTo: formData.email,
         subject: `New Contact Form: ${formData.subject || formData.name}`,
         html: emailHtml
-      })
+      }
+      
+      console.log('Email configuration:')
+      console.log('- From:', emailConfig.from)
+      console.log('- To:', emailConfig.to)
+      console.log('- ReplyTo:', emailConfig.replyTo)
+      console.log('- Subject:', emailConfig.subject)
+      
+      console.log('Sending email via Resend API...')
+      const response = await resend.emails.send(emailConfig)
+      console.log('Resend API response:', response)
 
-      console.log('Contact form notification sent successfully')
+      console.log('✅ Contact form notification sent successfully')
       return true
-    } catch (error) {
-      console.error('Failed to send contact form notification:', error)
+    } catch (error: any) {
+      console.error('❌ Failed to send contact form notification')
+      console.error('Error details:', {
+        message: error.message,
+        statusCode: error.statusCode,
+        name: error.name,
+        response: error.response
+      })
       return false
     }
   }
 
   static async sendContactConfirmation(formData: ContactFormData): Promise<boolean> {
+    console.log('--- sendContactConfirmation started ---')
+    console.log('Sending confirmation to:', formData.email)
+    
     if (!resend) {
       console.warn('Email service not configured. Contact confirmation not sent.')
       return false
     }
 
     try {
-      await resend.emails.send({
+      console.log('Sending confirmation email...')
+      const response = await resend.emails.send({
         from: EMAIL_CONFIG.from,
         to: formData.email,
         subject: 'Thank you for contacting Sahara Developers',
@@ -114,11 +140,18 @@ export class EmailService {
           </div>
         `
       })
-
-      console.log('Contact confirmation sent successfully')
+      
+      console.log('Resend API response:', response)
+      console.log('✅ Contact confirmation sent successfully')
       return true
-    } catch (error) {
-      console.error('Failed to send contact confirmation:', error)
+    } catch (error: any) {
+      console.error('❌ Failed to send contact confirmation')
+      console.error('Error details:', {
+        message: error.message,
+        statusCode: error.statusCode,
+        name: error.name,
+        response: error.response
+      })
       return false
     }
   }
