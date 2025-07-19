@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import dbConnect from '@/lib/mongodb'
-import Contact from '@/models/Contact'
+import Lead from '@/models/Lead'
 import { LeadService } from '@/lib/services/lead-service'
 
-// GET all contacts
+// GET all leads (admin only)
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
@@ -23,26 +23,31 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '10')
     const status = searchParams.get('status')
+    const source = searchParams.get('source')
+    const assignedTo = searchParams.get('assignedTo')
     
     const skip = (page - 1) * limit
     
     // Build query
     const query: any = {}
     if (status) query.status = status
+    if (source) query.source = source
+    if (assignedTo) query.assignedTo = assignedTo
     
-    // Get contacts with pagination
-    const [contacts, total] = await Promise.all([
-      Contact.find(query)
-        .sort({ createdAt: -1 })
+    // Get leads with pagination
+    const [leads, total] = await Promise.all([
+      Lead.find(query)
+        .populate('assignedTo', 'name email')
+        .sort({ score: -1, createdAt: -1 })
         .skip(skip)
         .limit(limit)
         .lean(),
-      Contact.countDocuments(query)
+      Lead.countDocuments(query)
     ])
     
     return NextResponse.json({
       success: true,
-      data: contacts,
+      data: leads,
       pagination: {
         page,
         limit,
@@ -51,37 +56,57 @@ export async function GET(request: NextRequest) {
       }
     })
   } catch (error) {
-    console.error('Error fetching contacts:', error)
+    console.error('Error fetching leads:', error)
     return NextResponse.json(
-      { success: false, error: 'Failed to fetch contacts' },
+      { success: false, error: 'Failed to fetch leads' },
       { status: 500 }
     )
   }
 }
 
-// POST create new contact
+// POST create new lead
 export async function POST(request: NextRequest) {
   try {
     await dbConnect()
     
     const body = await request.json()
     
-    // Create new contact
-    const contact = await Contact.create(body)
+    // Validate required fields
+    if (!body.name || (!body.email && !body.phone)) {
+      return NextResponse.json(
+        { 
+          success: false, 
+          error: 'Name and either email or phone are required' 
+        },
+        { status: 400 }
+      )
+    }
     
-    // Create lead from contact
-    await LeadService.createLeadFromContact(body)
-    
-    // TODO: Send email notification to admin
-    // TODO: Send auto-reply to customer
+    // Create lead using the service
+    const lead = await LeadService.createLead({
+      name: body.name,
+      email: body.email || `${body.phone}@phone.placeholder`,
+      phone: body.phone,
+      source: body.source || 'manual',
+      projectType: body.projectType,
+      budget: body.budget,
+      timeline: body.timeline,
+      location: body.location,
+      message: body.message,
+      requirements: body.requirements,
+      downloadedResource: body.downloadedResource,
+      interestedIn: body.interestedIn,
+      referralSource: body.referralSource,
+      tags: body.tags,
+    })
     
     return NextResponse.json({
       success: true,
-      data: contact,
-      message: 'Contact form submitted successfully. We will get back to you soon!'
+      data: lead,
+      message: 'Lead captured successfully'
     }, { status: 201 })
   } catch (error: any) {
-    console.error('Error creating contact:', error)
+    console.error('Error creating lead:', error)
     
     // Handle validation errors
     if (error.name === 'ValidationError') {
@@ -93,7 +118,7 @@ export async function POST(request: NextRequest) {
     }
     
     return NextResponse.json(
-      { success: false, error: 'Failed to submit contact form' },
+      { success: false, error: 'Failed to create lead' },
       { status: 500 }
     )
   }

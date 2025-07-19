@@ -19,13 +19,36 @@ export default function ContactSectionMinimal() {
     message: ''
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Form Data:', formData)
-    // Here you would normally send to backend
-    alert('Thank you! We will call you back soon.')
-    setIsModalOpen(false)
-    setFormData({ fullName: '', phoneNumber: '', message: '' })
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.fullName,
+          phone: formData.phoneNumber,
+          message: formData.message || 'Requested callback',
+          source: 'callback-request',
+        }),
+      })
+      
+      const data = await response.json()
+      
+      if (data.success) {
+        alert('Thank you! We will call you back within 30 minutes.')
+        setIsModalOpen(false)
+        setFormData({ fullName: '', phoneNumber: '', message: '' })
+      } else {
+        alert('Something went wrong. Please try again or call us directly.')
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      alert('Something went wrong. Please try again or call us directly.')
+    }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

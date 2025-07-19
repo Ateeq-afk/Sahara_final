@@ -58,6 +58,8 @@ const config: Config = {
           hover: 'rgb(255, 204, 0)',
           light: 'rgb(255, 230, 122)',
         },
+        'sahara-primary': '#D26700',
+        'sahara-secondary': '#F59E0B',
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',

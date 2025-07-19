@@ -120,7 +120,7 @@ export default function HeroModern() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: mounted ? 1 : 0, scale: mounted ? 1 : 0.95 }}
             transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className="relative max-w-2xl mx-auto lg:mx-0"
+            className="relative max-w-xl mx-auto lg:ml-auto lg:mr-0"
             style={{ opacity: opacityTransform }}
           >
             <motion.div 
@@ -132,9 +132,9 @@ export default function HeroModern() {
                 <Image
                   src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=90"
                   alt="Modern Architecture"
-                  width={700}
-                  height={500}
-                  className="w-full h-auto object-cover"
+                  width={600}
+                  height={400}
+                  className="w-full h-[300px] lg:h-[350px] object-cover"
                   priority
                 />
                 {/* Enhanced overlay with gradient */}
@@ -151,30 +151,30 @@ export default function HeroModern() {
               </div>
               
               {/* Small Images Grid */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
-                  className="relative rounded-xl overflow-hidden shadow-xl"
+                  className="relative rounded-xl overflow-hidden shadow-lg h-[140px] lg:h-[160px]"
                 >
                   <Image
                     src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=400&q=90"
                     alt="Interior Design"
-                    width={300}
-                    height={200}
+                    width={250}
+                    height={160}
                     className="w-full h-full object-cover"
                   />
                 </motion.div>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
-                  className="relative rounded-xl overflow-hidden shadow-xl"
+                  className="relative rounded-xl overflow-hidden shadow-lg h-[140px] lg:h-[160px]"
                 >
                   <Image
                     src="https://images.unsplash.com/photo-1565623006066-82f23c79210b?w=400&q=90"
                     alt="Luxury Interior"
-                    width={300}
-                    height={200}
+                    width={250}
+                    height={160}
                     className="w-full h-full object-cover"
                   />
                 </motion.div>
@@ -185,7 +185,7 @@ export default function HeroModern() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : -20 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-xl p-4 max-w-[200px]"
+                className="absolute bottom-4 left-4 bg-white rounded-xl shadow-xl p-3 max-w-[180px] z-10"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-[#D26700]/10 rounded-lg flex items-center justify-center">

@@ -1,15 +1,22 @@
 import { NextResponse } from 'next/server'
+import { LeadService } from '@/lib/services/lead-service'
+import dbConnect from '@/lib/mongodb'
 
 export async function POST(request: Request) {
   try {
+    await dbConnect()
+    
     const body = await request.json()
     const { email, name, phone, guide, timestamp } = body
 
-    // In production, you would:
-    // 1. Save to database
-    // 2. Send to CRM (HubSpot, Salesforce, etc.)
-    // 3. Trigger email automation
-    // 4. Send WhatsApp notification to sales team
+    // Create lead in database
+    await LeadService.createLeadFromLeadMagnet({
+      email,
+      name,
+      phone,
+      guide,
+      resource: guide,
+    })
 
     console.log('New lead magnet download:', {
       email,
@@ -18,9 +25,6 @@ export async function POST(request: Request) {
       guide,
       timestamp
     })
-
-    // Simulate API processing
-    await new Promise(resolve => setTimeout(resolve, 500))
 
     return NextResponse.json({ 
       success: true, 

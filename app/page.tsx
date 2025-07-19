@@ -9,13 +9,8 @@ import TestimonialsAnimated from '@/components/home/testimonials-animated'
 import FAQMinimal from '@/components/faq-minimal'
 import TrustedPartners from '@/components/home/trusted-partners'
 import ContactSectionMinimal from '@/components/home/contact-section-minimal'
+import ToolsDiscovery from '@/components/home/tools-discovery'
 // import StatsSection from '@/components/home/stats-section-simple'
-
-// Dynamic imports for tool sections with loading states
-const ToolsDiscovery = dynamic(() => import('@/components/home/tools-discovery'), {
-  ssr: false,
-  loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
-})
 
 // const SmartToolsBanner = dynamic(() => import('@/components/home/smart-tools-banner'), {
 //   ssr: false,

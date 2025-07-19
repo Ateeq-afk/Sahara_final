@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import dbConnect from '@/lib/mongodb'
 import Quote from '@/models/Quote'
+import { LeadService } from '@/lib/services/lead-service'
 
 // POST create new quote from the quote form
 export async function POST(request: NextRequest) {
@@ -57,6 +58,16 @@ export async function POST(request: NextRequest) {
     
     // Calculate estimated cost
     const estimatedCost = quote.getEstimatedCost()
+    
+    // Create lead from quote
+    await LeadService.createLeadFromQuote({
+      ...quoteData,
+      budgetRange: body.budget,
+      city: quoteData.location,
+      timeline: body.timeline,
+      services: body.services || [quoteData.projectType],
+      additionalInfo: quoteData.requirements,
+    })
     
     // TODO: Send email notification to admin
     // TODO: Send confirmation email to customer
