@@ -49,7 +49,7 @@ export default function UnifiedFAB() {
   ]
 
   return (
-    <div className="fixed bottom-20 right-6 z-50 md:hidden">
+    <div className="fixed bottom-24 right-4 z-[70] md:hidden">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -57,7 +57,7 @@ export default function UnifiedFAB() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ duration: 0.2 }}
-            className="absolute bottom-16 right-0 flex flex-col gap-3"
+            className="absolute bottom-16 right-0 flex flex-col gap-2"
           >
             {buttons.map((button, index) => {
               const Icon = button.icon
@@ -74,7 +74,7 @@ export default function UnifiedFAB() {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   className={`
-                    flex items-center gap-3 px-4 py-3 rounded-full shadow-lg 
+                    flex items-center gap-2 px-3 py-2.5 rounded-full shadow-lg 
                     ${button.color} ${button.hoverColor} text-white
                     transition-all duration-300 hover:shadow-xl
                   `}
@@ -96,7 +96,7 @@ export default function UnifiedFAB() {
         animate={{ rotate: isOpen ? 45 : 0 }}
         transition={{ duration: 0.2 }}
         className={`
-          flex items-center justify-center w-14 h-14 rounded-full shadow-lg
+          flex items-center justify-center w-12 h-12 rounded-full shadow-lg
           ${isOpen ? 'bg-gray-600' : 'bg-sahara-primary'} 
           text-white transition-all duration-300 hover:shadow-xl
         `}

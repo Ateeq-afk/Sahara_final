@@ -2,6 +2,7 @@ import './globals.css';
 import './apple-minimal.css';
 import './mobile-optimizations.css';
 import './mobile-scroll-fix.css';
+import './mobile-fixes.css';
 import type { Metadata } from 'next';
 import { ThemeProvider } from '@/components/theme-provider';
 import NavbarMinimal from '@/components/navbar-minimal';

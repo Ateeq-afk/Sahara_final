@@ -215,7 +215,7 @@ export default function ServicesSection() {
               className="group relative"
             >
               <Link href={service.href}>
-                <div className="relative h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] rounded-2xl sm:rounded-3xl overflow-hidden bg-gray-100 cursor-pointer">
+                <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px] rounded-2xl sm:rounded-3xl overflow-hidden bg-gray-100 cursor-pointer">
                   {/* Image with Parallax */}
                   <motion.div
                     className="absolute inset-0"

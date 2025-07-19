@@ -44,9 +44,9 @@ const projects = [
     category: "interior",
     location: "MG Road, Bangalore",
     year: "2024",
-    coverImage: "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=1600&q=90",
+    coverImage: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=90",
     images: [
-      "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=1600&q=90",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=90",
       "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=1600&q=90"
     ],
     description: "Sophisticated interiors with panoramic city views and premium finishes throughout."

@@ -134,7 +134,7 @@ export default function HeroModern() {
                   alt="Modern Architecture"
                   width={600}
                   height={400}
-                  className="w-full h-[300px] lg:h-[350px] object-cover"
+                  className="w-full h-[250px] sm:h-[300px] lg:h-[350px] object-cover"
                   priority
                 />
                 {/* Enhanced overlay with gradient */}
@@ -155,7 +155,7 @@ export default function HeroModern() {
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
-                  className="relative rounded-xl overflow-hidden shadow-lg h-[140px] lg:h-[160px]"
+                  className="relative rounded-xl overflow-hidden shadow-lg h-[120px] sm:h-[140px] lg:h-[160px]"
                 >
                   <Image
                     src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=400&q=90"
@@ -168,7 +168,7 @@ export default function HeroModern() {
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
-                  className="relative rounded-xl overflow-hidden shadow-lg h-[140px] lg:h-[160px]"
+                  className="relative rounded-xl overflow-hidden shadow-lg h-[120px] sm:h-[140px] lg:h-[160px]"
                 >
                   <Image
                     src="https://images.unsplash.com/photo-1565623006066-82f23c79210b?w=400&q=90"
@@ -185,7 +185,7 @@ export default function HeroModern() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : -20 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="absolute bottom-4 left-4 bg-white rounded-xl shadow-xl p-3 max-w-[180px] z-10"
+                className="absolute bottom-4 left-4 bg-white rounded-xl shadow-xl p-3 max-w-[150px] sm:max-w-[180px] z-10"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-[#D26700]/10 rounded-lg flex items-center justify-center">

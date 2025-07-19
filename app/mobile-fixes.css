@@ -1,0 +1,137 @@
+/* Critical Mobile Fixes */
+
+/* Prevent horizontal scroll */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100% !important;
+}
+
+/* Fix container widths */
+* {
+  max-width: 100vw !important;
+}
+
+/* Remove problematic negative margins on mobile */
+@media (max-width: 640px) {
+  [class*="-mx-"] {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* Fix padding for mobile bottom nav */
+@media (max-width: 767px) {
+  main {
+    padding-bottom: 5rem !important;
+  }
+  
+  /* Ensure sections don't overflow */
+  section {
+    overflow-x: hidden !important;
+  }
+}
+
+/* Fix images and prevent overflow */
+img {
+  max-width: 100% !important;
+  height: auto;
+}
+
+/* Fix absolute positioned elements */
+@media (max-width: 640px) {
+  .absolute {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Ensure proper touch targets */
+@media (max-width: 640px) {
+  a, button {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+  
+  /* Small buttons exception */
+  button.p-2, button.p-1 {
+    min-width: 40px !important;
+    min-height: 40px !important;
+  }
+}
+
+/* Fix horizontal scroll containers */
+.overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.overflow-x-auto::-webkit-scrollbar {
+  display: none;
+}
+
+/* Container padding fix */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .px-6 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* Fix gallery showcase on mobile */
+@media (max-width: 640px) {
+  /* Allow horizontal scroll for gallery */
+  .overflow-x-auto {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Fix gallery container */
+  [class*="-mx-4"] {
+    margin-left: -1rem !important;
+    margin-right: -1rem !important;
+  }
+  
+  [class*="px-4"] {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* Fix floating action button position */
+@media (max-width: 767px) {
+  /* Fix unified FAB position to avoid overlap with bottom nav */
+  .fixed.bottom-24 {
+    bottom: 6rem !important; /* Above mobile bottom nav */
+  }
+}
+
+/* Fix text sizes for better mobile readability */
+@media (max-width: 640px) {
+  .text-6xl, .text-5xl {
+    font-size: 2rem !important;
+    line-height: 2.5rem !important;
+  }
+  
+  .text-4xl {
+    font-size: 1.75rem !important;
+    line-height: 2.25rem !important;
+  }
+  
+  .text-3xl {
+    font-size: 1.5rem !important;
+    line-height: 2rem !important;
+  }
+  
+  .text-2xl {
+    font-size: 1.25rem !important;
+    line-height: 1.75rem !important;
+  }
+}

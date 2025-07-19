@@ -22,7 +22,7 @@ const projects = [
     title: "Luxury Penthouse",
     category: "Interior Design",
     year: "2024",
-    image: "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=1600&q=90",
+    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=90",
     description: "Elevated living with panoramic city views",
   },
   {
@@ -129,20 +129,20 @@ export default function GalleryShowcase() {
         {/* Gallery - Horizontal scroll on mobile, Grid on desktop */}
         {isMobile ? (
           <div className="relative">
-            {/* Scroll Buttons */}
-            {canScrollLeft && (
+            {/* Scroll Buttons - Hidden on mobile for better UX */}
+            {!isMobile && canScrollLeft && (
               <button
                 onClick={() => scroll('left')}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg min-w-[44px] min-h-[44px]"
+                className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg min-w-[44px] min-h-[44px] hidden sm:block"
                 aria-label="Scroll gallery left"
               >
                 <ChevronLeft className="h-5 w-5" aria-hidden="true" />
               </button>
             )}
-            {canScrollRight && (
+            {!isMobile && canScrollRight && (
               <button
                 onClick={() => scroll('right')}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg min-w-[44px] min-h-[44px]"
+                className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg min-w-[44px] min-h-[44px] hidden sm:block"
                 aria-label="Scroll gallery right"
               >
                 <ChevronRight className="h-5 w-5" aria-hidden="true" />
@@ -153,7 +153,7 @@ export default function GalleryShowcase() {
             <div
               ref={scrollRef}
               onScroll={checkScrollButtons}
-              className="flex overflow-x-auto scrollbar-hide gap-3 pb-4 -mx-4 px-4 scroll-smooth"
+              className="flex overflow-x-auto scrollbar-hide gap-3 pb-4 scroll-smooth -mx-4 px-4 sm:mx-0 sm:px-0"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               {projects.map((project, index) => (
@@ -162,7 +162,7 @@ export default function GalleryShowcase() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="group cursor-pointer flex-shrink-0 w-[260px] sm:w-[280px]"
+                  className="group cursor-pointer flex-shrink-0 w-[75vw] max-w-[260px] sm:w-[280px]"
                   onClick={() => setSelectedProject(project)}
                 >
                   <div className="relative aspect-[4/5] rounded-lg sm:rounded-xl overflow-hidden mb-3">
