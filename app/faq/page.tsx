@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { HelpCircle, MessageSquare, Phone, Mail } from 'lucide-react'
 import Link from 'next/link'
+import DynamicEmailLink from '@/components/dynamic-email-link'
 
 // Metadata should be moved to a layout.tsx or handled differently for client components
 
@@ -219,10 +220,7 @@ export default function FAQPage() {
                   </Button>
                 </a>
                 
-                <a href="#" onClick={(e) => {
-                  e.preventDefault();
-                  window.location.href = 'mailto:' + 'contact' + '@' + window.location.hostname.replace('www.', '');
-                }} className="block">
+                <DynamicEmailLink prefix="contact" className="block">
                   <Button variant="outline" className="w-full h-auto p-4 justify-start">
                     <Mail className="h-5 w-5 mr-3" />
                     <div className="text-left">
@@ -230,7 +228,7 @@ export default function FAQPage() {
                       <div className="text-sm text-gray-600">Contact Email</div>
                     </div>
                   </Button>
-                </a>
+                </DynamicEmailLink>
               </div>
               
               <div className="mt-6 pt-6 border-t">

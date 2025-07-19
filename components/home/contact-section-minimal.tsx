@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { Phone, MessageSquare, Mail, X, MapPin, Check } from 'lucide-react'
+import DynamicEmailLink from '@/components/dynamic-email-link'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -164,17 +165,15 @@ export default function ContactSectionMinimal() {
             </motion.div>
             
             {/* Email Card */}
-            <motion.a 
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                window.location.href = 'mailto:' + 'contact' + '@' + window.location.hostname.replace('www.', '');
-              }}
+            <motion.div
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2 }}
-              className="block rounded-xl lg:rounded-2xl bg-white sm:bg-gray-50 p-4 sm:p-6 hover:bg-gray-100 transition-all duration-300 group cursor-pointer"
             >
+              <DynamicEmailLink 
+                prefix="contact"
+                className="block rounded-xl lg:rounded-2xl bg-white sm:bg-gray-50 p-4 sm:p-6 hover:bg-gray-100 transition-all duration-300 group cursor-pointer"
+              >
               <div className="flex items-start justify-between mb-4">
                 <div className="p-3 bg-white rounded-xl shadow-sm">
                   <Mail className="w-5 h-5 text-gray-700" />
@@ -186,7 +185,8 @@ export default function ContactSectionMinimal() {
                 Contact Us
               </p>
               <p className="mt-3 text-sm text-gray-500">We usually reply within 30 mins</p>
-            </motion.a>
+              </DynamicEmailLink>
+            </motion.div>
             
             {/* Visit Card */}
             <motion.a 

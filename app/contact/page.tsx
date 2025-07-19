@@ -19,6 +19,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from '@/hooks/use-toast'
+import DynamicEmailLink from '@/components/dynamic-email-link'
 import { 
   CheckCircle, 
   Mail, 
@@ -434,16 +435,27 @@ export default function ContactPage() {
                               <h3 className="text-xl font-semibold text-gray-900 mb-1">{item.title}</h3>
                               <p className="text-sm text-gray-500 mb-2">{item.description}</p>
                               {item.action ? (
-                                <a 
-                                  href={item.action}
-                                  onClick={item.onClick}
-                                  className="inline-flex items-center gap-2 text-gray-700 hover:text-gray-900 font-medium transition-colors"
-                                >
-                                  {item.details.map((detail, idx) => (
-                                    <span key={idx} className="block">{detail}</span>
-                                  ))}
-                                  <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
-                                </a>
+                                item.onClick ? (
+                                  <DynamicEmailLink
+                                    prefix="contact"
+                                    className="inline-flex items-center gap-2 text-gray-700 hover:text-gray-900 font-medium transition-colors"
+                                  >
+                                    {item.details.map((detail, idx) => (
+                                      <span key={idx} className="block">{detail}</span>
+                                    ))}
+                                    <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
+                                  </DynamicEmailLink>
+                                ) : (
+                                  <a 
+                                    href={item.action}
+                                    className="inline-flex items-center gap-2 text-gray-700 hover:text-gray-900 font-medium transition-colors"
+                                  >
+                                    {item.details.map((detail, idx) => (
+                                      <span key={idx} className="block">{detail}</span>
+                                    ))}
+                                    <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
+                                  </a>
+                                )
                               ) : (
                                 <div className="text-gray-700">
                                   {item.details.map((detail, idx) => (

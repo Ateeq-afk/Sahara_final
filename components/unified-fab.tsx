@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Phone, MessageSquare, Mail, Plus, X } from 'lucide-react'
+import DynamicEmailLink from '@/components/dynamic-email-link'
 
 export default function UnifiedFAB() {
   const [isOpen, setIsOpen] = useState(false)
@@ -45,10 +46,7 @@ export default function UnifiedFAB() {
       href: '#',
       color: 'bg-blue-500',
       hoverColor: 'hover:bg-blue-600',
-      onClick: (e: React.MouseEvent) => {
-        e.preventDefault();
-        window.location.href = 'mailto:' + 'contact' + '@' + window.location.hostname.replace('www.', '');
-      }
+      isEmail: true
     }
   ]
 
@@ -65,13 +63,39 @@ export default function UnifiedFAB() {
           >
             {buttons.map((button, index) => {
               const Icon = button.icon
+              
+              if (button.isEmail) {
+                return (
+                  <motion.div
+                    key={button.id}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={{ delay: index * 0.05 }}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <DynamicEmailLink
+                      prefix="contact"
+                      className={`
+                        flex items-center gap-2 px-3 py-2.5 rounded-full shadow-lg 
+                        ${button.color} ${button.hoverColor} text-white
+                        transition-all duration-300 hover:shadow-xl
+                      `}
+                    >
+                      <Icon className="h-5 w-5" />
+                      <span className="text-sm font-medium whitespace-nowrap">{button.label}</span>
+                    </DynamicEmailLink>
+                  </motion.div>
+                )
+              }
+              
               return (
                 <motion.a
                   key={button.id}
                   href={button.href}
                   target={button.target}
                   rel={button.target ? 'noopener noreferrer' : undefined}
-                  onClick={button.onClick}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}

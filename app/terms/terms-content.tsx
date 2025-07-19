@@ -7,6 +7,7 @@ import {
   Building2, ChevronRight
 } from 'lucide-react'
 import Link from 'next/link'
+import DynamicEmailLink from '@/components/dynamic-email-link'
 
 export default function TermsContent() {
   const sections = [
@@ -282,17 +283,13 @@ export default function TermsContent() {
                 Our legal team is here to help clarify any questions you might have about these terms.
               </p>
               <div className="flex flex-wrap gap-4">
-                <a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.location.href = 'mailto:' + 'legal' + '@' + window.location.hostname.replace('www.', '');
-                  }}
+                <DynamicEmailLink 
+                  prefix="legal"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
                 >
                   Email Legal Team
                   <ChevronRight className="w-4 h-4" />
-                </a>
+                </DynamicEmailLink>
                 <a
                   href="tel:+919591837216"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-white text-amber-600 rounded-full hover:bg-gray-100 transition-colors font-medium"

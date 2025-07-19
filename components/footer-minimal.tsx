@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
+import DynamicEmailLink from '@/components/dynamic-email-link'
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, MessageSquare, Youtube, ArrowUp, ChevronDown } from 'lucide-react'
 
 const footerLinks = {
@@ -210,17 +211,13 @@ export default function FooterMinimal() {
                   <span>+91 95918 37216</span>
                 </a>
                 
-                <a 
-                  href="#" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.location.href = 'mailto:' + 'contact' + '@' + window.location.hostname.replace('www.', '');
-                  }}
+                <DynamicEmailLink 
+                  prefix="contact"
                   className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
                 >
                   <Mail className="w-4 h-4" />
                   <span>Contact Email</span>
-                </a>
+                </DynamicEmailLink>
                 
                 <div className="space-y-1">
                   <a 
