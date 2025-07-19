@@ -29,38 +29,39 @@ export class LeadService {
       
       if (existingLead) {
         // Update existing lead with new activity
-        existingLead.activities.push({
+        const leadDoc = existingLead as any;
+        leadDoc.activities.push({
           type: 'form_submission',
           description: `New ${data.source} form submission`,
           createdAt: new Date(),
-        } as any);
+        });
         
         // Update fields if provided
-        if (data.phone && !existingLead.phone) existingLead.phone = data.phone;
-        if (data.projectType) existingLead.projectType = data.projectType;
-        if (data.budget) existingLead.budget = data.budget;
-        if (data.timeline) existingLead.timeline = data.timeline;
-        if (data.location) existingLead.location = data.location;
+        if (data.phone && !leadDoc.phone) leadDoc.phone = data.phone;
+        if (data.projectType) leadDoc.projectType = data.projectType;
+        if (data.budget) leadDoc.budget = data.budget;
+        if (data.timeline) leadDoc.timeline = data.timeline;
+        if (data.location) leadDoc.location = data.location;
         if (data.message) {
-          existingLead.message = existingLead.message 
-            ? `${existingLead.message}\n\n---\n\n${data.message}` 
+          leadDoc.message = leadDoc.message 
+            ? `${leadDoc.message}\n\n---\n\n${data.message}` 
             : data.message;
         }
-        if (data.requirements) existingLead.requirements = data.requirements;
-        if (data.downloadedResource) existingLead.downloadedResource = data.downloadedResource;
-        if (data.interestedIn) existingLead.interestedIn = data.interestedIn;
-        if (data.referralSource) existingLead.referralSource = data.referralSource;
+        if (data.requirements) leadDoc.requirements = data.requirements;
+        if (data.downloadedResource) leadDoc.downloadedResource = data.downloadedResource;
+        if (data.interestedIn) leadDoc.interestedIn = data.interestedIn;
+        if (data.referralSource) leadDoc.referralSource = data.referralSource;
         
         // Add new tags
         if (data.tags) {
-          existingLead.tags = Array.from(new Set([...existingLead.tags, ...data.tags]));
+          leadDoc.tags = Array.from(new Set([...leadDoc.tags, ...data.tags]));
         }
         
         // Recalculate score
-        (existingLead as any).calculateScore();
+        leadDoc.calculateScore();
         
-        await existingLead.save();
-        return existingLead;
+        await leadDoc.save();
+        return leadDoc;
       }
       
       // Create new lead
