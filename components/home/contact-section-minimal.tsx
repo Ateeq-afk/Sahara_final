@@ -80,12 +80,12 @@ export default function ContactSectionMinimal() {
           {/* Contact Options - Apple Style Cards */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-12">
             {/* Call Card */}
-            <motion.a 
-              href="tel:+919591837216"
+            <motion.div
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2 }}
               className="block rounded-2xl bg-gray-50 p-6 hover:bg-gray-100 transition-all duration-300 group cursor-pointer"
+              onClick={() => window.location.href = 'tel:+919591837216'}
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="p-3 bg-white rounded-xl shadow-sm">
@@ -109,7 +109,7 @@ export default function ContactSectionMinimal() {
                   Chat on WhatsApp
                 </a>
               </div>
-            </motion.a>
+            </motion.div>
             
             {/* Email Card */}
             <motion.a 
