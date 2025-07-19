@@ -1,13 +1,12 @@
+"use client"
+
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { HelpCircle, MessageSquare, Phone, Mail } from 'lucide-react'
 import Link from 'next/link'
 
-export const metadata = {
-  title: 'Frequently Asked Questions | Sahara Developers',
-  description: 'Find answers to common questions about our construction and interior design services.',
-}
+// Metadata should be moved to a layout.tsx or handled differently for client components
 
 const faqCategories = [
   {
