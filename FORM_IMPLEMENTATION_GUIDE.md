@@ -142,8 +142,8 @@ curl -X POST http://localhost:3000/api/quote \
 ### Environment Variables Required
 ```env
 RESEND_API_KEY=re_your_api_key_here
-ADMIN_EMAIL=admin@saharadevelopers.in
-NOTIFICATION_EMAILS=admin@saharadevelopers.in,sales@saharadevelopers.in
+ADMIN_EMAIL=admin@example.com
+NOTIFICATION_EMAILS=admin@example.com,sales@example.com
 ```
 
 ### Email Templates
@@ -166,7 +166,7 @@ const MAX_MESSAGE_LENGTH = 2000
 ```typescript
 // Customize in /src/lib/resend.ts
 const EMAIL_CONFIG = {
-  from: 'Sahara Developers <noreply@saharadevelopers.in>',
+  from: 'Sahara Developers <noreply@example.com>',
   replyTo: process.env.ADMIN_EMAIL || 'admin@example.com',
   adminEmail: process.env.ADMIN_EMAIL,
   notificationEmails: process.env.NOTIFICATION_EMAILS?.split(',')
