@@ -65,6 +65,13 @@ NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your-secret-key
 RESEND_API_KEY=re_xxxx
 
+# AWS S3 Configuration
+AWS_REGION=us-east-1
+AWS_ACCESS_KEY_ID=your-access-key-id
+AWS_SECRET_ACCESS_KEY=your-secret-access-key
+AWS_S3_BUCKET_NAME=sahara-developers
+CLOUDFRONT_URL=https://d1234567890.cloudfront.net # Optional CDN
+
 # Optional
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXX
 SENTRY_DSN=https://xxx
@@ -91,6 +98,8 @@ HUBSPOT_API_KEY=xxx
 - Added role-based access control
 - Enhanced CRM dashboard with project statistics
 - Created detailed project views for both CRM and portal
+- Integrated AWS S3 for image storage with CloudFront CDN
+- Added optimized image handling with S3Image component
 
 ## Next Steps
 - Invoice and Payment tracking system
