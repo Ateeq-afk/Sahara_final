@@ -67,7 +67,7 @@ export default function LoginForm() {
             <Input
               id="email"
               type="email"
-              placeholder="admin@sahara.com"
+              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -104,13 +104,6 @@ export default function LoginForm() {
           </Button>
         </form>
         
-        <div className="mt-6 text-center text-sm text-gray-600">
-          <p>Demo credentials:</p>
-          <p className="font-mono text-xs mt-1">
-            Admin: admin@sahara.com / admin123<br />
-            Customer: rajesh.kumar@example.com / customer123
-          </p>
-        </div>
       </CardContent>
     </Card>
   )

@@ -1,0 +1,59 @@
+name: Security Audit
+
+on:
+  schedule:
+    # Run every Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    name: NPM Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run npm audit
+        run: npm audit --json > npm-audit-results.json
+        continue-on-error: true
+
+      - name: Upload audit results
+        uses: actions/upload-artifact@v3
+        with:
+          name: npm-audit-results
+          path: npm-audit-results.json
+
+      - name: Create issue for vulnerabilities
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const auditResults = JSON.parse(fs.readFileSync('npm-audit-results.json', 'utf8'));
+            
+            if (auditResults.metadata.vulnerabilities.total > 0) {
+              const issue = await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `Security Alert: ${auditResults.metadata.vulnerabilities.total} vulnerabilities found`,
+                body: `## NPM Audit Results
+                
+**Critical**: ${auditResults.metadata.vulnerabilities.critical}
+**High**: ${auditResults.metadata.vulnerabilities.high}
+**Moderate**: ${auditResults.metadata.vulnerabilities.moderate}
+**Low**: ${auditResults.metadata.vulnerabilities.low}
+
+Please run \`npm audit fix\` to resolve these vulnerabilities.`,
+                labels: ['security', 'dependencies']
+              });
+            }

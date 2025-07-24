@@ -12,6 +12,12 @@ import ErrorBoundary from '@/components/error-boundary';
 import NextAuthSessionProvider from '@/components/providers/session-provider';
 import WhatsAppWidget from '@/components/whatsapp-widget';
 import dynamic from 'next/dynamic';
+import { validateEnv } from '@/lib/env-validation';
+
+// Validate environment variables on app start
+if (process.env.NODE_ENV === 'production') {
+  validateEnv();
+}
 
 const ClientLayout = dynamic(() => import('@/components/client-layout'), {
   ssr: false
